@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "349041949227",
+    "project_id": "hkshopu-20700",
+    "storage_bucket": "hkshopu-20700.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349041949227:android:823d3fd8ad9476855d486e",
+        "android_client_info": {
+          "package_name": "com.hkshopu.hk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349041949227-fghjd31kndfnt8k477ad5fmo4b2dvf5k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hkshopu.hk",
+            "certificate_hash": "da0a23b8e31b2b118795ac9dab5a72d1cd213fa9"
+          }
+        },
+        {
+          "client_id": "349041949227-s256gh6plcud15n64efuqddk8ngv5rcj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349041949227-s256gh6plcud15n64efuqddk8ngv5rcj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

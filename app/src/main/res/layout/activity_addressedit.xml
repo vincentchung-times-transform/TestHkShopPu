@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:id="@+id/titleBar_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp">
+
+
+        <ImageView
+            android:id="@+id/titleBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="25dp"
+            android:src="@mipmap/ic_arrow_left_black"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="@string/emailaddress"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="110dp"
+        android:layout_below="@id/titleBar_userInfo">
+
+        <RelativeLayout
+            android:id="@+id/layout_emailaddressHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+           >
+
+            <TextView
+                android:id="@+id/tv_mailaddressHead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="請輸入您的郵寄地址"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/layout_address"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/tv_mailaddressHead"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="27dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editCountry"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="地域"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"
+                    />
+
+                <EditText
+
+                    android:id="@+id/editAdmin"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="地區"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_thoroughfare"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/layout_address"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="27dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editthoroughfare"
+                    android:layout_width="198dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="街道名稱"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"
+                    />
+
+                <EditText
+
+                    android:id="@+id/editfeature"
+                    android:layout_width="140dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="街道名稱"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_subaddress"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/layout_thoroughfare"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="27dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editsubaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="@string/subaddress"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_building"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/layout_subaddress"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="27dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editfloor"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="@string/floor"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"
+                    />
+
+                <EditText
+
+                    android:id="@+id/editroom"
+                    android:layout_width="170dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:hint="@string/room"
+                    android:textColorHint="@color/black_hint"
+                    android:inputType="text"
+                    android:paddingLeft="18dp"
+                    android:textSize="18sp"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_next"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@id/layout_building"
+                android:layout_marginLeft="28dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="27dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/bg_next"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="@string/please_forward"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/tv_Skip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_next"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/skip"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/page_bottom" />
+
+</RelativeLayout>

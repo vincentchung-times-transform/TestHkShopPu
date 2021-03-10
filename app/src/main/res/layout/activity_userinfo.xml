@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/titleBar_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="50dp">
+
+
+        <ImageView
+            android:id="@+id/titleBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:src="@mipmap/ic_arrow_left_black"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="@string/userinfo"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_FirstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleBar_userInfo"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="27dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editFirstName"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:hint="@string/last_name"
+                android:background="@drawable/bg_edit_login"
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textColorHint="@color/black_hint"
+                android:textSize="18sp"
+                 />
+
+            <EditText
+
+                android:id="@+id/editlastName"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="18dp"
+                android:hint="@string/first_name"
+                android:background="@drawable/bg_edit_login"
+                android:inputType="text"
+                android:paddingLeft="18dp"
+                android:textColorHint="@color/black_hint"
+                android:textSize="18sp"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layout_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_FirstName"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gender"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_edit_login"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            <TextView
+                android:id="@+id/tv_male"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:text="@string/male"
+                android:textColor="@color/black_hint"
+                android:background="@drawable/bg_edit_login"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_female"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:text="@string/female"
+                android:textColor="@color/black_hint"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_edit_login"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_rainbow"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:text="@string/rainbow"
+                android:textColor="@color/black_hint"
+                android:background="@drawable/bg_edit_login"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:layout_weight="1"/>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_birth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_gender"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/birth"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_edit_login"
+            >
+
+            <TextView
+                android:id="@+id/tv_birth"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingStart="24dp"
+                android:hint="DD / MM / YYYY"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColorHint="@color/material_grey_700"
+                />
+            <ImageView
+                android:id="@+id/show_date_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:onClick="ShowDatePick"
+                android:padding="5dp"
+
+                android:src="@mipmap/ic_date" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_mobile"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_birth"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editmobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_edit_login"
+                    android:inputType="number"
+                    android:paddingLeft="18dp"
+                    android:hint="@string/mobile"
+                    android:textColorHint="@color/black_hint"
+
+                    />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/layout_mobile"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/bg_next"
+        android:enabled="false"
+        android:gravity="center"
+        android:text="@string/please_forward"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_Skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_next"
+        android:text="@string/skip"
+        android:textSize="18sp"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/page_bottom" />
+</RelativeLayout>
