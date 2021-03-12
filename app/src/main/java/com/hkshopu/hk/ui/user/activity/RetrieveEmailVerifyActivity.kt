@@ -59,6 +59,8 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
 
                     if (it.data.toString() == "已寄出驗證碼!") {
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "一分鐘後才能再寄送", Toast.LENGTH_SHORT).show()
+
                     }else {
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -108,10 +110,21 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
 
     private fun initClick() {
         binding.titleBack.setOnClickListener {
+
+            val intent = Intent(this, LoginPasswordActivity::class.java)
+            startActivity(intent)
+
             finish()
         }
 
         binding.btnResend.setOnClickListener {
+
+            binding.btnResend.setTextColor(Color.parseColor("#48484A"))
+            binding.btnResend.isEnabled = false
+            Timer().schedule(60000) {
+                binding.btnResend.setTextColor(Color.parseColor("#1DBCCF"))
+                binding.btnResend.isEnabled = true
+            }
 
             VM.verifycode(this, email!!)
 
@@ -127,8 +140,10 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
             validation = number1 + number2 +number3 + number4
 
             binding.btnResend.setTextColor(Color.parseColor("#48484A"))
+            binding.btnResend.isEnabled = false
             Timer().schedule(60000) {
                 binding.btnResend.setTextColor(Color.parseColor("#1DBCCF"))
+                binding.btnResend.isEnabled = true
             }
 
             VM.emailverify(this, email!!, validation!!)

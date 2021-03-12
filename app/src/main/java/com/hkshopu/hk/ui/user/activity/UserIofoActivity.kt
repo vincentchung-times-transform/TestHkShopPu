@@ -13,10 +13,9 @@ import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityUserinfoBinding
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.KeyboardUtil
-import org.jetbrains.anko.email
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -36,7 +35,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
         binding = ActivityUserinfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        settings = getSharedPreferences("DATA",0)
+        settings = getSharedPreferences("DATA", 0)
 
 
         initView()
@@ -79,7 +78,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
                     } else {
                         val text1: String = it.data.toString() //設定顯示的訊息
                         val duration1 = Toast.LENGTH_SHORT //設定訊息停留長短
-                        Toast.makeText(this, text1,duration1).show()
+                        Toast.makeText(this, text1, duration1).show()
                     }
 
                 }
@@ -99,7 +98,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
                     } else {
                         val text1: String = it.data.toString() //設定顯示的訊息
                         val duration1 = Toast.LENGTH_SHORT //設定訊息停留長短
-                        Toast.makeText(this, text1,duration1).show()
+                        Toast.makeText(this, text1, duration1).show()
                     }
 
                 }
@@ -156,13 +155,13 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
             ShowDatePick(it)
         }
         binding.btnNextStep.setOnClickListener {
-
+            var bithForDB = changeDateFormat(birth)
 
             settings.edit()
                 .putString("firstName", firstName)
                 .putString("lastName", lastName)
                 .putString("gender ", gender)
-                .putString("birth", birth)
+                .putString("birth", bithForDB)
                 .putString("phone", phone)
                 .apply()
 
@@ -188,7 +187,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
                 "",
                 "",
                 "",
-                "","","","","","",""
+                "", "", "", "", "", "", ""
             )
         }
     }
@@ -209,7 +208,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
                 this, R.style.DateTimeDialogTheme,
                 { datePicker, year, month, day ->
                     val month_actual = month + 1
-                    binding.edtViewBirth.setText("$year-$month_actual-$day")
+                    binding.edtViewBirth.setText("$month_actual/$day/$year")
                 }, mYear, mMonth, mDay
             )
             dialog.getDatePicker().setMaxDate(java.lang.System.currentTimeMillis())
@@ -217,4 +216,16 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
         }
 
     }
+
+    fun changeDateFormat(item : String): String {
+        val parser = SimpleDateFormat("dd/MM/yyyy")
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val output: String = formatter.format(parser.parse(item))
+
+        return output
+    }
+
+
+
+
 }

@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#E5E5E5">
     <LinearLayout
         android:id="@+id/status_bar"
         android:layout_width="match_parent"
@@ -34,6 +35,7 @@
             android:src="@mipmap/notification"
             app:tint="@color/color_somegray" />
     </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -82,10 +84,84 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/rectangle_privatestatus">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        tools:ignore="RtlCompat"
+                        android:text="0" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:text="收費清單" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        tools:ignore="RtlCompat"
+                        android:text="0" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:text="收費清單" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:textSize="24sp"
+                        android:textColor="@color/black"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        tools:ignore="RtlCompat"
+                        android:text="0" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
+                        android:text="收費清單" />
+                </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>

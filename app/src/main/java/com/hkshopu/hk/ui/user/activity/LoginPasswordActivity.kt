@@ -2,6 +2,7 @@ package com.hkshopu.hk.ui.user.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,8 @@ import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.disable
 import com.hkshopu.hk.widget.view.enable
+import java.util.*
+import kotlin.concurrent.schedule
 
 class LoginPasswordActivity : BaseActivity(), TextWatcher {
 
@@ -76,6 +79,11 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
                 Status.Success -> {
                     if (it.data.toString().equals("已寄出驗證碼!")) {
 
+                        binding.goRetrieve.setTextColor(Color.parseColor("#48484A"))
+                        Timer().schedule(60000) {
+                            binding.goRetrieve.setTextColor(Color.parseColor("#1DBCCF"))
+                        }
+
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_LONG).show()
                         val intent = Intent(this, RetrieveEmailVerifyActivity::class.java)
                         startActivity(intent)
@@ -111,6 +119,14 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
     private fun initClick() {
 
         binding.goRetrieve.setOnClickListener {
+
+            binding.goRetrieve.setTextColor(Color.parseColor("#8E8E93"))
+            binding.goRetrieve.isEnabled = false
+            Timer().schedule(60000) {
+                binding.goRetrieve.setTextColor(Color.parseColor("#000000"))
+                binding.goRetrieve.isEnabled = true
+            }
+
             VM.verifycode(this, email!!)
         }
 

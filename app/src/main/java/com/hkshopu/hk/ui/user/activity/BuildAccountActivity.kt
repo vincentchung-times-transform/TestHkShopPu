@@ -92,19 +92,24 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
         VM.emailcheckLiveData.observe(this, Observer {
             when (it?.status) {
                 Status.Success -> {
-                    if (it.data!!.equals("該電子郵件沒有重複使用!")) {
-                        settings.edit()
-                            .putString("email", email)
-                            .putString("password", password)
-                            .putString("passwordconf", passwordconf)
-                            .apply()
-                        val intent = Intent(this, UserIofoActivity::class.java)
-                        startActivity(intent)
+                    if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        if (it.data!!.equals("該電子郵件沒有重複使用!")) {
+                            settings.edit()
+                                .putString("email", email)
+                                .putString("password", password)
+                                .putString("passwordconf", passwordconf)
+                                .apply()
+                            val intent = Intent(this, UserIofoActivity::class.java)
+                            startActivity(intent)
 
-                    }else{
-                        Toast.makeText(this, it.data.toString(), Toast.LENGTH_LONG).show()
+                        }else{
+                            Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
 
+                        }
+                    }else {
+                        Toast.makeText(this, "電郵格式錯誤", Toast.LENGTH_SHORT).show()
                     }
+
                 }
 //                Status.Start -> showLoading()
 //                Status.Complete -> disLoading()

@@ -83,6 +83,7 @@ class NewPasswordActivity : AppCompatActivity() {
 
             val intent = Intent(this, LoginPasswordActivity::class.java)
             startActivity(intent)
+
             finish()
 
         }

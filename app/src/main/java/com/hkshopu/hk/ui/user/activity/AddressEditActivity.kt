@@ -54,7 +54,7 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
         floor = binding.editfloor.text.toString()
         room = binding.editroom.text.toString()
 
-        if (region.isEmpty() || district.isEmpty() || street_name.isEmpty() || street_no.isEmpty() || address.isEmpty() || floor.isEmpty() || room.isEmpty()) {
+        if (region.isEmpty() || district.isEmpty() || street_name.isEmpty() || street_no.isEmpty()) {
             binding.btnNextStep.isEnabled = false
             binding.btnNextStep.setImageResource(R.mipmap.next_step_inable)
         } else {

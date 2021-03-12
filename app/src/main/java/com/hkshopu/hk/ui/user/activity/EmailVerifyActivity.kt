@@ -63,6 +63,7 @@ class EmailVerifyActivity : BaseActivity(), TextWatcher {
                     if (it.data.toString().equals("驗證成功!")) {
 
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT)
+
                         val intent = Intent(this, ShopmenuActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -84,6 +85,8 @@ class EmailVerifyActivity : BaseActivity(), TextWatcher {
 
                     if (it.data.toString() == "已寄出驗證碼!") {
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "一分鐘後才能再寄送", Toast.LENGTH_SHORT).show()
+
                     }else {
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
                     }
@@ -119,10 +122,14 @@ class EmailVerifyActivity : BaseActivity(), TextWatcher {
             number4 = binding.edtAuthenticate04.text.toString()
 
             validation = number1 + number2 +number3 + number4
-           binding.btnResend.setTextColor(Color.parseColor("#48484A"))
+
+            binding.btnResend.setTextColor(Color.parseColor("#48484A"))
+            binding.btnResend.isEnabled = false
             Timer().schedule(60000) {
                 binding.btnResend.setTextColor(Color.parseColor("#1DBCCF"))
+                binding.btnResend.isEnabled = true
             }
+
 
             VM.emailverify(this,email!!,validation)
 
@@ -142,6 +149,13 @@ class EmailVerifyActivity : BaseActivity(), TextWatcher {
         }
 
         binding.btnResend.setOnClickListener {
+
+            binding.btnResend.setTextColor(Color.parseColor("#48484A"))
+            binding.btnResend.isEnabled = false
+            Timer().schedule(60000) {
+                binding.btnResend.setTextColor(Color.parseColor("#1DBCCF"))
+                binding.btnResend.isEnabled = true
+            }
 
             VM.verifycode(this, email!!)
 
