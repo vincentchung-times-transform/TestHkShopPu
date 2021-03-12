@@ -39,7 +39,7 @@
     <string name="emailverify">電子郵件驗證</string>
     <string name="emailaddress">郵寄地址</string>
     <string name="facebook_app_id">742143353334628</string>
-    <string name="fb_login_protocol_scheme">742143353334628</string>
+    <string name="fb_login_protocol_scheme">fb742143353334628</string>
     <string name="basic_info">Basic Information</string>
     <string name="user_name">User Name</string>
     <string name="passwordconf">Confirm Password</string>

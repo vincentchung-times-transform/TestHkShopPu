@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -52,7 +53,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         list.add(boardingObj1)
         var boardingObj2 = BoardingObjBean(R.mipmap.online_shopping2, R.mipmap.online_shopping2)
         list.add(boardingObj2)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +78,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     override fun onPause() {
         super.onPause()
-
     }
 
     // start receiving location update when activity  visible/foreground
@@ -277,15 +276,19 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        callbackManager?.onActivityResult(requestCode, resultCode, data)
+
+//        callbackManager = CallbackManager.Factory.create()
+//        callbackManager.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
                 val id = account.id.toString()
+
                 VM.sociallogin(this, email, "", id, "")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately

@@ -108,11 +108,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/layout_Pwd">
+            android:layout_marginTop="30dp">
 
             <ImageButton
                 android:id="@+id/btn_nextStep"
@@ -122,10 +121,9 @@
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                android:src="@mipmap/next_step" />
+                android:src="@mipmap/next_step_inable" />
 
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

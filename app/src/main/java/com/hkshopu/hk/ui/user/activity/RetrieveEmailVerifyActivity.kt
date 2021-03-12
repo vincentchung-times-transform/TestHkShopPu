@@ -39,7 +39,6 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
         binding = ActivityRetrieveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         //local資料存取
         settings = this.getSharedPreferences("DATA", 0)
         email = settings.getString("email", "").toString()
@@ -75,10 +74,12 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
                 Status.Success -> {
 
                     if (it.data.toString() == "驗證成功!") {
+
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, NewPasswordActivity::class.java)
                         startActivity(intent)
                         finish()
+
                     }else {
                         Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT).show()
                     }

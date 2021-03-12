@@ -29,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
+import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityLoginBinding
 import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
@@ -48,6 +49,13 @@ class LoginActivity : BaseActivity(), TextWatcher {
     var email: String = ""
     private lateinit var settings: SharedPreferences
 
+    lateinit var settings_rememberMe: SharedPreferences
+    lateinit var settings_rememberEmail: SharedPreferences
+    lateinit var settings_rememberPassword: SharedPreferences
+    var rememberMeOrNot = ""
+    var rememberEmailOrNot = ""
+    var rememberPasswordOrNot = ""
+
     var to: Int = 0
     private val VM = AuthVModel()
 
@@ -56,12 +64,14 @@ class LoginActivity : BaseActivity(), TextWatcher {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var settings_rememberMe: SharedPreferences = this.getSharedPreferences("rememberMe", 0)
-        var settings_rememberEmail: SharedPreferences = this.getSharedPreferences("rememberEmail", 0)
-        var settings_rememberPassword: SharedPreferences = this.getSharedPreferences("rememberPassword", 0)
-        var rememberMeOrNot = settings_rememberMe.getString("rememberMe", "").toString()
-        var rememberEmailOrNot = settings_rememberEmail.getString("rememberEmail", "").toString()
-        var rememberPasswordOrNot = settings_rememberPassword.getString("rememberPassword", "").toString()
+        //local資料存取
+        settings = this.getSharedPreferences("DATA",0)
+        settings_rememberMe = this.getSharedPreferences("rememberMe", 0)
+        settings_rememberEmail = this.getSharedPreferences("rememberEmail", 0)
+        settings_rememberPassword = this.getSharedPreferences("rememberPassword", 0)
+        rememberMeOrNot = settings_rememberMe.getString("rememberMe", "").toString()
+        rememberEmailOrNot = settings_rememberEmail.getString("rememberEmail", "").toString()
+        rememberPasswordOrNot = settings_rememberPassword.getString("rememberPassword", "").toString()
 
         if ( rememberMeOrNot == "true" && rememberEmailOrNot == "true" && rememberPasswordOrNot == "true") {
 
@@ -69,10 +79,6 @@ class LoginActivity : BaseActivity(), TextWatcher {
             startActivity(intent)
 
         }
-
-        //local資料存取
-        settings = getSharedPreferences("DATA",0)
-
 
         //google sign in
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -95,9 +101,11 @@ class LoginActivity : BaseActivity(), TextWatcher {
 //        val password = binding.password1.text.toString()
         if (email.isEmpty()) {
             binding.btnNextStep.isEnabled = false
-
+            binding.btnNextStep.setImageResource(R.mipmap.next_step_inable)
         } else {
             binding.btnNextStep.isEnabled = true
+            binding.btnNextStep.setImageResource(R.mipmap.next_step)
+
         }
     }
 
@@ -111,15 +119,15 @@ class LoginActivity : BaseActivity(), TextWatcher {
 
                     if (it.data.toString() == "密碼錯誤!") {
 
-                        var settings_rememberEmail: SharedPreferences = this.getSharedPreferences("rememberEmail", 0)
                         val editor : SharedPreferences.Editor = settings_rememberEmail.edit()
                         editor.apply {
                             putString("rememberEmail", "true")
                         }.apply()
 
 
-                        settings.edit()
-                            .putString("email", email)
+                        settings.edit().apply {
+                            putString("email", email)
+                        }.apply()
 
                         val intent = Intent(this, LoginPasswordActivity::class.java)
                         startActivity(intent)
@@ -158,6 +166,8 @@ class LoginActivity : BaseActivity(), TextWatcher {
 
     private fun initView() {
 
+        //imgViewNextStep預設不能按
+        binding.btnNextStep.isEnabled = false
         initEditText()
         initClick()
         if (email.isNotEmpty()) {

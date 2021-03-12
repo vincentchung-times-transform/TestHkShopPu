@@ -31,7 +31,7 @@ interface AuthService{
 
 
     @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}/checkEmailExistsProcess/")
+    @POST("${ApiConstants.API_PATH}user/checkEmailExistsProcess/")
     fun emailcheck(@Field("email") email : String) : Observable<BaseResponse<Any>>
 
 
