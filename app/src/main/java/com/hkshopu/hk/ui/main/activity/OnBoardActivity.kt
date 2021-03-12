@@ -60,6 +60,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        callbackManager = CallbackManager.Factory.create()
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestId()
@@ -157,7 +158,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     private fun initClick() {
         binding.btnFb.setOnClickListener {
-            callbackManager = CallbackManager.Factory.create()
+
             LoginManager.getInstance().logInWithReadPermissions(
                 this, Arrays.asList("public_profile", "email")
             )
@@ -277,8 +278,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-//        callbackManager = CallbackManager.Factory.create()
-//        callbackManager.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)

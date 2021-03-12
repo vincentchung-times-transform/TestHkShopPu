@@ -155,7 +155,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
             ShowDatePick(it)
         }
         binding.btnNextStep.setOnClickListener {
-            var bithForDB = changeDateFormat(birth)
+            var bithForDB = changeDateFormat_forDB(birth)
 
             settings.edit()
                 .putString("firstName", firstName)
@@ -171,6 +171,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
 
 
         binding.tvSkip.setOnClickListener {
+
             settings = this.getSharedPreferences("DATA", 0)
             val email = settings.getString("email", "")
             val password = settings.getString("password", "")
@@ -208,7 +209,8 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
                 this, R.style.DateTimeDialogTheme,
                 { datePicker, year, month, day ->
                     val month_actual = month + 1
-                    binding.edtViewBirth.setText("$month_actual/$day/$year")
+
+                    binding.edtViewBirth.setText(changeDateFormat_forApp("$month_actual/$day/$year").toString())
                 }, mYear, mMonth, mDay
             )
             dialog.getDatePicker().setMaxDate(java.lang.System.currentTimeMillis())
@@ -217,13 +219,22 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
 
     }
 
-    fun changeDateFormat(item : String): String {
+    fun changeDateFormat_forDB(item : String): String {
         val parser = SimpleDateFormat("dd/MM/yyyy")
         val formatter = SimpleDateFormat("yyyy-MM-dd")
         val output: String = formatter.format(parser.parse(item))
 
         return output
     }
+
+    fun changeDateFormat_forApp(item : String): String {
+        val parser = SimpleDateFormat("dd/MM/yyyy")
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
+        val output: String = formatter.format(parser.parse(item))
+
+        return output
+    }
+
 
 
 

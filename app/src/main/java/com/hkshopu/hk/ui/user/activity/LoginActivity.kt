@@ -26,6 +26,7 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
@@ -63,6 +64,8 @@ class LoginActivity : BaseActivity(), TextWatcher {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        callbackManager = CallbackManager.Factory.create()
 
         //local資料存取
         settings = this.getSharedPreferences("DATA",0)
@@ -218,7 +221,7 @@ class LoginActivity : BaseActivity(), TextWatcher {
         }
 
         binding.btnFacebookLogin.setOnClickListener {
-            callbackManager = CallbackManager.Factory.create()
+
             LoginManager.getInstance().logInWithReadPermissions(
                 this, Arrays.asList("public_profile", "email")
             )
@@ -266,5 +269,29 @@ class LoginActivity : BaseActivity(), TextWatcher {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                val email = account.email.toString()
+                val id = account.id.toString()
+
+                VM.sociallogin(this, email, "", id, "")
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.d("OnBoardActivity", "Google sign in failed", e)
+                // ...
+            }
+        }
+    }
+
 
 }
