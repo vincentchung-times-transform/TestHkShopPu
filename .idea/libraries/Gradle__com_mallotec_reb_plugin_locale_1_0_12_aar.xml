@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.mallotec.reb:plugin-locale:1.0.12@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6ae3ad5d0a45ce8e8ef42e44e5add778/jetified-plugin-locale-1.0.12/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6ae3ad5d0a45ce8e8ef42e44e5add778/jetified-plugin-locale-1.0.12/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6ae3ad5d0a45ce8e8ef42e44e5add778/jetified-plugin-locale-1.0.12/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mallotec.reb/plugin-locale/1.0.12/8f7e114caa6c1f10441b22060bc497574c9ff351/plugin-locale-1.0.12-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
