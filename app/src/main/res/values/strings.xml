@@ -39,7 +39,7 @@
     <string name="emailverify">電子郵件驗證</string>
     <string name="emailaddress">郵寄地址</string>
     <string name="facebook_app_id">742143353334628</string>
-    <string name="fb_login_protocol_scheme">fb742143353334628</string>
+    <string name="fb_login_protocol_scheme">742143353334628</string>
     <string name="basic_info">Basic Information</string>
     <string name="user_name">User Name</string>
     <string name="passwordconf">Confirm Password</string>
@@ -71,6 +71,9 @@
     <string name="payment_method">Payment Method</string>
     <string name="shipfee_setting">Shipping Fee Setting</string>
     <string name="add_product">Add Product</string>
+    <string name="my_product">我的商品</string>
+    <string name="my_like">關注</string>
+    <string name="my_income">進帳/月</string>
     <string name="fee_unit">HKD</string>
     <string name="fee_more">全單滿</string>
     <string name="fee_no">$HKD免運費</string>
@@ -79,6 +82,9 @@
     <string name="fee_fix">$HKD運費為</string>
     <string name="fee_follow">運費只根據商品設定</string>
     <string name="shippingfee">Shipping Fee Setting</string>
+    <string name="tab1">功能服務</string>
+    <string name="tab2">我的賣場</string>
+    <string name="addbrief">新增商店簡介...</string>
 
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
 
@@ -316,5 +322,68 @@
         HKshopu 必須提醒消費者：為保障消費者權益，請消費者於 HKshopu 上完成交易，如有任何疑問，歡迎來信 <font color="#1DBCCF"><b>service@HKshopu.com</b></font>。
     </string>
 
+    <string name="title_addproduct">新增商品</string>
+    <string name="txtview_productname">商品名稱<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="hint_editproductname">輸入商品名稱</string>
+    <string name="txtview_productdescription">商品描述<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="hint_editproductdescription">輸入商品描述</string>
+    <string name="txtview_product_status">商品保存狀況<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="brand_new">全新</string>
+    <string name="second_hand">二手</string>
+    <string name="title_specification">新增規格</string>
+    <string name="txtview_category">新增商別類別<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_specification">新增商別規格</string>
+    <string name="txtview_price">商品價格<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_quantity">商品數量<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_priceinput">請輸入商品價格</string>
+    <string name="txtview_quantityinput">請輸入商品數量</string>
+    <string name="txtview_shippingfee">運費<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_marketingactivities">行銷活動<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_sharetofb">分享到FACEBOOK</string>
+    <string name="txtview_sharetoig">分享到INSTAGRAM</string>
+
+    //新增產品規格
+    <string name="title_adddescription">新增規格</string>
+    <string name="editView_inputproductdescription">請輸入商品規格</string>
+    <string name="btn_edit">編輯</string>
+
+    //設定庫存與價格
+    <string name="title_setInventoryAndPrice">新增規格</string>
+    <string name="textView_setInventorySize">尺寸</string>
+    <string name="textView_setInventoryPrice">價格</string>
+    <string name="textView_setInventoryQuantity">數量</string>
+    <string name="textView_needMoreTimeToStockUp">需要較長時間備貨嗎?</string>
+
+    //運費
+    <string name="title_shippingFare">運費</string>
+    <string name="textView_packageWeight">包裹重量(g)<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="textView_packageSize">包裹尺寸大小</string>
+    <string name="textView_packageUnit">長/寬/高 (cm)</string>
+    <string name="hint_setWeight">設定重量</string>
+    <string name="hint_setSize">設定尺寸</string>
+    <string name="textView_postal">郵政</string>
+    <string name="textView_s.f.express">順豐速運</string>
+    <string name="textView_faceToFace">面交</string>
+    <string name="textView_setItYourself">自行設定...</string>
+    <string name="textView_I_will_bear_the_freight">我會負擔運費</string>
+
+    //商品
+    <string name="textView_more">更多</string>
+    <string name="textView_over599freeshipping">滿$599，免運費</string>
+    <string name="textView_merchandiseinfo">商品資訊</string>
+    <string name="textView_merchandisecategory">商品類別</string>
+    <string name="textView_merchandiserating">商品評價</string>
+
+
+    //買家新增地址
+    <string name="title_addaddress">新增地址</string>
+    <string name="textView_nameAndCompanyName">姓名/公司名稱</string>
+    <string name="texHint_InputNameAndCompanyName">輸入姓名或公司名稱</string>
+    <string name="textView_phoneNumber">電話號碼</string>
+    <string name="texHint_InputPhoneNumber">輸入電話號碼</string>
+    <string name="textView_setDefaultAddressr">設為預設地址</string>
+    <string name="textView_setExpressAddress">設為快遞取件地址</string>
+
+    //
 
 </resources>

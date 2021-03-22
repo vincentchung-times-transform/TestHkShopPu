@@ -10,6 +10,7 @@ import retrofit2.http.Query
 
 interface AuthService{
     @FormUrlEncoded
+
     @POST("${ApiConstants.API_PATH}/user/socialLoginProcess/")
     fun sociallogin(@Field("email") email : String,@Field("facebook_account") facebook_account : String,@Field("google_account") google_account : String,@Field("apple_account") apple_account: String) : Observable<BaseResponse<Any>>
 
@@ -21,19 +22,28 @@ interface AuthService{
     @POST("${ApiConstants.API_PATH}user/loginProcess/")
     fun login(@Field("email") email : String,@Field("password") password : String) : Observable<BaseResponse<Any>>
 
+
+    @POST("${ApiConstants.API_PATH}user/reset/generateAndSendValidationCodeProcess/")
+    fun verifycode() : Observable<BaseResponse<Any>>
+
     @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}user/generateAndSendValidationCodeProcess/")
-    fun verifycode(@Field("email") email : String) : Observable<BaseResponse<Any>>
+    @POST("${ApiConstants.API_PATH}user/reset/validateEmailProcess/")
+    fun emailverify(@Field("email") email : String,@Field("validation_code") validation_code: String) : Observable<BaseResponse<Any>>
+
+    @FormUrlEncoded
+    @POST("${ApiConstants.API_PATH}/checkEmailExistsProcess/")
+    fun emailcheck(@Field("email") email : String) : Observable<BaseResponse<Any>>
+
+    @FormUrlEncoded
+    @POST("${ApiConstants.API_PATH}user/reset/password/")
+    fun reset(@Field("phone") phone : String,@Field("passwordOrig") password_orig : String,@Field("password") password : String) : Observable<BaseResponse<Any>>
+
+    @POST("${ApiConstants.API_PATH}user/[id]/generateAndSendValidationCodeProcess/")
+    fun generate_and_send_verification_code() : Observable<BaseResponse<Any>>
 
     @FormUrlEncoded
     @POST("${ApiConstants.API_PATH}user/validateEmailProcess/")
-    fun emailverify(@Field("email") email : String,@Field("validation_code") validation_code: String) : Observable<BaseResponse<Any>>
-
-
-    @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}user/checkEmailExistsProcess/")
-    fun emailcheck(@Field("email") email : String) : Observable<BaseResponse<Any>>
-
+    fun authenticate_email(@Field("email") email : String,@Field("validation_code") validation_code : String) : Observable<BaseResponse<Any>>
 
     @FormUrlEncoded
     @POST("${ApiConstants.API_PATH}user/resetPasswordProcess/")

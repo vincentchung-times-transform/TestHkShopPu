@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.activity.RetrieveEmailVerifyActivity"
+    tools:context=".ui.user.activity.Retrieve"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -71,13 +71,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/edt_authenticate01"
                 android:digits="1234567890"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="1"
                 android:textSize="36sp"
                 android:layout_width="75dp"
@@ -90,7 +91,7 @@
             <EditText
                 android:id="@+id/edt_authenticate02"
                 android:digits="1234567890"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="1"
                 android:textSize="36sp"
                 android:layout_width="75dp"
@@ -103,7 +104,7 @@
             <EditText
                 android:id="@+id/edt_authenticate03"
                 android:digits="1234567890"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="1"
                 android:textSize="36sp"
                 android:layout_width="75dp"
@@ -116,7 +117,7 @@
             <EditText
                 android:id="@+id/edt_authenticate04"
                 android:digits="1234567890"
-                android:inputType="number"
+                android:inputType="phone"
                 android:maxLength="1"
                 android:textSize="36sp"
                 android:layout_width="75dp"
@@ -209,7 +210,7 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_alignParentBottom="true"
-        app:srcCompat="@mipmap/botton_logo" />
+        app:srcCompat="@mipmap/page_bottom" />
 
 
 

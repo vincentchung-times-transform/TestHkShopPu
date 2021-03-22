@@ -27,7 +27,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.MyAddressActivity"></activity>
+        <activity android:name=".ui.main.activity.BuyerAddAddressMainActivity"></activity>
+        <activity android:name=".ui.main.activity.MerchandiseActivity" />
+        <activity android:name=".ui.main.activity.ShippingFareActivity" />
+        <activity android:name=".ui.main.activity.InventoryAndPriceActivity" />
+        <activity android:name=".ui.main.activity.AddProductSpecificationMainActivity" />
+        <activity android:name=".ui.main.activity.AddNewProductActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,7 +52,7 @@
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-        <activity android:name=".ui.user.activity.RetrieveEmailVerifyActivity" />
+        <activity android:name=".ui.user.activity.Retrieve" />
         <activity android:name=".ui.LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +82,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="@string/fb_login_protocol_scheme"
+                    android:scheme="@string/facebook_app_id"
                     tools:ignore="ManifestResource" />
             </intent-filter>
         </activity>
@@ -92,9 +97,6 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.user.activity.MailAddressActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.user.activity.AddressEditActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.main.activity.OnBoardActivity"

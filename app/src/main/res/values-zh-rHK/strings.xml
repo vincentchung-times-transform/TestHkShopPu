@@ -40,7 +40,7 @@
     <string name="emailverify">電子郵件驗證</string>
     <string name="emailaddress">郵寄地址</string>
     <string name="facebook_app_id">742143353334628</string>
-    <string name="fb_login_protocol_scheme">fb742143353334628</string>
+    <string name="fb_login_protocol_scheme">742143353334628</string>
     <string name="basic_info">基本資料</string>
     <string name="user_name">用戶名稱</string>
     <string name="passwordconf">再次確認密碼</string>
@@ -65,13 +65,16 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="product">Product</string>
     <string name="info">Info</string>
-    <string name="alert_confirm">確定</string>
+    <string name="alert_confirm">確認</string>
     <string name="alert_cancel">取消</string>
     <string name="alert_send">送出</string>
     <string name="shop_category">店舖分類</string>
     <string name="payment_method">付款方式</string>
     <string name="shipfee_setting">運費設定</string>
     <string name="add_product">新增商品</string>
+    <string name="my_product">我的商品</string>
+    <string name="my_like">關注</string>
+    <string name="my_income">進帳/月</string>
     <string name="fee_unit">HKD</string>
     <string name="fee_more">全單滿</string>
     <string name="fee_no">$HKD免運費</string>
@@ -80,7 +83,9 @@
     <string name="fee_fix">$HKD運費為</string>
     <string name="fee_follow">運費只根據商品設定</string>
     <string name="shippingfee">Shipping Fee Setting</string>
-
+    <string name="tab1">功能服務</string>
+    <string name="tab2">我的賣場</string>
+    <string name="addbrief">新增商店簡介...</string>
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
 
     <string name="terms_of_service">SpinnerDemo</string>

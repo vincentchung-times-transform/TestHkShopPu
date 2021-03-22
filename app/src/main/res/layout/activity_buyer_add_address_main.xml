@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/hkshop_color_bg"
+    tools:context=".ui.main.activity.BuyerAddAddressMainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/titleBack_addshop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_arrow_back" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_addaddress"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"/>
+
+
+
+        <ImageView
+            android:id="@+id/icon_specificationhelp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/ic_notification" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/titleBar"
+        android:layout_marginBottom="110dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleBar"
+                android:background="@drawable/customborder_addaddress"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="@string/textView_nameAndCompanyName"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="14sp"
+                    android:background="@color/white"
+                    android:textColor="@color/gray_txt"
+                    android:hint="@string/texHint_InputNameAndCompanyName"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/titleBar"
+                android:background="@drawable/customborder_addaddress"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:text="@string/textView_phoneNumber"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    android:textColor="@color/gray_txt"
+                    android:hint="@string/texHint_InputPhoneNumber"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_emailaddressHead"
+                android:background="@drawable/customborder_addaddress"
+                android:layout_marginTop="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/tvcontanter_mailaddressHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginRight="27dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_mailaddressHead"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:textAlignment="textStart"
+                        android:text="請輸入您的郵寄地址"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:weightSum="2"
+                    android:layout_below="@id/tvcontanter_mailaddressHead"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="地域"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp" />
+
+                    <EditText
+
+                        android:id="@+id/editAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="地區"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_thoroughfare"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/layout_address"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editthoroughfare"
+                        android:layout_width="198dp"
+                        android:layout_height="60dp"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="街道名稱"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+
+                        android:id="@+id/editfeature"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="街道名稱"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_subaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/layout_thoroughfare"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editsubaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="@string/subaddress"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_building"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/layout_subaddress"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:weightSum="2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editfloor"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="@string/floor"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"
+                        />
+
+                    <EditText
+
+                        android:id="@+id/editroom"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_weight="1"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_login"
+                        android:hint="@string/room"
+                        android:textColorHint="@color/black_hint"
+                        android:inputType="text"
+                        android:paddingLeft="18dp"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder_addaddress"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="@string/textView_setDefaultAddressr"/>
+
+                <vn.luongvo.widget.iosswitchview.SwitchView
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_marginLeft="20dp"
+                    app:color_on="#ef5e43"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/customborder_addaddress"
+                android:paddingRight="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:text="@string/textView_setExpressAddress"/>
+
+                <vn.luongvo.widget.iosswitchview.SwitchView
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_marginLeft="20dp"
+                    app:color_on="#ef5e43"
+                    tools:ignore="MissingConstraints" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/btn_shippingfarestore"/>
+
+</RelativeLayout>

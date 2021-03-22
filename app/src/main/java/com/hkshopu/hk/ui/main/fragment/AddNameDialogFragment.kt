@@ -42,7 +42,7 @@ class AddNameDialogFragment : DialogFragment(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //        mEventBus = EventBus.getDefault();
-        setStyle(STYLE_NORMAL, R.style.Theme_App_Dialog_ShrinkScreen)
+        setStyle(STYLE_NORMAL, R.style.Theme_App_Dialog_FullScreen)
     }
 
     override fun onCreateView(
@@ -61,8 +61,8 @@ class AddNameDialogFragment : DialogFragment(), View.OnClickListener {
         et_shopName!!.setSingleLine(true)
         et_shopName!!.setInputType(InputType.TYPE_CLASS_TEXT)
 
-        v.findViewById<View>(R.id.btn_cancel_shopname).setOnClickListener(this)
-        v.findViewById<View>(R.id.btn_confirm_shopname).setOnClickListener(this)
+        v.findViewById<View>(R.id.iv_cancel_shopname).setOnClickListener(this)
+        v.findViewById<View>(R.id.tv_confirm_shopname).setOnClickListener(this)
         val specialCharFilter =
             InputFilter { source, start, end, dest, dstart, dend ->
                 val regexStr = "[`~!@#$%^&*()+=|{}':;'\",\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]"
@@ -80,8 +80,8 @@ class AddNameDialogFragment : DialogFragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_cancel_shopname -> dismiss()
-            R.id.btn_confirm_shopname -> {
+            R.id.iv_cancel_shopname -> dismiss()
+            R.id.tv_confirm_shopname -> {
                 var ShopName = et_shopName!!.text.toString()
                 if(!ShopName.isEmpty()){
                     RxBus.getInstance().post(EventShopNameUpdated(ShopName))

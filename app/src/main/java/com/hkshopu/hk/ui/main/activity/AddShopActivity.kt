@@ -1,26 +1,34 @@
 package com.hkshopu.hk.ui.main.activity
 
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityAddshopBinding
 import com.hkshopu.hk.ui.main.fragment.ShopInfoFragment
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.hkshopu.hk.widget.view.disable
 
 
-
-class AddShopActivity : BaseActivity(), TextWatcher, ViewPager.OnPageChangeListener {
+class AddShopActivity : BaseActivity(), TextWatcher {
     private lateinit var binding: ActivityAddshopBinding
-    lateinit var manager: FragmentManager
-    var showTab : Int = 1
 
     private val VM = AuthVModel()
+    private val pickImage = 100
+    private var imageUri: Uri? = null
+    var shopName: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddshopBinding.inflate(layoutInflater)
@@ -28,10 +36,15 @@ class AddShopActivity : BaseActivity(), TextWatcher, ViewPager.OnPageChangeListe
 
         initView()
         initVM()
-
+        initEditText()
+        initClick()
     }
 
     override fun afterTextChanged(s: Editable?) {
+        shopName = binding.etShopname.text.toString()
+
+        binding.ivStep2.setImageResource(R.mipmap.ic_step2_check)
+        binding.ivStep2Check.visibility = View.VISIBLE
 
     }
 
@@ -43,45 +56,42 @@ class AddShopActivity : BaseActivity(), TextWatcher, ViewPager.OnPageChangeListe
     }
 
     private fun initView() {
+
+    }
+
+    private fun initClick() {
         binding.titleBackAddshop.setOnClickListener {
 
             finish()
         }
-        initFragment()
-        initEditText()
-        binding.mviewPager.currentItem = showTab
-    }
-    private val fragments = mutableListOf<Fragment>()
-    private fun initFragment() {
-        manager = supportFragmentManager
-        if (fragments.isNotEmpty())return
-        val ShopInfoFragment = ShopInfoFragment.newInstance()
-
-        fragments.add(ShopInfoFragment)
-        binding.mviewPager.adapter = object : FragmentPagerAdapter(manager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT){
-            override fun getItem(position: Int) =  fragments[position]
-            override fun getCount() = fragments.size
+        binding!!.ivShopImg.setOnClickListener {
+            val gallery =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage)
         }
-        binding.mviewPager.setPagingEnabled(false)
-        binding.mviewPager.addOnPageChangeListener(this)
-//        binding.setViewPager(binding.mviewPager, arrayOf(getString(R.string.product),getString(R.string.info)))
+        binding.ivAddnewshop.setOnClickListener {
+            binding.ivStep2.setImageResource(R.mipmap.ic_step2_check)
+        }
+        binding.tvStoresortMore.setOnClickListener {
+
+        }
+
     }
+
 
     private fun initEditText() {
-//        editEmail.addTextChangedListener(this)
+        binding.etShopname.addTextChangedListener(this)
 //        password1.addTextChangedListener(this)
     }
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == pickImage) {
+            imageUri = data?.data
+            binding!!.ivShopImg.setImageURI(imageUri)
+            binding.ivStep1Check.visibility = View.VISIBLE
+            binding.ivStep1.setImageResource(R.mipmap.ic_step1_check)
+            binding.ivStep2.setImageResource(R.mipmap.ic_step2_on)
+        }
     }
-
-    override fun onPageSelected(position: Int) {
-
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-
-    }
-
 }

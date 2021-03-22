@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -53,6 +52,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         list.add(boardingObj1)
         var boardingObj2 = BoardingObjBean(R.mipmap.online_shopping2, R.mipmap.online_shopping2)
         list.add(boardingObj2)
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         setContentView(binding.root)
 
         callbackManager = CallbackManager.Factory.create()
-
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestId()
             .requestEmail()
@@ -79,6 +78,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     override fun onPause() {
         super.onPause()
+
     }
 
     // start receiving location update when activity  visible/foreground
@@ -107,7 +107,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
         })
 
-        binding.pager.adapter = ImageAdapter(list, binding.titleBanner, binding.tv2)
+        binding.pager.adapter = ImageAdapter(list)
         binding.pager.addOnPageChangeListener(this)
         initPoints()
 
@@ -215,7 +215,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         }
 
         binding.btnSkip.setOnClickListener {
-            val intent = Intent(this, ShopmenuActivity::class.java)
+            val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)
@@ -226,8 +226,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     private class ImageAdapter internal constructor(
         arrayList: ArrayList<BoardingObjBean>,
-        tv1: TextView,
-        tv2: TextView
     ) : PagerAdapter() {
         private val arrayList: ArrayList<BoardingObjBean>
 
@@ -277,18 +275,15 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        callbackManager.onActivityResult(requestCode, resultCode, data)
+        callbackManager!!.onActivityResult(requestCode, resultCode, data)
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
                 val id = account.id.toString()
-
                 VM.sociallogin(this, email, "", id, "")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately

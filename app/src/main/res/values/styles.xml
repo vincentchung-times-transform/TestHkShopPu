@@ -93,5 +93,6 @@
     <style name="DateTimeDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/black_hint</item>
     </style>
+    <style name="CustomTabText" parent="TextAppearance.Design.Tab"> 22sp bold </style>
 
 </resources>
