@@ -16,8 +16,11 @@ import java.io.IOException
 interface ShopmanageService{
 
     @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}/user/socialLoginProcess")
-    fun sociallogin(@Field("facebook_account") facebook_account : String,@Field("google_account") google_account : String,@Field("apple_account") apple_account: String) : Observable<BaseResponse<Any>>
+    @POST("${ApiConstants.API_PATH}/shop/checkShopNameIsExistsProcess/")
+    fun shopnamecheck(@Field("shop_title") shop_title : String,) : Observable<BaseResponse<Any>>
 
+    @FormUrlEncoded
+    @POST("${ApiConstants.API_PATH}/shop/save/")
+    fun adddnewshop(@Field("shop_title") shop_title : String,) : Observable<BaseResponse<Any>>
 
 }

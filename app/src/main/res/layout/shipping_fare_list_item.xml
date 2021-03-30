@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/customborder_addproduct"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/imgView_deleteFare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/custom_unit_transparent"/>
+
+                <EditText
+                    android:id="@+id/value_shipping_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/textView_setItYourself"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_txt"
+                    android:text="HKD$0" />
+
+
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_marginLeft="20dp">
+                    <ImageView
+                        android:id="@+id/diable_switch"
+                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:src="@mipmap/diable_switch"
+                        android:visibility="visible"/>
+                    <vn.luongvo.widget.iosswitchview.SwitchView
+                        android:id="@+id/ios_switch"
+                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:visibility="visible"/>
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/description_line"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="41dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:paddingRight="20dp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:text="@string/textView_I_will_bear_the_freight"/>-->
+
+<!--                <vn.luongvo.widget.iosswitchview.SwitchView-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    app:color_on="#ef5e43"-->
+<!--                    tools:ignore="MissingConstraints" />-->
+
+<!--            </LinearLayout>-->
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

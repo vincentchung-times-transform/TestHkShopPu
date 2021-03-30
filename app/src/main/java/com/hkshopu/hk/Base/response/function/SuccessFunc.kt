@@ -14,7 +14,6 @@ class SuccessFunc<T> : Function<BaseResponse<T>, T?> {
             return t.ret_val
 //        }
 
-        return t.ret_val
 
        /* if (t.code == 1009){
             throw ObjectException(t.data)

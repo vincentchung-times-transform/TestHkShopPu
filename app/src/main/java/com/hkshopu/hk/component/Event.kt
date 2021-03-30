@@ -11,7 +11,7 @@ class EventShopNameUpdated(val shopName: String? = null)
 
 class EventShopDesUpdated(val shopDes: String? = null)
 
-class EventCancelCleanShelf
+class EventShopCatSelected
 
 class EventLaunchConfigsSuccess
 

@@ -323,22 +323,23 @@
     </string>
 
     <string name="title_addproduct">新增商品</string>
-    <string name="txtview_productname">商品名稱<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_productname">商品名稱<font color='red' size='10'><sub> * </sub></font></string>
     <string name="hint_editproductname">輸入商品名稱</string>
-    <string name="txtview_productdescription">商品描述<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_productdescription">商品描述<font color='red' size='10'><sub> * </sub></font></string>
     <string name="hint_editproductdescription">輸入商品描述</string>
-    <string name="txtview_product_status">商品保存狀況<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_product_status">商品保存狀況<font color='red' size='10'><sub> * </sub></font></string>
     <string name="brand_new">全新</string>
     <string name="second_hand">二手</string>
     <string name="title_specification">新增規格</string>
-    <string name="txtview_category">新增商別類別<font color='red'><small><sub>*</sub></small></font></string>
-    <string name="txtview_specification">新增商別規格</string>
-    <string name="txtview_price">商品價格<font color='red'><small><sub>*</sub></small></font></string>
-    <string name="txtview_quantity">商品數量<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_category">新增商別類別<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_addspecification">新增商別規格</string>
+    <string name="txtview_specification">商別規格</string>
+    <string name="txtview_price">商品價格<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_quantity">商品數量<font color='red' size='10'><sub> * </sub></font></string>
     <string name="txtview_priceinput">請輸入商品價格</string>
     <string name="txtview_quantityinput">請輸入商品數量</string>
-    <string name="txtview_shippingfee">運費<font color='red'><small><sub>*</sub></small></font></string>
-    <string name="txtview_marketingactivities">行銷活動<font color='red'><small><sub>*</sub></small></font></string>
+    <string name="txtview_shippingfee">運費<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_marketingactivities">廣告與行銷活動<font color='red' size='10'><sub> * </sub></font></string>
     <string name="txtview_sharetofb">分享到FACEBOOK</string>
     <string name="txtview_sharetoig">分享到INSTAGRAM</string>
 
@@ -346,6 +347,7 @@
     <string name="title_adddescription">新增規格</string>
     <string name="editView_inputproductdescription">請輸入商品規格</string>
     <string name="btn_edit">編輯</string>
+    <string name="btn_editdone">完成</string>
 
     //設定庫存與價格
     <string name="title_setInventoryAndPrice">新增規格</string>
@@ -353,11 +355,12 @@
     <string name="textView_setInventoryPrice">價格</string>
     <string name="textView_setInventoryQuantity">數量</string>
     <string name="textView_needMoreTimeToStockUp">需要較長時間備貨嗎?</string>
+    <string name="textView_clear_all_inventory"><u>全部清空</u></string>
 
     //運費
     <string name="title_shippingFare">運費</string>
-    <string name="textView_packageWeight">包裹重量(g)<font color='red'><small><sub>*</sub></small></font></string>
-    <string name="textView_packageSize">包裹尺寸大小</string>
+    <string name="textView_packageWeight">包裹重量(g)<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="textView_packageSize">包裹尺寸大小<font color='red' size='10'><sub> * </sub></font></string>
     <string name="textView_packageUnit">長/寬/高 (cm)</string>
     <string name="hint_setWeight">設定重量</string>
     <string name="hint_setSize">設定尺寸</string>

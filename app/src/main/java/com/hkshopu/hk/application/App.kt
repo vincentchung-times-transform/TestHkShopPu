@@ -10,6 +10,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.hkshopu.hk.BuildConfig
 import com.hkshopu.hk.R
+import com.tencent.mmkv.MMKV
 
 class App : Application(), LifecycleOwner {
 
@@ -19,7 +20,7 @@ class App : Application(), LifecycleOwner {
         LocalePlugin.init(this, LocaleConstant.RECREATE_CURRENT_ACTIVITY)
         FacebookSdk.sdkInitialize(this);
         AppEventsLogger.activateApp(this);
-
+        initMMKV()
     }
 
     companion object {
@@ -30,5 +31,8 @@ class App : Application(), LifecycleOwner {
     val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
     override fun getLifecycle(): Lifecycle {
         return lifecycleRegistry
+    }
+    private fun initMMKV() {
+        MMKV.initialize(this)
     }
 }

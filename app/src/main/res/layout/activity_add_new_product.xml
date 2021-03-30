@@ -131,8 +131,8 @@
                     android:text="@string/txtview_category"/>
                 <ImageView
                     android:id="@+id/btn_addcategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="12dp"
                     android:src="@mipmap/ic_chevron"/>
 
             </LinearLayout>
@@ -155,11 +155,11 @@
                     android:text="@string/txtview_product_status"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:padding="2dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/bg_edit_login"
                     android:orientation="horizontal"
+                    android:padding="2dp"
                     android:weightSum="2">
                     <TextView
                         android:id="@+id/tv_brandnew"
@@ -171,6 +171,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:textSize="15sp"
+                        android:layout_marginRight="2dp"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/tv_secondhand"
@@ -189,79 +190,123 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/container_specification"
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:background="@drawable/customborder_addproduct">
-                <TextView
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/customborder_addproduct"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="@string/txtview_specification"/>
+                    android:layout_height="41dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="8dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:background="@drawable/customborder_addproduct">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="@string/txtview_specification"/>
+                    <vn.luongvo.widget.iosswitchview.SwitchView
+                        android:id="@+id/ios_switch_specification"
+                        android:layout_height="wrap_content"
+                        android:layout_width="50dp"
+                        android:visibility="visible"/>
+
+                </LinearLayout>
                 <ImageView
-                    android:id="@+id/btn_addspecification"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_chevron"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:background="@drawable/customborder_addproduct">
-                <TextView
+                    android:id="@+id/img_spec_line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="@string/txtview_price"/>
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:textSize="14sp"
-                    android:hint="@string/txtview_priceinput"
-                    android:src="@mipmap/ic_chevron"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:background="@drawable/customborder_addproduct">
-                <TextView
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/description_line"/>
+                <LinearLayout
+                    android:id="@+id/add_container_add_specification"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="@string/txtview_quantity"/>
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:hint="@string/txtview_quantityinput"
-                    android:background="@color/white"
-                    android:textSize="14sp"
-                    android:src="@mipmap/ic_chevron"/>
+                    android:layout_height="41dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:background="@drawable/customborder_addproduct">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp"
+                        android:textColor="@color/hkshop_color"
+                        android:text="@string/txtview_addspecification"/>
+                    <ImageView
+                        android:id="@+id/btn_addSpecification"
+                        android:layout_width="30dp"
+                        android:layout_height="12dp"
+                        android:src="@mipmap/ic_chevron"
+                        app:tint="@color/hkshop_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:background="@drawable/customborder_addproduct">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="@string/txtview_price"/>
+                    <EditText
+                        android:id="@+id/editText_merchanPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:textSize="14sp"
+                        android:hint="@string/txtview_priceinput"
+                        android:src="@mipmap/ic_chevron"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:background="@drawable/customborder_addproduct">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="@string/txtview_quantity"/>
+                    <EditText
+                        android:id="@+id/editText_merchanQunt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:hint="@string/txtview_quantityinput"
+                        android:background="@color/white"
+                        android:textSize="14sp"
+                        android:src="@mipmap/ic_chevron"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/container_shipping_fare"
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:orientation="horizontal"
@@ -277,8 +322,8 @@
                     android:textColor="@color/black"
                     android:text="@string/txtview_shippingfee"/>
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="12dp"
                     android:src="@mipmap/ic_chevron"/>
 
             </LinearLayout>
@@ -301,11 +346,30 @@
                     android:textColor="@color/black" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="12dp"
                     android:src="@mipmap/ic_chevron" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_addproduct"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/textView_needMoreTimeToStockUp"
+                    android:textColor="@color/dark_gray_txt"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -329,10 +393,11 @@
                     android:text="@string/txtview_sharetofb"
                     android:textColor="@color/black" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_chevron" />
+                <vn.luongvo.widget.iosswitchview.SwitchView
+                    android:id="@+id/ios_switch_fb"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 
@@ -360,10 +425,11 @@
                     android:text="@string/txtview_sharetoig"
                     android:textColor="@color/black" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/ic_chevron" />
+                <vn.luongvo.widget.iosswitchview.SwitchView
+                    android:id="@+id/ios_switch_ig"
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 

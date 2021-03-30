@@ -1,20 +1,19 @@
 package com.hkshopu.hk.net.retrofit
 
 import android.content.Context
-import com.google.gson.GsonBuilder
 import com.hkshopu.hk.BuildConfig
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.GsonProvider
-import com.hkshopu.hk.net.retrofit.BaseParamsInterceptor
-import com.hkshopu.hk.net.retrofit.HttpLoggingInterceptor
 import com.hkshopu.hk.utils.FileUtils
-
 import okhttp3.Cache
+import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.net.CookieHandler
+import java.net.CookieManager
 import java.util.concurrent.TimeUnit
 
 /**
@@ -47,7 +46,7 @@ object RetrofitClient {
         }
         builder.addInterceptor(BaseParamsInterceptor())
 //        builder.addInterceptor(CacheInterceptor())
-//        builder.addInterceptor(HeaderInterceptor())
+        builder.addInterceptor(HeaderInterceptor())
 //        builder.addInterceptor(ErrorReportInterceptor())
         if (BuildConfig.DEBUG) {
             builder.addInterceptor(HttpLoggingInterceptor())
@@ -55,9 +54,11 @@ object RetrofitClient {
         val cacheDir = File(FileUtils.getCachePath(), "response")
         val cache = Cache(cacheDir, 1024 * 1024 * 100)
         builder.cache(cache)
+        val cookieHandler: CookieHandler = CookieManager()
         builder.connectTimeout(HTTP_CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .writeTimeout(HTTP_WRITE_TIMEOUT, TimeUnit.MILLISECONDS)
                 .readTimeout(HTTP_READ_TIMEOUT, TimeUnit.MILLISECONDS)
+                .cookieJar(JavaNetCookieJar(cookieHandler))
         return builder.build()
     }
 

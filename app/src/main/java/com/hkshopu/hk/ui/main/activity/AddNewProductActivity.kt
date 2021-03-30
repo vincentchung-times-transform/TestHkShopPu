@@ -8,12 +8,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.*
 import androidx.core.app.ActivityCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.databinding.ActivityAddNewProductBinding
 import com.hkshopu.hk.ui.main.adapter.PicsAdapter
+import org.jetbrains.anko.backgroundDrawable
 import vn.luongvo.widget.iosswitchview.SwitchView
 import java.io.FileNotFoundException
 
@@ -40,7 +42,7 @@ class AddNewProductActivity : BaseActivity() {
                     arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_EXTERNAL_STORAGE);
 //                    return;
             } else {
-                launchGalleryIntent();
+                launchGalleryIntent()
             }
 
         }
@@ -59,10 +61,30 @@ class AddNewProductActivity : BaseActivity() {
     }
 
     fun initView() {
+        //預設containerSpecification的背景為透明無色
+        binding.containerSpecification.setBackgroundResource(0)
+        binding.imgSpecLine.isVisible = false
+        binding.addContainerAddSpecification.isVisible = false
+        binding.editTextMerchanPrice.isVisible = true
+        binding.editTextMerchanQunt.isVisible = true
+        //設置containerSpecification中的iosSwitchSpecification開關功能
+        binding.iosSwitchSpecification.setOnCheckedChangeListener(SwitchView.OnCheckedChangeListener { switchView, isChecked ->
+            if (isChecked) {
+                binding.containerSpecification.setBackgroundResource(R.drawable.customborder_addproduct)
+                binding.addContainerAddSpecification.isVisible = true
+                binding.imgSpecLine.isVisible = true
+                binding.editTextMerchanPrice.isVisible = false
+                binding.editTextMerchanQunt.isVisible = false
+            } else {
+                binding.containerSpecification.setBackgroundResource(0)
+                binding.addContainerAddSpecification.isVisible = false
+                binding.imgSpecLine.isVisible = false
+                binding.editTextMerchanPrice.isVisible = true
+                binding.editTextMerchanQunt.isVisible = true
+            }
+        })
 
         initClick()
-
-
     }
 
     fun initClick() {
@@ -86,12 +108,18 @@ class AddNewProductActivity : BaseActivity() {
 
         }
 
-        binding.btnAddspecification.setOnClickListener {
+        //go to AddProductSpecificationMainActivity
+        binding.addContainerAddSpecification.setOnClickListener{
             val intent = Intent(this, AddProductSpecificationMainActivity::class.java)
             startActivity(intent)
 
-
         }
+
+        binding.containerShippingFare.setOnClickListener {
+            val intent = Intent(this, ShippingFareActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun launchGalleryIntent() {

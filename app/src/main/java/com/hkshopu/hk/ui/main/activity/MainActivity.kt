@@ -19,12 +19,15 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.activity.RegisterActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.ui.user.vm.ShopVModel
+
 //import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     val RC_SIGN_IN = 900;
     private val VM = AuthVModel()
+    private val VM2 = ShopVModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,7 +43,7 @@ class MainActivity : BaseActivity() {
 
         initVM()
         initClick()
-
+        VM2.getShopCategory()
     }
 
     private fun initVM() {

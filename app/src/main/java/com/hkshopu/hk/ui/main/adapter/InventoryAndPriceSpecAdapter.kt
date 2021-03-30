@@ -29,9 +29,9 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
         :RecyclerView.ViewHolder(itemView){
         val r_view_inventory_spec = itemView.findViewById<RecyclerView>(R.id.r_view_inventory_item_spec)
 
-        fun bind(item: InventoryItemSpec){
+            fun bind(item: InventoryItemSpec){
 
-        }
+            }
 
         }
 

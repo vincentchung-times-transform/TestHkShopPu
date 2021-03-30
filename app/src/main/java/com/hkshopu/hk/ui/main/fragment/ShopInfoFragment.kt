@@ -7,25 +7,18 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.hkshopu.hk.Base.BaseFragment
 import com.hkshopu.hk.R
 import com.hkshopu.hk.application.App
 import com.hkshopu.hk.component.EventShopDesUpdated
 import com.hkshopu.hk.component.EventShopNameUpdated
-import com.hkshopu.hk.data.bean.ItemData
 import com.hkshopu.hk.databinding.FragmentShopinfoBinding
 import com.hkshopu.hk.ui.main.activity.AddShopActivity
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
-
 import com.hkshopu.hk.utils.rxjava.RxBus
 
 
@@ -71,6 +64,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo){
         }
         TabLayoutMediator(binding!!.tabs, binding!!.mviewPager) { tab, position ->
             tab.text = getString(ResourceStore.tabList[position])
+
         }.attach()
 //        binding.setViewPager(binding.mviewPager, arrayOf(getString(R.string.product),getString(R.string.info)))
     }

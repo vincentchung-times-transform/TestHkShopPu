@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/color_shopbg"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -16,320 +16,354 @@
             android:id="@+id/titleBack_addshop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
             android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
             android:src="@mipmap/ic_arrow_back" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="新增店鋪"
-            android:textSize="18sp"
             android:textColor="@color/black_hint"
-            android:layout_centerInParent="true"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_addshoppic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="30dp">
-        <ImageView
-            android:id="@+id/iv_step1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_step1"
-            android:gravity="center"
-           />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_step1"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="9dp"
-            android:background="@mipmap/bg_line"/>
-
-        <TextView
-            android:id="@+id/tv_step1title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step1"
-            android:layout_marginStart="11dp"
-            android:text="請選擇店鋪照片"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black_hint" />
-
-        <ImageView
-            android:id="@+id/iv_step1_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_step1title"
-            android:layout_marginStart="8dp"
-            android:src="@mipmap/ic_check"
-            android:gravity="center"
-            android:visibility="invisible"/>
-
-        <TextView
-            android:id="@+id/tv_step1function"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step1"
-            android:layout_below="@id/tv_step1title"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="8dp"
-            android:text="點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。"
-            android:textSize="14sp"
-            android:letterSpacing="0.07"
-            android:textColor="@color/black_hint" />
-        <com.makeramen.roundedimageview.RoundedImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/iv_shopImg"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:scaleType="fitCenter"
-            android:layout_below="@id/tv_step1function"
-            android:layout_alignParentEnd="true"
-            android:src="@mipmap/ic_no_image"
-            app:riv_border_color="@color/white"
-            app:riv_border_width="1dp"
-            app:riv_corner_radius="30dp"
-            app:riv_oval="true"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_addshopname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="16dp">
-        <ImageView
-            android:id="@+id/iv_step2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_step2"
-            android:gravity="center"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/iv_step2"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="9dp"
-            android:background="@mipmap/bg_line"/>
-
-        <TextView
-            android:id="@+id/tv_step2title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step2"
-            android:layout_marginStart="11dp"
-            android:text="請編輯店鋪名稱"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black_hint" />
-        <ImageView
-            android:id="@+id/iv_step2_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_step2title"
-            android:layout_marginStart="8dp"
-            android:src="@mipmap/ic_check"
-            android:gravity="center"
-            android:visibility="invisible"/>
-        <TextView
-            android:id="@+id/tv_step2function"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step2"
-            android:layout_below="@id/tv_step2title"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="8dp"
-            android:text="點選下方的空格並填寫喜歡的店鋪名稱。"
-            android:textSize="14sp"
-            android:letterSpacing="0.07"
-            android:textColor="@color/black_hint" />
-
-        <EditText
-            android:id="@+id/et_shopname"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/tv_step2function"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="33dp"
-            android:background="@drawable/customborder_catelist"
-            android:paddingLeft="4dp"
-            android:textColor="@color/colorText"
             android:textSize="18sp" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_addshopsort"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginTop="8dp">
-        <ImageView
-            android:id="@+id/iv_step3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_step3"
-            android:gravity="center"
-            />
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-
-        <TextView
-            android:id="@+id/tv_step3title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step3"
-            android:layout_marginStart="11dp"
-            android:text="請選擇店鋪分類"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/black_hint" />
-        <ImageView
-            android:id="@+id/iv_step3_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/tv_step3title"
-            android:layout_marginStart="8dp"
-            android:src="@mipmap/ic_check"
-            android:gravity="center"
-            android:visibility="invisible"/>
-        <TextView
-            android:id="@+id/tv_step3function"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/iv_step3"
-            android:layout_below="@id/tv_step3title"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="8dp"
-            android:text="進入店鋪分類，選擇適合的類別設置分類。"
-            android:textSize="14sp"
-            android:letterSpacing="0.07"
-            android:textColor="@color/black_hint" />
-
-        <RelativeLayout
-            android:id="@+id/layout_storesort_pri"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/tv_step3function"
-            android:background="@color/white"
-            android:visibility="visible">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_addshoppic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="25dp">
+
+                <ImageView
+                    android:id="@+id/iv_step1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_step1" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_step1"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@mipmap/bg_line" />
+
+                <TextView
+                    android:id="@+id/tv_step1title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_toRightOf="@id/iv_step1"
+                    android:text="請選擇店鋪照片"
+                    android:textColor="@color/black_hint"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_step1_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@id/tv_step1title"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_check"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tv_step1function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_step1title"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/iv_step1"
+                    android:letterSpacing="0.07"
+                    android:text="點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。"
+                    android:textColor="@color/black_hint"
+                    android:textSize="14sp" />
+
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/iv_shopImg"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_below="@id/tv_step1function"
+                    android:layout_alignParentEnd="true"
+                    android:scaleType="fitCenter"
+                    android:src="@mipmap/ic_no_image"
+                    app:riv_border_color="@color/white"
+                    app:riv_border_width="1dp"
+                    app:riv_corner_radius="30dp"
+                    app:riv_oval="true" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_addshopname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="25dp">
+
+                <ImageView
+                    android:id="@+id/iv_step2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_step2" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/iv_step2"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="9dp"
+                    android:background="@mipmap/bg_line" />
+
+                <TextView
+                    android:id="@+id/tv_step2title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_toRightOf="@id/iv_step2"
+                    android:text="請編輯店鋪名稱"
+                    android:textColor="@color/black_hint"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_step2_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@id/tv_step2title"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_check"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tv_step2function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_step2title"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/iv_step2"
+                    android:letterSpacing="0.07"
+                    android:text="點選下方的空格並填寫喜歡的店鋪名稱。"
+                    android:textColor="@color/black_hint"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/et_shopname"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/tv_step2function"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/customborder_catelist"
+                    android:paddingLeft="4dp"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_addshopsort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="25dp">
+
+                <ImageView
+                    android:id="@+id/iv_step3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_step3" />
+
+
+                <TextView
+                    android:id="@+id/tv_step3title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="11dp"
+                    android:layout_toRightOf="@id/iv_step3"
+                    android:text="請選擇店鋪分類"
+                    android:textColor="@color/black_hint"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/iv_step3_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@id/tv_step3title"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_check"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tv_step3function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_step3title"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_toRightOf="@id/iv_step3"
+                    android:letterSpacing="0.07"
+                    android:text="進入店鋪分類，選擇適合的類別設置分類。"
+                    android:textColor="@color/black_hint"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_storesort_pri"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/tv_step3function"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/iv_storesort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:src="@mipmap/ic_storesort" />
+
+                    <TextView
+                        android:id="@+id/tv_storesort_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="13dp"
+                        android:layout_toRightOf="@id/iv_storesort"
+                        android:text="店舖分類" />
+
+                    <ImageView
+                        android:id="@+id/iv_chevron_storesort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="18dp"
+                        android:src="@mipmap/ic_chevron" />
+
+                    <TextView
+                        android:id="@+id/tv_more_storesort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="35dp"
+                        android:layout_toLeftOf="@id/iv_chevron_storesort"
+                        android:text="更多" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_storesort_act"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_below="@id/tv_step3function"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/white"
+                    android:visibility="invisible">
+
+                    <ImageView
+                        android:id="@+id/iv_storesort_act"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="8dp"
+                        android:src="@mipmap/ic_storesort" />
+
+                    <TextView
+                        android:id="@+id/tv_storesort_more_act"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="13dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_toRightOf="@id/iv_storesort_act"
+                        android:text="店舖分類" />
+
+                    <TextView
+                        android:id="@+id/tv_storesort1"
+                        android:layout_width="75dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@id/iv_storesort_act"
+                        android:layout_alignLeft="@id/iv_storesort_act"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/customborder_shopcategory"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/tv_storesort2"
+                        android:layout_width="75dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@id/iv_storesort_act"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_toRightOf="@+id/tv_storesort1"
+                        android:background="@drawable/customborder_shopcategory"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/tv_storesort3"
+                        android:layout_width="75dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@id/iv_storesort_act"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:layout_toRightOf="@+id/tv_storesort2"
+                        android:background="@drawable/customborder_shopcategory"
+                        android:gravity="center"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:visibility="invisible" />
+
+
+                </RelativeLayout>
+
+            </RelativeLayout>
 
             <ImageView
-                android:id="@+id/iv_storesort"
+                android:id="@+id/iv_addnewshop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:src="@mipmap/ic_storesort" />
-
-            <TextView
-                android:id="@+id/tv_storesort_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="13dp"
-                android:layout_toRightOf="@id/iv_storesort"
-                android:text="店舖分類" />
-
-            <ImageView
-                android:id="@+id/iv_chevron_storesort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="18dp"
-                android:src="@mipmap/ic_chevron" />
-
-            <TextView
-                android:id="@+id/tv_more_storesort"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="35dp"
-                android:layout_toLeftOf="@id/iv_chevron_storesort"
-                android:text="更多" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/layout_storesort_act"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginStart="33dp"
-            android:layout_marginTop="16dp"
-            android:layout_below="@id/tv_step3function"
-            android:background="@color/white"
-            android:visibility="invisible">
-
-            <ImageView
-                android:id="@+id/iv_storesort_act"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:src="@mipmap/ic_storesort" />
-
-            <TextView
-                android:id="@+id/tv_storesort_more_act"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="8dp"
-                android:layout_toRightOf="@id/iv_storesort_act"
-                android:text="店舖分類" />
-
-            <TextView
-                android:id="@+id/tv_storesort1"
-                android:layout_width="75dp"
-                android:layout_height="35dp"
-                android:layout_below="@id/iv_storesort_act"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignLeft="@id/iv_storesort_act"
-                android:background="@drawable/customborder_shopcategory"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/white"
-                android:visibility="invisible"/>
-
-            <TextView
-                android:id="@+id/tv_storesort2"
-                android:layout_width="75dp"
-                android:layout_height="35dp"
-                android:layout_below="@id/iv_storesort_act"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_toRightOf="@+id/tv_storesort1"
-                android:background="@drawable/customborder_shopcategory"
-                android:gravity="center"
-                android:text=""
-                android:textColor="@color/white"
-                android:visibility="invisible"/>
-
-
-        </RelativeLayout>
-
-    </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/iv_addnewshop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
-        android:src="@mipmap/ic_addnewshop" />
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:src="@mipmap/ic_addnewshop" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

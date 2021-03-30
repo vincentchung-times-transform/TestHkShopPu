@@ -38,6 +38,7 @@
     <color name="gray_txt">#8E8E93</color>
     <color name="dark_gray_txt">#48484A</color>
     <color name="hkshop_color_bg">#1A1DBCCF</color>
+    <color name="customborder_gray">#E9E9EB</color>
 
 
 </resources>

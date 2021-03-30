@@ -3,17 +3,22 @@ package com.hkshopu.hk.ui.main.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
+import com.hkshopu.hk.data.bean.ItemShippingFare
 import com.hkshopu.hk.data.bean.ItemSpecification
+import org.jetbrains.anko.singleLine
 import java.util.*
 
 class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mViewHolder>(),ITHelperInterface  {
 
     var unAssignList = mutableListOf<ItemSpecification>()
-
+    lateinit var customSpecName: String
+    var nextStepBtnStatus  = false
 
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -24,7 +29,31 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
 
         init {
             image.setOnClickListener(this)
-            editTextView
+
+
+            //editTextView編輯模式
+            editTextView.singleLine = true
+            editTextView.setOnEditorActionListener() { v, actionId, event ->
+                when (actionId) {
+                    EditorInfo.IME_ACTION_DONE -> {
+                        customSpecName = editTextView.text.toString()
+                        onItemUpdate(customSpecName, adapterPosition)
+
+                        if (editTextView.text.toString().isEmpty()){
+
+                            nextStepBtnStatus = false
+
+                        }else{
+                            nextStepBtnStatus = true
+                        }
+
+                        editTextView.clearFocus()
+
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
 
 
@@ -63,12 +92,13 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
     }
 
     //更新資料用
-    fun updateList(list01:MutableList<ItemSpecification>){
+    fun updateList(list01:MutableList<ItemSpecification>) {
         unAssignList = list01
     }
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)
         notifyItemRemoved(position)
+
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
@@ -76,5 +106,26 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
         notifyItemMoved(fromPosition,toPosition)
     }
 
+
+
+    fun onItemUpdate(update_txt: String, position: Int) {
+        unAssignList[position] = ItemSpecification(
+            update_txt,
+            R.drawable.custom_unit_transparent
+        )
+        notifyItemChanged(position)
+    }
+
+
+    fun  nextStepEnableOrNot(): Boolean {
+
+        if(unAssignList.size > 0 ) {
+            nextStepBtnStatus = true
+        }else{
+            nextStepBtnStatus = false
+        }
+        return nextStepBtnStatus
+
+    }
 
 }

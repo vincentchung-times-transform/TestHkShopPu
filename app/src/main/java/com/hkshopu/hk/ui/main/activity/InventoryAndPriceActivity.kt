@@ -1,7 +1,11 @@
 package com.hkshopu.hk.ui.main.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hkshopu.hk.R
@@ -15,7 +19,7 @@ import com.hkshopu.hk.ui.main.adapter.InventoryAndPriceSpecAdapter
 import com.hkshopu.hk.ui.main.adapter.ItemTouchHelperCallback
 import com.hkshopu.hk.ui.main.adapter.SpecificationSpecAdapter
 
-class InventoryAndPriceActivity : AppCompatActivity() {
+class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
     private lateinit var binding : ActivityInventoryAndPriceBinding
     val mAdapters_InvenSpec = InventoryAndPriceSpecAdapter()
@@ -32,6 +36,33 @@ class InventoryAndPriceActivity : AppCompatActivity() {
     }
 
     fun initView() {
+
+        if (mutableList_InvenSpec.isNotEmpty()){
+            binding.btnInvenStore.isVisible = true
+            binding.btnInvenStore.setImageResource(R.mipmap.btn_inven_store_enable)
+
+        }else{
+//            binding.btnInvenStore.isEnabled = false
+//            binding.btnInvenStore.setImageResource(R.mipmap.btn_inven_store_disable)
+            binding.btnInvenStore.isVisible = true
+            binding.btnInvenStore.setImageResource(R.mipmap.btn_inven_store_enable)
+        }
+
+        generateInventoryItems()
+
+        initClick()
+    }
+
+    fun initClick() {
+        binding.btnInvenStore.setOnClickListener {
+
+            val intent = Intent(this, AddNewProductActivity::class.java)
+            startActivity(intent)
+        }
+
+    }
+
+    fun generateInventoryItems() {
 
         Thread(Runnable {
             runOnUiThread {
@@ -77,10 +108,17 @@ class InventoryAndPriceActivity : AppCompatActivity() {
 //                }
         }).start()
 
-        initClick()
     }
 
-    fun initClick() {
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        TODO("Not yet implemented")
+    }
+
+    override fun afterTextChanged(s: Editable?) {
 
     }
 }

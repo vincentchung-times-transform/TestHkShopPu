@@ -34,6 +34,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
         //request
         Request request = chain.request();
         RequestBody requestBody = request.body();
+
         Buffer buffer = new Buffer();
         requestBody.writeTo(buffer);
         Charset charset = Charset.forName("UTF-8");
@@ -42,6 +43,7 @@ public final class HttpLoggingInterceptor implements Interceptor {
             contentType.charset(charset);
         }
         Response response = chain.proceed(request);
+
         ResponseBody responseBody = response.body();
         BufferedSource source = responseBody.source();
         source.request(Long.MAX_VALUE);

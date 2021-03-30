@@ -24,6 +24,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     var mutableList_size = mutableListOf<ItemSpecification>()
     var EDIT_MODE_SPEC = "0"
     var EDIT_MODE_SIZE = "0"
+    var nextStepBtnStatus  = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,18 +36,9 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
     fun initView() {
 
-//        binding.btnNextStep.isEnabled = true
-
-//        if(mutableList_spec.isNotEmpty()) {
-//
-//            binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
-//            binding.btnNextStep.isEnabled = true
-//
-//        }else{
-//            binding.btnNextStep.setImageResource(R.mipmap.bnt_nextstepdisable)
-//            binding.btnNextStep.isEnabled = false
-//
-//        }
+        //預設btnClearAllSpec和btnClearAllSpec隱藏
+        binding.btnClearAllSpec.isVisible = false
+        binding.btnClearAllSize.isVisible = false
 
         //first specification "spec" item generate
         Thread(Runnable {
@@ -60,7 +52,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
                 binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
 
+                //更新或新增item
                 mAdapters_spec.updateList(mutableList_spec)
+                //監控nextStep狀態並enable或disable nextStepBtnStatus
+                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                changeStatusOfNextStepBtn(nextStepBtnStatus)
 
                 val callback = ItemTouchHelperCallback(mAdapters_spec)
                 val touchHelper = ItemTouchHelper(callback)
@@ -69,11 +65,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 //                    var listview: ListView = binding.listview
 //                    var adapter: CustomAdapter = CustomAdapter(this, bitmaps)
 //                    listview.adapter = adapter as ListAdapter?
-                try {
-                    Thread.sleep(500)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
+//                try {
+//                    Thread.sleep(500)
+//                } catch (e: InterruptedException) {
+//                    e.printStackTrace()
+//                }
             }
 
 //                for (b in bitmaps) {
@@ -107,11 +103,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 //                    var listview: ListView = binding.listview
 //                    var adapter: CustomAdapter = CustomAdapter(this, bitmaps)
 //                    listview.adapter = adapter as ListAdapter?
-                try {
-                    Thread.sleep(500)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
+//                try {
+//                    Thread.sleep(500)
+//                } catch (e: InterruptedException) {
+//                    e.printStackTrace()
+//                }
             }
 
 //                for (b in bitmaps) {
@@ -125,13 +121,30 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         }).start()
 
 
+
+        //預設btnNextStep disable
+        binding.btnNextStep.isEnabled = false
+        binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
+
+
+
         initClick()
 
     }
 
     fun initClick(){
+        binding.btnClearAllSpec.setOnClickListener {
+            clearAllSpecItem()
+
+        }
+        binding.btnClearAllSize.setOnClickListener {
+            clearAllSizeItem()
+
+        }
 
         binding.btnNextStep.setOnClickListener {
+
+
             val intent = Intent(this, InventoryAndPriceActivity::class.java)
             startActivity(intent)
         }
@@ -150,13 +163,17 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                             binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
                             binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
 
+                            //更新或新增item
                             mAdapters_spec.updateList(mutableList_spec)
+                            //監控nextStep狀態並enable或disable nextStepBtnStatus
+                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                            changeStatusOfNextStepBtn(nextStepBtnStatus)
 
-                            try {
-                                Thread.sleep(500)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
-                            }
+//                            try {
+//                                Thread.sleep(500)
+//                            } catch (e: InterruptedException) {
+//                                e.printStackTrace()
+//                            }
 
                         }
 
@@ -172,13 +189,16 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                             binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
                             binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
 
+                            //更新或新增item
                             mAdapters_spec.updateList(mutableList_spec)
-
-                            try {
-                                Thread.sleep(500)
-                            } catch (e: InterruptedException) {
-                                e.printStackTrace()
-                            }
+                            //監控nextStep狀態並enable或disable nextStepBtnStatus
+                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                            changeStatusOfNextStepBtn(nextStepBtnStatus)
+//                            try {
+//                                Thread.sleep(500)
+//                            } catch (e: InterruptedException) {
+//                                e.printStackTrace()
+//                            }
 
                         }
 
@@ -198,6 +218,9 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         //second specification "spec" item setting cancel
         binding.btnEditspecificationDisableSpec.setOnClickListener {
 
+            binding.btnClearAllSpec.isVisible = false
+
+
             EDIT_MODE_SPEC = "0"
 
             binding.btnEditspecificationDisableSpec.isEnabled = false
@@ -213,18 +236,24 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
             binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
 
+            //更新或新增item
             mAdapters_spec.updateList(mutableList_spec)
-            try {
-                Thread.sleep(1000)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
+            //監控nextStep狀態並enable或disable nextStepBtnStatus
+            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+            changeStatusOfNextStepBtn(nextStepBtnStatus)
+//            try {
+//                Thread.sleep(1000)
+//            } catch (e: InterruptedException) {
+//                e.printStackTrace()
+//            }
 
 
 
         }
         //second specification "spec" setting enable
         binding.btnEditspecificationEnableSpec.setOnClickListener {
+
+            binding.btnClearAllSpec.isVisible = true
 
             EDIT_MODE_SPEC = "1"
 
@@ -243,13 +272,17 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
             binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
 
+            //更新或新增item
             mAdapters_spec.updateList(mutableList_spec)
+            //監控nextStep狀態並enable或disable nextStepBtnStatus
+            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+            changeStatusOfNextStepBtn(nextStepBtnStatus)
 
-            try {
-                Thread.sleep(500)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
+//            try {
+//                Thread.sleep(500)
+//            } catch (e: InterruptedException) {
+//                e.printStackTrace()
+//            }
 
         }
 
@@ -267,11 +300,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                     mAdapter_size.updateList(mutableList_size)
 
-                    try {
-                        Thread.sleep(500)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+//                    try {
+//                        Thread.sleep(500)
+//                    } catch (e: InterruptedException) {
+//                        e.printStackTrace()
+//                    }
 
                 }else{
                     mutableList_size.add(ItemSpecification("SIZE0${mutableList_size.size+1}", R.mipmap.btn_cancel))
@@ -281,11 +314,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                     mAdapter_size.updateList(mutableList_size)
 
-                    try {
-                        Thread.sleep(500)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
+//                    try {
+//                        Thread.sleep(500)
+//                    } catch (e: InterruptedException) {
+//                        e.printStackTrace()
+//                    }
                 }
 
 
@@ -301,6 +334,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
         //second specification "size" item settings cancel
         binding.btnEditspecificationDisableSize.setOnClickListener {
+
+            binding.btnClearAllSize.isVisible = false
 
             EDIT_MODE_SIZE = "0"
 
@@ -318,11 +353,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             binding.rviewSpecificationitemSize.adapter = mAdapter_size
 
             mAdapter_size.updateList(mutableList_size)
-            try {
-                Thread.sleep(500)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
+//            try {
+//                Thread.sleep(500)
+//            } catch (e: InterruptedException) {
+//                e.printStackTrace()
+//            }
 
 
 
@@ -330,6 +365,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
         //second specification "size" item settings enable
         binding.btnEditspecificationEnableSize.setOnClickListener {
+
+            binding.btnClearAllSize.isVisible = true
 
             EDIT_MODE_SIZE = "1"
 
@@ -350,12 +387,35 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
             mAdapter_size.updateList(mutableList_size)
 
-            try {
-                Thread.sleep(500)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
+//            try {
+//                Thread.sleep(500)
+//            } catch (e: InterruptedException) {
+//                e.printStackTrace()
+//            }
 
+        }
+    }
+
+
+    fun clearAllSpecItem() {
+        mutableList_spec.clear()
+        mAdapters_spec.notifyDataSetChanged()
+
+    }
+
+    fun clearAllSizeItem() {
+
+        mutableList_size.clear()
+        mAdapter_size.notifyDataSetChanged()
+    }
+
+    fun changeStatusOfNextStepBtn(status : Boolean){
+        if (status){
+            binding.btnNextStep.isEnabled = true
+            binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
+        }else{
+            binding.btnNextStep.isEnabled = false
+            binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
         }
     }
 }

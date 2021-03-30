@@ -27,12 +27,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.BuyerAddAddressMainActivity"></activity>
+        <activity android:name=".ui.main.activity.MerchanCategoryActivity"></activity>
+        <activity android:name=".ui.main.activity.BuyerAddAddressMainActivity" />
         <activity android:name=".ui.main.activity.MerchandiseActivity" />
-        <activity android:name=".ui.main.activity.ShippingFareActivity" />
+        <activity
+            android:name=".ui.main.activity.ShippingFareActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.main.activity.InventoryAndPriceActivity" />
         <activity android:name=".ui.main.activity.AddProductSpecificationMainActivity" />
-        <activity android:name=".ui.main.activity.AddNewProductActivity" />
+        <activity
+            android:name=".ui.main.activity.AddNewProductActivity"
+            android:windowSoftInputMode="adjustPan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -106,6 +111,9 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.main.activity.AddShopActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.ShopCategoryActivity"
             android:launchMode="singleTask" />
         <activity
             android:name=".ui.main.activity.ShippingFeeActivity"
