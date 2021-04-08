@@ -13,6 +13,7 @@ import com.hkshopu.hk.databinding.ActivityAddProductDescriptionMainBinding
 import com.hkshopu.hk.ui.main.adapter.ItemTouchHelperCallback
 import com.hkshopu.hk.ui.main.adapter.SpecificationSizeAdapter
 import com.hkshopu.hk.ui.main.adapter.SpecificationSpecAdapter
+import com.hkshopu.hk.ui.main.fragment.SpecificationInfoDialogFragment
 
 class AddProductSpecificationMainActivity : BaseActivity() {
 
@@ -133,6 +134,16 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     }
 
     fun initClick(){
+
+        binding.titleBackAddshop.setOnClickListener {
+            val intent = Intent(this, AddNewProductActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.iconSpecificationhelp.setOnClickListener {
+            SpecificationInfoDialogFragment().show(supportFragmentManager, "MyCustomFragment")
+        }
+
         binding.btnClearAllSpec.setOnClickListener {
             clearAllSpecItem()
 

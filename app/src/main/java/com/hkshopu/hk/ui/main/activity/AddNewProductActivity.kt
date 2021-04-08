@@ -3,7 +3,9 @@ package com.hkshopu.hk.ui.main.activity
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Resources
 import android.graphics.BitmapFactory
+import android.net.wifi.WifiConfiguration.AuthAlgorithm.strings
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -15,6 +17,8 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.databinding.ActivityAddNewProductBinding
 import com.hkshopu.hk.ui.main.adapter.PicsAdapter
+import com.hkshopu.hk.ui.main.fragment.SpecificationInfoDialogFragment
+import com.hkshopu.hk.ui.main.fragment.StoreOrNotDialogFragment
 import org.jetbrains.anko.backgroundDrawable
 import vn.luongvo.widget.iosswitchview.SwitchView
 import java.io.FileNotFoundException
@@ -84,10 +88,34 @@ class AddNewProductActivity : BaseActivity() {
             }
         })
 
+        //預設較長備貨時間設定
+        binding.editMoreTimeInput.isVisible = false
+        binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
+        binding.needMoreTimeToStockUp.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.editMoreTimeInput.isVisible = true
+
+            } else {
+                binding.editMoreTimeInput.isVisible = false
+
+            }
+        }
+
         initClick()
     }
 
     fun initClick() {
+
+        binding.titleBackAddshop.setOnClickListener {
+
+        }
+
+        binding.titleBackAddshop.setOnClickListener {
+
+            StoreOrNotDialogFragment(this).show(supportFragmentManager, "MyCustomFragment")
+
+        }
+
         //choose product inventory status
         binding.tvBrandnew.setBackgroundResource(R.drawable.bg_userinfo_gender)
         binding.tvSecondhand.setBackgroundResource(R.drawable.bg_edit_login)
@@ -117,6 +145,12 @@ class AddNewProductActivity : BaseActivity() {
 
         binding.containerShippingFare.setOnClickListener {
             val intent = Intent(this, ShippingFareActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        binding.categoryContainer.setOnClickListener {
+            val intent = Intent(this, MerchanCategoryActivity::class.java)
             startActivity(intent)
         }
 

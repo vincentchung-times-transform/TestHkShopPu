@@ -10,30 +10,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.application.App
 import com.hkshopu.hk.component.EventShopCatSelected
-import com.hkshopu.hk.component.EventShopDesUpdated
-import com.hkshopu.hk.component.EventShopNameUpdated
 import com.hkshopu.hk.databinding.ActivityAddshopBinding
-import com.hkshopu.hk.ui.main.fragment.ShopInfoFragment
-import com.hkshopu.hk.ui.user.activity.EmailVerifyActivity
-import com.hkshopu.hk.ui.user.activity.LoginActivity
-import com.hkshopu.hk.ui.user.activity.UserIofoActivity
-import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
 
 
 class AddShopActivity : BaseActivity(), TextWatcher {

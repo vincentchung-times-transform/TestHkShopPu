@@ -27,7 +27,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.MerchanCategoryActivity"></activity>
+        <activity android:name=".ui.main.activity.MerchanCategoryActivity"
+            android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.main.activity.BuyerAddAddressMainActivity" />
         <activity android:name=".ui.main.activity.MerchandiseActivity" />
         <activity

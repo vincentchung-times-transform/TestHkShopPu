@@ -40,6 +40,8 @@
                     android:layout_weight="1"
                     android:background="@color/white"
                     android:hint="@string/textView_setItYourself"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

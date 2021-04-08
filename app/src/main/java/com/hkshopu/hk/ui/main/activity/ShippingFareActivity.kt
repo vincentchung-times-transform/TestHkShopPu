@@ -10,6 +10,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hkshopu.hk.R
@@ -20,6 +22,7 @@ import com.hkshopu.hk.databinding.ActivityMerchandiseBinding
 import com.hkshopu.hk.databinding.ActivityShippingFareBinding
 import com.hkshopu.hk.ui.main.adapter.InventoryAndPriceSpecAdapter
 import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
+import org.jetbrains.anko.singleLine
 
 class ShippingFareActivity : AppCompatActivity(){
 
@@ -39,6 +42,34 @@ class ShippingFareActivity : AppCompatActivity(){
 
     fun initView() {
 
+//        val textWatcher = object : TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//            }
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//            }
+//            override fun afterTextChanged(s: Editable?) {
+//
+//                if (s.toString().isEmpty()){
+//                    binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
+//                    binding.btnShippingFareStore.isEnabled = false
+//                }else{
+//                    binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore)
+//                    binding.btnShippingFareStore.isEnabled = true
+//
+//                }
+//
+//            }
+//        }
+//        binding.editPackageWeight.addTextChangedListener(textWatcher)
+        setSingleLine(binding.editPackageWeight)
+//        binding.editPackageLength.addTextChangedListener(textWatcher)
+        setSingleLine(binding.editPackageLength)
+//        binding.editPackageWidth.addTextChangedListener(textWatcher)
+        setSingleLine(binding.editPackageWidth)
+//        binding.editPackageHeight.addTextChangedListener(textWatcher)
+        setSingleLine(binding.editPackageHeight)
+
+        binding
 
         binding.progressBar.isVisible = true
         generateCustomFare_uneditable()
@@ -49,6 +80,11 @@ class ShippingFareActivity : AppCompatActivity(){
     }
 
     fun initClick() {
+
+        binding.titleBackAddshop.setOnClickListener {
+            val intent = Intent(this, AddNewProductActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnEditFareOff.setOnClickListener {
 
@@ -139,6 +175,31 @@ class ShippingFareActivity : AppCompatActivity(){
         mAdapters_shippingFare.updateList(mutableList_itemShipingFare)
         mAdapters_shippingFare.notifyDataSetChanged()
 
+
+    }
+
+
+    fun setSingleLine(editText : EditText) {
+        editText.singleLine = true
+        editText.setOnEditorActionListener() { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    if (editText.text.toString().isEmpty()){
+                        binding.btnShippingFareStore.setImageResource(R.mipmap.btn_store)
+                        binding.btnShippingFareStore.isEnabled = false
+                    }else{
+                        binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore)
+                        binding.btnShippingFareStore.isEnabled = true
+
+                    }
+
+                    editText.clearFocus()
+
+                    true
+                }
+                else -> false
+            }
+        }
 
     }
 }

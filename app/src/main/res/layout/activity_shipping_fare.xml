@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorGray"
+    android:background="@color/white"
     tools:context=".ui.main.activity.ShippingFareActivity">
 
 
@@ -39,7 +39,6 @@
             android:layout_marginEnd="15dp"
             android:gravity="center_vertical"
             android:textStyle="bold"
-            android:visibility="invisible"
             android:enabled="false"
             android:text="@string/btn_edit" />
 
@@ -49,8 +48,10 @@
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="15dp"
+            android:textColor="@color/hkshop_color"
+            android:visibility="invisible"
             android:gravity="center_vertical"
-            android:text="@string/btn_edit" />
+            android:text="@string/btn_editdone" />
 
     </RelativeLayout>
 
@@ -84,10 +85,13 @@
                     android:textColor="@color/black" />
 
                 <EditText
+                    android:id="@+id/edit_package_weight"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:hint="@string/hint_setWeight"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:src="@mipmap/ic_chevron"
                     android:textSize="14sp" />
 
@@ -113,6 +117,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/textView_packageSize"
+                        android:singleLine="true"
                         android:textColor="@color/black" />
 
                 </LinearLayout>
@@ -143,10 +148,13 @@
                         android:orientation="horizontal">
 
                         <EditText
+                            android:id="@+id/edit_package_length"
                             android:layout_width="45dp"
                             android:layout_height="30dp"
-                            android:gravity="center"
                             android:background="@drawable/customborder_gray"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:src="@mipmap/ic_chevron"
                             android:textSize="14sp" />
 
@@ -156,10 +164,13 @@
                             android:text="/" />
 
                         <EditText
+                            android:id="@+id/edit_package_width"
                             android:layout_width="45dp"
                             android:layout_height="30dp"
-                            android:gravity="center"
                             android:background="@drawable/customborder_gray"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:src="@mipmap/ic_chevron"
                             android:textSize="14sp" />
 
@@ -169,10 +180,13 @@
                             android:text="/" />
 
                         <EditText
+                            android:id="@+id/edit_package_height"
                             android:layout_width="45dp"
                             android:layout_height="30dp"
-                            android:gravity="center"
                             android:background="@drawable/customborder_gray"
+                            android:gravity="center"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:src="@mipmap/ic_chevron"
                             android:textSize="14sp" />
 
@@ -397,6 +411,7 @@
         android:id="@+id/btn_shipping_fare_store"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/white"
         android:layout_marginTop="20dp"
         android:elevation="0dp"
         android:layout_marginBottom="30dp"

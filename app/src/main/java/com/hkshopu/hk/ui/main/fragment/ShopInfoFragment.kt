@@ -11,7 +11,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.hkshopu.hk.R
 import com.hkshopu.hk.application.App

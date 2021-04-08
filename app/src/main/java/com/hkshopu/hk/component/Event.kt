@@ -1,5 +1,7 @@
 package com.hkshopu.hk.component
 
+import com.hkshopu.hk.data.bean.ProductCategoryBean
+
 /**
  * Created by Administrator on 2018/4/20 0020.
  */
@@ -12,6 +14,10 @@ class EventShopNameUpdated(val shopName: String? = null)
 class EventShopDesUpdated(val shopDes: String? = null)
 
 class EventShopCatSelected
+
+class EventProductCatSelected(val selectrdId: Int = 1)
+
+class EventProductCatLastPostion(val postion: Int = 1)
 
 class EventLaunchConfigsSuccess
 

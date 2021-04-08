@@ -54,6 +54,11 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
     }
 
     fun initClick() {
+        binding.titleBackAddshop.setOnClickListener {
+            val intent = Intent(this, AddProductSpecificationMainActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnInvenStore.setOnClickListener {
 
             val intent = Intent(this, AddNewProductActivity::class.java)

@@ -14,7 +14,8 @@ class ApiConstants private constructor() {
         //  var API_HOST = BuildConfig.API_HOST
         //  var API_HOST = "http://47.75.63.143/"
         //  var API_HOST = "http://47.52.26.64:8080/"
-          var API_HOST = "https://hkshopu-20700.df.r.appspot.com/"
+        var API_HOST = "https://hkshopu-20700.df.r.appspot.com/"
+        var IMG_HOST = "https://hkshopu-20700.df.r.appspot.com"
 //        var API_HOST = ""
 
         var fdsfsdfsdf = "0123456789abcdef"

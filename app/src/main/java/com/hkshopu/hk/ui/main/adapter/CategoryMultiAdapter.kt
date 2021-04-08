@@ -55,6 +55,7 @@ class CategoryMultiAdapter : RecyclerView.Adapter<CategoryMultiAdapter.CategoryL
         fun onItemClick(bean: ItemData)
     }
 
+
     inner class CategoryLinearHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val title = itemView.find<TextView>(R.id.label)
         var mCheckBox: CheckBox = itemView.findViewById(R.id.checkbox)

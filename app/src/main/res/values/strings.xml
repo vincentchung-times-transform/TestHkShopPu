@@ -348,6 +348,7 @@
     <string name="editView_inputproductdescription">請輸入商品規格</string>
     <string name="btn_edit">編輯</string>
     <string name="btn_editdone">完成</string>
+    <string name="dialog_spec_info">當您要上架的商品有不同規格（例如：顏色、尺寸）時，則會需要使用商品規格功能，設定詳細商品規格，可以讓買家在購買時更清楚迅速的選擇。</string>
 
     //設定庫存與價格
     <string name="title_setInventoryAndPrice">新增規格</string>
@@ -375,7 +376,12 @@
     <string name="textView_over599freeshipping">滿$599，免運費</string>
     <string name="textView_merchandiseinfo">商品資訊</string>
     <string name="textView_merchandisecategory">商品類別</string>
-    <string name="textView_merchandiserating">商品評價</string>
+    <string name="textView_sure_to_leave">您尚未儲存變更，確定要離開 ？</string>
+    <string name="textView_cancel">取消</string>
+    <string name="textView_discard">捨棄</string>
+    <string name="textView_more_time_to_stock">較長備貨天數</string>
+    <string name="texthint_more_time_to_stock_input">請輸入備貨時間</string>
+
 
 
     //買家新增地址
@@ -387,6 +393,9 @@
     <string name="textView_setDefaultAddressr">設為預設地址</string>
     <string name="textView_setExpressAddress">設為快遞取件地址</string>
 
-    //
+    //商品分類
+    <string name="title_category">分類總覽</string>
+
+
 
 </resources>
