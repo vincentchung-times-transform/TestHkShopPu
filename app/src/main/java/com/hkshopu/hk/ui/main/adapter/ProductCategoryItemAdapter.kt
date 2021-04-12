@@ -1,5 +1,7 @@
 package com.hkshopu.hk.ui.main.adapter
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.util.Log
@@ -17,7 +19,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
 import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventProductCatSelected
-import com.hkshopu.hk.component.EventShopCatSelected
 import com.hkshopu.hk.data.bean.ItemSpecification
 import com.hkshopu.hk.data.bean.ProductCategoryBean
 import com.hkshopu.hk.net.ApiConstants
@@ -121,18 +122,13 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
 
 
-
-
-
-
-
         holder.itemView.setOnClickListener {
 
+            val category_item_selected = product_category_list.get(position)
+            var c_product_category_selected = category_item_selected.c_product_category
 
             var selected_item_id = holder.adapterPosition + 1
-            RxBus.getInstance().post(EventProductCatSelected(selected_item_id))
-
-
+            RxBus.getInstance().post(EventProductCatSelected(selected_item_id, c_product_category_selected))
 
             if(position != last_position) {
                 holder.item_selected_icon.visibility = View.VISIBLE
@@ -144,6 +140,15 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
                 last_position = position
 
             }
+
+
+            //儲存在local端"新增商品分類"資料
+//            val sharedPreferences : SharedPreferences = holder.itemView.context.getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
+//            val editor : SharedPreferences.Editor = sharedPreferences.edit()
+//            editor.apply {
+//                putString("c_product_category", c_product_category.toString())
+//
+//            }.apply()
 
 
         }
@@ -173,5 +178,6 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
             null
         }
     }
+
 
 }

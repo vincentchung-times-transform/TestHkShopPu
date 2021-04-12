@@ -45,7 +45,7 @@ class MerchanChildCategoryActivity : BaseActivity() {
 
     lateinit var binding : ActivityMerchanChildCategoryBinding
     lateinit var product_child_category_list : MutableList<ProductChildCategoryBean>
-    val mAdapters_ProChildCateItem = ProductChildCategoryItemAdapter()
+    val mAdapters_ProChildCateItem = ProductChildCategoryItemAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -356,6 +356,7 @@
     <string name="textView_setInventoryPrice">價格</string>
     <string name="textView_setInventoryQuantity">數量</string>
     <string name="textView_needMoreTimeToStockUp">需要較長時間備貨嗎?</string>
+    <string name="textView_title_spec">規格:</string>
     <string name="textView_clear_all_inventory"><u>全部清空</u></string>
 
     //運費

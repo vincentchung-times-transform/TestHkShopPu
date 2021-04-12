@@ -1,7 +1,12 @@
 package com.hkshopu.hk.ui.main.adapter
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,25 +14,32 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
+
 import com.hkshopu.hk.component.EventProductCatSelected
 import com.hkshopu.hk.data.bean.ProductCategoryBean
 import com.hkshopu.hk.data.bean.ProductChildCategoryBean
 import com.hkshopu.hk.net.ApiConstants
+import com.hkshopu.hk.ui.main.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.activity.MerchanCategoryActivity
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.squareup.picasso.Picasso
 import java.util.*
 
-class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategoryItemAdapter.mViewHolder>()  {
+class ProductChildCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Adapter<ProductChildCategoryItemAdapter.mViewHolder>()  {
+
 
     lateinit var product_child_category_list : MutableList<ProductChildCategoryBean>
 
     //categoryItem基本資料變數宣告
     var id : Int = 0
     var product_category_id :Int = 0
+    lateinit var c_product_category :String
     lateinit var c_product_sub_category : String
     lateinit var e_product_sub_category : String
     lateinit var unselected_product_sub_category_icon_image_url : String
@@ -37,6 +49,9 @@ class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategory
     lateinit var is_delete : String
     lateinit var created_at : String
     lateinit var updated_at : String
+
+    lateinit var selected_datas : Map<String, String>
+    var c_name : String = "女生衣著"
 
 
 
@@ -81,7 +96,8 @@ class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategory
 
         //categoryItem基本資料變數設值
         id = sub_category_item.id
-        product_category_id
+        product_category_id = sub_category_item.product_category_id
+        c_product_category = c_name
         c_product_sub_category = sub_category_item.c_product_sub_category
         e_product_sub_category = sub_category_item.e_product_sub_category
         unselected_product_sub_category_icon_image_url = ApiConstants.IMG_HOST + sub_category_item.unselected_product_sub_category_icon
@@ -102,9 +118,39 @@ class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategory
 
         holder.itemView.setOnClickListener {
 
+            val sub_category_item_selected = product_child_category_list.get(position)
+
+            var id_selected = sub_category_item_selected.id
+            var product_category_id_selected = sub_category_item_selected.product_category_id
+            var c_product_category_selected = c_name
+            var c_product_sub_category_selected = sub_category_item_selected.c_product_sub_category
+
             var selected_item_id = holder.adapterPosition + 1
             Toast.makeText(holder.itemView.context, selected_item_id.toString(), Toast.LENGTH_SHORT).show()
-//            RxBus.getInstance().post(EventProductCatSelected(selected_item_id))
+
+            var bundle = Bundle()
+            bundle.putString("id", id_selected.toString())
+            bundle.putString("product_category_id", product_category_id_selected.toString())
+            bundle.putString("c_product_category", c_product_category.toString())
+            bundle.putString("c_product_sub_category", c_product_sub_category_selected.toString())
+
+            //儲存在local端"新增商品分類"資料
+//            val sharedPreferences : SharedPreferences = holder.itemView.context.getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
+//            val editor : SharedPreferences.Editor = sharedPreferences.edit()
+//            editor.apply {
+//                putString("id", id.toString())
+//                putString("product_category_id", product_category_id.toString())
+//                putString("c_product_sub_category", product_category_id.toString())
+//            }.apply()
+
+
+            var currentActivity: Activity = activity
+
+            val intent = Intent(currentActivity, AddNewProductActivity::class.java)
+            intent.putExtra("bundle", bundle)
+            currentActivity.startActivity(intent)
+
+            activity.finish()
 
         }
 
@@ -120,10 +166,6 @@ class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategory
 
     }
 
-
-
-
-
 //    fun LoadImageFromWebURL(url: String?): Drawable? {
 //        return try {
 //            val iStream = URL(url).content as InputStream
@@ -133,6 +175,15 @@ class ProductChildCategoryItemAdapter: RecyclerView.Adapter<ProductChildCategory
 //        }
 //    }
 
+    fun get_selected_sub_category(): Map<String, String> {
+
+        return selected_datas
+
+    }
+
+    fun set_c_name(c_name: String) {
+        this.c_name = c_name
+    }
 
 
 }

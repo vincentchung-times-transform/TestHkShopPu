@@ -15,7 +15,7 @@ class EventShopDesUpdated(val shopDes: String? = null)
 
 class EventShopCatSelected
 
-class EventProductCatSelected(val selectrdId: Int = 1)
+class EventProductCatSelected(val selectrdId: Int = 1, var c_product_category: String)
 
 class EventProductCatLastPostion(val postion: Int = 1)
 

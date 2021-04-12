@@ -30,22 +30,43 @@
                 android:layout_weight="1"
                 android:textSize="14sp"
                 android:text="@string/textView_setInventorySize"/>
-            <EditText
-                android:id="@+id/value_price"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="14sp"
-                android:background="@color/white"
-                android:hint="@string/textView_setInventoryPrice"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView_HKdolors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HKD$"
+                    android:textColor="@color/gray_txt"
+                    android:textSize="14sp"/>
+                <EditText
+                    android:id="@+id/value_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:background="@color/white"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:hint="0"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/value_quantity"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                android:inputType="number"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:background="@color/white"
-                android:hint="@string/textView_setInventoryQuantity" />
+                android:hint="0" />
 
         </LinearLayout>
 

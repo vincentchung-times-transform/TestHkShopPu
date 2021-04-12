@@ -1,5 +1,7 @@
 package com.hkshopu.hk.ui.main.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,9 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
     lateinit var customSpecName: String
     var nextStepBtnStatus  = false
 
+    //資料變數宣告
+    var value_spec : String = ""
+
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
@@ -28,24 +33,30 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
         val editTextView = itemView.findViewById<EditText>(R.id.edt_specification_text)
 
         init {
+
             image.setOnClickListener(this)
 
 
-            //editTextView編輯模式
+            val textWatcher = object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+            }
+            editTextView.addTextChangedListener(textWatcher)
+
+            //editTextView編輯鍵盤監控
             editTextView.singleLine = true
             editTextView.setOnEditorActionListener() { v, actionId, event ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
-                        customSpecName = editTextView.text.toString()
-                        onItemUpdate(customSpecName, adapterPosition)
 
-                        if (editTextView.text.toString().isEmpty()){
+                        value_spec = editTextView.text.toString()
 
-                            nextStepBtnStatus = false
-
-                        }else{
-                            nextStepBtnStatus = true
-                        }
+                        onItemUpdate(value_spec , adapterPosition)
 
                         editTextView.clearFocus()
 
@@ -54,13 +65,14 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
                     else -> false
                 }
             }
+
         }
 
 
         fun bind(item: ItemSpecification){
             //綁定當地變數與dataModel中的每個值
-            image.setImageResource(item.int)
-            editTextView.setText(item.string)
+            image.setImageResource(item.spec_image)
+            editTextView.setText(item.spec_name)
 
         }
 
@@ -127,5 +139,15 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
         return nextStepBtnStatus
 
     }
+
+
+    fun get_size_list(): MutableList<ItemSpecification> {
+        return unAssignList
+    }
+
+    fun get_datas_size_size(): Int {
+        return unAssignList.size
+    }
+
 
 }

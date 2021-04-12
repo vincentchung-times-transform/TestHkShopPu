@@ -57,10 +57,13 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/editText_productSpec_first"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColor="@color/black"
                 android:hint="@string/editView_inputproductdescription"
                 android:layout_weight="1"/>
@@ -128,10 +131,13 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/editText_productSpec_second"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:textSize="14sp"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColor="@color/black"
                 android:hint="@string/editView_inputproductdescription"
                 android:layout_weight="1"/>

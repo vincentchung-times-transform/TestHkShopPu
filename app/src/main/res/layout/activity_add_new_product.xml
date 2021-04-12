@@ -14,7 +14,7 @@
         android:layout_height="50dp">
 
         <ImageView
-            android:id="@+id/titleBack_addshop"
+            android:id="@+id/titleBack_addproduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
@@ -130,6 +130,12 @@
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:text="@string/txtview_category"/>
+
+                <TextView
+                    android:id="@+id/textView_seleted_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
                 <ImageView
                     android:id="@+id/btn_addcategory"
                     android:layout_width="30dp"
@@ -267,14 +273,31 @@
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="@string/txtview_price"/>
-                    <EditText
-                        android:id="@+id/editText_merchanPrice"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:textSize="14sp"
-                        android:hint="@string/txtview_priceinput"
-                        android:src="@mipmap/ic_chevron"/>
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView_merchanPrice_range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/dark_gray_txt"
+                            android:text=""
+                            android:layout_alignParentTop="true"
+                            android:textSize="14sp" />
+
+
+                        <EditText
+                            android:id="@+id/editText_merchanPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@color/white"
+                            android:layout_alignParentTop="true"
+                            android:textSize="14sp"
+                            android:hint="@string/txtview_priceinput" />
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
@@ -293,41 +316,90 @@
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="@string/txtview_quantity"/>
-                    <EditText
-                        android:id="@+id/editText_merchanQunt"
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:hint="@string/txtview_quantityinput"
-                        android:background="@color/white"
-                        android:textSize="14sp"
-                        android:src="@mipmap/ic_chevron"/>
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/textView_merchanQunt_range"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/dark_gray_txt"
+                            android:text=""
+                            android:layout_alignParentTop="true"
+                            android:textSize="14sp" />
+
+                        <EditText
+                            android:id="@+id/editText_merchanQunt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:hint="@string/txtview_quantityinput"
+                            android:background="@color/white"
+                            android:textSize="14sp"
+                            android:src="@mipmap/ic_chevron"/>
+
+                    </RelativeLayout>
+
 
                 </LinearLayout>
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/container_shipping_fare"
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="8dp"
-                android:gravity="center_vertical"
-                android:paddingLeft="30dp"
-                android:paddingRight="30dp"
-                android:background="@drawable/customborder_addproduct">
-                <TextView
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder_addproduct"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/container_shipping_fare"
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:text="@string/txtview_shippingfee"/>
+                    <TextView
+                        android:id="@+id/txtView_fare_range"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray_txt"
+                        android:text=""/>
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="12dp"
+                        android:src="@mipmap/ic_chevron"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/img__line_fare"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:text="@string/txtview_shippingfee"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="12dp"
-                    android:src="@mipmap/ic_chevron"/>
+                    android:layout_marginTop="8dp"
+                    android:src="@mipmap/description_line"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/r_view_fare_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp"
+                    android:layout_below="@id/titleBar" />
+
 
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"

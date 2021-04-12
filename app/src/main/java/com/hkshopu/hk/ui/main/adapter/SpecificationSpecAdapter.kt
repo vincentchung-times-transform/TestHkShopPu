@@ -1,5 +1,7 @@
 package com.hkshopu.hk.ui.main.adapter
 
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,12 +31,24 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
             image.setOnClickListener(this)
 
 
+            val textWatcher = object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+                override fun afterTextChanged(s: Editable?) {
+
+                }
+            }
+            editTextView.addTextChangedListener(textWatcher)
+
             //editTextView編輯模式
             editTextView.singleLine = true
             editTextView.setOnEditorActionListener() { v, actionId, event ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
                         customSpecName = editTextView.text.toString()
+
                         onItemUpdate(customSpecName, adapterPosition)
 
                         if (editTextView.text.toString().isEmpty()){
@@ -57,9 +71,8 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
 
         fun bind(item: ItemSpecification){
             //綁定當地變數與dataModel中的每個值
-            image.setImageResource(item.int)
-            editTextView.setText(item.string)
-
+            editTextView.setText(item.spec_name)
+            image.setImageResource(item.spec_image)
         }
 
         override fun onClick(v: View?) {
@@ -90,8 +103,8 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
     }
 
     //更新資料用
-    fun updateList(list01:MutableList<ItemSpecification>){
-        unAssignList = list01
+    fun updateList(list:MutableList<ItemSpecification>){
+        unAssignList = list
     }
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)
@@ -122,6 +135,15 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
         }
         return nextStepBtnStatus
 
+    }
+
+
+    fun get_spec_list(): MutableList<ItemSpecification> {
+        return unAssignList
+    }
+
+    fun get_datas_spec_size(): Int {
+        return unAssignList.size
     }
 
 

@@ -17,6 +17,7 @@ import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.application.App
 import com.hkshopu.hk.component.EventShopCatSelected
+
 import com.hkshopu.hk.databinding.ActivityAddshopBinding
 import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.hkshopu.hk.utils.rxjava.RxBus

@@ -1,5 +1,8 @@
 package com.hkshopu.hk.data.bean
 
 import android.graphics.Bitmap
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-class InventoryItemSize (val size: String, val price: String, val quantity: String)
+@Parcelize
+class InventoryItemSize (val size_name: String, val price: Int, val quantity: Int) : Parcelable
