@@ -2,43 +2,44 @@ package com.hkshopu.hk.ui.main.activity
 
 import MyLinearLayoutManager
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import android.graphics.BitmapFactory
-import android.net.wifi.WifiConfiguration.AuthAlgorithm.strings
+import android.os.Build
 import android.os.Bundle
-import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
-import android.widget.*
+import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
+import android.widget.ImageView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat.setElevation
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.InventoryItemSize
-import com.hkshopu.hk.data.bean.InventoryItemSpec
+import com.hkshopu.hk.data.bean.InventoryItemDatas
 import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.data.bean.ItemShippingFare
 import com.hkshopu.hk.databinding.ActivityAddNewProductBinding
 import com.hkshopu.hk.ui.main.adapter.PicsAdapter
-import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
 import com.hkshopu.hk.ui.main.adapter.ShippingFareExistedAdapter
-import com.hkshopu.hk.ui.main.fragment.SpecificationInfoDialogFragment
 import com.hkshopu.hk.ui.main.fragment.StoreOrNotDialogFragment
-import org.jetbrains.anko.backgroundDrawable
-import vn.luongvo.widget.iosswitchview.SwitchView
+import com.hkshopu.hk.ui.user.activity.LoginPasswordActivity
+import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.zilchzz.library.widgets.EasySwitcher
 import java.io.FileNotFoundException
+import java.util.Observer
 
 
 class AddNewProductActivity : BaseActivity() {
 
+    private val VM = AuthVModel()
+
     private lateinit var binding: ActivityAddNewProductBinding
 
-    lateinit var switchView: SwitchView
     val REQUEST_EXTERNAL_STORAGE = 100
 
     var mutableList_pics = mutableListOf<ItemPics>()
@@ -49,24 +50,30 @@ class AddNewProductActivity : BaseActivity() {
     var mutableList_itemShipingFareExisted = mutableListOf<ItemShippingFare>()
     var mutableList_itemShipingFareExisted_filtered = mutableListOf<ItemShippingFare>()
     //宣告規格與庫存價格項目陣列變數
-    var mutableList_itemInvenSpec = mutableListOf<InventoryItemSpec>()
-    var mutableList_itemInvenSize = mutableListOf<InventoryItemSize>()
+//    var mutableList_itemInvenSpec = mutableListOf<InventoryItemSpec>()
+//    var mutableList_itemInvenSize = mutableListOf<InventoryItemSize>()
+    var mutableList_InvenDatas = mutableListOf<InventoryItemDatas>()
 
     var fare_price_range: String = ""
     var inven_price_range: String = ""
     var inven_quant_range: String = ""
 
+    var pic_list : MutableList<Any> = mutableListOf()
+
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //預設containerSpecification的背景為透明無色
-        binding.containerSpecification.setBackgroundResource(0)
         binding.imgSpecLine.isVisible = false
-        binding.addContainerAddSpecification.isVisible = false
+        binding.containerAddSpecification.isVisible = false
         binding.editTextMerchanPrice.isVisible = true
         binding.editTextMerchanQunt.isVisible = true
+
+        initVM()
+
 
         //設定預設資料
         initProCategoryDatas()
@@ -94,29 +101,51 @@ class AddNewProductActivity : BaseActivity() {
 
         initView()
 
-
     }
 
     fun initView() {
 
         //設置containerSpecification中的iosSwitchSpecification開關功能
-        binding.iosSwitchSpecification.setOnCheckedChangeListener(SwitchView.OnCheckedChangeListener { switchView, isChecked ->
-            if (isChecked) {
-                binding.containerSpecification.setBackgroundResource(R.drawable.customborder_addproduct)
-                binding.addContainerAddSpecification.isVisible = true
-                binding.imgSpecLine.isVisible = true
-                binding.editTextMerchanPrice.isVisible = false
-                binding.editTextMerchanQunt.isVisible = false
-                binding.textViewMerchanPriceRange.isVisible = true
-                binding.textViewMerchanQuntRange.isVisible = true
-            } else {
-                binding.containerSpecification.setBackgroundResource(0)
-                binding.addContainerAddSpecification.isVisible = false
-                binding.imgSpecLine.isVisible = false
-                binding.editTextMerchanPrice.isVisible = true
-                binding.editTextMerchanQunt.isVisible = true
-                binding.textViewMerchanPriceRange.isVisible = false
-                binding.textViewMerchanQuntRange.isVisible = false
+        binding.iosSwitchSpecification.setOnStateChangedListener(object :
+            EasySwitcher.SwitchStateChangedListener {
+            @RequiresApi(Build.VERSION_CODES.P)
+            override fun onStateChanged(isOpen: Boolean) {
+                if (isOpen) {
+
+                    binding.containerAddSpecification.isVisible = true
+                    binding.imgSpecLine.isVisible = true
+                    binding.editTextMerchanPrice.isVisible = false
+                    binding.editTextMerchanQunt.isVisible = false
+                    binding.textViewMerchanPriceRange.isVisible = true
+                    binding.textViewMerchanQuntRange.isVisible = true
+
+                    val scale = baseContext.resources.displayMetrics.density
+                    var elevation = 0
+                    val e = (elevation * scale + 0.5f).toInt()
+
+                    binding.containerProductSpecPrice.setElevation(e.toFloat())
+                    binding.containerProductSpecQuant.setElevation(e.toFloat())
+                    binding.containerProductSpecSwitch.setElevation(e.toFloat())
+
+                } else {
+
+                    binding.containerAddSpecification.isVisible = false
+                    binding.imgSpecLine.isVisible = false
+                    binding.editTextMerchanPrice.isVisible = true
+                    binding.editTextMerchanQunt.isVisible = true
+                    binding.textViewMerchanPriceRange.isVisible = false
+                    binding.textViewMerchanQuntRange.isVisible = false
+
+                    val scale = baseContext.resources.displayMetrics.density
+                    var elevation = 10
+                    val e = (elevation * scale + 0.5f).toInt()
+
+                    binding.containerProductSpecSwitch.setElevation(e.toFloat())
+                    binding.containerProductSpecPrice.setElevation(e.toFloat())
+                    binding.containerProductSpecQuant.setElevation(e.toFloat())
+
+
+                }
             }
         })
 
@@ -165,7 +194,7 @@ class AddNewProductActivity : BaseActivity() {
         }
 
         //go to AddProductSpecificationMainActivity
-        binding.addContainerAddSpecification.setOnClickListener {
+        binding.containerAddSpecification.setOnClickListener {
             val intent = Intent(this, AddProductSpecificationMainActivity::class.java)
             startActivity(intent)
 
@@ -180,6 +209,11 @@ class AddNewProductActivity : BaseActivity() {
         binding.categoryContainer.setOnClickListener {
             val intent = Intent(this, MerchanCategoryActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnStore.setOnClickListener {
+            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
+            VM.add_product(this, 1, 1, 1, "0", 0, "0", 0, 0, 0, "0", 0, pic_list)
         }
 
     }
@@ -229,7 +263,7 @@ class AddNewProductActivity : BaseActivity() {
                 if (clipData != null) {
                     //multiple images selecetd
                     for (i in 0 until clipData.itemCount) {
-                        if (i == 0) {
+                        if (i == 0 ) {
                             //取得圖片uri存到變數imageUri並轉成bitmap
                             val imageUri = clipData.getItemAt(i).uri
                             Log.d("URI", imageUri.toString())
@@ -241,6 +275,7 @@ class AddNewProductActivity : BaseActivity() {
                                 //新增所選圖片以及第一張cover image至mutableList_pics中
                                 mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
 
+                                pic_list.add(bitmap)
 
                             } catch (e: FileNotFoundException) {
                                 e.printStackTrace()
@@ -263,6 +298,8 @@ class AddNewProductActivity : BaseActivity() {
                                     )
                                 )
 
+                                pic_list.add(bitmap)
+
 
                             } catch (e: FileNotFoundException) {
                                 e.printStackTrace()
@@ -280,8 +317,19 @@ class AddNewProductActivity : BaseActivity() {
                         val inputStream = contentResolver.openInputStream(imageUri!!)
                         val bitmap = BitmapFactory.decodeStream(inputStream)
 
-                        //新增所選圖片以及第一張cover image至mutableList_pics中
-                        mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
+                        if(mutableList_pics.size==0){
+                            //新增所選圖片以及第一張cover image至mutableList_pics中
+                            mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
+
+
+                        }else{
+                            mutableList_pics.add(ItemPics(bitmap, R.drawable.custom_unit_transparent))
+
+
+                        }
+
+
+                        pic_list.add(bitmap)
 
 
                     } catch (e: FileNotFoundException) {
@@ -297,11 +345,6 @@ class AddNewProductActivity : BaseActivity() {
                         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     binding.rView.adapter = mAdapter
 
-                    try {
-                        Thread.sleep(3000)
-                    } catch (e: InterruptedException) {
-                        e.printStackTrace()
-                    }
                 }
 
 //                for (b in bitmaps) {
@@ -340,6 +383,7 @@ class AddNewProductActivity : BaseActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun initProFareDatas() {
 
 
@@ -364,15 +408,23 @@ class AddNewProductActivity : BaseActivity() {
                 binding.rViewFareItem.isVisible = true
                 binding.imgLineFare.isVisible = true
 
+
                 //從bundle載入所有添加的運費方式
                 for (i in 0..datas_size-1!!) {
-                    mutableList_itemShipingFareExisted.add(intent.getBundleExtra("bundle_ShippingFareActivity")?.getParcelable<ItemShippingFare> (i.toString())!!)
+                    mutableList_itemShipingFareExisted.add(
+                        intent.getBundleExtra("bundle_ShippingFareActivity")
+                            ?.getParcelable<ItemShippingFare>(
+                                i.toString()
+                            )!!
+                    )
                 }
 
                 //篩選所有已勾選的運費方式
                 for (f in 0..datas_size-1!!) {
                     if(mutableList_itemShipingFareExisted[f].is_checked ==true ){
-                        mutableList_itemShipingFareExisted_filtered.add(mutableList_itemShipingFareExisted[f])
+                        mutableList_itemShipingFareExisted_filtered.add(
+                            mutableList_itemShipingFareExisted[f]
+                        )
                     }
                 }
 
@@ -384,33 +436,34 @@ class AddNewProductActivity : BaseActivity() {
 
                 if(mutableList_itemShipingFareExisted_filtered.size >0){
                     //自訂layoutManager
-                    binding.rViewFareItem.setLayoutManager(MyLinearLayoutManager(this,false))
+                    binding.rViewFareItem.setLayoutManager(MyLinearLayoutManager(this, false))
                     binding.rViewFareItem.adapter = mAdapters_shippingFareExisted
 
-                    mAdapters_shippingFareExisted.updateList(mutableList_itemShipingFareExisted_filtered)
+                    mAdapters_shippingFareExisted.updateList(
+                        mutableList_itemShipingFareExisted_filtered
+                    )
                     mAdapters_shippingFareExisted.notifyDataSetChanged()
                 }else{
 
                     binding.rViewFareItem.isVisible = false
                     binding.imgLineFare.isVisible = false
 
+
                 }
-
-            }else{
-
-                binding.rViewFareItem.isVisible = false
-                binding.imgLineFare.isVisible = false
 
             }
 
         } else {
+
             binding.rViewFareItem.isVisible = false
             binding.imgLineFare.isVisible = false
+
+
         }
 
     }
 
-    fun fare_pick_max_and_min_num(size : Int): String {
+    fun fare_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
         var min: Int =mutableList_itemShipingFareExisted[0].ship_method_fare.toInt()
         var max: Int =mutableList_itemShipingFareExisted[0].ship_method_fare.toInt()
@@ -427,16 +480,16 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
-    fun inven_price_pick_max_and_min_num(size : Int): String {
+    fun inven_price_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
-        var min: Int =mutableList_itemInvenSize[0].price.toInt()
-        var max: Int =mutableList_itemInvenSize[0].price.toInt()
+        var min: Int = mutableList_InvenDatas[0]!!.price.toInt()
+        var max: Int =mutableList_InvenDatas[0]!!.price.toInt()
 
         for (f in 1..size-1) {
-            if(mutableList_itemInvenSize[f].price.toInt() >= min ){
-                max = mutableList_itemInvenSize[f].price.toInt()
+            if(mutableList_InvenDatas[f]!!.price.toInt() >= min ){
+                max = mutableList_InvenDatas[f]!!.price.toInt()
             }else{
-                min = mutableList_itemInvenSize[f].price.toInt()
+                min = mutableList_InvenDatas[f]!!.price.toInt()
             }
         }
 
@@ -444,16 +497,16 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
-    fun inven_quant_pick_max_and_min_num(size : Int): String {
+    fun inven_quant_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
-        var min: Int =mutableList_itemInvenSize[0].quantity.toInt()
-        var max: Int =mutableList_itemInvenSize[0].quantity.toInt()
+        var min: Int =mutableList_InvenDatas[0]!!.quant.toInt()
+        var max: Int =mutableList_InvenDatas[0]!!.quant.toInt()
 
         for (f in 1..size-1) {
-            if(mutableList_itemInvenSize[f].quantity.toInt() >= min ){
-                max = mutableList_itemInvenSize[f].quantity.toInt()
+            if(mutableList_InvenDatas[f]!!.quant.toInt() >= min ){
+                max = mutableList_InvenDatas[f]!!.quant.toInt()
             }else{
-                min = mutableList_itemInvenSize[f].quantity.toInt()
+                min = mutableList_InvenDatas[f]!!.quant.toInt()
             }
         }
 
@@ -461,77 +514,121 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun initInvenDatas() {
 
-
         //取得Bundle傳來的分類資料
-        var datas_invenSpec_size: Int? =
-            intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("datas_invenSpec_size")
-        var datas_invenSize_size: Int? =
-            intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("datas_invenSize_size")
+//        var datas_invenSpec_size: Int? =
+//            intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("datas_invenSpec_size")
+//        var datas_invenSize_size: Int? =
+//            intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("datas_invenSize_size")
+        var inven_datas_size: Int? =
+            intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("InvenDatas_size")
 
-        Log.d("checkSize",datas_invenSpec_size.toString()+datas_invenSize_size )
 
-        if (datas_invenSpec_size != null && datas_invenSize_size != null ) {
 
-            if(datas_invenSpec_size > 0 || datas_invenSize_size>0) {
+        if (inven_datas_size != null) {
 
-                binding.iosSwitchSpecification.isChecked =true
-                binding.containerSpecification.setBackgroundResource(R.drawable.customborder_addproduct)
-                binding.addContainerAddSpecification.isVisible = true
+
+            if (inven_datas_size>0) {
+
+                binding.iosSwitchSpecification.openSwitcher()
+                binding.containerAddSpecification.isVisible = true
                 binding.imgSpecLine.isVisible = true
                 binding.editTextMerchanPrice.isVisible = false
                 binding.editTextMerchanQunt.isVisible = false
                 binding.textViewMerchanPriceRange.isVisible = true
                 binding.textViewMerchanQuntRange.isVisible = true
 
+
+                val scale = baseContext.resources.displayMetrics.density
+                var elevation = 0
+                val e = (elevation * scale + 0.5f).toInt()
+
+                binding.containerProductSpecPrice.setElevation(e.toFloat())
+                binding.containerProductSpecQuant.setElevation(e.toFloat())
+                binding.containerProductSpecSwitch.setElevation(e.toFloat())
+
                 //從bundle載入所有添加的運費方式
-                for (i in 0..datas_invenSpec_size-1!!) {
-                    mutableList_itemInvenSpec.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSpec> ("spec"+i.toString())!!)
+//                    for (i in 0..datas_invenSpec_size-1!!) {
+//                        mutableList_itemInvenSpec.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSpec> ("spec"+i.toString())!!)
+//                    }
+//
+//
+//                    for (i in 0..datas_invenSize_size-1!!) {
+//                        mutableList_itemInvenSize.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSize> ("size"+i.toString())!!)
+//                    }
+
+
+                for(key in 0..inven_datas_size!!-1){
+                    mutableList_InvenDatas.add(
+                        intent.getBundleExtra("InventoryAndPriceActivity")
+                            ?.getParcelable<InventoryItemDatas>(
+                                "InvenDatas" + key.toString()
+                            )!!
+                    )
+
                 }
-
-
-                for (i in 0..datas_invenSize_size-1!!) {
-                    mutableList_itemInvenSize.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSize> ("size"+i.toString())!!)
-                }
-
-
+                Log.d("checkList", inven_datas_size.toString())
 
                 //挑選最大宇最小金額，回傳價格區間
-                inven_price_range = inven_price_pick_max_and_min_num(datas_invenSize_size!!)
-                inven_quant_range = inven_quant_pick_max_and_min_num(datas_invenSize_size!!)
+                inven_price_range = inven_price_pick_max_and_min_num(inven_datas_size!!)
+                inven_quant_range = inven_quant_pick_max_and_min_num(inven_datas_size!!)
 
                 binding.textViewMerchanPriceRange.text = inven_price_range
                 binding.textViewMerchanQuntRange.text = inven_quant_range
 
-
-            }else{
-
-                binding.iosSwitchSpecification.isChecked =false
-                binding.containerSpecification.setBackgroundResource(0)
-                binding.addContainerAddSpecification.isVisible = false
-                binding.imgSpecLine.isVisible = false
-                binding.editTextMerchanPrice.isVisible = true
-                binding.editTextMerchanQunt.isVisible = true
-                binding.textViewMerchanPriceRange.isVisible = false
-                binding.textViewMerchanQuntRange.isVisible = false
-
             }
+
 
         } else {
 
-            binding.iosSwitchSpecification.isChecked =false
-            binding.containerSpecification.setBackgroundResource(0)
-            binding.addContainerAddSpecification.isVisible = false
+            binding.iosSwitchSpecification.closeSwitcher()
+            binding.containerAddSpecification.isVisible = false
             binding.imgSpecLine.isVisible = false
             binding.editTextMerchanPrice.isVisible = true
             binding.editTextMerchanQunt.isVisible = true
             binding.textViewMerchanPriceRange.isVisible = false
             binding.textViewMerchanQuntRange.isVisible = false
 
+            val scale = baseContext.resources.displayMetrics.density
+            var elevation = 10
+            val e = (elevation * scale + 0.5f).toInt()
+
+            binding.containerProductSpecPrice.setElevation(e.toFloat())
+            binding.containerProductSpecQuant.setElevation(e.toFloat())
+            binding.containerProductSpecSwitch.setElevation(e.toFloat())
+
+
+        }
+    }
+    private fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
+        if (view.layoutParams is MarginLayoutParams) {
+            val p = view.layoutParams as MarginLayoutParams
+            val scale = baseContext.resources.displayMetrics.density
+            // convert the DP into pixel
+            val l = (left * scale + 0.5f).toInt()
+            val r = (right * scale + 0.5f).toInt()
+            val t = (top * scale + 0.5f).toInt()
+            val b = (bottom * scale + 0.5f).toInt()
+            p.setMargins(l, t, r, b)
+            view.requestLayout()
         }
     }
 
+    private fun initVM() {
+        VM.addProductData.observe(this, androidx.lifecycle.Observer {
+            when (it?.status) {
+                Status.Success -> {
+
+                    Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT ).show()
+
+                }
+//                Status.Start -> showLoading()
+//                Status.Complete -> disLoading()
+            }
+        })
 
 
+    }
 }

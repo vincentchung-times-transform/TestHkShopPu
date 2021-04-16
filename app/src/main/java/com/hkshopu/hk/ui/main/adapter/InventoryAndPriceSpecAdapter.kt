@@ -35,8 +35,6 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
         init {
 
-
-
            if(specGroup_only==true){
                item_spec_title_name.isVisible = false
                item_spec_title_name.text  = ""
@@ -106,6 +104,7 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
             else -> {
+
                 //暫時替代
                 val inflater = LayoutInflater.from(parent.context)
                 val itemView = inflater.inflate(R.layout.inventoryandprice_spec_list_item,parent,false)

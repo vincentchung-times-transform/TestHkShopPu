@@ -70,6 +70,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:layout_marginTop="5dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -101,6 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:orientation="vertical">
 

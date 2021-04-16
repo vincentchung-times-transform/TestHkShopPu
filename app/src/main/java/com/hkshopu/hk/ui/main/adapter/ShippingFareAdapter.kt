@@ -1,29 +1,25 @@
 package com.hkshopu.hk.ui.main.adapter
 
-import android.graphics.Color
-import android.os.Parcelable
+import android.app.Activity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.hkshopu.hk.Base.BaseActivity
+
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ItemShippingFare
-import com.hkshopu.hk.widget.view.enable
+import com.zilchzz.library.widgets.EasySwitcher
 import org.jetbrains.anko.singleLine
-import vn.luongvo.widget.iosswitchview.SwitchView
-import vn.luongvo.widget.iosswitchview.SwitchView.OnCheckedChangeListener
 import java.util.*
-import kotlin.collections.ArrayList
 
 
-class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>(), ITHelperInterface {
+class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>(), ITHelperInterface {
 
     var mutableList_shipMethod = mutableListOf<ItemShippingFare>()
     var empty_item_num = 0
@@ -40,7 +36,7 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
         val editText_shipping_name = itemView.findViewById<EditText>(R.id.editText_value_shipping_name)
         val editText_shipping_fare = itemView.findViewById<EditText>(R.id.edtText_shipping_fare)
         val imgv_delFare = itemView.findViewById<ImageView>(R.id.imgView_deleteFare)
-        val switch_view = itemView.findViewById<SwitchView>(R.id.ios_switch)
+        val switch_view = itemView.findViewById<EasySwitcher>(R.id.mEasySwitcher)
         val textView_HKdolors = itemView.findViewById<TextView>(R.id.textView_HKdolors)
 
 
@@ -69,24 +65,29 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
 
                         value_shipping_name = editText_shipping_name.text.toString()
                         value_shipping_fare = editText_shipping_fare.text.toString()
-                        value_shipping_isChecked = switch_view.isChecked
+                        value_shipping_isChecked = switch_view.isOpened()
 
                         //檢查名稱是否重複
                         var check_duplicate = 0
 
-                        for(i in 0..mutableList_shipMethod.size-1){
-                            if(value_shipping_name==mutableList_shipMethod[i].ship_method_name){
-                                check_duplicate = check_duplicate+1
-                            }else{
-                                check_duplicate = check_duplicate+0
+                        for (i in 0..mutableList_shipMethod.size - 1) {
+                            if (value_shipping_name == mutableList_shipMethod[i].ship_method_name) {
+                                check_duplicate = check_duplicate + 1
+                            } else {
+                                check_duplicate = check_duplicate + 0
                             }
                         }
-                        if(check_duplicate>0){
+                        if (check_duplicate > 0) {
                             editText_shipping_name.setText("")
                             Toast.makeText(itemView.context, "貨運商不可重複", Toast.LENGTH_SHORT).show()
 
-                        }else{
-                            onItemUpdate(value_shipping_name, value_shipping_fare.toInt(), value_shipping_isChecked, adapterPosition)
+                        } else {
+                            onItemUpdate(
+                                value_shipping_name,
+                                value_shipping_fare.toInt(),
+                                value_shipping_isChecked,
+                                adapterPosition
+                            )
                             editText_shipping_name.clearFocus()
                         }
 
@@ -106,16 +107,26 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
 
                         value_shipping_name = editText_shipping_name.text.toString()
                         value_shipping_fare = editText_shipping_fare.text.toString()
-                        value_shipping_isChecked = switch_view.isChecked
+                        value_shipping_isChecked = switch_view.isOpened()
 
-                        if(value_shipping_fare==""){
-                            value_shipping_fare="0"
-                            onItemUpdate(value_shipping_name, value_shipping_fare.toInt(), value_shipping_isChecked, adapterPosition)
+                        if (value_shipping_fare == "") {
+                            value_shipping_fare = "0"
+                            onItemUpdate(
+                                value_shipping_name,
+                                value_shipping_fare.toInt(),
+                                value_shipping_isChecked,
+                                adapterPosition
+                            )
 
 
-                        }else{
+                        } else {
 
-                            onItemUpdate(value_shipping_name, value_shipping_fare.toInt(), value_shipping_isChecked, adapterPosition)
+                            onItemUpdate(
+                                value_shipping_name,
+                                value_shipping_fare.toInt(),
+                                value_shipping_isChecked,
+                                adapterPosition
+                            )
 
                         }
                         editText_shipping_fare.clearFocus()
@@ -130,38 +141,54 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
             imgv_delFare.setOnClickListener(this)
 
             //打開switch_view則增加空白item，關掉則刪除空白item
-            switch_view.setOnCheckedChangeListener(OnCheckedChangeListener { switchView, isChecked ->
-                if(isChecked){
+            switch_view.setOnStateChangedListener(object : EasySwitcher.SwitchStateChangedListener {
+                override fun onStateChanged(isOpen: Boolean) {
+                    if (isOpen) {
 
-                    value_shipping_name = editText_shipping_name.text.toString()
-                    value_shipping_fare = editText_shipping_fare.text.toString()
+                        value_shipping_name = editText_shipping_name.text.toString()
+                        value_shipping_fare = editText_shipping_fare.text.toString()
 
-                    if(value_shipping_name==""){
-                        Toast.makeText(itemView.context, "請先填入自訂項目名稱", Toast.LENGTH_SHORT).show()
-                        switch_view.isChecked = false
-                    }else{
+                        if (value_shipping_name == "") {
+                            Toast.makeText(itemView.context, "請先填入自訂項目名稱", Toast.LENGTH_SHORT)
+                                .show()
+                            switch_view.closeSwitcher()
+                        } else {
 
-                        value_shipping_isChecked = true
+                            value_shipping_isChecked = true
 
-                        onItemUpdate(value_shipping_name, value_shipping_fare.toInt(), value_shipping_isChecked, adapterPosition)
+                            onItemUpdate(
+                                value_shipping_name,
+                                value_shipping_fare.toInt(),
+                                value_shipping_isChecked,
+                                adapterPosition
+                            )
 
-                        addEmptyItem()
+                            addEmptyItem()
+
+                        }
+
+                    } else {
+
+                        value_shipping_name = editText_shipping_name.text.toString()
+                        value_shipping_fare = editText_shipping_fare.text.toString()
+
+                        value_shipping_isChecked = false
+
+                        onItemUpdate(
+                            value_shipping_name,
+                            value_shipping_fare.toInt(),
+                            value_shipping_isChecked,
+                            adapterPosition
+                        )
+
+                        delEmptyItem()
 
                     }
-
-                }else{
-
-                    value_shipping_name = editText_shipping_name.text.toString()
-                    value_shipping_fare = editText_shipping_fare.text.toString()
-
-                    value_shipping_isChecked =false
-
-                    onItemUpdate(value_shipping_name, value_shipping_fare.toInt(), value_shipping_isChecked,adapterPosition)
-
-                    delEmptyItem()
-
                 }
             })
+
+
+
 
 
         }
@@ -172,11 +199,12 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
             imgv_delFare.setImageResource(item.btn_delete)
             editText_shipping_name.setText(item.ship_method_name)
             editText_shipping_fare.setText(item.ship_method_fare.toString())
-            switch_view.isChecked = item.is_checked
 
-            Log.d("checkSwitch",  switch_view.isChecked.toString())
-
-
+            if(item.is_checked==true) {
+                switch_view.openSwitcher()
+            }else{
+                switch_view.closeSwitcher()
+            }
 
             if(item.is_checked){
 
@@ -240,7 +268,14 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
         }
 
         if(empty_item_num == 0 ){
-            mutableList_shipMethod.add(ItemShippingFare("",0, R.drawable.custom_unit_transparent, false))
+            mutableList_shipMethod.add(
+                ItemShippingFare(
+                    "",
+                    0,
+                    R.drawable.custom_unit_transparent,
+                    false
+                )
+            )
 
             notifyDataSetChanged()
         }
@@ -263,7 +298,14 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
         }
 
         if(empty_item_num>1){
-            mutableList_shipMethod.remove(ItemShippingFare("", 0,R.drawable.custom_unit_transparent,false))
+            mutableList_shipMethod.remove(
+                ItemShippingFare(
+                    "",
+                    0,
+                    R.drawable.custom_unit_transparent,
+                    false
+                )
+            )
             notifyDataSetChanged()
         }
 
@@ -280,13 +322,26 @@ class ShippingFareAdapter: RecyclerView.Adapter<ShippingFareAdapter.mViewHolder>
     }
 
 
-    fun onItemUpdate(update_txt: String, update_fare : Int, is_checked : Boolean,position: Int) {
+    fun onItemUpdate(update_txt: String, update_fare: Int, is_checked: Boolean, position: Int) {
 
-        mutableList_shipMethod[position] = ItemShippingFare(update_txt,update_fare, R.drawable.custom_unit_transparent, is_checked)
+        mutableList_shipMethod[position] = ItemShippingFare(
+            update_txt,
+            update_fare,
+            R.drawable.custom_unit_transparent,
+            is_checked
+        )
 
-        notifyItemChanged(position)
+        Thread(Runnable {
 
-//        storeStatus()
+            activity.runOnUiThread {
+
+                notifyItemChanged(position)
+
+            }
+
+        }).start()
+
+
     }
 
 

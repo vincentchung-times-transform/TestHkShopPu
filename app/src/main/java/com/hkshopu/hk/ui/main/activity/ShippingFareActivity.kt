@@ -34,7 +34,7 @@ class ShippingFareActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityShippingFareBinding
 
-    val mAdapters_shippingFare = ShippingFareAdapter()
+    val mAdapters_shippingFare = ShippingFareAdapter(this)
     var mutableList_itemShipingFare = mutableListOf<ItemShippingFare>()
 
     var weight_check = false

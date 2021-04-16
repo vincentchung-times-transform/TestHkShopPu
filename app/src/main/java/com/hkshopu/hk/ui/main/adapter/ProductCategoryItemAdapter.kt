@@ -109,47 +109,38 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
         //預設第一個項目為selected
         if(position == last_position) {
+
             holder.item_selected_icon.visibility = View.VISIBLE
             holder.item_unselected_icon.visibility = View.INVISIBLE
             holder.item_txt.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
 
         }else{
+
             holder.item_selected_icon.visibility = View.INVISIBLE
             holder.item_unselected_icon.visibility = View.VISIBLE
             holder.item_txt.setTextColor(Color.parseColor("#C4C4C4"))
 
         }
 
-
-
         holder.itemView.setOnClickListener {
 
             val category_item_selected = product_category_list.get(position)
             var c_product_category_selected = category_item_selected.c_product_category
 
+
             var selected_item_id = holder.adapterPosition + 1
             RxBus.getInstance().post(EventProductCatSelected(selected_item_id, c_product_category_selected))
 
             if(position != last_position) {
+
                 holder.item_selected_icon.visibility = View.VISIBLE
                 holder.item_unselected_icon.visibility = View.INVISIBLE
                 holder.item_txt.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
-
 
                 notifyItemChanged(last_position)
                 last_position = position
 
             }
-
-
-            //儲存在local端"新增商品分類"資料
-//            val sharedPreferences : SharedPreferences = holder.itemView.context.getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
-//            val editor : SharedPreferences.Editor = sharedPreferences.edit()
-//            editor.apply {
-//                putString("c_product_category", c_product_category.toString())
-//
-//            }.apply()
-
 
         }
 
@@ -165,9 +156,6 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
         notifyItemRemoved(position)
 
     }
-
-
-
 
 
     fun LoadImageFromWebURL(url: String?): Drawable? {

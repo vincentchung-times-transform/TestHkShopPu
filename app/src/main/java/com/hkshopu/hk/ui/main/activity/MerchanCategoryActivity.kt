@@ -53,7 +53,6 @@ class MerchanCategoryActivity : BaseActivity() {
         binding = ActivityMerchanCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         initView()
         initEvent()
     }
@@ -77,17 +76,14 @@ class MerchanCategoryActivity : BaseActivity() {
     //新增主選單項目
     fun generateProductCategoryItems() {
 
-        Thread(Runnable {
-            runOnUiThread {
-                getShopCategory(url)
-                try {
-                    Thread.sleep(1000)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
+        binding.rViewCategoryItem.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rViewCategoryItem.adapter = mAdapters_ProCateItem
 
-                binding.rViewCategoryItem.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-                binding.rViewCategoryItem.adapter = mAdapters_ProCateItem
+        Thread(Runnable {
+
+            getShopCategory(url)
+
+            runOnUiThread {
 
                 mAdapters_ProCateItem.updateList(product_category_list)
                 mAdapters_ProCateItem.notifyDataSetChanged()
@@ -113,6 +109,7 @@ class MerchanCategoryActivity : BaseActivity() {
                     Log.d("ShopmenuActivity", "返回資料 resStr：" + resStr)
                     Log.d("ShopmenuActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
+
                     if (ret_val.equals("已取得產品分類清單!")) {
 
                         val translations: JSONArray = json.getJSONArray("product_category_list")
@@ -134,11 +131,9 @@ class MerchanCategoryActivity : BaseActivity() {
                             "返回資料 product_category_list：" + product_category_list.toString()
                         )
 
-
                     } else {
                         Log.d("ShopmenuActivity", "您尚未新增任何產品分類!")
                     }
-
 
                 } catch (e: JSONException) {
                     Log.d("ShopmenuActivity", e.toString())
@@ -160,12 +155,15 @@ class MerchanCategoryActivity : BaseActivity() {
 
     //新增子選單項目
     fun generateSubProductCategoryItems() {
-        binding.rViewCategorySubItem.layoutManager = GridLayoutManager(this, 3)
-        binding.rViewCategorySubItem.adapter = mAdapters_SubProCateItem
+
+
 
         Thread(Runnable {
 
             getSubProductCategory(sub_url)
+
+            binding.rViewCategorySubItem.layoutManager = GridLayoutManager(this, 3)
+            binding.rViewCategorySubItem.adapter = mAdapters_SubProCateItem
 
             //預設篩選product_category_id為1的子項目
             selected_product_child_category_list = product_child_category_list.filter {
@@ -173,6 +171,8 @@ class MerchanCategoryActivity : BaseActivity() {
                     1
                 )
             } as MutableList<ProductChildCategoryBean>
+
+            selected_product_child_category_list
 
             runOnUiThread {
 
@@ -251,27 +251,28 @@ class MerchanCategoryActivity : BaseActivity() {
             .subscribe({
                 when (it) {
                     is EventProductCatSelected -> {
+
                         selectedId = it.selectrdId
                         c_product_category = it.c_product_category
 
-                        selected_product_child_category_list = product_child_category_list.filter {
-                            it.product_category_id.equals(
-                                selectedId
-                            )
-                        } as MutableList<ProductChildCategoryBean>
 
+                        Thread(Runnable {
 
-                        Log.d(
-                            "ShopmenuActivity",
-                            " test ${selectedId} : " + selected_product_child_category_list.toString()
-                        )
+                            selected_product_child_category_list = product_child_category_list.filter {
+                                it.product_category_id.equals(
+                                    selectedId
+                                )
+                            } as MutableList<ProductChildCategoryBean>
 
-                        mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
-                        mAdapters_SubProCateItem.set_c_name(c_product_category)
-                        mAdapters_SubProCateItem.notifyDataSetChanged()
+                            runOnUiThread {
 
+                                mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
+                                mAdapters_SubProCateItem.set_c_name(c_product_category)
+                                mAdapters_SubProCateItem.notifyDataSetChanged()
 
+                            }
 
+                        }).start()
 
                     }
 
@@ -281,9 +282,5 @@ class MerchanCategoryActivity : BaseActivity() {
             })
 
     }
-
-
-
-
 
 }

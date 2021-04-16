@@ -49,11 +49,20 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
             }
             override fun afterTextChanged(s: Editable?) {
+                if(s.toString() == ""){
+                    binding.btnNextStep.isEnabled = false
+                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
+                }else{
+                    binding.btnNextStep.isEnabled = true
+                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
 
+                }
             }
         }
         binding.editTextProductSpecFirst.addTextChangedListener(textWatcher)
@@ -64,7 +73,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         binding.editTextProductSpecFirst.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-
 
                     binding.editTextProductSpecFirst.hideKeyboard()
                     binding.editTextProductSpecFirst.clearFocus()
@@ -124,10 +132,14 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         }
 
         binding.btnClearAllSpec.setOnClickListener {
+
+            binding.editTextProductSpecFirst.setText("")
             clearAllSpecItem()
 
         }
         binding.btnClearAllSize.setOnClickListener {
+
+            binding.editTextProductSpecFirst.setText("")
             clearAllSizeItem()
 
         }
@@ -169,43 +181,53 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 if(EDIT_MODE_SPEC=="0"){
 
-                    Thread(Runnable {
+                    if(mAdapters_spec.get_check_empty() == true && mutableList_spec.size >0 ){
+                        Toast.makeText(this, "請先完成輸入才能新增下個項目", Toast.LENGTH_SHORT).show()
+                    }else{
 
-                        mutableList_spec = mAdapters_spec.get_spec_list()
-                        mutableList_spec.add(ItemSpecification("", R.drawable.custom_unit_transparent))
+                        Thread(Runnable {
 
-                        runOnUiThread {
-                            //更新或新增item
-                            mAdapters_spec.updateList(mutableList_spec)
-                            mAdapters_spec.notifyDataSetChanged()
+                            mutableList_spec = mAdapters_spec.get_spec_list()
+                            mutableList_spec.add(ItemSpecification("", R.drawable.custom_unit_transparent))
 
-                            //監控nextStep狀態並enable或disable nextStepBtnStatus
-                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                            changeStatusOfNextStepBtn(nextStepBtnStatus)
+                            runOnUiThread {
+                                //更新或新增item
+                                mAdapters_spec.updateList(mutableList_spec)
+                                mAdapters_spec.notifyDataSetChanged()
 
-                        }
+                                //監控nextStep狀態並enable或disable nextStepBtnStatus
+                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                                changeStatusOfNextStepBtn(nextStepBtnStatus)
 
-                    }).start()
+                            }
+
+                        }).start()
+                    }
+
 
                 }else{
 
-                    Thread(Runnable {
+                    if(mAdapters_spec.get_check_empty() == true && mutableList_spec.size >0 ){
+                        Toast.makeText(this, "請先完成輸入才能新增下個項目", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Thread(Runnable {
 
-                        mutableList_spec.add(ItemSpecification("", R.mipmap.btn_cancel))
+                            mutableList_spec.add(ItemSpecification("", R.mipmap.btn_cancel))
 
-                        runOnUiThread {
+                            runOnUiThread {
 
-                            //更新或新增item
-                            mAdapters_spec.updateList(mutableList_spec)
-                            mAdapters_spec.notifyDataSetChanged()
+                                //更新或新增item
+                                mAdapters_spec.updateList(mutableList_spec)
+                                mAdapters_spec.notifyDataSetChanged()
 
-                            //監控nextStep狀態並enable或disable nextStepBtnStatus
-                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                            changeStatusOfNextStepBtn(nextStepBtnStatus)
+                                //監控nextStep狀態並enable或disable nextStepBtnStatus
+                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                                changeStatusOfNextStepBtn(nextStepBtnStatus)
 
-                        }
+                            }
 
-                    }).start()
+                        }).start()
+                    }
 
                 }
 
@@ -227,9 +249,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             binding.btnEditspecificationEnableSpec.isVisible = false
             binding.btnEditspecificationDisableSpec.isEnabled = true
             binding.btnEditspecificationDisableSpec.isVisible = true
-
-
-
 
             Thread(Runnable {
 
@@ -300,46 +319,63 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             if (mutableList_size.size<3){
 
                 if(EDIT_MODE_SIZE == "0") {
-                    Thread(Runnable {
 
-                        mutableList_size = mAdapter_size.get_size_list()
-                        mutableList_size.add(ItemSpecification("", R.drawable.custom_unit_transparent))
+                    if(mAdapter_size.get_check_empty() == true && mutableList_size.size >0 ){
+                        Toast.makeText(this,"請先完成輸入才能新增項目", Toast.LENGTH_SHORT).show()
 
-                        runOnUiThread {
+                    }else{
+                        Thread(Runnable {
 
-                            //更新或新增item
-                            mAdapter_size.updateList(mutableList_size)
-                            mAdapter_size.notifyDataSetChanged()
+                            mutableList_size = mAdapter_size.get_size_list()
+                            mutableList_size.add(ItemSpecification("", R.drawable.custom_unit_transparent))
 
-                            //監控nextStep狀態並enable或disable nextStepBtnStatus
-                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                            changeStatusOfNextStepBtn(nextStepBtnStatus)
-                        }
+                            runOnUiThread {
 
-                    }).start()
+                                //更新或新增item
+                                mAdapter_size.updateList(mutableList_size)
+                                mAdapter_size.notifyDataSetChanged()
+
+                                //監控nextStep狀態並enable或disable nextStepBtnStatus
+                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                            }
+
+                        }).start()
+
+                    }
+
 
 
                 }else{
 
 
-                    Thread(Runnable {
+                    if(mAdapter_size.get_check_empty() == true && mutableList_size.size >0 ){
+                        Toast.makeText(this,"請先完成輸入才能新增項目", Toast.LENGTH_SHORT).show()
 
-                        mutableList_size = mAdapter_size.get_size_list()
-                        mutableList_size.add(ItemSpecification("", R.mipmap.btn_cancel))
+                    }else{
 
-                        runOnUiThread {
+                        Thread(Runnable {
 
-                            //更新或新增item
-                            mAdapter_size.updateList(mutableList_size)
-                            mAdapter_size.notifyDataSetChanged()
+                            mutableList_size = mAdapter_size.get_size_list()
+                            mutableList_size.add(ItemSpecification("", R.mipmap.btn_cancel))
 
-                            //監控nextStep狀態並enable或disable nextStepBtnStatus
-                            nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                            changeStatusOfNextStepBtn(nextStepBtnStatus)
-                        }
+                            runOnUiThread {
+
+                                //更新或新增item
+                                mAdapter_size.updateList(mutableList_size)
+                                mAdapter_size.notifyDataSetChanged()
+
+                                //監控nextStep狀態並enable或disable nextStepBtnStatus
+                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
+                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                            }
 
 
-                    }).start()
+                        }).start()
+
+                    }
+
+
 
                 }
 

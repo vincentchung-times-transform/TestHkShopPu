@@ -34,7 +34,7 @@ class ApiConstants private constructor() {
         var APP_ID : String? = null
         var HOTFIX : Int = 0
 
-        const val API_PATH = ""
+        const val API_PATH = "https://hkshopu-20700.df.r.appspot.com/"
 
     }
 }

@@ -49,4 +49,8 @@ interface AuthService{
     @POST("${ApiConstants.API_PATH}user/resetPasswordProcess/")
     fun reset_password(@Field("email") email : String,@Field("password") password : String, @Field("confirm_password") confirm_password:String) : Observable<BaseResponse<Any>>
 
+    @FormUrlEncoded
+    @POST("${ApiConstants.API_PATH}product/save/")
+    fun add_product(@Field("shop_id") shop_id : Int,@Field("product_category_id") product_category_id : Int, @Field("product_sub_category_id") product_sub_category_id: Int, @Field("product_title") product_title: String, @Field("quantity") quantity: Int, @Field("product_description") product_description: String, @Field("product_price") product_price: Int, @Field("shipping_fee") shipping_fee: Int, @Field("weight") weight: Int, @Field("new_secondhand") new_secondhand: String, @Field("product_id") product_id: Int, @Field("product_pic") product_pic: MutableList<Any>) : Observable<BaseResponse<Any>>
+
 }

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.zilchzz:EasySwitcher:0.1.7@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c54373f9e044e8c8bb11802b8c9bd04f/jetified-EasySwitcher-0.1.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c54373f9e044e8c8bb11802b8c9bd04f/jetified-EasySwitcher-0.1.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c54373f9e044e8c8bb11802b8c9bd04f/jetified-EasySwitcher-0.1.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.zilchzz/EasySwitcher/0.1.7/90a21586cb3b1937ce91c37d4b96bcf4a228bf8b/EasySwitcher-0.1.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

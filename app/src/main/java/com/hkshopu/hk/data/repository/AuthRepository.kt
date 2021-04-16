@@ -106,6 +106,13 @@ class AuthRepository : BaseRepository(){
     }
 
 
+    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_id :Int, product_pic : MutableList<Any>) : Observable<Any>{
+        return service.add_product(shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_id, product_pic)
+            .compose(SchedulersUtil.applySchedulers())
+            .bindUntilEvent(lifecycleOwner,Lifecycle.Event.ON_DESTROY)
+            .compose(handleBean())
+    }
+
 
 
 }

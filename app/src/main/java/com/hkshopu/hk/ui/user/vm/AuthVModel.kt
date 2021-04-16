@@ -22,6 +22,7 @@ class AuthVModel : BaseViewModel() {
     val generateAndSendVerificationCodeData = MediatorLiveData<UIDataBean<Any>>()
     val authenticationCodeData = MediatorLiveData<UIDataBean<Any>>()
     val resetPasswordLiveData = MediatorLiveData<UIDataBean<Any>>()
+    val addProductData = MediatorLiveData<UIDataBean<Any>>()
 
     fun sociallogin(lifecycleOwner: LifecycleOwner,email: String, facebook_account: String, google_account: String,apple_account: String) {
         repository.sociallogin(lifecycleOwner, email,facebook_account, google_account,apple_account)
@@ -70,6 +71,11 @@ class AuthVModel : BaseViewModel() {
     fun reset_password(lifecycleOwner: LifecycleOwner, email: String, password: String, confirm_password : String) {
         repository.reset_password(lifecycleOwner, email, password, confirm_password)
                 .subscribe(StatusResourceObserver(resetPasswordLiveData, silent = false))
+    }
+
+    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_id :Int, product_pic : MutableList<Any>) {
+        repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_id, product_pic)
+            .subscribe(StatusResourceObserver(addProductData, silent = false))
     }
 
 }

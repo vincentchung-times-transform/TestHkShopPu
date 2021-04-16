@@ -23,6 +23,8 @@
                 android:layout_height="41dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:paddingLeft="10dp"
                 android:paddingRight="20dp">
 
@@ -71,11 +73,16 @@
                     android:layout_width="50dp"
                     android:layout_marginLeft="20dp">
 
-                    <vn.luongvo.widget.iosswitchview.SwitchView
-                        android:id="@+id/ios_switch"
-                        android:layout_width="50dp"
+                    <com.zilchzz.library.widgets.EasySwitcher
+                        android:id="@+id/mEasySwitcher"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="visible" />
+                        app:sbAnimTime="300"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbDefaultOpened="false"
+                        app:sbToggleColor="@android:color/white"  />
+
                 </RelativeLayout>
 
 
@@ -110,11 +117,6 @@
 <!--            </LinearLayout>-->
         </LinearLayout>
 
-
-
-
     </LinearLayout>
-
-
 
 </LinearLayout>

@@ -34,7 +34,8 @@
         <activity
             android:name=".ui.main.activity.ShippingFareActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.main.activity.InventoryAndPriceActivity" />
+        <activity android:name=".ui.main.activity.InventoryAndPriceActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".ui.main.activity.AddProductSpecificationMainActivity"
             android:windowSoftInputMode="adjustPan"/>
         <activity

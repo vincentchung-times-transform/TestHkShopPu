@@ -17,8 +17,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ItemShippingFare
 import com.hkshopu.hk.widget.view.enable
 import org.jetbrains.anko.singleLine
-import vn.luongvo.widget.iosswitchview.SwitchView
-import vn.luongvo.widget.iosswitchview.SwitchView.OnCheckedChangeListener
+
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -20,6 +20,8 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
     lateinit var customSpecName: String
     var nextStepBtnStatus  = false
 
+    var check_empty: Boolean = true
+
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
@@ -28,8 +30,8 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
         val editTextView = itemView.findViewById<EditText>(R.id.edt_specification_text)
 
         init {
-            image.setOnClickListener(this)
 
+            image.setOnClickListener(this)
 
             val textWatcher = object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -37,7 +39,11 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
                 override fun afterTextChanged(s: Editable?) {
-
+                    if(s.toString()==""){
+                        check_empty = true
+                    }else{
+                        check_empty = false
+                    }
                 }
             }
             editTextView.addTextChangedListener(textWatcher)
@@ -144,6 +150,10 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
 
     fun get_datas_spec_size(): Int {
         return unAssignList.size
+    }
+
+    fun get_check_empty(): Boolean {
+        return check_empty
     }
 
 

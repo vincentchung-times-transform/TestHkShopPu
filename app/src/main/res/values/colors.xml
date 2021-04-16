@@ -35,6 +35,7 @@
     <color name="transparent">#FFFFFFFF</color>
     <color name="editbox_color">#E5E5EA</color>
     <color name="hkshop_color">#1DBCCF</color>
+    <color name="hkshop_color_shadow">#1A1DBCCF</color>
     <color name="gray_txt">#8E8E93</color>
     <color name="dark_gray_txt">#48484A</color>
     <color name="hkshop_color_bg">#1A1DBCCF</color>

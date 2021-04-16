@@ -22,6 +22,8 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
     lateinit var customSpecName: String
     var nextStepBtnStatus  = false
 
+    var check_empty: Boolean  = true
+
     //資料變數宣告
     var value_spec : String = ""
 
@@ -43,7 +45,11 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
                 override fun afterTextChanged(s: Editable?) {
-
+                    if(s.toString()==""){
+                        check_empty = true
+                    }else{
+                        check_empty = false
+                    }
                 }
             }
             editTextView.addTextChangedListener(textWatcher)
@@ -149,5 +155,7 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
         return unAssignList.size
     }
 
-
+    fun get_check_empty(): Boolean {
+        return check_empty
+    }
 }

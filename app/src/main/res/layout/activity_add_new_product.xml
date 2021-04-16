@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hkshop_color_bg"
+    android:background="@color/white"
     tools:context=".ui.main.activity.AddNewProductActivity">
     <RelativeLayout
         android:id="@+id/titleBar"
@@ -51,6 +51,8 @@
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
                 android:paddingBottom="10dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:orientation="horizontal">
                 <ImageView
@@ -73,6 +75,8 @@
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
                 <TextView
                     android:id="@+id/txtView_productname"
@@ -97,6 +101,8 @@
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
                 <TextView
                     android:id="@+id/txtView_productdescription"
@@ -123,6 +129,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
                 <TextView
                     android:layout_width="match_parent"
@@ -149,6 +157,8 @@
                 android:layout_height="60dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:gravity="center_vertical"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/customborder_addproduct">
@@ -178,6 +188,8 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:textSize="15sp"
+                        android:elevation="10dp"
+                        android:outlineSpotShadowColor="@color/hkshop_color"
                         android:layout_marginRight="2dp"
                         android:layout_weight="1"/>
                     <TextView
@@ -201,15 +213,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:orientation="vertical">
+
                 <LinearLayout
+                    android:id="@+id/container_product_spec_switch"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginTop="8dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:background="@drawable/customborder_addproduct">
@@ -219,21 +234,30 @@
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="@string/txtview_specification"/>
-                    <vn.luongvo.widget.iosswitchview.SwitchView
+
+                    <com.zilchzz.library.widgets.EasySwitcher
                         android:id="@+id/ios_switch_specification"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_width="50dp"
-                        android:visibility="visible"/>
+                        app:sbAnimTime="300"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbDefaultOpened="false"
+                        app:sbToggleColor="@android:color/white"  />
+
 
                 </LinearLayout>
+
                 <ImageView
                     android:id="@+id/img_spec_line"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:elevation="10dp"
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/description_line"/>
+
                 <LinearLayout
-                    android:id="@+id/add_container_add_specification"
+                    android:id="@+id/container_add_specification"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:orientation="horizontal"
@@ -259,12 +283,14 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/container_product_spec_price"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:paddingRight="30dp"
                     android:background="@drawable/customborder_addproduct">
                     <TextView
@@ -302,11 +328,13 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/container_product_spec_quant"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
+                    android:outlineSpotShadowColor="@color/transparent"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:background="@drawable/customborder_addproduct">
@@ -347,15 +375,20 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/container_shipping_fare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/container_shipping_fare"
+                    android:id="@+id/container_shipping_fare_click"
                     android:layout_width="match_parent"
                     android:layout_height="41dp"
+                    android:background="@drawable/customborder_addproduct"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:paddingLeft="30dp"
@@ -392,6 +425,7 @@
                     android:id="@+id/r_view_fare_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:layout_below="@id/titleBar" />
@@ -408,6 +442,8 @@
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:elevation="10dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp">
 
@@ -428,6 +464,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="41dp"
                 android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -461,6 +499,8 @@
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp">
                 <ImageView
@@ -476,11 +516,16 @@
                     android:text="@string/txtview_sharetofb"
                     android:textColor="@color/black" />
 
-                <vn.luongvo.widget.iosswitchview.SwitchView
+                <com.zilchzz.library.widgets.EasySwitcher
                     android:id="@+id/ios_switch_fb"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="50dp"
-                    android:visibility="visible"/>
+                    app:sbAnimTime="300"
+                    app:sbCloseBgColor="#d9d9d9"
+                    app:sbOpenBgColor="#34C759"
+                    app:sbDefaultOpened="false"
+                    app:sbToggleColor="@android:color/white"  />
+
 
             </LinearLayout>
 
@@ -492,6 +537,8 @@
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp">
 
@@ -508,11 +555,16 @@
                     android:text="@string/txtview_sharetoig"
                     android:textColor="@color/black" />
 
-                <vn.luongvo.widget.iosswitchview.SwitchView
+                <com.zilchzz.library.widgets.EasySwitcher
                     android:id="@+id/ios_switch_ig"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="50dp"
-                    android:visibility="visible"/>
+                    app:sbAnimTime="300"
+                    app:sbCloseBgColor="#d9d9d9"
+                    app:sbOpenBgColor="#34C759"
+                    app:sbDefaultOpened="false"
+                    app:sbToggleColor="@android:color/white"  />
+
 
             </LinearLayout>
 

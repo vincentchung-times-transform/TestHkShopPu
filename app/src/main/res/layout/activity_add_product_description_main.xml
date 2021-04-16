@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.main.activity.AddProductSpecificationMainActivity">
 
     <RelativeLayout
@@ -45,6 +46,8 @@
         android:layout_height="wrap_content"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
+        android:elevation="10dp"
+        android:outlineSpotShadowColor="@color/hkshop_color"
         android:layout_marginTop="20dp"
         android:background="@drawable/customborder_addproduct"
         android:layout_below="@+id/titleBar"
@@ -120,6 +123,8 @@
         android:layout_marginTop="20dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
+        android:elevation="10dp"
+        android:outlineSpotShadowColor="@color/hkshop_color"
         android:background="@drawable/customborder_addproduct"
         android:layout_below="@+id/first_container"
         android:orientation="vertical">
