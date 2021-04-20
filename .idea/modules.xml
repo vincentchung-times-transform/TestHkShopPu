@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/HKShopU.iml" filepath="$PROJECT_DIR$/.idea/modules/HKShopU.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/new-android.HKShopU.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/new-android.HKShopU.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/TestHKShopPu.HKShopU.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/TestHKShopPu.HKShopU.app.iml" />
     </modules>
   </component>
 </project>

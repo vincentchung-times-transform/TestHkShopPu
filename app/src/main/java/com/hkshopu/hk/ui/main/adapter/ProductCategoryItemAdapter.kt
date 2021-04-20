@@ -79,7 +79,7 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
         //載入項目模板
         val inflater = LayoutInflater.from(parent.context)
-        val example = inflater.inflate(R.layout.item_shopcategory, parent, false)
+        val example = inflater.inflate(R.layout.item_products_category, parent, false)
         return mViewHolder(example)
 
     }

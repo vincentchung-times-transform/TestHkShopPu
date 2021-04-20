@@ -169,7 +169,7 @@ class MerchanCategoryActivity : BaseActivity() {
             getSubProductCategory(sub_url)
 
             try{
-                Thread.sleep(500)
+                Thread.sleep(750)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
@@ -181,7 +181,6 @@ class MerchanCategoryActivity : BaseActivity() {
                     1
                 )
             } as MutableList<ProductChildCategoryBean>
-
 
 
             runOnUiThread {
