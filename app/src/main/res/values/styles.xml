@@ -88,10 +88,10 @@
     </style>
 
     <style name="hintText" parent="android:TextAppearance">
-        <item name="android:textColorHint">@color/black_hint</item>
+        <item name="android:textColorHint">@color/dark_gray</item>
     </style>
     <style name="DateTimeDialogTheme" parent="@style/Theme.AppCompat.Light.Dialog">
-        <item name="colorAccent">@color/black_hint</item>
+        <item name="colorAccent">@color/dark_gray</item>
     </style>
     <style name="CustomTabText" parent="TextAppearance.Design.Tab"> 22sp bold </style>
 

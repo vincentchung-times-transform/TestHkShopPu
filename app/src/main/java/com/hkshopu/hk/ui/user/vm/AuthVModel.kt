@@ -18,15 +18,11 @@ class AuthVModel : BaseViewModel() {
     val verifycodeLiveData = MediatorLiveData<UIDataBean<Any>>()
     val emailverifyLiveData = MediatorLiveData<UIDataBean<Any>>()
     val emailcheckLiveData = MediatorLiveData<UIDataBean<Any>>()
-    val resetLiveData = MediatorLiveData<UIDataBean<Any>>()
-    val generateAndSendVerificationCodeData = MediatorLiveData<UIDataBean<Any>>()
-    val authenticationCodeData = MediatorLiveData<UIDataBean<Any>>()
     val resetPasswordLiveData = MediatorLiveData<UIDataBean<Any>>()
-    val addProductData = MediatorLiveData<UIDataBean<Any>>()
 
     fun sociallogin(lifecycleOwner: LifecycleOwner,email: String, facebook_account: String, google_account: String,apple_account: String) {
         repository.sociallogin(lifecycleOwner, email,facebook_account, google_account,apple_account)
-                .subscribe(StatusResourceObserver(socialloginLiveData, silent = false))
+            .subscribe(StatusResourceObserver(socialloginLiveData, silent = false))
     }
 
     fun register(lifecycleOwner: LifecycleOwner, account_name : String,email : String,password : String,confirm_password : String,first_name : String,last_name : String,gender : String,birthday : String,phone : String, address: String,region: String,district: String,street_name: String,street_no: String,floor: String,room: String) {
@@ -36,11 +32,11 @@ class AuthVModel : BaseViewModel() {
 
     fun login(lifecycleOwner: LifecycleOwner, phone: String, password: String) {
         repository.login(lifecycleOwner, phone, password)
-                .subscribe(StatusResourceObserver(loginLiveData, silent = false))
+            .subscribe(StatusResourceObserver(loginLiveData, silent = false))
     }
 
-    fun verifycode(lifecycleOwner: LifecycleOwner) {
-        repository.verifycode(lifecycleOwner)
+    fun verifycode(lifecycleOwner: LifecycleOwner,email : String) {
+        repository.verifycode(lifecycleOwner, email)
             .subscribe(StatusResourceObserver(verifycodeLiveData, silent = false))
     }
 
@@ -48,34 +44,16 @@ class AuthVModel : BaseViewModel() {
         repository.emailverify(lifecycleOwner,email,validation_code)
             .subscribe(StatusResourceObserver(emailverifyLiveData, silent = false))
     }
+
     fun emailCheck(lifecycleOwner: LifecycleOwner,email : String) {
         repository.emailcheck(lifecycleOwner,email)
             .subscribe(StatusResourceObserver(emailcheckLiveData, silent = false))
     }
 
-    fun reset(lifecycleOwner: LifecycleOwner, phone: String, password_orig: String, password: String) {
-        repository.reset(lifecycleOwner, phone, password_orig, password)
-                .subscribe(StatusResourceObserver(resetLiveData, silent = false))
-    }
-
-    fun generate_and_send_verification_code(lifecycleOwner: LifecycleOwner) {
-        repository.generate_and_send_verification_code(lifecycleOwner)
-                .subscribe(StatusResourceObserver(generateAndSendVerificationCodeData, silent = false))
-    }
-
-    fun authenticate_email(lifecycleOwner: LifecycleOwner, email: String, validation_code: String) {
-        repository.authenticate_email(lifecycleOwner, email, validation_code)
-                .subscribe(StatusResourceObserver(authenticationCodeData, silent = false))
-    }
 
     fun reset_password(lifecycleOwner: LifecycleOwner, email: String, password: String, confirm_password : String) {
         repository.reset_password(lifecycleOwner, email, password, confirm_password)
-                .subscribe(StatusResourceObserver(resetPasswordLiveData, silent = false))
-    }
-
-    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_id :Int, product_pic : MutableList<Any>) {
-        repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_id, product_pic)
-            .subscribe(StatusResourceObserver(addProductData, silent = false))
+            .subscribe(StatusResourceObserver(resetPasswordLiveData, silent = false))
     }
 
 }

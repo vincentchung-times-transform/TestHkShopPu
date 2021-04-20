@@ -41,7 +41,7 @@ class StatusResourceObserver<T>(private var uiLiveData: MediatorLiveData<UIDataB
             success?.invoke(t)
         } else {
             dataBean.status = Status.Success
-            dataBean.data = t
+            dataBean.ret_val= t
             uiLiveData.value = dataBean
         }
         onComplete()
@@ -88,7 +88,7 @@ class StatusResourceObserver<T>(private var uiLiveData: MediatorLiveData<UIDataB
             is RequestException -> {
                 if (e.status == RequestException.ERROR_REQUEST_SUCCESS_BUT_RETURN_NULL) {
                     dataBean.status = Status.Success
-                    dataBean.data = null
+                    dataBean.ret_val = null
                     uiLiveData.value = dataBean
                     return
                 }

@@ -139,6 +139,8 @@ dependencies {
     //picasso
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
+    //NiceRatingBar
+    implementation 'com.github.KaelLi1989:NiceRatingBar:1.0.0'
 
 
 }

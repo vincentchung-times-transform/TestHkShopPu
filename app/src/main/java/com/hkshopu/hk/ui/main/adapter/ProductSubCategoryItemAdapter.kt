@@ -1,11 +1,7 @@
 package com.hkshopu.hk.ui.main.adapter
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,27 +10,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.view.isVisible
-import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
 
-import com.hkshopu.hk.component.EventProductCatSelected
-import com.hkshopu.hk.data.bean.ProductCategoryBean
 import com.hkshopu.hk.data.bean.ProductChildCategoryBean
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.ui.main.activity.AddNewProductActivity
-import com.hkshopu.hk.ui.main.activity.MerchanCategoryActivity
-import com.hkshopu.hk.utils.rxjava.RxBus
 import com.squareup.picasso.Picasso
-import java.util.*
 
-class ProductChildCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Adapter<ProductChildCategoryItemAdapter.mViewHolder>()  {
+class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Adapter<ProductSubCategoryItemAdapter.mViewHolder>()  {
 
 
-    lateinit var product_child_category_list : MutableList<ProductChildCategoryBean>
+    var product_child_category_list  = mutableListOf<ProductChildCategoryBean>()
 
     //categoryItem基本資料變數宣告
     var id : Int = 0

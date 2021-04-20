@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="50dp">
 
 
@@ -33,88 +33,75 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_buildacnt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="125dp"
+        android:orientation="vertical">
 
-        <RelativeLayout
-            android:id="@+id/layout_quickreg"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="95dp">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+            <ImageButton
+                android:id="@+id/btn_google_login"
+                android:layout_width="250px"
+                android:layout_height="250px"
+                android:padding="30px"
+                android:background="@color/transparent"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/google_login_logo" />
+            <ImageButton
+                android:id="@+id/btn_facebook_login"
+                android:layout_width="250px"
+                android:layout_height="250px"
+                android:padding="42.5px"
+                android:scaleType="fitCenter"
+                android:background="@color/transparent"
+                android:src="@mipmap/facebook_login"/>
 
-            <ImageView
-                android:id="@+id/iv_google"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="142dp"
-                android:background="@mipmap/ic_google" />
-
-            <ImageView
-                android:id="@+id/iv_fb"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="142dp"
-                android:background="@mipmap/ic_fb" />
-
-        </RelativeLayout>
-
+        </LinearLayout>
         <TextView
             android:id="@+id/tv_regbyemail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/layout_quickreg"
-            android:layout_marginStart="138dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/build_byemail"
             android:textColor="@color/colorTextlightGray"
-            android:textSize="16sp" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:id="@+id/layout_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_regbyemail"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="30dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_marginBottom="10dp">
 
-
-            <LinearLayout
+            <com.hkshopu.hk.widget.view.ETextWithDelete
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/editEmail_reg"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="60dp"
+                android:background="@mipmap/group46"
+                android:hint="@string/hint_email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textColorHint="#48484A"
+                app:delSrc="@mipmap/ic_edit_del_1" />
 
-                <EditText
-                    android:id="@+id/editEmail_reg"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/bg_edit_login"
-                    android:hint="@string/email"
-                    android:inputType="textEmailAddress"
-                    android:paddingLeft="18dp"
-                    android:textColorHint="@color/black_hint"
-                    android:textSize="18sp"
-
-                    />
-            </LinearLayout>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/layout_Pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_Email"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:gravity="center_vertical"
-
-            >
+            android:layout_marginBottom="10dp"
+            android:gravity="center_vertical">
 
             <EditText
                 android:id="@+id/password_reg"
@@ -122,7 +109,7 @@
                 android:layout_height="60dp"
                 android:background="@drawable/bg_edit_login"
                 android:hint="@string/password"
-                android:textColorHint="@color/black_hint"
+                android:textColorHint="@color/dark_gray"
                 android:inputType="textPassword"
                 android:paddingLeft="18dp"
                 android:textSize="18sp"
@@ -144,10 +131,7 @@
             android:id="@+id/layout_Pwd_conf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layout_Pwd"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
             android:gravity="center_vertical">
 
             <EditText
@@ -155,11 +139,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@drawable/bg_edit_login"
-
                 android:hint="@string/passwordconf"
                 android:inputType="textPassword"
                 android:paddingLeft="18dp"
-                android:textColorHint="@color/black_hint"
+                android:textColorHint="@color/dark_gray"
                 android:textSize="18sp" />
 
             <ImageView
@@ -174,26 +157,25 @@
                 android:src="@mipmap/ic_eyeoff" />
         </RelativeLayout>
         <TextView
-            android:id="@+id/tv_pwdremind"
+            android:id="@+id/txtView_pwdremind"
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="10dp"
             android:layout_below="@+id/layout_Pwd_conf"
-            android:layout_marginLeft="27dp"
             android:text="@string/password_notify"
             android:textColor="@color/color_somegray"
             android:textSize="12sp" />
 
-
-        <TextView
-            android:id="@+id/tv_next"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/tv_pwdremind"
-            android:layout_marginLeft="27dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="15dp"
-            android:background="@drawable/bg_next"
+        <ImageButton
+            android:id="@+id/imgView_nextStep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitCenter"
+            android:layout_below="@id/txtView_pwdremind"
+            android:src="@mipmap/next_step_inable"
+            android:background="@color/transparent"
             android:enabled="false"
             android:gravity="center"
             android:text="@string/please_forward"
@@ -204,8 +186,8 @@
             android:layout_width="match_parent"
             android:layout_height="16dp"
             android:layout_below="@+id/tv_next"
-            android:layout_marginTop="16dp"
             android:gravity="center_horizontal"
+
             android:orientation="horizontal">
 
             <TextView
@@ -227,11 +209,13 @@
                 android:textSize="12dp" />
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@mipmap/page_bottom" />
+    </LinearLayout>
 
-    </RelativeLayout>
-</LinearLayout>
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/page_bottom" />
+</RelativeLayout>

@@ -85,26 +85,26 @@ class TermsOfServiceActivity : AppCompatActivity(),  BottomSheeFragment.OnDialog
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
 
-                 override fun onItemSelected(
-                     parent: AdapterView<*>?,
-                     view: View?,
-                     position: Int,
-                     id: Long,
-                 ) {
-                     replaceFragment(list.get(position))
-                 }
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                replaceFragment(list.get(position))
+            }
 
-                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                     TODO("Not yet implemented")
-                 }
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
 
 //                val bottomSheetFragment = BottomSheeFragment()
 //                bottomSheetFragment.listener = this
 //                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
 
-             }
-
         }
+
+    }
 
     override fun onSelectDialog(select: String) {
         TODO("Not yet implemented")

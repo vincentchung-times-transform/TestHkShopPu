@@ -24,7 +24,7 @@
             android:hint="@string/addbrief"
             android:inputType="textPassword"
             android:paddingLeft="18dp"
-            android:textColorHint="@color/black_hint"
+            android:textColorHint="@color/dark_gray"
             android:textSize="18sp" />
 
         <ImageView

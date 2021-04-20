@@ -4,6 +4,7 @@ import MyLinearLayoutManager
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
@@ -14,9 +15,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat.setElevation
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
@@ -25,30 +27,33 @@ import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.data.bean.ItemShippingFare
 import com.hkshopu.hk.databinding.ActivityAddNewProductBinding
 import com.hkshopu.hk.ui.main.adapter.PicsAdapter
-import com.hkshopu.hk.ui.main.adapter.ShippingFareExistedAdapter
+import com.hkshopu.hk.ui.main.adapter.ShippingFareCheckedAdapter
 import com.hkshopu.hk.ui.main.fragment.StoreOrNotDialogFragment
-import com.hkshopu.hk.ui.user.activity.LoginPasswordActivity
-import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.zilchzz.library.widgets.EasySwitcher
-import java.io.FileNotFoundException
-import java.util.Observer
+import java.io.*
 
 
 class AddNewProductActivity : BaseActivity() {
 
-    private val VM = AuthVModel()
-
     private lateinit var binding: ActivityAddNewProductBinding
+
+    private val VM = ShopVModel()
+
+    //從本地端選取圖片轉換為bitmap後存的list
+    var mutableList_pics = mutableListOf<ItemPics>()
+    //用來裝圖片file的list(目前尚未成功)
+    var pic_list : MutableList<File> = mutableListOf()
 
     val REQUEST_EXTERNAL_STORAGE = 100
 
-    var mutableList_pics = mutableListOf<ItemPics>()
-
-    val mAdapters_shippingFareExisted = ShippingFareExistedAdapter()
+    //
+    val mAdapters_shippingFareChecked = ShippingFareCheckedAdapter()
 
     //宣告運費項目陣列變數
     var mutableList_itemShipingFareExisted = mutableListOf<ItemShippingFare>()
     var mutableList_itemShipingFareExisted_filtered = mutableListOf<ItemShippingFare>()
+
     //宣告規格與庫存價格項目陣列變數
 //    var mutableList_itemInvenSpec = mutableListOf<InventoryItemSpec>()
 //    var mutableList_itemInvenSize = mutableListOf<InventoryItemSize>()
@@ -58,7 +63,6 @@ class AddNewProductActivity : BaseActivity() {
     var inven_price_range: String = ""
     var inven_quant_range: String = ""
 
-    var pic_list : MutableList<Any> = mutableListOf()
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,11 +70,6 @@ class AddNewProductActivity : BaseActivity() {
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        //預設containerSpecification的背景為透明無色
-        binding.imgSpecLine.isVisible = false
-        binding.containerAddSpecification.isVisible = false
-        binding.editTextMerchanPrice.isVisible = true
-        binding.editTextMerchanQunt.isVisible = true
 
         initVM()
 
@@ -79,6 +78,43 @@ class AddNewProductActivity : BaseActivity() {
         initProCategoryDatas()
         initProFareDatas()
         initInvenDatas()
+
+
+
+        initView()
+
+    }
+
+    fun initView() {
+
+        //預設containerSpecification的背景為透明無色
+        binding.imgSpecLine.isVisible = false
+        binding.containerAddSpecification.isVisible = false
+        binding.editTextMerchanPrice.isVisible = true
+        binding.editTextMerchanQunt.isVisible = true
+
+        //choose product inventory status
+        binding.tvBrandnew.setBackgroundResource(R.drawable.bg_userinfo_gender)
+        binding.tvSecondhand.setBackgroundResource(R.drawable.bg_edit_login)
+
+
+        //預設較長備貨時間設定
+        binding.editMoreTimeInput.isVisible = false
+        binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
+        binding.needMoreTimeToStockUp.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.editMoreTimeInput.isVisible = true
+
+            } else {
+                binding.editMoreTimeInput.isVisible = false
+
+            }
+        }
+
+        initClick()
+    }
+
+    fun initClick() {
 
         binding.btnAddPics.setOnClickListener {
 
@@ -98,12 +134,6 @@ class AddNewProductActivity : BaseActivity() {
             }
 
         }
-
-        initView()
-
-    }
-
-    fun initView() {
 
         //設置containerSpecification中的iosSwitchSpecification開關功能
         binding.iosSwitchSpecification.setOnStateChangedListener(object :
@@ -149,23 +179,6 @@ class AddNewProductActivity : BaseActivity() {
             }
         })
 
-        //預設較長備貨時間設定
-        binding.editMoreTimeInput.isVisible = false
-        binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
-        binding.needMoreTimeToStockUp.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.editMoreTimeInput.isVisible = true
-
-            } else {
-                binding.editMoreTimeInput.isVisible = false
-
-            }
-        }
-
-        initClick()
-    }
-
-    fun initClick() {
 
         binding.titleBackAddproduct.setOnClickListener {
 
@@ -173,9 +186,7 @@ class AddNewProductActivity : BaseActivity() {
 
         }
 
-        //choose product inventory status
-        binding.tvBrandnew.setBackgroundResource(R.drawable.bg_userinfo_gender)
-        binding.tvSecondhand.setBackgroundResource(R.drawable.bg_edit_login)
+
         binding.tvBrandnew.setOnClickListener {
             binding.tvBrandnew.setBackgroundResource(R.drawable.bg_userinfo_gender)
             binding.tvSecondhand.setBackgroundResource(R.drawable.bg_edit_login)
@@ -212,8 +223,32 @@ class AddNewProductActivity : BaseActivity() {
         }
 
         binding.btnStore.setOnClickListener {
-            Toast.makeText(this, "test", Toast.LENGTH_SHORT).show()
-            VM.add_product(this, 1, 1, 1, "0", 0, "0", 0, 0, 0, "0", 0, pic_list)
+
+
+
+            val gson = Gson()
+            val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+
+            val jsonTutList: String = gson.toJson(mutableList_InvenDatas)
+            Log.d("AddNewProductActivity", jsonTutList.toString())
+            Log.d("AddNewProductActivity","test")
+            val jsonTutListPretty: String = gsonPretty.toJson(mutableList_InvenDatas)
+            Log.d("AddNewProductActivity", jsonTutListPretty.toString())
+
+            var file: File? = null
+
+            for(i in 0..mutableList_pics.size-1){
+
+                file = processImage(mutableList_pics.get(i).bitmap, i)
+
+                pic_list.add(file!!)
+            }
+
+
+            if (file != null) {
+//                VM.add_product(this, 1, 1, 1, "0", 0, "0", 0, 0, 0, "0", pic_list,  jsonTutList,1)
+            }
+
         }
 
     }
@@ -275,8 +310,6 @@ class AddNewProductActivity : BaseActivity() {
                                 //新增所選圖片以及第一張cover image至mutableList_pics中
                                 mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
 
-                                pic_list.add(bitmap)
-
                             } catch (e: FileNotFoundException) {
                                 e.printStackTrace()
                             }
@@ -298,7 +331,6 @@ class AddNewProductActivity : BaseActivity() {
                                     )
                                 )
 
-                                pic_list.add(bitmap)
 
 
                             } catch (e: FileNotFoundException) {
@@ -329,7 +361,6 @@ class AddNewProductActivity : BaseActivity() {
                         }
 
 
-                        pic_list.add(bitmap)
 
 
                     } catch (e: FileNotFoundException) {
@@ -355,6 +386,9 @@ class AddNewProductActivity : BaseActivity() {
 //                        e.printStackTrace()
 //                    }
 //                }
+
+
+
             }).start()
         }
     }
@@ -437,12 +471,12 @@ class AddNewProductActivity : BaseActivity() {
                 if(mutableList_itemShipingFareExisted_filtered.size >0){
                     //自訂layoutManager
                     binding.rViewFareItem.setLayoutManager(MyLinearLayoutManager(this, false))
-                    binding.rViewFareItem.adapter = mAdapters_shippingFareExisted
+                    binding.rViewFareItem.adapter = mAdapters_shippingFareChecked
 
-                    mAdapters_shippingFareExisted.updateList(
+                    mAdapters_shippingFareChecked.updateList(
                         mutableList_itemShipingFareExisted_filtered
                     )
-                    mAdapters_shippingFareExisted.notifyDataSetChanged()
+                    mAdapters_shippingFareChecked.notifyDataSetChanged()
                 }else{
 
                     binding.rViewFareItem.isVisible = false
@@ -463,6 +497,7 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
+    //計算費用最大最小範圍
     fun fare_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
         var min: Int =mutableList_itemShipingFareExisted[0].ship_method_fare.toInt()
@@ -480,6 +515,7 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
+    //計算庫存"費用"最大最小範圍
     fun inven_price_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
         var min: Int = mutableList_InvenDatas[0]!!.price.toInt()
@@ -497,16 +533,17 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
+    //計算庫存"數量"最大最小範圍
     fun inven_quant_pick_max_and_min_num(size: Int): String {
         //挑出最大與最小的數字
-        var min: Int =mutableList_InvenDatas[0]!!.quant.toInt()
-        var max: Int =mutableList_InvenDatas[0]!!.quant.toInt()
+        var min: Int =mutableList_InvenDatas[0]!!.quantity.toInt()
+        var max: Int =mutableList_InvenDatas[0]!!.quantity.toInt()
 
         for (f in 1..size-1) {
-            if(mutableList_InvenDatas[f]!!.quant.toInt() >= min ){
-                max = mutableList_InvenDatas[f]!!.quant.toInt()
+            if(mutableList_InvenDatas[f]!!.quantity.toInt() >= min ){
+                max = mutableList_InvenDatas[f]!!.quantity.toInt()
             }else{
-                min = mutableList_InvenDatas[f]!!.quant.toInt()
+                min = mutableList_InvenDatas[f]!!.quantity.toInt()
             }
         }
 
@@ -525,10 +562,7 @@ class AddNewProductActivity : BaseActivity() {
         var inven_datas_size: Int? =
             intent.getBundleExtra("InventoryAndPriceActivity")?.getInt("InvenDatas_size")
 
-
-
         if (inven_datas_size != null) {
-
 
             if (inven_datas_size>0) {
 
@@ -601,7 +635,10 @@ class AddNewProductActivity : BaseActivity() {
 
 
         }
+
     }
+
+    //Discarded
     private fun setMargins(view: View, left: Int, top: Int, right: Int, bottom: Int) {
         if (view.layoutParams is MarginLayoutParams) {
             val p = view.layoutParams as MarginLayoutParams
@@ -621,7 +658,7 @@ class AddNewProductActivity : BaseActivity() {
             when (it?.status) {
                 Status.Success -> {
 
-                    Toast.makeText(this, it.data.toString(), Toast.LENGTH_SHORT ).show()
+                    Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_SHORT ).show()
 
                 }
 //                Status.Start -> showLoading()
@@ -631,4 +668,37 @@ class AddNewProductActivity : BaseActivity() {
 
 
     }
+
+
+
+    private fun processImage(bitmap: Bitmap, i :Int): File? {
+
+        val bmp = bitmap
+        val bmpCompress = getResizedBitmap(bmp, 200)
+        val file: File
+        val path = getExternalFilesDir(null).toString()
+        file = File(path, "image" + i + ".jpg")
+        try {
+            var stream: OutputStream? = null
+            stream = FileOutputStream(file)
+            bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 85, stream)
+            stream?.flush()
+            stream?.close()
+        } catch (e: IOException) // Catch the exception
+        {
+            e.printStackTrace()
+        }
+        return file
+    }
+
+    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
+        var width = image.width
+        var height = image.height
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        width = maxSize
+        height = (width / bitmapRatio).toInt()
+        return Bitmap.createScaledBitmap(image, width, height, true)
+    }
+
+
 }

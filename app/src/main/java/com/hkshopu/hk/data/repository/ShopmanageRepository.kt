@@ -14,6 +14,7 @@ import com.hkshopu.hk.utils.rxjava.SchedulersUtil
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.Observable
 import okhttp3.*
+import java.io.File
 import java.io.IOException
 
 class ShopmanageRepository : BaseRepository(){
@@ -45,5 +46,14 @@ class ShopmanageRepository : BaseRepository(){
             }
             .compose(handleBean())
     }
+
+
+    fun add_product(lifecycleOwner: LifecycleOwner, shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic : MutableList<File>, product_spec_list :String, user_id: Int) : Observable<Any>{
+        return service.add_product(shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic, product_spec_list, user_id)
+            .compose(SchedulersUtil.applySchedulers())
+            .bindUntilEvent(lifecycleOwner,Lifecycle.Event.ON_DESTROY)
+            .compose(handleBean())
+    }
+
 
 }

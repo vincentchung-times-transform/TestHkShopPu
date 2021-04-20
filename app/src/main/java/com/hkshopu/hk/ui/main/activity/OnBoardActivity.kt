@@ -31,6 +31,7 @@ import com.hkshopu.hk.ui.user.activity.BuildAccountActivity
 import com.hkshopu.hk.ui.user.activity.EmailVerifyActivity
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.tencent.mmkv.MMKV
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -138,7 +139,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
             when (it?.status) {
                 Status.Success -> {
 //                    Log.d("OnBoardActivity", "Sign-In Result" + it.data)
-                    if (it.data.toString().isNotEmpty()) {
+                    if (it.ret_val.toString().isNotEmpty()) {
                         val intent = Intent(this, ShopmenuActivity::class.java)
                         startActivity(intent)
                         finish()
@@ -215,8 +216,16 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         }
 
         binding.btnSkip.setOnClickListener {
+
+            var mmkv = MMKV.mmkvWithID("http")
+            mmkv.clearAll()
+//            val intent = Intent(this, ShopmenuActivity::class.java)
+//            startActivity(intent)
+
             val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
+            finish()
+
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)
         }

@@ -349,9 +349,7 @@ class ShippingFareActivity : AppCompatActivity(){
                         binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
                     }
 
-
                 }
-
             }
         }
         editText.addTextChangedListener(textWatcher)

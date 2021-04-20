@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_shopbg"
     tools:context=".ui.main.activity.AddNewProductActivity">
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@color/color_shopbg"
         android:layout_height="50dp">
 
         <ImageView
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_addproduct"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
@@ -47,6 +47,7 @@
                 android:id="@+id/pic_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
                 android:paddingTop="10dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -183,7 +184,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/brand_new"
-                        android:textColor="@color/black_hint"
+                        android:textColor="@color/dark_gray"
                         android:background="@drawable/bg_edit_login"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
@@ -197,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/second_hand"
-                        android:textColor="@color/black_hint"
+                        android:textColor="@color/dark_gray"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/bg_edit_login"
                         android:gravity="center"
@@ -307,7 +308,7 @@
                             android:id="@+id/textView_merchanPrice_range"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textColor="@color/dark_gray_txt"
+                            android:textColor="@color/dark_gray"
                             android:text=""
                             android:layout_alignParentTop="true"
                             android:textSize="14sp" />
@@ -353,7 +354,7 @@
                             android:id="@+id/textView_merchanQunt_range"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textColor="@color/dark_gray_txt"
+                            android:textColor="@color/dark_gray"
                             android:text=""
                             android:layout_alignParentTop="true"
                             android:textSize="14sp" />
@@ -477,7 +478,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/textView_needMoreTimeToStockUp"
-                    android:textColor="@color/dark_gray_txt"
+                    android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
                 <EditText
                     android:id="@+id/edit_more_time_input"

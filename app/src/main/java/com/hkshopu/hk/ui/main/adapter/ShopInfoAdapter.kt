@@ -1,14 +1,19 @@
 package com.hkshopu.hk.ui.main.adapter
 
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ShopInfoBean
 import com.hkshopu.hk.utils.extension.inflate
 import com.hkshopu.hk.utils.extension.loadNovelCover
+import com.hkshopu.hk.widget.view.click
+import com.kaelli.niceratingbar.NiceRatingBar
+
 
 
 import org.jetbrains.anko.find
@@ -17,12 +22,12 @@ import java.util.*
 
 class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolder>(){
     private var mData: ArrayList<ShopInfoBean> = ArrayList()
-    var itemClick : ((title: String) -> Unit)? = null
+    var itemClick : ((id: Int) -> Unit)? = null
 
     fun setData(list : ArrayList<ShopInfoBean>){
         list?:return
         this.mData = list
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopInfoLinearHolder {
@@ -45,13 +50,18 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
     }
 
     inner class ShopInfoLinearHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val image = itemView.find<ImageView>(R.id.ivIcon)
-        val title = itemView.find<TextView>(R.id.text)
+        val container = itemView.find<RelativeLayout>(R.id.container)
+        val image = itemView.find<ImageView>(R.id.iv_Icon)
+        val title = itemView.find<TextView>(R.id.tv_shopName)
+        val ratingBar = itemView.find<NiceRatingBar>(R.id.ratingBar)
 
-        private val sdf = SimpleDateFormat("yyyy-MM-dd")
         fun bindShop(bean : ShopInfoBean){
+            container.click {
+                itemClick?.invoke(bean.id)
+            }
             image.loadNovelCover(bean.shop_icon)
             title.text = bean.shop_title
+
 
         }
     }

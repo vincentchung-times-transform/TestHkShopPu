@@ -6,7 +6,7 @@ package com.hkshopu.hk.Base.response
  * @Version: 1.0.0
  * @Description:
  */
-class UIDataBean<T>(var status: Status, var data: T?, var code: Int?, var e: Throwable?) {
+class UIDataBean<T>(var status: Status, var ret_val: T?, var code: Int?, var e: Throwable?) {
 
     //只有请求状态的UIData构造
     constructor(status: Status) : this(status, null, -1, null)

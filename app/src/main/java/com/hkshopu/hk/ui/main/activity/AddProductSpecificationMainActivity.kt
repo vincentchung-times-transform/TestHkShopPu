@@ -55,6 +55,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
             }
             override fun afterTextChanged(s: Editable?) {
+
                 if(s.toString() == ""){
                     binding.btnNextStep.isEnabled = false
                     binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)

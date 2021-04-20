@@ -38,7 +38,7 @@ import java.util.*
 
 class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapter.mViewHolder>()  {
 
-    lateinit var product_category_list : MutableList<ProductCategoryBean>
+    var product_category_list = mutableListOf<ProductCategoryBean>()
     var last_position = 0
 
     //categoryItem基本資料變數宣告
@@ -61,8 +61,11 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
         val item_unselected_icon = itemView.findViewById<ImageView>(R.id.img_unselected_icon)
         val item_selected_icon = itemView.findViewById<ImageView>(R.id.img_selected_icon)
         val item_txt = itemView.findViewById<TextView>(R.id.tv_shopcategory)
+        val tv_dot = itemView.findViewById<TextView>(R.id.tv_dot)
 
         init {
+
+            tv_dot.isVisible = false
 
         }
 
@@ -112,12 +115,15 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
             holder.item_selected_icon.visibility = View.VISIBLE
             holder.item_unselected_icon.visibility = View.INVISIBLE
+            holder.tv_dot.isVisible = true
             holder.item_txt.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
+            holder.tv_dot.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
 
         }else{
 
             holder.item_selected_icon.visibility = View.INVISIBLE
             holder.item_unselected_icon.visibility = View.VISIBLE
+            holder.tv_dot.isVisible = false
             holder.item_txt.setTextColor(Color.parseColor("#C4C4C4"))
 
         }
@@ -135,7 +141,9 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
                 holder.item_selected_icon.visibility = View.VISIBLE
                 holder.item_unselected_icon.visibility = View.INVISIBLE
+                holder.tv_dot.isVisible = true
                 holder.item_txt.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
+                holder.tv_dot.setTextColor(Color.parseColor("#"+ product_category_list.get(position).product_category_background_color))
 
                 notifyItemChanged(last_position)
                 last_position = position
@@ -150,21 +158,13 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
     //更新資料用
     fun updateList(list:MutableList<ProductCategoryBean>) {
         product_category_list = list
+
+
     }
     fun onItemDissmiss(position: Int) {
         product_category_list.removeAt(position)
         notifyItemRemoved(position)
 
-    }
-
-
-    fun LoadImageFromWebURL(url: String?): Drawable? {
-        return try {
-            val iStream = URL(url).content as InputStream
-            Drawable.createFromStream(iStream, "src name")
-        } catch (e: Exception) {
-            null
-        }
     }
 
 

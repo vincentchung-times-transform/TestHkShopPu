@@ -82,8 +82,6 @@
     <string name="fee_fix">$HKD運費為</string>
     <string name="fee_follow">運費只根據商品設定</string>
     <string name="shippingfee">Shipping Fee Setting</string>
-    <string name="tab1">功能服務</string>
-    <string name="tab2">我的賣場</string>
     <string name="addbrief">新增商店簡介...</string>
 
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
@@ -322,6 +320,92 @@
         HKshopu 必須提醒消費者：為保障消費者權益，請消費者於 HKshopu 上完成交易，如有任何疑問，歡迎來信 <font color="#1DBCCF"><b>service@HKshopu.com</b></font>。
     </string>
 
+    //帳號設定
+    <string name="account_setup">帳號設定</string>
+    <string name="my_account">我的帳戶</string>
+    <string name="my_setup">我的設定</string>
+    <string name="shop_info">店鋪資訊</string>
+    <string name="shop_address">店鋪地址</string>
+    <string name="setup_notify">通知設定</string>
+    <string name="setup_lan">語言設定</string>
+    <string name="password_change">密碼變更</string>
+
+    //社群帳號設定
+    <string name="socialaccount_setup">社群帳號設定</string>
+    <string name="setup_fb">連結 Facebook 帳號</string>
+    <string name="setup_ig">連結 Instagram 帳號</string>
+
+    //新增店鋪
+    <string name="addshop">新增店鋪</string>
+    <string name="addshoppic">請選擇店鋪照片</string>
+    <string name="addshoppicintro">點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。</string>
+    <string name="editshopname">請編輯店鋪名稱</string>
+    <string name="editshopnameintro">點選下方的空格並填寫喜歡的店鋪名稱。</string>
+    <string name="addshopsort">請選擇店鋪分類</string>
+    <string name="addshopsortintro">進入店鋪分類，選擇適合的類別設置分類。</string>
+    <string name="shopsort">店鋪分類</string>
+    <string name="shopsortmore">更多</string>
+    <string name="addshopconfirm">確認新增店鋪</string>
+
+    //店鋪資訊
+    <string name="tab1">功能服務</string>
+    <string name="tab2">我的賣場</string>
+    <string name="income_tab1">完成的訂單</string>
+    <string name="income_tab2">進行中的訂單</string>
+    <string name="merchants_tab1">架上商品</string>
+    <string name="merchants_tab2">已售完</string>
+    <string name="merchants_tab3">未上架</string>
+
+    //店鋪列表
+    <string name="loginremind">登入頁面</string>
+    <string name="loginremind_title">訪客請先登入以開通買家功能</string>
+
+    //編輯店鋪名稱
+    <string name="shopname_edit">編輯店鋪名稱</string>
+    <string name="shopname_show">顯示在店鋪簡介</string>
+    <string name="change_limit">30天內只能更改一次店鋪名稱</string>
+
+    //修改店鋪資訊
+    <string name="shop_name">名稱</string>
+    <string name="user_account">使用者帳號</string>
+    <string name="save">儲存</string>
+    <string name="add_newbg">新增背景圖</string>
+    <string name="brief">簡介</string>
+    <string name="social_account">社群帳號設定</string>
+    <string name="modify_newbg">修改</string>
+
+    //進帳/月
+    <string name="shop_income">進帳/月</string>
+
+    //新增店鋪簡介
+    <string name="contact">聯絡資訊</string>
+
+    //Email
+    <string name="addemail_remind">為了保護你的帳戶安全。請再次輸入密碼已進行下一步</string>
+    <string name="password_now">現在的密碼</string>
+    <string name="go_on">繼續</string>
+
+    //Email
+    <string name="add_email">新增Email</string>
+    <string name="email_input">輸入電子郵件</string>
+
+    //我的商品
+    <string name="my_merchants">我的商品</string>
+    <string name="search_keyword">請輸入商品關鍵字</string>
+    <string name="add_newproduct">＋ 新增商品</string>
+
+    //電話號碼
+    <string name="phone">電話號碼</string>
+
+    //關注
+    <string name="shop_attention">關注</string>
+    <string name="edit">編輯</string>
+
+    //商店評價
+    <string name="shop_evaluation">店鋪評價</string>
+
+
+    //新增商品
     <string name="title_addproduct">新增商品</string>
     <string name="txtview_productname">商品名稱<font color='red' size='10'><sub> * </sub></font></string>
     <string name="hint_editproductname">輸入商品名稱</string>

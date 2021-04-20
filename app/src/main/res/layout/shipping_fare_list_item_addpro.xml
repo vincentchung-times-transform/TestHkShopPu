@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="運費廠商"
-                    android:textColor="@color/dark_gray_txt"
+                    android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:paddingRight="1dp"
                     android:text="HK$"
-                    android:textColor="@color/dark_gray_txt"
+                    android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:textColor="@color/dark_gray_txt"
+                    android:textColor="@color/dark_gray"
                     android:text="0" />
 
 

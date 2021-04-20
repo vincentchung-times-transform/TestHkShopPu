@@ -1,28 +1,15 @@
 package com.hkshopu.hk.ui.main.adapter
 
-import android.graphics.Color
-import android.os.Parcelable
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ItemShippingFare
-import com.hkshopu.hk.widget.view.enable
-import org.jetbrains.anko.singleLine
-
-import java.util.*
-import kotlin.collections.ArrayList
 
 
-class ShippingFareExistedAdapter: RecyclerView.Adapter<ShippingFareExistedAdapter.mViewHolder>(), ITHelperInterface {
+class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapter.mViewHolder>(), ITHelperInterface {
 
     var mutableList_shipMethod = mutableListOf<ItemShippingFare>()
 

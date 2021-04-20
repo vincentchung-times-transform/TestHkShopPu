@@ -1,17 +1,12 @@
 package com.hkshopu.hk.ui.main.activity
 
-import android.R
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.hkshopu.hk.Base.BaseActivity
 
@@ -22,8 +17,7 @@ import com.hkshopu.hk.databinding.ActivityMerchanCategoryBinding
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.adapter.ProductCategoryItemAdapter
-import com.hkshopu.hk.ui.main.adapter.ProductChildCategoryItemAdapter
-import com.hkshopu.hk.ui.user.activity.LoginPasswordActivity
+import com.hkshopu.hk.ui.main.adapter.ProductSubCategoryItemAdapter
 import com.hkshopu.hk.utils.rxjava.RxBus
 import okhttp3.Response
 import org.json.JSONArray
@@ -37,7 +31,6 @@ class MerchanCategoryActivity : BaseActivity() {
     var url = "https://hkshopu-20700.df.r.appspot.com/product_category/index/"
     var sub_url = "https://hkshopu-20700.df.r.appspot.com/product_sub_category/index/"
 
-    var selected_main_category_id = 1
 
     lateinit var binding : ActivityMerchanCategoryBinding
     lateinit var product_category_list : MutableList<ProductCategoryBean>
@@ -45,7 +38,7 @@ class MerchanCategoryActivity : BaseActivity() {
     lateinit var selected_product_child_category_list :MutableList<ProductChildCategoryBean>
 
     val mAdapters_ProCateItem = ProductCategoryItemAdapter()
-    val mAdapters_SubProCateItem = ProductChildCategoryItemAdapter(this)
+    val mAdapters_SubProCateItem = ProductSubCategoryItemAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +52,9 @@ class MerchanCategoryActivity : BaseActivity() {
 
 
     fun initView() {
+
         initClick()
+
         generateProductCategoryItems()
         generateSubProductCategoryItems()
     }
@@ -81,7 +76,13 @@ class MerchanCategoryActivity : BaseActivity() {
 
         Thread(Runnable {
 
-            getShopCategory(url)
+            getProductCategory(url)
+
+            try{
+                Thread.sleep(500)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
 
             runOnUiThread {
 
@@ -96,7 +97,7 @@ class MerchanCategoryActivity : BaseActivity() {
     }
 
     //取得產品分類清單Api
-    private fun getShopCategory(url: String){
+    private fun getProductCategory(url: String){
         product_category_list = java.util.ArrayList<ProductCategoryBean>()
 
         val web = Web(object : WebListener {
@@ -131,6 +132,8 @@ class MerchanCategoryActivity : BaseActivity() {
                             "返回資料 product_category_list：" + product_category_list.toString()
                         )
 
+
+
                     } else {
                         Log.d("ShopmenuActivity", "您尚未新增任何產品分類!")
                     }
@@ -157,13 +160,20 @@ class MerchanCategoryActivity : BaseActivity() {
     fun generateSubProductCategoryItems() {
 
 
+        binding.rViewCategorySubItem.layoutManager = GridLayoutManager(this, 3)
+        binding.rViewCategorySubItem.adapter = mAdapters_SubProCateItem
+
 
         Thread(Runnable {
 
             getSubProductCategory(sub_url)
 
-            binding.rViewCategorySubItem.layoutManager = GridLayoutManager(this, 3)
-            binding.rViewCategorySubItem.adapter = mAdapters_SubProCateItem
+            try{
+                Thread.sleep(500)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
+
 
             //預設篩選product_category_id為1的子項目
             selected_product_child_category_list = product_child_category_list.filter {
@@ -172,11 +182,12 @@ class MerchanCategoryActivity : BaseActivity() {
                 )
             } as MutableList<ProductChildCategoryBean>
 
-            selected_product_child_category_list
+
 
             runOnUiThread {
 
                 mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
+                mAdapters_SubProCateItem.set_c_name(product_category_list.get(0).c_product_category)
                 mAdapters_SubProCateItem.notifyDataSetChanged()
 
             }
@@ -256,7 +267,10 @@ class MerchanCategoryActivity : BaseActivity() {
                         c_product_category = it.c_product_category
 
 
+
                         Thread(Runnable {
+
+
 
                             selected_product_child_category_list = product_child_category_list.filter {
                                 it.product_category_id.equals(

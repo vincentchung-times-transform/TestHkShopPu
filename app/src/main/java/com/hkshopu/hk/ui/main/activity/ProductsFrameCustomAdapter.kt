@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import com.hkshopu.hk.R
 
-class CustomAdapter(private val context: Activity, private val imageIdList:  MutableList<Bitmap>)
+class ProductsFrameCustomAdapter(private val context: Activity, private val imageIdList:  MutableList<Bitmap>)
     : BaseAdapter() {
     override fun getView(p: Int, p1: View?, p2: ViewGroup?): View {
         val inflater = context.layoutInflater

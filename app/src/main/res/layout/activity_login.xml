@@ -108,11 +108,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/layout_Pwd">
+            android:layout_marginTop="30dp">
 
             <ImageButton
                 android:id="@+id/btn_nextStep"
@@ -122,10 +121,9 @@
                 android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:visibility="visible"
-                android:src="@mipmap/next_step" />
+                android:src="@mipmap/next_step_inable" />
 
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,35 +148,34 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_alignParentBottom="true"
-        android:scaleType="fitXY"
         app:srcCompat="@mipmap/page_bottom" />
 
 
 
     <!--        <Button-->
-        <!--            style="@style/buttonStyle"-->
-        <!--            android:id="@+id/btnLogin"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="40dp"-->
-        <!--            android:layout_marginLeft="120dp"-->
-        <!--            android:layout_marginTop="30dp"-->
-        <!--            android:layout_marginRight="130dp"-->
-        <!--            android:layout_below="@id/layout_Pwd"-->
-        <!--            android:text="@string/login"-->
-        <!--            android:textSize="18sp"-->
-        <!--            />-->
+    <!--            style="@style/buttonStyle"-->
+    <!--            android:id="@+id/btnLogin"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="40dp"-->
+    <!--            android:layout_marginLeft="120dp"-->
+    <!--            android:layout_marginTop="30dp"-->
+    <!--            android:layout_marginRight="130dp"-->
+    <!--            android:layout_below="@id/layout_Pwd"-->
+    <!--            android:text="@string/login"-->
+    <!--            android:textSize="18sp"-->
+    <!--            />-->
 
 
 
-        <!--        <TextView-->
-        <!--        android:id="@+id/goRegister"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_centerHorizontal="true"-->
-        <!--        android:layout_marginTop="10dp"-->
-        <!--        android:layout_below="@+id/goRetrieve"-->
-        <!--        android:padding="10dp"-->
-        <!--        android:text="@string/sign_up"-->
-        <!--        android:textColor="#999" />-->
+    <!--        <TextView-->
+    <!--        android:id="@+id/goRegister"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginTop="10dp"-->
+    <!--        android:layout_below="@+id/goRetrieve"-->
+    <!--        android:padding="10dp"-->
+    <!--        android:text="@string/sign_up"-->
+    <!--        android:textColor="#999" />-->
 
 </RelativeLayout>

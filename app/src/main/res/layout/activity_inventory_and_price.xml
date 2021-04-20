@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_shopbg"
     android:orientation="vertical"
     tools:context=".ui.main.activity.InventoryAndPriceActivity">
 
@@ -12,7 +12,7 @@
         android:id="@+id/titleBar"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@color/color_shopbg"
         android:layout_height="50dp">
 
         <ImageView
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_setInventoryAndPrice"
             android:textSize="18sp"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:layout_centerInParent="true"/>
 
     </RelativeLayout>
@@ -44,12 +44,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_below="@id/titleBar">
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical">
             <LinearLayout
                 android:id="@+id/container_inven_item01"
@@ -1086,16 +1084,14 @@
 
         </LinearLayout>
 
-
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:paddingTop="30dp"
-        android:paddingBottom="30dp"
+        android:background="@color/color_shopbg"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:gravity="center_vertical"
         android:orientation="vertical">
         <ImageView

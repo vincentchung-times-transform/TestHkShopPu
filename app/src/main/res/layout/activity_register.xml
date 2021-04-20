@@ -391,17 +391,17 @@
                         android:orientation="horizontal">
 
 
-                    <com.hkshopu.hk.widget.view.ETextWithDelete
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/editmobile1"
-                        android:layout_width="50dp"
-                        android:layout_height="44dp"
-                        android:background="@drawable/bg_edit_login"
-                        android:inputType="number"
-                        android:paddingLeft="4dp"
-                        android:hint="+XXX"
-                        android:textColorHint="@color/material_grey_700"
-                        app:delSrc="@mipmap/ic_edit_del_1" />
+                        <com.hkshopu.hk.widget.view.ETextWithDelete
+                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/editmobile1"
+                            android:layout_width="50dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_edit_login"
+                            android:inputType="number"
+                            android:paddingLeft="4dp"
+                            android:hint="+XXX"
+                            android:textColorHint="@color/material_grey_700"
+                            app:delSrc="@mipmap/ic_edit_del_1" />
                         <com.hkshopu.hk.widget.view.ETextWithDelete
                             xmlns:app="http://schemas.android.com/apk/res-auto"
                             android:id="@+id/editmobile"
