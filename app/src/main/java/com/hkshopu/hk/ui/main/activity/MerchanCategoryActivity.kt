@@ -169,7 +169,7 @@ class MerchanCategoryActivity : BaseActivity() {
             getSubProductCategory(sub_url)
 
             try{
-                Thread.sleep(750)
+                Thread.sleep(1000)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }

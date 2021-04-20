@@ -219,11 +219,11 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
-            val intent = Intent(this, ShopmenuActivity::class.java)
-            startActivity(intent)
-
-//            val intent = Intent(this, AddNewProductActivity::class.java)
+//            val intent = Intent(this, ShopmenuActivity::class.java)
 //            startActivity(intent)
+
+            val intent = Intent(this, AddNewProductActivity::class.java)
+            startActivity(intent)
 //            finish()
 
 //            val intent = Intent(this, EmailVerifyActivity::class.java)

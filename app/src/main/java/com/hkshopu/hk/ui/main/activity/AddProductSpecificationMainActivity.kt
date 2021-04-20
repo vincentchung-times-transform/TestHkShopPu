@@ -28,13 +28,15 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
     private lateinit var binding : ActivityAddProductDescriptionMainBinding
 
-    val mAdapters_spec = SpecificationSpecAdapter()
+    val mAdapter_spec = SpecificationSpecAdapter()
     val mAdapter_size = SpecificationSizeAdapter()
     var mutableList_spec = mutableListOf<ItemSpecification>()
     var mutableList_size = mutableListOf<ItemSpecification>()
     var EDIT_MODE_SPEC = "0"
     var EDIT_MODE_SIZE = "0"
-    var nextStepBtnStatus  = false
+
+    var firstSpecGrpTitle_check = 0
+    var secondSpecGrpTitle_check = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,56 +49,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     fun initView() {
 
 
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-            override fun afterTextChanged(s: Editable?) {
-
-                if(s.toString() == ""){
-                    binding.btnNextStep.isEnabled = false
-                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
-                }else{
-                    binding.btnNextStep.isEnabled = true
-                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
-
-                }
-            }
-        }
-        binding.editTextProductSpecFirst.addTextChangedListener(textWatcher)
-        binding.editTextProductSpecSecond.addTextChangedListener(textWatcher)
-
-        //editTextProductSpecFirst編輯模式
-        binding.editTextProductSpecFirst.singleLine = true
-        binding.editTextProductSpecFirst.setOnEditorActionListener() { v, actionId, event ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-
-                    binding.editTextProductSpecFirst.hideKeyboard()
-                    binding.editTextProductSpecFirst.clearFocus()
-
-                    true
-                }
-                else -> false
-            }
-        }
-        //editTextProductSpecFirst編輯模式
-        binding.editTextProductSpecSecond.singleLine = true
-        binding.editTextProductSpecSecond.setOnEditorActionListener() { v, actionId, event ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE -> {
-
-                    binding.editTextProductSpecSecond.hideKeyboard()
-                    binding.editTextProductSpecSecond.clearFocus()
-
-                    true
-                }
-                else -> false
-            }
-        }
         //預設btnClearAllSpec和btnClearAllSpec隱藏
         binding.btnClearAllSpec.isVisible = false
         binding.btnClearAllSize.isVisible = false
@@ -105,7 +57,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
         //Spec and Size item recyclerview setting
         binding.rViewSpecificationItemSpec.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
-        binding.rViewSpecificationItemSpec.adapter = mAdapters_spec
+        binding.rViewSpecificationItemSpec.adapter = mAdapter_spec
 
         binding.rviewSpecificationitemSize.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false)
         binding.rviewSpecificationitemSize.adapter = mAdapter_size
@@ -116,7 +68,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
 
 
-
+        initEditText()
         initClick()
 
     }
@@ -140,7 +92,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         }
         binding.btnClearAllSize.setOnClickListener {
 
-            binding.editTextProductSpecFirst.setText("")
+            binding.editTextProductSpecSecond.setText("")
             clearAllSizeItem()
 
         }
@@ -148,9 +100,9 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         binding.btnNextStep.setOnClickListener {
 
             val intent = Intent(this, InventoryAndPriceActivity::class.java)
-            var datas_spec_item : MutableList<ItemSpecification> = mAdapters_spec.get_spec_list()
+            var datas_spec_item : MutableList<ItemSpecification> = mAdapter_spec.get_spec_list()
             var datas_size_item : MutableList<ItemSpecification> = mAdapter_size.get_size_list()
-            var datas_spec_size : Int = mAdapters_spec.get_datas_spec_size()
+            var datas_spec_size : Int = mAdapter_spec.get_datas_spec_size()
             var datas_size_size : Int = mAdapter_size.get_datas_size_size()
             var datas_spec_title_first: String =  binding.editTextProductSpecFirst.text.toString()
             var datas_spec_title_second: String = binding.editTextProductSpecSecond.text.toString()
@@ -182,23 +134,22 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 if(EDIT_MODE_SPEC=="0"){
 
-                    if(mAdapters_spec.get_check_empty() == true && mutableList_spec.size >0 ){
+                    if(mAdapter_spec.get_check_empty() == true && mutableList_spec.size >0 ){
                         Toast.makeText(this, "請先完成輸入才能新增下個項目", Toast.LENGTH_SHORT).show()
                     }else{
 
                         Thread(Runnable {
 
-                            mutableList_spec = mAdapters_spec.get_spec_list()
+                            mutableList_spec = mAdapter_spec.get_spec_list()
                             mutableList_spec.add(ItemSpecification("", R.drawable.custom_unit_transparent))
 
                             runOnUiThread {
                                 //更新或新增item
-                                mAdapters_spec.updateList(mutableList_spec)
-                                mAdapters_spec.notifyDataSetChanged()
+                                mAdapter_spec.updateList(mutableList_spec)
+                                mAdapter_spec.notifyDataSetChanged()
 
-                                //監控nextStep狀態並enable或disable nextStepBtnStatus
-                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                                //判斷Next Step Btn is enable or disable
+                                changeStatusOfNextStepBtn()
 
                             }
 
@@ -208,7 +159,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 }else{
 
-                    if(mAdapters_spec.get_check_empty() == true && mutableList_spec.size >0 ){
+                    if(mAdapter_spec.get_check_empty() == true && mutableList_spec.size >0 ){
                         Toast.makeText(this, "請先完成輸入才能新增下個項目", Toast.LENGTH_SHORT).show()
                     }else{
                         Thread(Runnable {
@@ -218,12 +169,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                             runOnUiThread {
 
                                 //更新或新增item
-                                mAdapters_spec.updateList(mutableList_spec)
-                                mAdapters_spec.notifyDataSetChanged()
+                                mAdapter_spec.updateList(mutableList_spec)
+                                mAdapter_spec.notifyDataSetChanged()
 
-                                //監控nextStep狀態並enable或disable nextStepBtnStatus
-                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                                //判斷Next Step Btn is enable or disable
+                                changeStatusOfNextStepBtn()
 
                             }
 
@@ -253,7 +203,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
             Thread(Runnable {
 
-                mutableList_spec = mAdapters_spec.get_spec_list()
+                mutableList_spec = mAdapter_spec.get_spec_list()
 
                 for ( i in 0..mutableList_spec.size-1) {
                     mutableList_spec[i] = ItemSpecification(mutableList_spec[i].spec_name.toString() , R.mipmap.btn_cancel)
@@ -262,12 +212,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 runOnUiThread {
 
                     //更新或新增item
-                    mAdapters_spec.updateList(mutableList_spec)
-                    mAdapters_spec.notifyDataSetChanged()
+                    mAdapter_spec.updateList(mutableList_spec)
+                    mAdapter_spec.notifyDataSetChanged()
 
-                    //監控nextStep狀態並enable或disable nextStepBtnStatus
-                    nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                    changeStatusOfNextStepBtn(nextStepBtnStatus)
+                    //判斷Next Step Btn is enable or disable
+                    changeStatusOfNextStepBtn()
 
                 }
 
@@ -289,7 +238,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
             Thread(Runnable {
 
-                mutableList_spec = mAdapters_spec.get_spec_list()
+                mutableList_spec = mAdapter_spec.get_spec_list()
 
                 for ( i in 0..mutableList_spec.size-1) {
                     mutableList_spec[i] = ItemSpecification(mutableList_spec[i].spec_name , R.drawable.customborder_specification)
@@ -299,12 +248,11 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 runOnUiThread {
 
                     //更新或新增item
-                    mAdapters_spec.updateList(mutableList_spec)
-                    mAdapters_spec.notifyDataSetChanged()
+                    mAdapter_spec.updateList(mutableList_spec)
+                    mAdapter_spec.notifyDataSetChanged()
 
-                    //監控nextStep狀態並enable或disable nextStepBtnStatus
-                    nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                    changeStatusOfNextStepBtn(nextStepBtnStatus)
+                    //判斷Next Step Btn is enable or disable
+                    changeStatusOfNextStepBtn()
                 }
 
             }).start()
@@ -336,9 +284,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                                 mAdapter_size.updateList(mutableList_size)
                                 mAdapter_size.notifyDataSetChanged()
 
-                                //監控nextStep狀態並enable或disable nextStepBtnStatus
-                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                                //判斷Next Step Btn is enable or disable
+                                changeStatusOfNextStepBtn()
                             }
 
                         }).start()
@@ -366,9 +313,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                                 mAdapter_size.updateList(mutableList_size)
                                 mAdapter_size.notifyDataSetChanged()
 
-                                //監控nextStep狀態並enable或disable nextStepBtnStatus
-                                nextStepBtnStatus = mAdapters_spec.nextStepEnableOrNot()
-                                changeStatusOfNextStepBtn(nextStepBtnStatus)
+                                //判斷Next Step Btn is enable or disable
+                                changeStatusOfNextStepBtn()
                             }
 
 
@@ -413,9 +359,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                     mAdapter_size.updateList(mutableList_size)
                     mAdapter_size.notifyDataSetChanged()
 
-                    //監控nextStep狀態並enable或disable nextStepBtnStatus
-                    nextStepBtnStatus = mAdapter_size.nextStepEnableOrNot()
-                    changeStatusOfNextStepBtn(nextStepBtnStatus)
+                    //判斷Next Step Btn is enable or disable
+                    changeStatusOfNextStepBtn()
                 }
 
             }).start()
@@ -450,9 +395,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                     mAdapter_size.updateList(mutableList_size)
                     mAdapter_size.notifyDataSetChanged()
 
-                    //監控nextStep狀態並enable或disable nextStepBtnStatus
-                    nextStepBtnStatus = mAdapter_size.nextStepEnableOrNot()
-                    changeStatusOfNextStepBtn(nextStepBtnStatus)
+                    //判斷Next Step Btn is enable or disable
+                    changeStatusOfNextStepBtn()
                 }
 
             }).start()
@@ -461,9 +405,90 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     }
 
 
+    fun initEditText(){
+
+        val first_textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+
+                if(s.toString() == ""){
+
+                    firstSpecGrpTitle_check = 0
+
+                }else{
+
+                    firstSpecGrpTitle_check = 1
+
+
+                }
+            }
+        }
+        val second_textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+
+                if(s.toString() == ""){
+
+                    secondSpecGrpTitle_check = 0
+
+                }else{
+
+                    secondSpecGrpTitle_check = 1
+
+
+                }
+            }
+        }
+        binding.editTextProductSpecFirst.addTextChangedListener(first_textWatcher)
+        binding.editTextProductSpecSecond.addTextChangedListener(second_textWatcher)
+
+        //editTextProductSpecFirst編輯模式
+        binding.editTextProductSpecFirst.singleLine = true
+        binding.editTextProductSpecFirst.setOnEditorActionListener() { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+
+                    binding.editTextProductSpecFirst.hideKeyboard()
+                    binding.editTextProductSpecFirst.clearFocus()
+
+                    changeStatusOfNextStepBtn()
+
+                    true
+                }
+                else -> false
+            }
+        }
+        //editTextProductSpecFirst編輯模式
+        binding.editTextProductSpecSecond.singleLine = true
+        binding.editTextProductSpecSecond.setOnEditorActionListener() { v, actionId, event ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+
+                    binding.editTextProductSpecSecond.hideKeyboard()
+                    binding.editTextProductSpecSecond.clearFocus()
+
+                    changeStatusOfNextStepBtn()
+
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     fun clearAllSpecItem() {
         mutableList_spec.clear()
-        mAdapters_spec.notifyDataSetChanged()
+        mAdapter_spec.notifyDataSetChanged()
 
     }
 
@@ -473,14 +498,19 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         mAdapter_size.notifyDataSetChanged()
     }
 
-    fun changeStatusOfNextStepBtn(status : Boolean){
-        if (status){
+    fun changeStatusOfNextStepBtn(){
+
+        if( firstSpecGrpTitle_check != 0 && mAdapter_spec.nextStepEnableOrNot() ){
+            binding.btnNextStep.isEnabled = true
+            binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
+        }else if(secondSpecGrpTitle_check != 0 && mAdapter_size.nextStepEnableOrNot()){
             binding.btnNextStep.isEnabled = true
             binding.btnNextStep.setImageResource(R.mipmap.btn_nextstep_enable)
         }else{
             binding.btnNextStep.isEnabled = false
             binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
         }
+
     }
 
     fun View.hideKeyboard() {
