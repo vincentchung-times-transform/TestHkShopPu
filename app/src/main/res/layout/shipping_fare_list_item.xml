@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/customborder_addproduct"
+    android:elevation="10dp"
+    android:outlineSpotShadowColor="@color/hkshop_color">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="41dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp">
+
+                <ImageView
+                    android:id="@+id/imgView_deleteFare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/custom_unit_transparent"/>
+
+                <EditText
+                    android:id="@+id/editText_value_shipping_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:hint="@string/textView_setItYourself"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/textView_HKdolors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HKD$"
+                    android:textSize="14sp"
+                    android:paddingRight="1dp"
+                    android:textColor="@color/gray_txt"/>
+
+                <EditText
+                    android:id="@+id/edtText_shipping_fare"
+                    android:layout_width="25dp"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:textColor="@color/gray_txt"
+                    android:hint="0"
+                    android:background="@color/white"/>
+
+
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_marginLeft="20dp">
+
+                    <com.zilchzz.library.widgets.EasySwitcher
+                        android:id="@+id/mEasySwitcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:sbAnimTime="300"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbDefaultOpened="false"
+                        app:sbToggleColor="@android:color/white"  />
+
+                </RelativeLayout>
+
+
+
+            </LinearLayout>
+
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/description_line"/>-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="41dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:paddingLeft="20dp"-->
+<!--                android:paddingRight="20dp">-->
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:text="@string/textView_I_will_bear_the_freight"/>-->
+
+<!--                <vn.luongvo.widget.iosswitchview.SwitchView-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    app:color_on="#ef5e43"-->
+<!--                    tools:ignore="MissingConstraints" />-->
+
+<!--            </LinearLayout>-->
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

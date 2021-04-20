@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.hkshopu.hk">
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the "MyLocation" functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 網路相關 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 文件讀寫 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".application.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:targetApi="n">
+        <activity android:name=".ui.main.activity.MerchanCategoryActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <activity android:name=".ui.main.activity.MerchandiseActivity" />
+        <activity
+            android:name=".ui.main.activity.ShippingFareActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.main.activity.InventoryAndPriceActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.main.activity.AddProductSpecificationMainActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.main.activity.AddNewProductActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity android:name=".ui.user.activity.TermsOfServiceActivity" />
+        <activity android:name=".ui.user.activity.NewPasswordActivity" />
+        <activity android:name=".ui.user.activity.LoginPasswordActivity" />
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <activity android:name=".ui.user.activity.Retrieve" />
+        <activity android:name=".ui.LaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.user.activity.LoginActivity"
+            android:launchMode="singleTask" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="@string/facebook_app_id"
+                    tools:ignore="ManifestResource" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.user.activity.BuildAccountActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.user.activity.UserIofoActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.user.activity.EmailVerifyActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.user.activity.MailAddressActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.OnBoardActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.ShopmenuActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.AddShopActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.ShopCategoryActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".ui.main.activity.ShippingFeeActivity"
+            android:launchMode="singleTask" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
+
+</manifest>

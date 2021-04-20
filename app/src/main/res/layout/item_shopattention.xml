@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@drawable/customborder_onboard_8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/iv_cardview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        app:cardBackgroundColor="@color/colordivideline"
+        app:cardCornerRadius="50dp">
+
+        <ImageView
+            android:id="@+id/iv_headImg"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_no_image"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/iv_cardview"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="16dp"
+        android:text="Raj Booth"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:id="@+id/layout_Shop_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_toEndOf="@+id/iv_cardview"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="6dp">
+
+        <com.kaelli.niceratingbar.NiceRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:nrb_starImageWidth="24dp"
+            app:nrb_starImageHeight="24dp"
+            app:nrb_starTotal="5"
+            app:nrb_starFullResource="@mipmap/ic_star_fill"
+            app:nrb_starEmptyResource="@mipmap/ic_star"
+            app:nrb_starHalfResource="@mipmap/ic_star_half"
+            app:nrb_rating="0"
+            app:nrb_starImagePadding="4dp"
+            app:nrb_ratingStatus="Disable"/>
+
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@id/ratingBar"
+            android:layout_marginStart="8dp"
+            android:text="0.0"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

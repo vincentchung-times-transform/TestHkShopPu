@@ -1,0 +1,146 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.1"
+
+    defaultConfig {
+        applicationId "com.hkshopu.hk"
+        minSdkVersion 23
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        Properties properties = new Properties()
+        if (rootProject.file("local.properties").exists()) {
+            properties.load(rootProject.file("local.defaults.properties").newDataInputStream())
+        }
+
+        // Inject the Maps API key into the manifest
+        manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    // Anko
+    implementation "org.jetbrains.anko:anko:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-appcompat-v7-commons:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-appcompat-v7:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-support-v4-commons:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-support-v4:$ANKO_VERSION"
+    implementation "org.jetbrains.anko:anko-recyclerview-v7:$ANKO_VERSION"
+
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:28.0.0'
+
+    // Import the BoM for the Firebase platform
+    implementation platform('com.google.firebase:firebase-bom:26.2.0')
+
+    // Declare the dependency for the Firebase Authentication library
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+    implementation 'com.google.maps.android:maps-ktx:2.4.0'
+
+
+    //ReactiveX
+    implementation "io.reactivex.rxjava2:rxjava:$RXJAVA2_VERSION"
+    implementation "io.reactivex.rxjava2:rxkotlin:$RXKOTLIN_VERSION"
+    implementation "io.reactivex.rxjava2:rxandroid:$RXANDROID_VERSION"
+
+    //RXView
+    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    implementation "com.trello.rxlifecycle2:rxlifecycle:$RXLIFE_VERSION"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android:$RXLIFE_VERSION"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:$RXLIFE_VERSION"
+    implementation "com.trello.rxlifecycle2:rxlifecycle-android-lifecycle-kotlin:$RXLIFE_VERSION"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$RETROFIT_VERSION"
+    implementation "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:3.8.1'
+    //Glide
+    implementation("com.github.bumptech.glide:glide:$GLIDE_VERSION") {
+        exclude group: "com.android.support"
+    }
+    implementation "com.github.bumptech.glide:okhttp3-integration:$GLIDE_VERSION"
+    implementation "com.github.bumptech.glide:recyclerview-integration:${GLIDE_VERSION}@aar"
+    implementation 'androidx.wear:wear:1.0.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    compileOnly 'com.google.android.wearable:wearable:2.6.0'
+    kapt'com.github.bumptech.glide:compiler:4.8.0'
+    implementation 'jp.wasabeef:glide-transformations:3.0.1'  //高斯模糊
+
+
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+
+    implementation 'com.mallotec.reb:plugin-locale:1.0.12'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
+    implementation 'com.github.tiper:MaterialSpinner:1.4.2'
+    implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
+    implementation 'com.tencent:mmkv:1.0.15'
+
+    //Facebook
+    implementation 'com.facebook.android:facebook-login:5.15.3'
+    implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+    //wheelView
+    implementation 'com.wx.wheelview:wheelview:1.3.3'
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //ios switch button
+    implementation 'com.github.zilchzz:EasySwitcher:0.1.7'
+
+    //picasso
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //NiceRatingBar
+    implementation 'com.github.KaelLi1989:NiceRatingBar:1.0.0'
+
+
+}

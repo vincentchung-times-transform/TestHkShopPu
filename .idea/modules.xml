@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/HKShopU.iml" filepath="$PROJECT_DIR$/.idea/modules/HKShopU.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/new-android.HKShopU.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/new-android.HKShopU.app.iml" />
+    </modules>
+  </component>
+</project>

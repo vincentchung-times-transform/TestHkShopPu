@@ -1,0 +1,486 @@
+<resources>
+    <string name="app_name">HKShopU</string>
+    <string name="menu_title">HKShop</string>
+    <string name="empty"></string>
+    <string name="sign_up">SIGN-UP</string>
+    <string name="register_email">EMAIL註冊</string>
+    <string name="login">LOGIN</string>
+    <string name="login_fb">FACEBOOK 登入</string>
+    <string name="login_google">GOOGLE 登入</string>
+    <string name="skip">SKIP</string>
+    <string name="member_already">已經是會員了嗎？</string>
+    <string name="please_login">Login</string>
+    <string name="please_login_ch">登入帳戶</string>
+    <string name="please_input_newPassword">輸入新密碼</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_notify">密碼格式必須包括大小階英文、數字及符號</string>
+    <string name="hint_email">電子郵件地址</string>
+    <string name="hint_password">密碼</string>
+    <string name="hint_password_second">再次確認密碼</string>
+    <string name="stay_login_ch">保持登入</string>
+    <string name="forgetpassword">Forget Password?</string>
+    <string name="forgetpassword_ch">忘記密碼?</string>
+    <string name="email_authentication">電子郵件認證</string>
+    <string name="please_input_verification_code">請輸入您的驗證碼</string>
+    <string name="fail_to_recieve_verification_code">我沒收到驗證碼</string>
+    <string name="resend_email">再寄一次</string>
+    <string name="notification_title">店匯would like to send you notification</string>
+    <string name="notification_content01">Join same device as Gauging Gadget</string>
+    <string name="notification_content02">On my own device</string>
+    <string name="notification_dontallow">DON\'T ALLOW</string>
+    <string name="notification_allow">ALLOW</string>
+    <string name="please_register">Sign-Up</string>
+    <string name="please_forward">下一步</string>
+    <string name="userareement">&lt;用戶協議條款&gt;</string>
+    <string name="please_buildacnt">建立帳戶</string>
+    <string name="build_byemail">或用電子郵件註冊</string>
+    <string name="userinfo">用戶資料</string>
+    <string name="emailverify">電子郵件驗證</string>
+    <string name="emailaddress">郵寄地址</string>
+    <string name="facebook_app_id">742143353334628</string>
+    <string name="fb_login_protocol_scheme">742143353334628</string>
+    <string name="basic_info">Basic Information</string>
+    <string name="user_name">User Name</string>
+    <string name="passwordconf">Confirm Password</string>
+    <string name="optional">Optional</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="gender">Gender</string>
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="rainbow">其他</string>
+    <string name="birth">Day of Birth</string>
+    <string name="mobile">Mobile</string>
+    <string name="address">Address</string>
+    <string name="subaddress">其他地址</string>
+    <string name="floor">樓層</string>
+    <string name="room">室</string>
+    <string name="please_confirm_password">Please_Confirm_Your Password</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="product">Product</string>
+    <string name="info">Info</string>
+    <string name="alert_confirm">CONFIRM</string>
+    <string name="alert_cancel">CANCEL</string>
+    <string name="alert_send">SEND</string>
+    <string name="shop_category">Shop Category</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="shipfee_setting">Shipping Fee Setting</string>
+    <string name="add_product">Add Product</string>
+    <string name="my_product">我的商品</string>
+    <string name="my_like">關注</string>
+    <string name="my_income">進帳/月</string>
+    <string name="fee_unit">HKD</string>
+    <string name="fee_more">全單滿</string>
+    <string name="fee_no">$HKD免運費</string>
+    <string name="fee_fix_head">全單</string>
+    <string name="fee_to">$HKD至</string>
+    <string name="fee_fix">$HKD運費為</string>
+    <string name="fee_follow">運費只根據商品設定</string>
+    <string name="shippingfee">Shipping Fee Setting</string>
+    <string name="addbrief">新增商店簡介...</string>
+
+    <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
+
+    <string name="terms_of_service">SpinnerDemo</string>
+
+    <string-array name="array_terms">
+        <item>服務條款</item>
+        <item>隱私條例政策</item>
+        <item>商品販售政策</item>
+        <item>知識產權保護政策</item>
+        <item>免責聲明</item>
+    </string-array>
+
+    <string name="title_terms_of_services">服務條款</string>
+    <string name="awareness_and_acceptance_of_terms_s1">1. 認知與接受條款</string>
+    <string name="awareness_and_acceptance_of_terms_contents_s1">
+        歡迎使用由香港商店匯聚網絡有限公司（以下簡稱「HKshopu」）負責營運之 <font color="#1DBCCF"><b>HKshopu</b></font> 電商平台服務（以下稱為「本服務」)。本服務條款旨在規範您使用本服務時，我們與您之間的關係，當您進入 HKshopu App及使用本服務時，即表示您已閱讀、瞭解並同意接受本服務條款之所有內容。\n
+        本服務包括本網站及透過本網站或其相關服務所提供的所有資訊、連結網頁、功能、資料、文字、影像、相片、圖形、音樂、聲音、影片、訊息、標籤、內容、程式設計、軟體、應用程式服務 (包括但不限於任何行動應用服務) 。有關客戶服務及地區性之支援服務，將依照您所屬國家或所在地，由 HKshopu 指定當地之法人及其所屬人員提供相關服務及聯繫窗口。\n
+        當您使用 HKshopu 特定服務或新增功能時，可能會依據該特定服務之性質，而須遵守 HKshopu 所另行公告之服務條款或相關規定。此另行公告之服務條款或相關規定，亦均併入屬於本服務條款之一部分，本服務條款規範您對於 HKshopu 所提供之服務的使用行為。\n
+        HKshopu 有權於任何時間修改或變更本服務條款之內容，建議您隨時注意該等修改或變更。您於任何修改或變更後繼續使用本服務，視為您已閱讀、瞭解並同意接受該等修改或變更。如果您不同意本服務條款的內容，或者您所屬的國家或地域排除本服務條款內容之全部或部份時，您應立即停止使用本服務。\n
+        若您為未滿二十歲，除應符合上述規定外，並應於您的家長（或監護人）閱讀、瞭解並同意本服務條款之所有內容及其後修改變更後，方得使用或繼續使用本服務。當您使用或繼續使用本服務時，即推定您的家長（或監護人）已閱讀、瞭解並同意接受本服務條款之所有內容及其後修改變更。
+    </string>
+    <string name="links_to_third_party_websites_s2">2. 與第三人網站的連結</string>
+    <string name="links_to_third_party_websites_contents_s2">
+        本服務或協力廠商可能會提供連結至其他網站或網路資源的連結。您可能會因此連結至其他業者經營的網站，但不表示 HKshopu 與該等業者有任何關係。其他業者經營的網站均由各該業者自行負責，不屬 HKshopu 控制及負責範圍之內。HKshopu 對任何檢索結果或外部連結，不擔保其合適性、可依賴性、即時性、有效性、正確性及完整性。
+    </string>
+    <string name="your_registration_obligations_s3">3. 您的註冊義務</string>
+    <string name="your_registration_obligations_contents_s3">
+        為了能使用本服務，您同意以下事項： (a) 依本服務註冊表之提示提供您本人正確、最新及完整的資料， (b) 維持並更新您個人資料，確保其為正確、最新及完整。若您提供任何錯誤、不實或不完整的資料，HKshopu 有權暫停或終止您的帳號，並拒絕您使用本服務之全部或部份。
+    </string>
+    <string name="member_account_password_and_security_s4">4. 會員帳號、密碼及安全</string>
+    <string name="member_account_password_and_security_contents_s4">
+        完成本服務的登記程序之後，您有責任維持密碼及帳號的機密安全。您並同意以下事項：(a)您的密碼或帳號遭到盜用或有其他任何安全問題發生時，您將立即通知 HKshopu，且(b)每次連線完畢，均結束您的帳號使用。
+    </string>
+    <string name="what_you_provide_s5">5. 您提供的內容</string>
+    <string name="what_you_provide_contents_s5">
+        您在本服務或透過本服務上傳、張貼、寄送、收受、儲存或以其他方式提供的內容，包括但不限於文字、圖像、影音及評價等（以下簡稱「內容」），即表示您聲明並保證您擁有所有必要的權利及/或許可，且可依照本條款供 HKshopu 利用。\n
+        您同意授予 HKshopu 非專屬、全球性、免權利金、不可撤銷、永久的、可再授權及可轉讓的權利，在本服務或經由本服務或與本服務相關之管道，使用、複製、修改、創作衍生作品、翻譯、散布、授權、儲存、傳輸、改編或其他任何開發方式利用該內容。HKshopu 得任意利用內容，包括但不限於透過信件、顯示在第三方網站、廣告媒體或其他管道。\n
+        您也了解並同意對於您所提供的內容及 HKshopu 因使用內容而產生之一切請求、損失，均由您負完全的責任。您擔保此些內容不侵害、不當利用或違反他人的專利權、著作權、商標權、營業秘密、人格權、其他財產權、智慧財產權、肖像權、隱私權或任何適用法律或法規。\n
+        為了協助其他語言的會員了解本服務，我們提供部分或全部的翻譯服務。本服務包含由 Google 翻譯提供的服務，Google 不提供任何明示或默示的擔保，包含但不限於正確性、可信性、商業適售性、特定目的之適用性及未侵害他人權利。HKshopu 亦不保證翻譯結果的正確性及品質，會員對於檢視、確認翻譯結果的正確性，應自行負責。
+    </string>
+    <string name="protection_of_children_and_youth_s6">6. 兒童及青少年之保護</string>
+    <string name="protection_of_children_and_youth_contents_s6">
+        兒童及青少年上網已經成為無可避免之趨勢，使用網際網路獲取知識更可以培養子女的成熟度與競爭能力。然而網路上的確存有不適宜兒童及青少年接受的訊息，例如色情與暴力的訊息，兒童及青少年有可能因此受到心靈與肉體上的傷害。因此，為確保兒童及青少年使用網路的安全，並避免隱私權受到侵犯，家長（或監護人）應盡到下列義務：\n
+        a.先檢閱各該網站是否有保護個人資料的「隱私權政策」，再決定是否同意提出相關的個人資料；並應持續叮嚀兒童及青少年不可洩漏自己或家人的任何資料（包括姓名、地址、電話、電子郵件信箱、照片、信用卡號等）給任何人。也不可以單獨接受網友的邀請或贈送禮物而與之見面。 b.謹慎選擇合適網站供兒童及青少年瀏覽。未滿十二歲之兒童上網時，應全程在旁陪伴，十二歲以上未滿十八歲之青少年上網前亦應斟酌是否給予同意。
+    </string>
+    <string name="the_users_legal_obligations_and_commitments_s7">7. 使用者的守法義務及承諾</string>
+    <string name="the_users_legal_obligations_and_commitments_contents_s7">
+        您承諾絕不為任何非法目的或以任何非法方式使用本服務，並承諾遵守中華民國相關法規及一切使用網際網路之國際慣例。您若係中華民國以外之使用者，並同意遵守所屬國家或地域之法令。您同意並保證不得利用本服務從事侵害他人權益或違法之行為，包括但不限於：\n
+        A. 上載、張貼、公布或傳送任何誹謗、侮辱、具威脅性、攻擊性、不雅、猥褻、不實、違反公共秩序或善良風俗或其他不法之文字、圖片或任何形式的檔案於本服務上； B. 侵害他人名譽、隱私權、營業秘密、商標權、著作權、專利權、其他智慧財產權及其他權利； C. 違反依法律或契約所應負之保密義務； D. 冒用他人名義使用本服務； E. 上載、張貼、傳輸或散佈任何含有電腦病毒或任何對電腦軟、硬體產生中斷、破壞或限制功能之程式碼之資料； F. 從事不法交易行為或張貼虛假不實、引人犯罪之訊息； G. 濫發廣告郵件、垃圾郵件、連鎖信、違法之多層次傳銷訊息等； J. 以任何方法傷害未成年人； K. 偽造訊息來源或以任何方式干擾傳輸來源之認定； L. 干擾或中斷本服務或伺服器或連結本服務之網路，或不遵守連結至本服務之相關需求、程序、政策或規則等，包括但不限於：使用任何設備、軟體或刻意規避 HKshopu 之排除自動搜尋之標頭 (robot exclusion headers)； M. 追蹤他人或其他干擾他人或為前述目前蒐集或儲存他人之個人資訊； O. 其他 HKshopu 有正當理由認為不適當之行為。
+    </string>
+    <string name="System_interruption_or_failure_s8">8. 系統中斷或故障</string>
+    <string name="System_interruption_or_failure_contents_s8">
+        本服務有時可能會出現中斷或故障等現象，或許將造成您使用上的不便、資料喪失、錯誤、遭人篡改或其他經濟上損失等情形。您於使用本服務時宜自行採取防護措施。HKshopu 對於您因使用（或無法使用）本服務而造成的損害，除故意或重大過失外，不負任何賠償責任。
+    </string>
+    <string name="information_or_suggestion_s9">9. 資訊或建議</string>
+    <string name="information_or_suggestion_contents_s9">
+        HKshopu 對於您使用本服務或經由本服務連結之其他網站而取得之資訊或建議（包括但不限於，商務、投資理財、醫療、法律等方面），不擔保其為完全正確無誤。HKshopu 對於本服務所提供之資訊或建議有權隨時修改或刪除。您在做出任何相關規劃與決定之前，仍應請教專業人員針對您的情況提出意見，以符合您的個別需求。\n
+        HKshopu 隨時會與其他公司、廠商等第三人（「內容提供者」）合作，由其提供包括新聞、訊息、電子報等不同內容供 HKshopu 刊登，HKshopu 於刊登時均將註明內容提供者。基於尊重內容提供者之智慧財產權，HKshopu 對其所提供之內容並不做實質之審查或修改，對該等內容之正確真偽亦不負任何責任。對該等內容之正確真偽，您宜自行判斷之。您若認為某些內容涉及侵權或有所不實，請逕向該內容提供者反應意見。
+    </string>
+    <string name="advertising_s10">10. 廣告</string>
+    <string name="advertising_contents_s10">
+        您在本服務中瀏覽到的所有廣告內容、文字與圖片之說明、展示樣品或其他銷售資訊，均由各該廣告商、產品與服務的供應商所設計與提出。您對於廣告之正確性與可信度應自行斟酌與判斷。HKshopu 僅接受委託予以刊登，不對前述廣告負擔保責任。
+    </string>
+    <string name="buying_and_selling_or_other_transactions_s11">11. 買賣或其他交易行為</string>
+    <string name="buying_and_selling_or_other_transactions_contents_s11">
+        廠商或個人透過本服務進行商品買賣、服務或其他交易行為，各該買賣或其他合約均僅存在您與各該廠商或個人兩造之間。您應要求各該廠商或個人，就其商品、服務或其他交易標的物之品質、內容、運送、保證事項與瑕疵擔保責任等，事先詳細闡釋與說明。您因前述買賣、服務或其他交易行為所產生之爭執，應向各該廠商或個人尋求救濟或解決之道。
+    </string>
+    <string name="protection_of_intellectual_property_s12">12. 知識產權的保護</string>
+    <string name="protection_of_intellectual_property_contents_s12">
+        HKshopu 所使用之軟體或程式、網站上所有內容，包括但不限於商品資訊、圖片、檔案、網站架構、網站畫面的安排、網頁設計、會員內容等，均由 HKshopu 或其他權利人依法擁有其智慧財產權，包括但不限於商標權、專利權、著作權、營業秘密與專有技術等。任何人不得逕自使用、修改、重製、公開播送、公開傳輸、公開演出、改作、散布、發行、公開發表、進行還原工程、解編或反向組譯。若您欲引用或轉載前述軟體、程式或網站內容，除明確為法律所許可者外，必須依法取得 HKshopu 或其他權利人的事前書面同意。尊重智慧財產權是您應盡的義務，如有違反，您應對 HKshopu 負損害賠償責任。HKshopu 及其關係企業為行銷宣傳本服務，就本服務相關之商品或服務名稱、圖樣等（以下稱「HKshopu 商標」），依其註冊或使用之狀態，受商標法及公平交易法等之保護，未經 HKshopu 事前書面同意，您同意不以任何方式使用 HKshopu 商標。
+    </string>
+    <string name="payment_s13">13. 付款</string>
+    <string name="payment_contents_s13">
+        為確保您在本服務遇到付款爭議處理、退款、訂單取消時，HKshopu 能提供充分的營運支援，涉及下列交易情況時，將以下列營運個體成為本使用條款的締約方，處理所生的爭議或糾紛：以 HKD 付款的交易：香港商店匯聚網絡有限公司，例外以香港法律為準據法。
+    </string>
+    <string name="notification_s14">14. 通知</string>
+    <string name="notification_contents_s14">
+        如依法或其他相關規定須為通知時，HKshopu 得以包括但不限於：電子郵件、一般信件、簡訊、多媒體簡訊、文字訊息、張貼於本服務網頁，或其他現在或未來合理之方式通知您，包括本服務條款之變更。但若您違反本服務條款，以未經授權的方式存取本服務，您將不會收到前述通知。當您經由授權的方式存取本服務，而同意本服務條款時，您即同意 HKshopu 所為之任何及所有給您的通知，都視為送達。
+    </string>
+    <string name="termination_s15">15. 終止</string>
+    <string name="termination_contents_s15">
+        您同意 HKshopu 得依其判斷因任何理由，包含但不限於一定期間未使用、法院或政府機關命令、本服務無法繼續或服務內容實質變更、無法預期之技術或安全因素或問題、您所為詐欺或違法行為、未依約支付費用，或其他 HKshopu 認為您已經違反本服務條款的明文規定及精神，而終止或限制您使用帳號（或其任何部分）或本服務之使用，並將本服務內任何「會員內容」加以移除並刪除。您並同意 HKshopu 亦得依其自行之考量，於通知或未通知之情形下，隨時終止或限制您使用本服務或其任何部分。您承認並同意前開終止或限制，HKshopu 得立即關閉、刪除或限制存取您的帳號及您帳號中全部或部分相關資料及檔案，及停止本服務全部或部分之使用。此外，您同意若本服務之使用被終止或限制時，HKshopu 對您或任何第三人均不承擔責任。
+    </string>
+    <string name="governing_law_and_competent_court_s16">16. 準據法及管轄法院</string>
+    <string name="governing_law_and_competent_court_contents_s16">
+        本服務條款構成您與 HKshopu 就您使用本服務之完整合意，取代您先前與 HKshopu 間有關本服務所為之任何約定。本服務條款之解釋與適用，以及與本服務條款有關的爭議，除法律或本服務條款另有規定者外，均應依照香港法律予以處理。
+    </string>
+    <string name="governing_law_and_competent_court_s17">17. 其他事項</string>
+    <string name="governing_law_and_competent_court_contents_s17">
+        HKshopu 未行使或執行本服務條款任何權利或規定，不構成前開權利或規定之棄權。\n
+        若任何本服務條款規定，經有管轄權之法院認定無效，當事人仍同意法院應努力使當事人於前開規定所表達之真意生效，且本服務條款之其他規定仍應完全有效。\n
+        本服務條款之標題僅係為方便起見，不具任何法律或契約效果。\n
+        如欲回報任何違反本服務條款，或對本服務條款有疑問，請透過電子郵件（<font color="#1DBCCF"><b>service@HKshopu.com</b></font>）聯絡我們。\n
+        最近一次更新條款：2021 年 xx 月 xx 日
+    </string>
+
+    <string name="title_privacy_policy">隱私條例政策</string>
+    <string name="title_privacy_policy_contents">
+       <font color="#1DBCCF"><b>HKshopu</b></font> 為香港商店匯聚網絡有限公司（以下稱「本公司」）所經營。本公司十分重視您的隱私保護，將依香港個人資料（私隱）條例及本隱私條例政策蒐集、處理及利用您的個人資料，並提供您對個人資料權利之行使與保護。若您不同意本隱私條例政策之全部或部分者，請您停止使用本網站服務。
+    </string>
+    <string name="the_scope_of_application_of_this_privacy_policy_p1">1. 本隱私條例政策適用之範圍</string>
+    <string name="the_scope_of_application_of_this_privacy_policy_contents_p1">
+        請您在於使用本網站服務前，確認您已審閱並同意本隱私條例政策所列全部條款，若您不同意全部或部分者，則請勿使用本網站服務。\n
+        本隱私條例政策僅適用於本網站對您個人資料所為蒐集、處理與利用，不及於其他非本公司所有或控制之其他公司或個人。您可能經由本網站連結至第三人所經營之網站，各該網站所為之個人資料蒐集係依其網站之隱私條例政策規定處理，與本公司無涉。
+    </string>
+    <string name="personal_data_protection_law_p2">2. 個人資料保護法應告知事項</string>
+    <string name="personal_data_protection_law_contnets_p2">
+        (1) 蒐集機關名稱：香港商店匯聚網絡有限公司\n
+        (2) 蒐集目的：提供本公司相關服務、行銷、契約、類似契約或其他法律關係事務、消費者、客戶管理與服務、網路購物及其他電子商務服務、廣告和商業行為管理業務、其他經營合於營業登記項目或組織章程所定之業務。提供個人化服務時，亦可能於上述規定之目的以外，利用個人資料。\n
+        (3) 資料蒐集範圍：\n
+        a. 識別類：姓名、地址、聯絡電話、電子郵件信箱\n
+        b. 特徵類：年齡、性別、出生年月日等\n
+        c. 社會情況類：興趣、休閒、生活格調、消費模式等\n
+        d. 我們會蒐集您使用 HKshopu 服務時進行的相關活\n
+        動資訊，可能包括但不限於：\n
+        ● 您搜尋的字詞\n
+        ● 您在 HKshopu 上瀏覽內容和廣告的瀏覽次數與互動次數\n
+        ● 交易活動與紀錄、使用時間\n
+        ● 您於 HKshopu 上交流或分享的內容與對象\n
+        ● 使用裝置、作業系統、 IP 位址\n
+        e. 其他：往來電子郵件、網站留言、系統自動紀錄之軌跡資訊等。\n
+        (4) 個人資料利用期間：本網站會員有效期間及終止後六個月；若非會員則於該蒐集個人資料之目的消失後六個月。\n
+        (5) 個人資料利用地區：本公司執行業務及伺服器主機所在地，目前主要為香港地區。\n
+        (6) 個人資料利用對象：本公司及本公司關係企業，及本公司委外之協力廠商（例如：提供物流、金流或活動贈品、展示品之廠商）；如為本公司與其他廠商共同蒐集者，將於該共同蒐集之活動中載明。\n
+        (7) 個人資料利用方式：依蒐集目的範圍及本隱私權政策進行利用。\n
+        (8) 行使個人資料權利方式：就您的個人資料享有查詢或請求閱覽、請求製給複製本、請求補充或更正、請求停止蒐集、處理或利用、請求刪除之權利。您可以聯繫我們（為避免電子郵件系統漏信或其他原因無法收悉，以本公司回覆收悉為準），本公司將於收悉您的請求後，儘速處理。\n
+        (9) 個人資料選填說明：若本公司於蒐集個人資料時，相關網頁或文件載明為選填者，僅為提供您使用本網站更佳體驗，不影響您使用本網站之權益。
+    </string>
+    <string name="instructions_for_collection_processing_and_use_of_personal_data_p3">3. 個人資料蒐集、處理及利用說明</string>
+    <string name="instructions_for_collection_processing_and_use_of_personal_data_contents_p3">
+        本公司可能透過 Facebook、Instagram 或類似社群服務系統，於取得您的同意後，將部分本網站的資訊發布於您的社群活動資訊頁面，若您不同意該等訊息之發布，請您勿點選同意鍵，或於事後透過各該社群服務之會員機制移除該等資訊或拒絕本網站繼續發布相關訊息。若有任何問題，仍可與本公司聯絡，本公司將協助您確認、處理相關問題。 除依法應提供予司法、檢調機關、相關主管機關，或與本公司協力廠商為執行相關活動必要範圍之利用外，本公司將不會任意將您的個人資料提供予第三人。\n
+        當本公司或本網站全部或部分分割、獨立子公司經營、被其他第三者購併或收購資產，導致經營權轉換時，本公司會於事前將相關細節公告於本網站，且本公司或本網站所擁有之全部或部分使用者資訊亦可能在經營權轉換的狀況下移轉給第三人。惟限於與該經營權轉換服務相關之個人資料。若本公司或本網站部分營運移轉予第三人，您仍為本公司會員，若您不希望本公司後續利用您的個人資料，您可以依本隱私條例政策向本公司行使權利。
+    </string>
+    <string name="cooki_technology_p4">4. Cookie 技術</string>
+    <string name="cooki_technology_contents_p4">
+        為便於日後的辨識，當您使用本網站服務時，本公司可能會在您的電腦上設定與存取 Cookie。 您可以透過設定您的個人電腦或上網設備，決定是否允許 Cookie 技術的使用，若您關閉 Cookie 時，可能會造成您使用本網站服務時之不便利或部分功能限制。
+    </string>
+    <string name="Confidentiality_and_security_p5"> 5. 保密與安全性</string>
+    <string name="Confidentiality_and_security_contents_p5">
+        我們會將有權存取您個人資料之員工限於我們合理相信是為了向您提供產品或服務或為了完成工作而需要取得這些資料的員工。為了保護您的帳戶及個人資料的安全，請您不要任意將個人帳號、密碼提供予第三人或允許第三人以您的個人資料申請帳號、密碼，否則，相關責任由您自行負擔。若您的帳號、密碼有外洩之虞，請您立即更改密碼，或通知本公司暫停該帳號（本公司可能會要求核對您的個人資料）。\n
+        網際網路並不是一個安全的資訊傳輸環境，請您在使用本網站時，避免將敏感的個人資料提供予他人或在網站上公開揭露。
+    </string>
+    <string name="protection_of_minors_p6">6. 未成年人保護</string>
+    <string name="protection_of_minors_contents_p6">
+        本網站並非特別為未成年人/兒童設計，未成年人使用本網站時，若同意本網站蒐集、利用其個人資訊時，應在法定代理人或監護人之同意下為之。法定代理人或監護人得隨時請求本公司停止特定帳號及其相關之個人資料之蒐集、處理及利用行為。
+    </string>
+    <string name="amendments_to_the_privacy_policy_p7"> 7. 隱私條例政策之修改</string>
+    <string name="amendments_to_the_privacy_policy_contents_p7">
+        隱私權政策如經修改，本網站將以您所提供之電子郵件或簡訊通知您相關之重大變更，並於本網站公告。若您不同意該等變更或修改，請停止繼續使用本網站服務，並依本隱私權政策規定通知本公司停止蒐集、處理及利用您的個人資料。\n
+        您可隨時修改個人帳號資料，我們保有權利向您傳送 HKshopu 服務相關的特定訊息 (如服務公告、管理訊息)，這些訊息被視為您帳號的一部分，您無法選擇退出接收。
+    </string>
+    <string name="questions_and_suggestions">問題和建議</string>
+    <string name="questions_and_suggestions_contents">
+        如果您有任何問題或建議，請與我們聯繫。
+    </string>
+
+    <string name="title_merchandise_sales_policy">商品販售政策</string>
+    <string name="title_merchandise_sales_policy_contents">
+        <font color="#1DBCCF"><b>HKshopu</b></font> 提供網路服務（包含但不限於網站及手機版網頁及手機應用程式等）之目的，在於提供便利、快速、簡單的使用介面，有利買家、商家、創業家一同使用，同時鼓勵優質的在地設計師將個人品牌及設計商品展示於 HKshopu，透過網路推展到國際舞台。
+    </string>
+    <string name="range_of_products_that_can_be_put_on_the_shelves_m1">可上架商品範圍</string>
+    <string name="range_of_products_that_can_be_put_on_the_shelves_contents_m1">
+        1. 原創商品：由設計師本人（或其團隊）親自發想、設計之具有原創性，且符合 HKshopu 商品販售政策之商品。\n
+        2. 授權販售：得到原廠品牌或商品原創者書面授權或擁有其他合法權源，得由設計師代理或經銷之商品。
+    </string>
+    <string name="prohibited_product_range_m2">禁止上架商品範圍</string>
+    <string name="prohibited_product_range_contents_m2">
+        非原創、非授權販售之商品。\n
+        至各地少量帶貨、批貨而來之非原創商品（沒有授權文件、或拒絕提供授權文件予 HKshopu 建檔者）。\n
+        與申請開館時類別相異之商品。\n
+        仿冒品、盜版品、可能涉及侵害他人擁有之專利、著作、商標等權利之商品。\n
+        違反智慧財產權相關法規及未經肖像所有權人同意使用之創作（包含但不限於卡通虛擬人物、電影人物、名人等圖像及肖像
+        無法提供相應投保證明、教練證書之體驗活動商品。\n
+        於住家、民宅等非公眾得出入之場所舉辦或場地未能符合法規要求之體驗活動商品。\n
+        使用一般市售素材（包含但不限於羊毛氈、黏土、毛線、橡皮筋等材料），並依照網路範例、市售教學書之程序重現（製）不具有原創性之商品。\n
+        不開放消費者購買之展示品。\n
+        租借性質之商品。\n
+        廣告性質之商品。\n
+        菸酒管理法所定義之菸類及酒精類及其製成物。\n
+        毒品／吸毒用品，包括麻醉劑、類固醇和其他管制藥品。\n
+        含有輻射性物質、易燃物、有毒物質之商品，包括含有該物質廢棄物。\n
+        藥品／未經 HKshopu 審核的醫療器材。\n
+        活體動物／保育類動物及其產製品（如：象牙製品、熊掌）。\n
+        爆竹煙火。\n
+        武器（如：槍，砲，彈藥，子彈，爆裂物）。\n
+        有害物質（如：易燃，易爆，腐蝕，有毒）。\n
+        房地產／具牌照之交通工具（如：汽車，摩托車，遊艇）。\n
+        贓物／無處分權物（如：權利車）。\n
+        個人情報資料（如：通訊錄、個人身份資料）。\n
+        政府證明文件或執照、身分證、護照、警用物品、以及其他執法機關制服裝或徽章。\n
+        統一發票、銷售憑證、捐贈收據或證明以及賭博性商品、彩券。\n
+        貨幣／有價證券（如：股票股條，認股權證，債券，不動產投資證券）。\n
+        含有或暗示色情或猥褻意涵之商品。\n
+        含有或暗示暴力意涵之商品。\n
+        針對特定人物人身攻擊或含有歧視意涵之商品。\n
+        帶有攻擊或有歧視種族、宗教、性別認同、殘疾意涵或鼓吹犯罪之商品。\n
+        其他違反公共秩序、善良風俗或依法令禁止販售、廣告之商品。\n
+        其他經 HKshopu 判斷認為不符 HKshopu 商品販售政策之商品。
+    </string>
+
+
+    <string name="title_intellectual_property_protection_policy">知識產權保護政策</string>
+    <string name="title_intellectual_property_protection_policy_contents">
+    <font color="#1DBCCF"><b>HKshopu</b></font>
+        提供優質的網路服務平台，除了在設計館開館合約及網站規範特別註明「設計師不得於 HKshopu 販售侵害他人知識產權的商品」外，為確保知識產權權利人之權益HKshopu 制訂了「知識產權保護政策」，以規範、處理權利人對於設計師之商品涉有侵害知識產權之情事。\n
+        設計師、使用者及權利人等認知並了解 HKshopu 非司法機關，無法逕行認定設計師上架、販售的商品是否構成侵權。當權利人認為在 HKshopu 上販售的商品侵害其知識產權時HKshopu 建議以下列方式維護權益：\n
+        以站內信直接與你認為涉及侵權的設計師聯繫：直接與涉及侵權的設計師聯繫有助於釐清事實及雙方主張，也是許多爭議更有效且相對快速的解決途徑之一。
+    </string>
+
+    <string name="you_should_know_i1">你應該要知道</string>
+    <string name="you_should_know_i1_contents_i1">
+        1 HKshopu 可以協助判斷侵權與否嗎？\n
+        不可以，HKshopu 無法直接判斷被通知侵權的設計師有無侵權，究竟是否構成侵權，還是須由司法機關進一步調查、裁判。\n
+        2 權利人要如何提出侵權通知？\n
+        請使用統一的信件主旨「知識產權侵害」，一併附上相關證明文件，寄送至 <font color="#1DBCCF"><b>legal@HKshopu.com</b></font>。
+    </string>
+
+    <string name="more_frequently_asked_questions_i2">更多常見問題</string>
+    <string name="more_frequently_asked_questions_contents_i2">
+        請注意，在此僅就一些設計師常見的疑問提供相關資訊，並非 HKshopu 提供的法律意見。若你對下列內容有進一步的疑問，請盡速諮詢專業人士（如：律師），以確保你的權益。\n
+        如果還有其他問題，歡迎隨時與 HKshopu 聯繫，請來信 <font color="#1DBCCF"><b>legal@HKshopu.com</b></font>，謝謝配合。\n
+        HKshopu 得隨時修訂本政策內容，修訂後自公告於此網頁時起發生效力。
+    </string>
+
+
+    <string name="title_disclaimer">免責聲明</string>
+    <string name="title_disclaimer_contents">
+    <font color="#1DBCCF"><b>HKshopu</b></font>
+        僅係提供會員間（即消費者與商家）交易之平台，刊登之商品是由商家自行上傳銷售，消費者於 HKshopu 完成選購商品並付款後，買賣契約成立於消費者與商家之間HKshopu 無法，亦不會介入、干涉設計師與消費者間買賣交易。若消費者就其選購之商品後續衍生消費爭議，需由消費者與商家間自行處理及解決。\n
+        如消費者於 HKshopu 選購商品產生消費爭議（如：商家拒絕履行出貨、售後服務、付款糾紛或避不出面等），HKshopu 將盡力協助消費者與商家聯繫，必要時得將商家聯絡方式（公司、個人名稱、電話、email）提供予消費者，然此不代表 HKshopu 就商家與消費者間之消費爭議有介入處理義務，亦不就消費爭議衍生之法律責任與其中一方連帶負責。\n
+        關於商家及商鋪上架內容與商品資訊，消費者如有疑問，應逕透過 HKshopu 聯絡商家、傳送訊息等功能向商家聯繫、詢問，相關法律責任亦應由該商家自行負責。HKshopu 對於商家上架內容與商品資訊並不負任何法律上之保證、擔保或連帶賠償責任。\n
+        您明確了解並同意 HKshopu 提供之網路服務（包含但不限於網站及手機版網頁及手機應用程式等）、資料庫系統及程式設計（下稱「本服務」）僅以「現狀」提供服務，HKshopu不保證以下事項：A.本服務符合使用者的需求；B.本服務內容及系統程式不受干擾、及時提供或免於出錯；C.您經由本服務購買之商品或服務將符合您的期望；D.所有會員自行填寫資料之正確性。且 HKshopu 得依其判斷隨時進行規格變更及版本升級，如因此暫時停止網路服務，HKshopu 不對消費者為任何賠償。\n
+        本服務指定之第三方服務（包含但不限於銀行或超商），所提供之服務品質及 內容由該第三方自行負責。故使用本服務時，可能由於第三方本身系統問題、相關作業網路連線品質問題或其他不可抗拒因素，造成驗證無法完成。若您所提供之基本資料有誤，造成本服務無法即時通知您異常狀況之緊急處理方式時，HKshopu 對此將不負任何損害賠償責任。\n
+        HKshopu 必須提醒消費者：為保障消費者權益，請消費者於 HKshopu 上完成交易，如有任何疑問，歡迎來信 <font color="#1DBCCF"><b>service@HKshopu.com</b></font>。
+    </string>
+
+    //帳號設定
+    <string name="account_setup">帳號設定</string>
+    <string name="my_account">我的帳戶</string>
+    <string name="my_setup">我的設定</string>
+    <string name="shop_info">店鋪資訊</string>
+    <string name="shop_address">店鋪地址</string>
+    <string name="setup_notify">通知設定</string>
+    <string name="setup_lan">語言設定</string>
+    <string name="password_change">密碼變更</string>
+
+    //社群帳號設定
+    <string name="socialaccount_setup">社群帳號設定</string>
+    <string name="setup_fb">連結 Facebook 帳號</string>
+    <string name="setup_ig">連結 Instagram 帳號</string>
+
+    //新增店鋪
+    <string name="addshop">新增店鋪</string>
+    <string name="addshoppic">請選擇店鋪照片</string>
+    <string name="addshoppicintro">點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。</string>
+    <string name="editshopname">請編輯店鋪名稱</string>
+    <string name="editshopnameintro">點選下方的空格並填寫喜歡的店鋪名稱。</string>
+    <string name="addshopsort">請選擇店鋪分類</string>
+    <string name="addshopsortintro">進入店鋪分類，選擇適合的類別設置分類。</string>
+    <string name="shopsort">店鋪分類</string>
+    <string name="shopsortmore">更多</string>
+    <string name="addshopconfirm">確認新增店鋪</string>
+
+    //店鋪資訊
+    <string name="tab1">功能服務</string>
+    <string name="tab2">我的賣場</string>
+    <string name="income_tab1">完成的訂單</string>
+    <string name="income_tab2">進行中的訂單</string>
+    <string name="merchants_tab1">架上商品</string>
+    <string name="merchants_tab2">已售完</string>
+    <string name="merchants_tab3">未上架</string>
+
+    //店鋪列表
+    <string name="loginremind">登入頁面</string>
+    <string name="loginremind_title">訪客請先登入以開通買家功能</string>
+
+    //編輯店鋪名稱
+    <string name="shopname_edit">編輯店鋪名稱</string>
+    <string name="shopname_show">顯示在店鋪簡介</string>
+    <string name="change_limit">30天內只能更改一次店鋪名稱</string>
+
+    //修改店鋪資訊
+    <string name="shop_name">名稱</string>
+    <string name="user_account">使用者帳號</string>
+    <string name="save">儲存</string>
+    <string name="add_newbg">新增背景圖</string>
+    <string name="brief">簡介</string>
+    <string name="social_account">社群帳號設定</string>
+    <string name="modify_newbg">修改</string>
+
+    //進帳/月
+    <string name="shop_income">進帳/月</string>
+
+    //新增店鋪簡介
+    <string name="contact">聯絡資訊</string>
+
+    //Email
+    <string name="addemail_remind">為了保護你的帳戶安全。請再次輸入密碼已進行下一步</string>
+    <string name="password_now">現在的密碼</string>
+    <string name="go_on">繼續</string>
+
+    //Email
+    <string name="add_email">新增Email</string>
+    <string name="email_input">輸入電子郵件</string>
+
+    //我的商品
+    <string name="my_merchants">我的商品</string>
+    <string name="search_keyword">請輸入商品關鍵字</string>
+    <string name="add_newproduct">＋ 新增商品</string>
+
+    //電話號碼
+    <string name="phone">電話號碼</string>
+
+    //關注
+    <string name="shop_attention">關注</string>
+    <string name="edit">編輯</string>
+
+    //商店評價
+    <string name="shop_evaluation">店鋪評價</string>
+
+
+    //新增商品
+    <string name="title_addproduct">新增商品</string>
+    <string name="txtview_productname">商品名稱<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="hint_editproductname">輸入商品名稱</string>
+    <string name="txtview_productdescription">商品描述<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="hint_editproductdescription">輸入商品描述</string>
+    <string name="txtview_product_status">商品保存狀況<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="brand_new">全新</string>
+    <string name="second_hand">二手</string>
+    <string name="title_specification">新增規格</string>
+    <string name="txtview_category">新增商別類別<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_addspecification">新增商別規格</string>
+    <string name="txtview_specification">商品規格</string>
+    <string name="txtview_price">商品價格<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_quantity">商品數量<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_priceinput">請輸入商品價格</string>
+    <string name="txtview_quantityinput">請輸入商品數量</string>
+    <string name="txtview_shippingfee">運費<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_marketingactivities">廣告與行銷活動<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_sharetofb">分享到FACEBOOK</string>
+    <string name="txtview_sharetoig">分享到INSTAGRAM</string>
+
+    //新增產品規格
+    <string name="title_adddescription">新增規格</string>
+    <string name="editView_inputproductdescription">請輸入商品規格</string>
+    <string name="btn_edit">編輯</string>
+    <string name="btn_editdone">完成</string>
+    <string name="dialog_spec_info">當您要上架的商品有不同規格（例如：顏色、尺寸）時，則會需要使用商品規格功能，設定詳細商品規格，可以讓買家在購買時更清楚迅速的選擇。</string>
+
+    //設定庫存與價格
+    <string name="title_setInventoryAndPrice">新增規格</string>
+    <string name="textView_setInventorySize">尺寸</string>
+    <string name="textView_setInventoryPrice">價格</string>
+    <string name="textView_setInventoryQuantity">數量</string>
+    <string name="textView_needMoreTimeToStockUp">需要較長時間備貨嗎?</string>
+    <string name="textView_title_spec">規格:</string>
+    <string name="textView_clear_all_inventory"><u>全部清空</u></string>
+
+    //運費
+    <string name="title_shippingFare">運費</string>
+    <string name="textView_packageWeight">包裹重量(g)<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="textView_packageSize">包裹尺寸大小<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="textView_packageUnit">長/寬/高 (cm)</string>
+    <string name="hint_setWeight">設定重量</string>
+    <string name="hint_setSize">設定尺寸</string>
+    <string name="textView_postal">郵政</string>
+    <string name="textView_s.f.express">順豐速運</string>
+    <string name="textView_faceToFace">面交</string>
+    <string name="textView_setItYourself">自行設定...</string>
+    <string name="textView_I_will_bear_the_freight">我會負擔運費</string>
+
+    //商品
+    <string name="textView_more">更多</string>
+    <string name="textView_over599freeshipping">滿$599，免運費</string>
+    <string name="textView_merchandiseinfo">商品資訊</string>
+    <string name="textView_merchandisecategory">商品類別</string>
+    <string name="textView_sure_to_leave">您尚未儲存變更，確定要離開 ？</string>
+    <string name="textView_cancel">取消</string>
+    <string name="textView_discard">捨棄</string>
+    <string name="textView_more_time_to_stock">較長備貨天數</string>
+    <string name="texthint_more_time_to_stock_input">請輸入備貨時間</string>
+
+
+
+    //買家新增地址
+    <string name="title_addaddress">新增地址</string>
+    <string name="textView_nameAndCompanyName">姓名/公司名稱</string>
+    <string name="texHint_InputNameAndCompanyName">輸入姓名或公司名稱</string>
+    <string name="textView_phoneNumber">電話號碼</string>
+    <string name="texHint_InputPhoneNumber">輸入電話號碼</string>
+    <string name="textView_setDefaultAddressr">設為預設地址</string>
+    <string name="textView_setExpressAddress">設為快遞取件地址</string>
+
+    //商品分類
+    <string name="title_category">分類總覽</string>
+
+
+
+</resources>

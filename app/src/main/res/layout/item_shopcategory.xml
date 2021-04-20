@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginBottom="5dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/img_selected_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:visibility="invisible"
+            android:src="@mipmap/no_image" />
+
+        <ImageView
+            android:id="@+id/img_unselected_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:visibility="visible"
+            android:src="@mipmap/no_image" />
+    </RelativeLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_shopcategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/gray_txt"
+        android:text="女生衣著"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_dot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="top"
+        android:layout_gravity="top"
+        android:text="●"
+        android:textColor="@color/gray_txt"
+        android:textSize="8sp"
+        android:visibility="invisible"
+        tools:ignore="RtlCompat" />
+</LinearLayout>
