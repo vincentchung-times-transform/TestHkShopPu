@@ -85,9 +85,9 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
             var bundle = Bundle()
 
+            bundle.putInt("InvenDatas_size", mutableList_InvenDatas.size)
             bundle.putInt("datas_invenSpec_spec", datas_invenSpec_size)
             bundle.putInt("datas_invenSize_size", datas_invenSize_size)
-            bundle.putInt("InvenDatas_size", mutableList_InvenDatas.size)
 
             for(key in 0..datas_invenSpec.size-1) {
                 bundle.putParcelable("spec"+key.toString(), datas_invenSpec.get(key)!!)
@@ -174,6 +174,7 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
                         binding.firstLayerSpec01.text = datas_spec_title_first
                         binding.firstLayerTitle01.text = mutableList_spec[0].spec_name
+                        binding.firstLayerColumn01.text  = datas_spec_title_second
 
                         when(datas_size_size){
 
@@ -239,6 +240,8 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
                         binding.firstLayerTitle01.text = mutableList_spec[0].spec_name
                         binding.firstLayerSpec02.text = datas_spec_title_first
                         binding.firstLayerTitle02.text = mutableList_spec[1].spec_name
+                        binding.firstLayerColumn01.text  = datas_spec_title_second
+                        binding.firstLayerColumn02.text  = datas_spec_title_second
 
 
                         when(datas_size_size){
@@ -342,6 +345,9 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
                         binding.firstLayerTitle02.text = mutableList_spec[1].spec_name
                         binding.firstLayerSpec03.text = datas_spec_title_first
                         binding.firstLayerTitle03.text = mutableList_spec[2].spec_name
+                        binding.firstLayerColumn01.text  = datas_spec_title_second
+                        binding.firstLayerColumn02.text  = datas_spec_title_second
+                        binding.firstLayerColumn03.text  = datas_spec_title_second
 
                         binding.containerInvenItem01.isVisible = true
                         binding.containerInvenItem02.isVisible = true
@@ -479,6 +485,7 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
                 specGroup_only = true
 
+                binding.firstLayerColumn01.text = datas_spec_title_first
 
                 mutableList_spec.add(ItemSpecification("",R.drawable.custom_unit_transparent))
 

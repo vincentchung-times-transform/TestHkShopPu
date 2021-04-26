@@ -71,7 +71,7 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                         var check_duplicate = 0
 
                         for (i in 0..mutableList_shipMethod.size - 1) {
-                            if (value_shipping_name == mutableList_shipMethod[i].ship_method_name) {
+                            if (value_shipping_name == mutableList_shipMethod[i].shipment_desc) {
                                 check_duplicate = check_duplicate + 1
                             } else {
                                 check_duplicate = check_duplicate + 0
@@ -197,16 +197,16 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
 
             //綁定當地變數與dataModel中的每個值
             imgv_delFare.setImageResource(item.btn_delete)
-            editText_shipping_name.setText(item.ship_method_name)
-            editText_shipping_fare.setText(item.ship_method_fare.toString())
+            editText_shipping_name.setText(item.shipment_desc)
+            editText_shipping_fare.setText(item.price.toString())
 
-            if(item.is_checked==true) {
+            if(item.onoff==true) {
                 switch_view.openSwitcher()
             }else{
                 switch_view.closeSwitcher()
             }
 
-            if(item.is_checked){
+            if(item.onoff){
 
                 textView_HKdolors.setTextColor(itemView.context.resources.getColor(R.color.hkshop_color))
                 editText_shipping_fare.setTextColor(itemView.context.resources.getColor(R.color.hkshop_color))
@@ -247,20 +247,14 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
 
     }
 
-    fun initFareDatas() {
 
-        mutableList_shipMethod.add(ItemShippingFare("郵局", 0, R.drawable.custom_unit_transparent))
-        mutableList_shipMethod.add(ItemShippingFare("順豐速運", 0, R.drawable.custom_unit_transparent))
-        mutableList_shipMethod.add(ItemShippingFare("", 0, R.drawable.custom_unit_transparent))
-
-    }
 
     //新增空白項目
     fun addEmptyItem(){
 
         empty_item_num=0
         for(i in 0..mutableList_shipMethod.size-1){
-            if (mutableList_shipMethod[i].ship_method_name == ""){
+            if (mutableList_shipMethod[i].shipment_desc == ""){
                 empty_item_num += 1
             }else{
                 empty_item_num += 0
@@ -273,7 +267,8 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                     "",
                     0,
                     R.drawable.custom_unit_transparent,
-                    false
+                    false,
+                0
                 )
             )
 
@@ -290,7 +285,7 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
 
         empty_item_num=0
         for(i in 0..mutableList_shipMethod.size-1){
-            if (mutableList_shipMethod[i].ship_method_name == ""){
+            if (mutableList_shipMethod[i].shipment_desc == ""){
                 empty_item_num += 1
             }else{
                 empty_item_num += 0
@@ -303,7 +298,8 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                     "",
                     0,
                     R.drawable.custom_unit_transparent,
-                    false
+                    false,
+                    0
                 )
             )
             notifyDataSetChanged()
@@ -328,7 +324,8 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
             update_txt,
             update_fare,
             R.drawable.custom_unit_transparent,
-            is_checked
+            is_checked,
+            0
         )
 
         Thread(Runnable {

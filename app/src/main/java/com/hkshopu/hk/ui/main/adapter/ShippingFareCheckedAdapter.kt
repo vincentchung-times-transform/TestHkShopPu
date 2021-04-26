@@ -30,8 +30,8 @@ class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapte
 
         fun bind(item: ItemShippingFare) {
             //綁定當地變數與dataModel中的每個值
-            editText_shipping_name.setText(item.ship_method_name)
-            textView_shipping_fare.setText(item.ship_method_fare.toString())
+            editText_shipping_name.setText(item.shipment_desc)
+            textView_shipping_fare.setText(item.price.toString())
         }
 
         override fun onClick(v: View?) {

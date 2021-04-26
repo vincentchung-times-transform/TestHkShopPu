@@ -404,10 +404,17 @@
                 android:clipToPadding="false"
                 android:paddingBottom="8dp" />
 
+            <CheckBox
+                android:id="@+id/check_box_async_fare_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/check_box_text_async_fare_setting"
+                android:textColor="@color/dark_gray"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:textSize="14sp" />
+
         </LinearLayout>
-
-
-
     </ScrollView>
 
 

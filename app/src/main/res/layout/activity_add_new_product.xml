@@ -86,9 +86,12 @@
                     android:textColor="@color/black"
                     android:text="@string/txtview_productname"/>
                 <EditText
+                    android:id="@+id/editText_entry_product_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:layout_below="@id/txtView_productname"
                     android:hint="@string/hint_editproductname"
                     android:background="@color/white"/>
@@ -113,10 +116,13 @@
                     android:textColor="@color/black"
                     android:text="@string/txtview_productdescription"/>
                 <EditText
+                    android:id="@+id/editText_entry_product_discription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtView_productdescription"
                     android:hint="@string/hint_editproductdescription"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:background="@color/white"/>
             </RelativeLayout>
@@ -318,10 +324,12 @@
                             android:id="@+id/editText_merchanPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:background="@color/white"
                             android:layout_alignParentTop="true"
-                            android:textSize="14sp"
-                            android:hint="@string/txtview_priceinput" />
+                            android:background="@color/white"
+                            android:hint="@string/txtview_priceinput"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:textSize="14sp" />
 
                     </RelativeLayout>
 
@@ -365,6 +373,8 @@
                             android:layout_height="match_parent"
                             android:hint="@string/txtview_quantityinput"
                             android:background="@color/white"
+                            android:singleLine="true"
+                            android:imeOptions="actionDone"
                             android:textSize="14sp"
                             android:src="@mipmap/ic_chevron"/>
 
@@ -486,6 +496,8 @@
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
                     android:layout_weight="1"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:background="@color/white"
                     android:hint="@string/texthint_more_time_to_stock_input"/>

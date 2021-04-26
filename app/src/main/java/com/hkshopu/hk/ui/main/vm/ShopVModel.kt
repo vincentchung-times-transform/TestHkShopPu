@@ -36,8 +36,8 @@ class ShopVModel : BaseViewModel() {
             .subscribe(StatusResourceObserver(addnewshopLiveData, silent = false))
     }
 
-    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic : MutableList<File>, product_spec_list : String, user_id: Int) {
-        repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic, product_spec_list, user_id)
+    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list : MutableList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String) {
+        repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list, product_spec_list, user_id, length, width, height, shipment_method)
             .subscribe(StatusResourceObserver(addProductData, silent = false))
     }
 
@@ -89,7 +89,7 @@ class ShopVModel : BaseViewModel() {
     fun getShopCategory(){
         //测试环境 使用测试域名
         if (true) {
-            ApiConstants.API_HOST = "https://hkshopu-20700.df.r.appspot.com/shop_category/index/"
+            ApiConstants.API_HOST = "https://hkshopu.df.r.appspot.com/shop_category/index/"
 
         }
         //在正式环境下，先获取API域名

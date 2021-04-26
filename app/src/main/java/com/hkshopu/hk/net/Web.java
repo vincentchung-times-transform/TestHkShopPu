@@ -5,6 +5,10 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
@@ -173,6 +177,77 @@ public class Web {
         }
     }
 
+    public void Do_ProductAdd(String url, int shop_id, int product_category_id, int product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, int user_id, int length, int width, int height, String shipment_method) {
+        Log.d(TAG, "Do_ProductAdd Url ＝ " + url);
+
+        List<MultipartBody.Part> images = new ArrayList<>();
+
+        for (int i=0; i < product_pic_list.size(); i++){
+
+            images.add(prepareFilePart("provider_documents["+i+"][document]", product_pic_list.get(i)));
+
+        }
+
+
+        MultipartBody.Builder requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("shop_id", String.valueOf(shop_id))
+                .addFormDataPart("product_category_id", String.valueOf(product_category_id))
+                .addFormDataPart("product_sub_category_id", String.valueOf(product_sub_category_id))
+                .addFormDataPart("product_title", String.valueOf(product_title))
+                .addFormDataPart("quantity", String.valueOf(quantity))
+                .addFormDataPart("product_description", String.valueOf(product_description))
+                .addFormDataPart("product_price", String.valueOf(product_price))
+                .addFormDataPart("shipping_fee", String.valueOf(shipping_fee))
+                .addFormDataPart("weight", String.valueOf(weight))
+                .addFormDataPart("new_secondhand", String.valueOf(new_secondhand))
+                .addFormDataPart("product_pic_list", String.valueOf(product_pic_list))
+                .addFormDataPart("product_spec_list", String.valueOf(product_spec_list))
+                .addFormDataPart("user_id", String.valueOf(user_id))
+                .addFormDataPart("length", String.valueOf(length))
+                .addFormDataPart("width", String.valueOf(width))
+                .addFormDataPart("height", String.valueOf(height))
+                .addFormDataPart("shipment_method", String.valueOf(shipment_method))
+                .addFormDataPart("product_pic_list_size", String.valueOf(product_pic_list_size));
+
+        for(int i=0; i< product_pic_list.size(); i++){
+
+            requestBody.addFormDataPart("product_pic"+i, product_pic_list.get(i).getName(), RequestBody.create(MediaType.parse("image/jpeg"), product_pic_list.get(i)));
+
+        }
+
+        MultipartBody multipartBody = requestBody.build();
+
+        for(int i=0; i<multipartBody.parts().size(); i++){
+            Log.d("requestBody_test", multipartBody.part(i).body().toString());
+        }
+
+//        RequestBody requestBody = RequestBody.create(jsonObject.toString(),JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(multipartBody)
+                .build();
+//        Log.d(TAG, "Request ＝ " + requestBody);
+//        Log.d(TAG, "Content ＝ " + bodyToString(request));
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+
     private static OkHttpClient getUnsafeOkHttpClient() {
         try {
             // Create a trust manager that does not validate certificate chains
@@ -213,4 +288,12 @@ public class Web {
             throw new RuntimeException(e);
         }
     }
+
+
+    private MultipartBody.Part prepareFilePart(String partName, File file){
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), file);
+
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestBody);
+    }
+
 }

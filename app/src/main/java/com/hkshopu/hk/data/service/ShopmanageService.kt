@@ -17,16 +17,15 @@ import java.io.IOException
 interface ShopmanageService{
 
     @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}/shop/checkShopNameIsExistsProcess/")
+    @POST("${ApiConstants.API_PATH}shop/checkShopNameIsExistsProcess/")
     fun shopnamecheck(@Field("shop_title") shop_title : String,) : Observable<BaseResponse<Any>>
 
     @FormUrlEncoded
-    @POST("${ApiConstants.API_PATH}/shop/save/")
+    @POST("${ApiConstants.API_PATH}shop/save/")
     fun adddnewshop(@Field("shop_title") shop_title : String,) : Observable<BaseResponse<Any>>
 
     @FormUrlEncoded
     @POST("${ApiConstants.API_PATH}product/save/")
-    fun add_product(@Field("shop_id") shop_id : Int, @Field("product_category_id") product_category_id : Int, @Field("product_sub_category_id") product_sub_category_id: Int, @Field("product_title") product_title: String, @Field("quantity") quantity: Int, @Field("product_description") product_description: String, @Field("product_price") product_price: Int, @Field("shipping_fee") shipping_fee: Int, @Field("weight") weight: Int, @Field("new_secondhand") new_secondhand: String, @Field("product_pic") product_pic : MutableList<File>, product_spec_list :String, user_id: Int) : Observable<BaseResponse<Any>>
-
+    fun add_product(@Field("shop_id") shop_id : Int, @Field("product_category_id") product_category_id : Int, @Field("product_sub_category_id") product_sub_category_id : Int, @Field("product_title") product_title : String, @Field("quantity") quantity : Int, @Field("product_description") product_description : String, @Field("product_price") product_price : Int, @Field("shipping_fee") shipping_fee : Int, @Field("weight") weight : Int, @Field("new_secondhand") new_secondhand : String, @Field("product_pic_list") product_pic_list : MutableList<File>, @Field("product_spec_list") product_spec_list : String,  @Field("user_id") user_id: Int, @Field("length") length : Int,  @Field("width") width : Int,  @Field("height") height : Int, @Field("shipment_method") shipment_method : String ) : Observable<BaseResponse<Any>>
 
 }

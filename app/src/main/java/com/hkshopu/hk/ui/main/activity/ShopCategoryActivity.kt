@@ -28,7 +28,7 @@ class ShopCategoryActivity : BaseActivity() {
 
     private val VM = ShopVModel()
     private val adapter = CategoryMultiAdapter()
-    var url = "https://hkshopu-20700.df.r.appspot.com/shop_category/index/"
+    var url = "https://hkshopu.df.r.appspot.com/shop_category/index/"
     val list = ArrayList<ShopCategoryBean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

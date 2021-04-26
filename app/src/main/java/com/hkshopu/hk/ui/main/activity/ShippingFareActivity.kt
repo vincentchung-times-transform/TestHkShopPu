@@ -144,7 +144,6 @@ class ShippingFareActivity : AppCompatActivity(){
             intent.putExtra("bundle_ShippingFareActivity", bundle)
 
             startActivity(intent)
-
             finish()
 
         }
@@ -236,9 +235,9 @@ class ShippingFareActivity : AppCompatActivity(){
 
     fun initFareDatas() {
 
-        mutableList_itemShipingFare.add(ItemShippingFare("郵局", 0, R.drawable.custom_unit_transparent))
-        mutableList_itemShipingFare.add(ItemShippingFare("順豐速運", 0, R.drawable.custom_unit_transparent))
-        mutableList_itemShipingFare.add(ItemShippingFare("", 0, R.drawable.custom_unit_transparent))
+        mutableList_itemShipingFare.add(ItemShippingFare("郵局", 0, R.drawable.custom_unit_transparent, false, 0))
+        mutableList_itemShipingFare.add(ItemShippingFare("順豐速運", 0, R.drawable.custom_unit_transparent, false, 0))
+        mutableList_itemShipingFare.add(ItemShippingFare("", 0, R.drawable.custom_unit_transparent, false, 0))
 
     }
 
@@ -252,7 +251,7 @@ class ShippingFareActivity : AppCompatActivity(){
 
         if(mutableList_size>=2){
             for(i in 0..mutableList_size-2){
-                mutableList_itemShipingFare[i] = ItemShippingFare(mutableList_itemShipingFare[i].ship_method_name, mutableList_itemShipingFare[i].ship_method_fare, R.drawable.custom_unit_transparent)
+                mutableList_itemShipingFare[i] = ItemShippingFare(mutableList_itemShipingFare[i].shipment_desc, mutableList_itemShipingFare[i].price, R.drawable.custom_unit_transparent, mutableList_itemShipingFare[i].onoff,  mutableList_itemShipingFare[i].shop_id)
             }
 
             mAdapters_shippingFare.updateList(mutableList_itemShipingFare)
@@ -273,7 +272,7 @@ class ShippingFareActivity : AppCompatActivity(){
 
         if(mutableList_size>=2){
             for(i in 0..mutableList_size-2){
-                mutableList_itemShipingFare[i] = ItemShippingFare(mutableList_itemShipingFare[i].ship_method_name, mutableList_itemShipingFare[i].ship_method_fare, R.mipmap.btn_delete_fare)
+                mutableList_itemShipingFare[i] = ItemShippingFare(mutableList_itemShipingFare[i].shipment_desc, mutableList_itemShipingFare[i].price, R.mipmap.btn_delete_fare,  mutableList_itemShipingFare[i].onoff,  mutableList_itemShipingFare[i].shop_id)
             }
 
             mAdapters_shippingFare.updateList(mutableList_itemShipingFare)

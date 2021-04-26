@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +29,8 @@ import java.io.IOException
 
 class MerchanCategoryActivity : BaseActivity() {
 
-    var url = "https://hkshopu-20700.df.r.appspot.com/product_category/index/"
-    var sub_url = "https://hkshopu-20700.df.r.appspot.com/product_sub_category/index/"
+    var url = "https://hkshopu.df.r.appspot.com/product_category/index/"
+    var sub_url = "https://hkshopu.df.r.appspot.com/product_sub_category/index/"
 
 
     lateinit var binding : ActivityMerchanCategoryBinding
@@ -48,6 +49,8 @@ class MerchanCategoryActivity : BaseActivity() {
 
         initView()
         initEvent()
+
+
     }
 
 
@@ -104,17 +107,18 @@ class MerchanCategoryActivity : BaseActivity() {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
+
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
 
-                    Log.d("ShopmenuActivity", "返回資料 resStr：" + resStr)
-                    Log.d("ShopmenuActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("MerchanCategoryActivityApi", "返回資料 resStr：" + resStr)
+                    Log.d("MerchanCategoryActivityApi", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
 
                     if (ret_val.equals("已取得產品分類清單!")) {
 
                         val translations: JSONArray = json.getJSONArray("product_category_list")
-                        Log.d("ShopmenuActivity", "返回資料 List：" + translations.toString())
+                        Log.d("MerchanCategoryActivityApi", "返回資料 List：" + translations.toString())
 
                         for (i in 0 until translations.length()) {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
@@ -128,14 +132,12 @@ class MerchanCategoryActivity : BaseActivity() {
 
                         }
                         Log.d(
-                            "ShopmenuActivity",
+                            "MerchanCategoryActivityApi",
                             "返回資料 product_category_list：" + product_category_list.toString()
                         )
 
-
-
                     } else {
-                        Log.d("ShopmenuActivity", "您尚未新增任何產品分類!")
+                        Log.d("MerchanCategoryActivity", "您尚未新增任何產品分類!")
                     }
 
                 } catch (e: JSONException) {
@@ -143,7 +145,6 @@ class MerchanCategoryActivity : BaseActivity() {
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-
                 }
             }
 
@@ -169,7 +170,7 @@ class MerchanCategoryActivity : BaseActivity() {
             getSubProductCategory(sub_url)
 
             try{
-                Thread.sleep(1000)
+                Thread.sleep(800)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
@@ -184,6 +185,7 @@ class MerchanCategoryActivity : BaseActivity() {
 
 
             runOnUiThread {
+
 
                 mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
                 mAdapters_SubProCateItem.set_c_name(product_category_list.get(0).c_product_category)
@@ -206,13 +208,13 @@ class MerchanCategoryActivity : BaseActivity() {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("ShopmenuActivity", "返回資料 resStr：" + resStr)
-                    Log.d("ShopmenuActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("MerchanCategoryActivityApi", "返回資料 resStr：" + resStr)
+                    Log.d("MerchanCategoryActivityApi", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("已取得產品子分類清單!")) {
 
                         val translations: JSONArray = json.getJSONArray("product_sub_category_list")
-                        Log.d("ShopmenuActivity", "返回資料 List：" + translations.toString())
+                        Log.d("MerchanCategoryActivityApi", "返回資料 List：" + translations.toString())
 
                         for (i in 0 until translations.length()) {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
@@ -227,7 +229,7 @@ class MerchanCategoryActivity : BaseActivity() {
                         }
 
                         Log.d(
-                            "ShopmenuActivity",
+                            "MerchanCategoryActivityApi",
                             "返回資料 product_child_category_list :" + product_child_category_list.toString()
                         )
 
@@ -265,11 +267,7 @@ class MerchanCategoryActivity : BaseActivity() {
                         selectedId = it.selectrdId
                         c_product_category = it.c_product_category
 
-
-
                         Thread(Runnable {
-
-
 
                             selected_product_child_category_list = product_child_category_list.filter {
                                 it.product_category_id.equals(
@@ -279,9 +277,11 @@ class MerchanCategoryActivity : BaseActivity() {
 
                             runOnUiThread {
 
+
                                 mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
                                 mAdapters_SubProCateItem.set_c_name(c_product_category)
                                 mAdapters_SubProCateItem.notifyDataSetChanged()
+
 
                             }
 

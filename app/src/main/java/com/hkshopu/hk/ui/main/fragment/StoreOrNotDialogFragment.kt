@@ -19,7 +19,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventShopDesUpdated
 import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
 import com.hkshopu.hk.utils.rxjava.RxBus
-
+import com.tencent.mmkv.MMKV
 
 
 import org.jetbrains.anko.find
@@ -79,6 +79,9 @@ class StoreOrNotDialogFragment(var baseActivity : BaseActivity ): DialogFragment
             R.id.btn_discard -> {
 
                 var currentActivity : Activity  = baseActivity
+
+
+                MMKV.mmkvWithID("addPro").clear()
 
                 val intent = Intent(currentActivity, ShopmenuActivity::class.java)
                 startActivity(intent)

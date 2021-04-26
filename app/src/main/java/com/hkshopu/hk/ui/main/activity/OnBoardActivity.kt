@@ -224,7 +224,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
-//            finish()
+            finish()
 
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)

@@ -455,6 +455,8 @@
     <string name="textView_faceToFace">面交</string>
     <string name="textView_setItYourself">自行設定...</string>
     <string name="textView_I_will_bear_the_freight">我會負擔運費</string>
+    <string name="check_box_text_async_fare_setting">同步更改運輸設定</string>
+
 
     //商品
     <string name="textView_more">更多</string>
