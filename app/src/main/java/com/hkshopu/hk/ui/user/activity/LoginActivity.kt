@@ -270,6 +270,7 @@ class LoginActivity : BaseActivity(), TextWatcher {
         binding.editEmail.singleLine = true
         binding.editEmail.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
+
                 EditorInfo.IME_ACTION_DONE -> {
 
                     email = binding.editEmail.text.toString()

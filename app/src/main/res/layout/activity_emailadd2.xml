@@ -59,33 +59,33 @@
         android:layout_below="@id/layout_emailadd2Title"
         android:layout_marginTop="10dp">
 
-    <EditText
-        android:id="@+id/et_addEmail"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:paddingStart="20dp"
-        android:hint="@string/email_input"
-        android:inputType="phone"
-        android:textColorHint="@color/color_somegray"
-        android:gravity="center_vertical"
-        android:textSize="14sp"
-        android:background="@drawable/customborder_onboard_8dp" />
+        <EditText
+            android:id="@+id/et_addEmail"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:paddingStart="20dp"
+            android:hint="@string/email_input"
+            android:inputType="phone"
+            android:textColorHint="@color/color_somegray"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:background="@drawable/customborder_onboard_8dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="53dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:layout_below="@id/et_addEmail"
-        android:background="@drawable/customborder_onboard_8dp"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical"
-        android:text="@string/shopname_show"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_below="@id/et_addEmail"
+            android:background="@drawable/customborder_onboard_8dp"
+            android:paddingStart="20dp"
+            android:gravity="center_vertical"
+            android:text="@string/shopname_show"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
 
         <com.zilchzz.library.widgets.EasySwitcher
             android:id="@+id/switchview"
@@ -100,19 +100,19 @@
             app:sbDefaultOpened="false"
             app:sbToggleColor="@color/white" />
 
-    <TextView
-        android:id="@+id/tv_save"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/customborder_onboard_turquise_40p"
-        android:gravity="center"
-        android:text="@string/save"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/customborder_onboard_turquise_40p"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </RelativeLayout>

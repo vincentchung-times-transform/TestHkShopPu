@@ -78,6 +78,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         binding.titleBackAddshop.setOnClickListener {
             val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.iconSpecificationhelp.setOnClickListener {
@@ -516,5 +517,14 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this, AddNewProductActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
 }

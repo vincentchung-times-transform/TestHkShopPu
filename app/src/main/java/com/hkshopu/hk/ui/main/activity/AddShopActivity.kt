@@ -3,21 +3,21 @@ package com.hkshopu.hk.ui.main.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.hkshopu.hk.Base.BaseActivity
@@ -27,25 +27,13 @@ import com.hkshopu.hk.component.EventAddShopSuccess
 import com.hkshopu.hk.component.EventShopCatSelected
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 import com.hkshopu.hk.databinding.ActivityAddshopBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.fragment.StoreOrNotDialogFragment
 import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
-import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.*
-import okhttp3.Response
-import org.jetbrains.anko.backgroundResource
-import org.jetbrains.anko.singleLine
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStream
+import java.io.*
 import java.util.*
-import kotlin.math.min
 
 
 class AddShopActivity : BaseActivity(), TextWatcher {
@@ -59,14 +47,14 @@ class AddShopActivity : BaseActivity(), TextWatcher {
     private val pickImage = 100
     private var imageUri: Uri? = null
     private var isSelectImage = false
-    val userId = MMKV.mmkvWithID("http").getInt("UserId", 0);
     var shopName: String = ""
     private var shop_category_id1: Int = 0
     private var shop_category_id2: Int = 0
     private var shop_category_id3: Int = 0
+    private lateinit var settings: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        settings = getSharedPreferences("shopdata", 0)
         binding = ActivityAddshopBinding.inflate(layoutInflater)
         setContentView(binding.root)
         GlobalScope.launch(errorHandler) {
@@ -88,7 +76,7 @@ class AddShopActivity : BaseActivity(), TextWatcher {
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
     override fun afterTextChanged(s: Editable?) {
-
+        shopName = binding.etShopname.text.toString()
     }
 
     private suspend fun doOnUiCode() {
@@ -127,11 +115,19 @@ class AddShopActivity : BaseActivity(), TextWatcher {
                         RxBus.getInstance().post(EventAddShopSuccess())
                         finish()
 
-                        Toast.makeText(this@AddShopActivity, it.ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@AddShopActivity,
+                            it.ret_val.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     } else {
 
-                        Toast.makeText(this@AddShopActivity, it.ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this@AddShopActivity,
+                            it.ret_val.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
 
                     }
 
@@ -147,7 +143,7 @@ class AddShopActivity : BaseActivity(), TextWatcher {
         binding.layoutAddshop.setOnClickListener {
             KeyboardUtil.hideKeyboard(binding.etShopname)
         }
-        binding.tvAddnewshop.isClickable = false
+        binding.tvForward.isClickable = false
     }
 
     @SuppressLint("CheckResult")
@@ -230,9 +226,9 @@ class AddShopActivity : BaseActivity(), TextWatcher {
                         binding.ivStep3.setImageResource(R.mipmap.ic_step3_on)
                         binding.ivStep3Check.visibility = View.VISIBLE
                         if (binding.ivStep3Check.visibility == View.VISIBLE && binding.ivStep2Check.visibility == View.VISIBLE && binding.ivStep1Check.visibility == View.VISIBLE) {
-                            binding.tvAddnewshop.setBackgroundResource(R.drawable.customborder_onboard_turquise_40p)
-                            binding.tvAddnewshop.setTextColor(getColor(R.color.white))
-                            binding.tvAddnewshop.isClickable = true
+                            binding.tvForward.setBackgroundResource(R.drawable.customborder_onboard_turquise_40p)
+                            binding.tvForward.setTextColor(getColor(R.color.white))
+                            binding.tvForward.isClickable = true
                         }
                     }
 
@@ -244,11 +240,25 @@ class AddShopActivity : BaseActivity(), TextWatcher {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initClick() {
         binding.titleBackAddshop.setOnClickListener {
+//            AlertDialog.Builder(this@AddShopActivity)
+//                .setTitle("")
+//                .setMessage("您尚未儲存變更，確定要離開 ？")
+//                .setPositiveButton("捨棄"){
+//                    // 此為 Lambda 寫法
+//                        dialog, which ->finish()
+//                }
+//                .setNegativeButton("取消"){ dialog, which -> dialog.cancel()
+//
+//                }
+//                .show()
 
-            finish()
+            StoreOrNotDialogFragment(this).show(supportFragmentManager, "MyCustomFragment")
+
         }
+
         binding!!.ivShopImg.setOnClickListener {
             val gallery =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
@@ -262,11 +272,22 @@ class AddShopActivity : BaseActivity(), TextWatcher {
 //            }
 //        }
         var file: File? = null
-        binding.tvAddnewshop.setOnClickListener {
+        val editor = settings.edit()
+        binding.tvForward.setOnClickListener {
             if(isSelectImage){
                 file = processImage()
             }
-            doAddShop(shopName,userId.toString(),shop_category_id1,shop_category_id2,shop_category_id3,file!!)
+//            var uri = Uri.fromFile(file);
+            editor.putString("image", encodeBitmapTobase64())
+            editor.putString("shopname", shopName)
+            editor.putInt("shop_category_id1", shop_category_id1)
+            editor.putInt("shop_category_id2", shop_category_id2)
+            editor.putInt("shop_category_id3", shop_category_id3)
+            editor.apply()
+
+            val intent = Intent(this, AddBankAccountActivity::class.java)
+            startActivity(intent)
+            finish()
         }
         binding.tvMoreStoresort.setOnClickListener {
             val intent = Intent(this, ShopCategoryActivity::class.java)
@@ -285,7 +306,8 @@ class AddShopActivity : BaseActivity(), TextWatcher {
                     VM.shopnamecheck(this@AddShopActivity, shopName)
 
                     binding.etShopname.clearFocus()
-                    KeyboardUtil.showKeyboard(binding.etShopname)
+
+                    KeyboardUtil.hideKeyboard(binding.etShopname)
 
                     true
                 }
@@ -294,7 +316,16 @@ class AddShopActivity : BaseActivity(), TextWatcher {
         }
 //        password1.addTextChangedListener(this)
     }
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun encodeBitmapTobase64(): String? {
+        val drawable = binding.ivShopImg.drawable as BitmapDrawable
+        val bmp = drawable.bitmap
+        val bmpCompress = getResizedBitmap(bmp, 200)
+        val os = ByteArrayOutputStream()
+        bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 85, os)
+        val byteArray: ByteArray = os.toByteArray()
+        return Base64.getEncoder().encodeToString(byteArray)
+    }
 
     private fun processImage(): File? {
         val drawable = binding.ivShopImg.drawable as BitmapDrawable
@@ -325,68 +356,26 @@ class AddShopActivity : BaseActivity(), TextWatcher {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
-    private fun doAddShop(
-        shop_title: String,
-        user_id: String,
-        shop_category_id1: Int,
-        shop_category_id2: Int,
-        shop_category_id3: Int,
-        postImg: File
-    ) {
-        val url = ApiConstants.API_HOST+"/shop/save/"
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("AddShopActivity", "返回資料 resStr：" + resStr)
-                    Log.d("AddShopActivity", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    if (ret_val.equals("商店與選擇商店分類新增成功!")) {
-                        var user_id: Int = json.getInt("user_id")
-                        var shop_id:Int = json.getInt("shop_id")
-                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
-                        MMKV.mmkvWithID("http").putInt("ShopId", shop_id)
-                        val intent = Intent(this@AddShopActivity, ShopmenuActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@AddShopActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-//                        initRecyclerView()
-
-
-                } catch (e: JSONException) {
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-
-            }
-        })
-        web.Do_ShopAdd(
-            url,
-            shop_title,
-            user_id,
-            shop_category_id1,
-            shop_category_id2,
-            shop_category_id3,
-            postImg
-        )
-    }
 
     override fun onStart() {
         super.onStart()
+
+    }
+
+    override fun onBackPressed() {
+//        AlertDialog.Builder(this@AddShopActivity)
+//            .setTitle("")
+//            .setMessage("您尚未儲存變更，確定要離開 ？")
+//            .setPositiveButton("捨棄"){
+//                // 此為 Lambda 寫法
+//                    dialog, which ->finish()
+//            }
+//            .setNegativeButton("取消"){ dialog, which -> dialog.cancel()
+//
+//            }
+//            .show()
+
+        StoreOrNotDialogFragment(this).show(supportFragmentManager, "MyCustomFragment")
 
     }
 

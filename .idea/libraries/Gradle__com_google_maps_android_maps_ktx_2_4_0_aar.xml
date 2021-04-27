@@ -1,10 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.maps.android:maps-ktx:2.4.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5173d35c77b37cfe51cfd6b1b24abfd2/jetified-maps-ktx-2.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d0118ed1dc1cd6141edbf3c0a2fc2c7/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d0118ed1dc1cd6141edbf3c0a2fc2c7/jetified-maps-ktx-2.4.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d0118ed1dc1cd6141edbf3c0a2fc2c7/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d0118ed1dc1cd6141edbf3c0a2fc2c7/jetified-maps-ktx-2.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8d0118ed1dc1cd6141edbf3c0a2fc2c7/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/dab0538c1270e0a08bf68f56cadd3164fa20cfda/maps-ktx-2.4.0-javadoc.jar!/" />

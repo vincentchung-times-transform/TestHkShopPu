@@ -9,7 +9,6 @@ import com.hkshopu.hk.Base.BaseViewModel
 import com.hkshopu.hk.Base.response.StatusResourceObserver
 import com.hkshopu.hk.Base.response.UIDataBean
 import com.hkshopu.hk.data.bean.ShopInfoBean
-import com.hkshopu.hk.data.repository.AuthRepository
 import com.hkshopu.hk.data.repository.ShopmanageRepository
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.GsonProvider
@@ -89,7 +88,7 @@ class ShopVModel : BaseViewModel() {
     fun getShopCategory(){
         //测试环境 使用测试域名
         if (true) {
-            ApiConstants.API_HOST = "https://hkshopu.df.r.appspot.com/shop_category/index/"
+            ApiConstants.API_HOST = "https://hkshopu-20700.df.r.appspot.com/shop_category/index/"
 
         }
         //在正式环境下，先获取API域名

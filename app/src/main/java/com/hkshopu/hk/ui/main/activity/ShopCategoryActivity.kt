@@ -10,6 +10,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventShopCatSelected
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 import com.hkshopu.hk.databinding.ActivityShopcategoryBinding
+import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.adapter.CategoryMultiAdapter
@@ -28,18 +29,18 @@ class ShopCategoryActivity : BaseActivity() {
 
     private val VM = ShopVModel()
     private val adapter = CategoryMultiAdapter()
-    var url = "https://hkshopu.df.r.appspot.com/shop_category/index/"
+
     val list = ArrayList<ShopCategoryBean>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopcategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initView()
-
+        initRecyclerView()
         initVM()
         initEditText()
         initClick()
-        getShopCategory(url)
+
 
     }
 
@@ -57,6 +58,7 @@ class ShopCategoryActivity : BaseActivity() {
     private fun initRecyclerView() {
         val layoutManager = GridLayoutManager(this, 3)
         binding.recyclerview.layoutManager = layoutManager
+        adapter.setData(ApiConstants.list)
         binding.recyclerview.adapter = adapter
         adapter.itemClick = {
 
@@ -126,49 +128,6 @@ class ShopCategoryActivity : BaseActivity() {
 //        password1.addTextChangedListener(this)
     }
 
-    private fun getShopCategory(url: String) {
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("ShopCategoryActivity", "返回資料 resStr：" + resStr)
-                    Log.d("ShopCategoryActivity", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    if (ret_val.equals("已取得商店清單!")) {
 
-                        val translations: JSONArray = json.getJSONArray("shop_category_list")
-                        Log.d("ShopCategoryActivity", "返回資料 List：" + translations.toString())
-                        val list = ArrayList<ShopCategoryBean>()
-                        for (i in 0 until translations.length()) {
-                            val jsonObject: JSONObject = translations.getJSONObject(i)
-                            val shopCategoryBean: ShopCategoryBean =
-                                Gson().fromJson(jsonObject.toString(), ShopCategoryBean::class.java)
-                            list.add(shopCategoryBean)
-                        }
-                        adapter.setData(list)
-                    }
-//                    Log.d("RechargeActivity", "返回值：" + rtnCode)
-
-//                    Log.d("ComicReadActivity", "返回值：" + imgUrl)
-                    runOnUiThread {
-
-                        initRecyclerView()
-
-                    }
-                } catch (e: JSONException) {
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-
-            }
-        })
-        web.Get_Data(url)
-    }
 
 }

@@ -60,6 +60,7 @@
                     android:id="@+id/btn_add_pics"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
                     android:src="@mipmap/btn_addpic"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/r_view"
@@ -179,7 +180,7 @@
                     android:text="@string/txtview_product_status"/>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="32dp"
                     android:layout_marginLeft="20dp"
                     android:background="@drawable/bg_edit_login"
                     android:orientation="horizontal"
@@ -188,21 +189,19 @@
                     <TextView
                         android:id="@+id/tv_brandnew"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="@string/brand_new"
                         android:textColor="@color/dark_gray"
                         android:background="@drawable/bg_edit_login"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:textSize="15sp"
-                        android:elevation="10dp"
-                        android:outlineSpotShadowColor="@color/hkshop_color"
                         android:layout_marginRight="2dp"
                         android:layout_weight="1"/>
                     <TextView
                         android:id="@+id/tv_secondhand"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="@string/second_hand"
                         android:textColor="@color/dark_gray"
                         android:layout_gravity="center_vertical"
@@ -258,8 +257,9 @@
                 <ImageView
                     android:id="@+id/img_spec_line"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:elevation="10dp"
+                    android:scaleType="fitXY"
                     android:layout_marginTop="8dp"
                     android:src="@mipmap/description_line"/>
 
@@ -327,6 +327,7 @@
                             android:layout_alignParentTop="true"
                             android:background="@color/white"
                             android:hint="@string/txtview_priceinput"
+                            android:textAlignment="textEnd"
                             android:imeOptions="actionDone"
                             android:singleLine="true"
                             android:textSize="14sp" />
@@ -374,6 +375,7 @@
                             android:hint="@string/txtview_quantityinput"
                             android:background="@color/white"
                             android:singleLine="true"
+                            android:textAlignment="textEnd"
                             android:imeOptions="actionDone"
                             android:textSize="14sp"
                             android:src="@mipmap/ic_chevron"/>
@@ -428,8 +430,9 @@
                 <ImageView
                     android:id="@+id/img__line_fare"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="8dp"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/description_line"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -590,6 +593,7 @@
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:weightSum="2"
+        android:elevation="10dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:orientation="horizontal">

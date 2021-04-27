@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.asdev.PhoneEditText-Android:PhoneEditText-Android:1.1.1@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c35d5981f4133fc19a4422ef41907e/jetified-PhoneEditText-Android-1.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c35d5981f4133fc19a4422ef41907e/jetified-PhoneEditText-Android-1.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/50c35d5981f4133fc19a4422ef41907e/jetified-PhoneEditText-Android-1.1.1/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.asdev.PhoneEditText-Android/PhoneEditText-Android/1.1.1/9713f2cc8d604b2fc19925b9c776e0d5d888ba9d/PhoneEditText-Android-1.1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.asdev.PhoneEditText-Android/PhoneEditText-Android/1.1.1/db718785b26d1916990137f961ac92181b24e529/PhoneEditText-Android-1.1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

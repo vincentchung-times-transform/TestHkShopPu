@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -27,11 +28,17 @@ import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.BoardingObjBean
 import com.hkshopu.hk.databinding.ActivityOnboardBinding
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.user.activity.BuildAccountActivity
 import com.hkshopu.hk.ui.user.activity.EmailVerifyActivity
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.tencent.mmkv.MMKV
+import okhttp3.Response
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -174,6 +181,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
                                     VM.sociallogin(this@OnBoardActivity, email, id, "", "")
+
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
@@ -219,12 +227,12 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
-//            val intent = Intent(this, ShopmenuActivity::class.java)
-//            startActivity(intent)
-
-            val intent = Intent(this, AddNewProductActivity::class.java)
+            val intent = Intent(this, ShopmenuActivity::class.java)
             startActivity(intent)
-            finish()
+
+//            val intent = Intent(this, AddNewProductActivity::class.java)
+//            startActivity(intent)
+//            finish()
 
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)
@@ -319,6 +327,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             binding.titleBanner.text = "光速送件 告別蝸牛貨運"
             binding.tv2.text = "除了基本物流方式，加入集運出貨，處處是商機"
+
         }
         for (i in 0 until points.size) {
             val params = points[position].layoutParams
@@ -342,4 +351,5 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     override fun onPageScrollStateChanged(state: Int) {
 
     }
+
 }

@@ -32,6 +32,7 @@
     <color name="color_shopbg">#F6FBFA</color>
     <color name="color_storeprofile">#F6F6F6</color>
 <!--By Vince-->
+    <color name="onboarding_background">#E4FBFF</color>
     <color name="transparent">#FFFFFFFF</color>
     <color name="editbox_color">#E5E5EA</color>
     <color name="hkshop_color">#1DBCCF</color>
@@ -39,7 +40,7 @@
     <color name="gray_txt">#8E8E93</color>
     <color name="hkshop_color_bg">#1A1DBCCF</color>
     <color name="customborder_gray">#E9E9EB</color>
-
+    <color name="loginpage_white">#E5E5E5</color>
 <!--修改店鋪資訊-->
     <color name="black_hint_80">#CC48484A</color>
 <!--我的商品-->

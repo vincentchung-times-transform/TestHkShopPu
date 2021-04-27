@@ -19,6 +19,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventEmailShow
 import com.hkshopu.hk.component.EventPhoneShow
 import com.hkshopu.hk.databinding.ActivityAddshopbriefBinding
+import com.hkshopu.hk.ui.main.fragment.StoreOrNotDialogFragment
 
 
 import com.hkshopu.hk.ui.user.vm.AuthVModel
@@ -80,7 +81,7 @@ class AddShopBriefActivity : BaseActivity() {
 
     private fun initClick() {
         binding.layoutAddshopbrief.setOnClickListener {
-                KeyboardUtil.hideKeyboard(it)
+            KeyboardUtil.hideKeyboard(it)
         }
         binding.titleBackAddshopbrief.setOnClickListener {
 
@@ -150,5 +151,5 @@ class AddShopBriefActivity : BaseActivity() {
 
         }
     }
-
+    
 }

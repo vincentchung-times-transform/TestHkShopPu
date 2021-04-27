@@ -20,9 +20,9 @@ import com.google.gson.Gson
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventAddShopSuccess
-import com.hkshopu.hk.component.EventGetShopListSuccess
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 import com.hkshopu.hk.databinding.ActivityMainBinding
+import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.fragment.*
@@ -40,6 +40,7 @@ class ShopmenuActivity: BaseActivity(), ViewPager.OnPageChangeListener {
     private lateinit var binding: ActivityMainBinding
 
     lateinit var manager: FragmentManager
+    var url = ApiConstants.API_HOST+"/shop_category/index/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,6 +48,7 @@ class ShopmenuActivity: BaseActivity(), ViewPager.OnPageChangeListener {
         initFragment()
         initView()
         initClick()
+        getShopCategory(url)
 
     }
     private val fragments = mutableListOf<Fragment>()
@@ -81,6 +83,46 @@ class ShopmenuActivity: BaseActivity(), ViewPager.OnPageChangeListener {
     fun initClick(){
 
 
+    }
+    private fun getShopCategory(url: String) {
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("ShopCategoryActivity", "返回資料 resStr：" + resStr)
+                    Log.d("ShopCategoryActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    if (ret_val.equals("已取得商店清單!")) {
+
+                        val translations: JSONArray = json.getJSONArray("shop_category_list")
+                        Log.d("ShopCategoryActivity", "返回資料 List：" + translations.toString())
+                        val list = ArrayList<ShopCategoryBean>()
+                        for (i in 0 until translations.length()) {
+                            val jsonObject: JSONObject = translations.getJSONObject(i)
+                            val shopCategoryBean: ShopCategoryBean =
+                                Gson().fromJson(jsonObject.toString(), ShopCategoryBean::class.java)
+                            ApiConstants.list.add(shopCategoryBean)
+                            ApiConstants.ShopCategory.put(shopCategoryBean.id.toString(),shopCategoryBean)
+                        }
+
+                    }
+//                    Log.d("RechargeActivity", "返回值：" + rtnCode)
+
+//                    Log.d("ComicReadActivity", "返回值：" + imgUrl)
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Get_Data(url)
     }
 
     override fun onBackPressed() {

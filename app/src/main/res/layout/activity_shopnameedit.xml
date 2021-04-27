@@ -59,41 +59,41 @@
         android:layout_below="@id/layout_shopnameEditTitle"
         android:layout_marginTop="10dp">
 
-    <EditText
-        android:id="@+id/et_shopnameedit"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:paddingStart="20dp"
-        android:gravity="center_vertical"
-        android:textSize="14sp"
-        android:background="@drawable/customborder_onboard_8dp" />
+        <EditText
+            android:id="@+id/et_shopnameedit"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:paddingStart="20dp"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:background="@drawable/customborder_onboard_8dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="24dp"
-        android:layout_below="@id/et_shopnameedit"
-        android:text="@string/change_limit"
-        android:textColor="@color/colorTextlightGray"
-        android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="24dp"
+            android:layout_below="@id/et_shopnameedit"
+            android:text="@string/change_limit"
+            android:textColor="@color/colorTextlightGray"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/tv_save"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/customborder_onboard_turquise_40p"
-        android:gravity="center"
-        android:text="@string/save"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_save"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/customborder_onboard_turquise_40p"
+            android:gravity="center"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </RelativeLayout>

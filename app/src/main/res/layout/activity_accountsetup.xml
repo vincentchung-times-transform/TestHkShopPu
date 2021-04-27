@@ -70,147 +70,157 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/my_account" />
-                <LinearLayout
-                    android:id="@+id/layout_shopmodify_content"
+            <LinearLayout
+                android:id="@+id/layout_shopmodify_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="15dp"
-                    android:orientation="vertical">
-
-                    <RelativeLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:background="@drawable/customborder_onboard_8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/shop_info" />
-
-                        <ImageView
-                            android:id="@+id/iv_chevron_shop_info"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:src="@mipmap/ic_chevron" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
-
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/customborder_onboard_8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/shop_address" />
-
-                        <ImageView
-                            android:id="@+id/iv_chevron_shop_address"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:src="@mipmap/ic_chevron" />
-
-                    </RelativeLayout>
+                    android:layout_height="52dp"
+                    android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/my_setup" />
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/shop_info" />
 
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/iv_chevron_shop_info"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron" />
 
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@drawable/customborder_onboard_8dp">
+                </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/setup_notify" />
+                <RelativeLayout
 
-                        <ImageView
-                            android:id="@+id/iv_chevron_setup_notify"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:src="@mipmap/ic_chevron" />
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/customborder_onboard_8dp">
 
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/shop_address" />
 
-                    <RelativeLayout
+                    <ImageView
+                        android:id="@+id/iv_chevron_shop_address"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron" />
 
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/customborder_onboard_8dp">
+                </RelativeLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/setup_lan" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/my_setup" />
 
-                        <ImageView
-                            android:id="@+id/iv_chevron_setup_lan"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:src="@mipmap/ic_chevron" />
+                <RelativeLayout
 
-                    </RelativeLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/customborder_onboard_8dp">
 
-                    <RelativeLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/setup_notify" />
 
-                        android:layout_width="match_parent"
-                        android:layout_height="52dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/customborder_onboard_8dp"
-                        android:visibility="invisible">
+                    <ImageView
+                        android:id="@+id/iv_chevron_setup_notify"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="20dp"
-                            android:text="@string/password_change" />
+                </RelativeLayout>
 
-                        <ImageView
-                            android:id="@+id/iv_chevron_pwchange"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="20dp"
-                            android:src="@mipmap/ic_chevron" />
+                <RelativeLayout
 
-                    </RelativeLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/customborder_onboard_8dp">
 
-                </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/setup_lan" />
+
+                    <ImageView
+                        android:id="@+id/iv_chevron_setup_lan"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/customborder_onboard_8dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/iv_logout"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:src="@mipmap/ic_logout" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/iv_logout"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/logout"
+                        android:textColor="@color/turquoise"/>
+
+                    <ImageView
+                        android:id="@+id/iv_chevron_logout"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron_tur" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

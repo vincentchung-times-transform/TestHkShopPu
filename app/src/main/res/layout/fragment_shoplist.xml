@@ -174,4 +174,18 @@
 
         </LinearLayout>
     </ScrollView>
+    <TextView
+        android:id="@+id/tv_addonlineshop2"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="+ 新增店鋪"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/customborder_onboard_turquise"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="32dp"
+        android:textSize="18sp"
+        android:visibility="invisible"/>
 </RelativeLayout>

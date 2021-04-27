@@ -1,10 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.facebook.android:facebook-android-sdk:5.15.3@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e2c566bd7f6ae5bfb49128fbc3b6fbdb/jetified-facebook-android-sdk-5.15.3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/564b290b11a0e0124cba31da51cb977e/jetified-facebook-android-sdk-5.15.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/564b290b11a0e0124cba31da51cb977e/jetified-facebook-android-sdk-5.15.3/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/564b290b11a0e0124cba31da51cb977e/jetified-facebook-android-sdk-5.15.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/564b290b11a0e0124cba31da51cb977e/jetified-facebook-android-sdk-5.15.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.facebook.android/facebook-android-sdk/5.15.3/aa4f8418fc0edd719f5be80ed3f5de88f87ea10e/facebook-android-sdk-5.15.3-javadoc.jar!/" />

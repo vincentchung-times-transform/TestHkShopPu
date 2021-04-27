@@ -239,9 +239,12 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("登入成功!")) {
                         var user_id: Int = json.getInt("user_id")
+
                         MMKV.mmkvWithID("http").putInt("UserId", user_id)
                             .putString("Email",email)
                             .putString("Password",password)
+
+
                         val intent = Intent(this@LoginPasswordActivity, ShopmenuActivity::class.java)
                         startActivity(intent)
                         finish()

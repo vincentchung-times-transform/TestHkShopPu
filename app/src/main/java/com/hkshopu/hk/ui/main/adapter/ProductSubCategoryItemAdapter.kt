@@ -18,6 +18,7 @@ import com.hkshopu.hk.data.bean.ProductChildCategoryBean
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.ui.main.activity.AddNewProductActivity
 import com.squareup.picasso.Picasso
+import com.tencent.mmkv.MMKV
 
 class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Adapter<ProductSubCategoryItemAdapter.mViewHolder>()  {
 
@@ -58,7 +59,7 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Ad
 
             //綁定當地變數與dataModel中的每個值
             var image_url = ApiConstants.IMG_HOST + item.unselected_product_sub_category_icon
-            Log.d("ShopmenuActivity", "返回資料 List：" + image_url.toString())
+
 
 
         }
@@ -114,13 +115,25 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Ad
             var c_product_sub_category_selected = sub_category_item_selected.c_product_sub_category
 
             var selected_item_id = holder.adapterPosition + 1
-            Toast.makeText(holder.itemView.context, selected_item_id.toString(), Toast.LENGTH_SHORT).show()
 
-            var bundle = Bundle()
-            bundle.putString("id", id_selected.toString())
-            bundle.putString("product_category_id", product_category_id_selected.toString())
-            bundle.putString("c_product_category", c_product_category.toString())
-            bundle.putString("c_product_sub_category", c_product_sub_category_selected.toString())
+//            var bundle = Bundle()
+//            bundle.putString("id", id_selected.toString())
+//            bundle.putString("product_category_id", product_category_id_selected.toString())
+//            bundle.putString("c_product_category", c_product_category.toString())
+//            bundle.putString("c_product_sub_category", c_product_sub_category_selected.toString())
+
+            MMKV.mmkvWithID("addPro").putString(
+                "product_sub_category_id",
+                id_selected.toString()
+            )
+            MMKV.mmkvWithID("addPro").putString(
+                "product_category_id",
+                product_category_id_selected.toString().toString()
+            )
+            MMKV.mmkvWithID("addPro").putString(
+                "value_textViewSeletedCategory",
+                c_product_category_selected + ">" + c_product_sub_category_selected
+            )
 
             //儲存在local端"新增商品分類"資料
 //            val sharedPreferences : SharedPreferences = holder.itemView.context.getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
@@ -135,7 +148,7 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Ad
             var currentActivity: Activity = activity
 
             val intent = Intent(currentActivity, AddNewProductActivity::class.java)
-            intent.putExtra("bundle", bundle)
+//            intent.putExtra("bundle", bundle)
             currentActivity.startActivity(intent)
 
             activity.finish()

@@ -16,7 +16,7 @@ class EventShopNameUpdated(val shopName: String? = null)
 class EventShopDesUpdated(val shopDes: String? = null)
 class EventShopCatSelected(val list: ArrayList<ShopCategoryBean>)
 class EventAddShopSuccess()
-class EventGetShopListSuccess(val shopNums: Int = 0)
+class EventGetShopCatSuccess(val list: ArrayList<String>)
 
 //Add Product Events
 class EventProductCatSelected(val selectrdId: Int = 1, var c_product_category: String)

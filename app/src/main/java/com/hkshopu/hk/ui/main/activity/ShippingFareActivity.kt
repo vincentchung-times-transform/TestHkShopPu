@@ -20,14 +20,19 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.InventoryItemSize
 import com.hkshopu.hk.data.bean.InventoryItemSpec
 import com.hkshopu.hk.data.bean.ItemShippingFare
+import com.hkshopu.hk.data.bean.ItemShippingFare_Certained
 import com.hkshopu.hk.databinding.ActivityMerchandiseBinding
 import com.hkshopu.hk.databinding.ActivityShippingFareBinding
+import com.hkshopu.hk.net.GsonProvider
 import com.hkshopu.hk.ui.main.adapter.InventoryAndPriceSpecAdapter
 import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
+import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
 class ShippingFareActivity : AppCompatActivity(){
@@ -36,6 +41,10 @@ class ShippingFareActivity : AppCompatActivity(){
 
     val mAdapters_shippingFare = ShippingFareAdapter(this)
     var mutableList_itemShipingFare = mutableListOf<ItemShippingFare>()
+    var mutableList_itemShipingFare_filtered = mutableListOf<ItemShippingFare>()
+    var mutableList_itemShipingFare_certained = mutableListOf<ItemShippingFare_Certained>()
+
+    var value_txtViewFareRange :String = ""
 
     var weight_check = false
     var length_check = false
@@ -92,6 +101,7 @@ class ShippingFareActivity : AppCompatActivity(){
         binding.titleBackAddshop.setOnClickListener {
             val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.btnEditFareOff.setOnClickListener {
@@ -127,21 +137,68 @@ class ShippingFareActivity : AppCompatActivity(){
             val intent = Intent(this, AddNewProductActivity::class.java)
             var datas_ship_method_and_fare : MutableList<ItemShippingFare> = mAdapters_shippingFare.get_shipping_method_datas()
 
-            var bundle = Bundle()
-            bundle.putInt("datas_packagesWeights", datas_packagesWeights)
-            bundle.putString("datas_lenght", datas_lenght)
-            bundle.putString("datas_width", datas_width)
-            bundle.putString("datas_height", datas_height)
-            bundle.putInt("datas_size", datas_ship_method_and_fare.size)
+            MMKV.mmkvWithID("addPro").putString("datas_packagesWeights", datas_packagesWeights.toString())
+            MMKV.mmkvWithID("addPro").putString("datas_lenght", datas_lenght)
+            MMKV.mmkvWithID("addPro").putString("datas_width", datas_width)
+            MMKV.mmkvWithID("addPro").putString("datas_height", datas_height)
 
+            if(datas_ship_method_and_fare.size.toString() != ""){
+                MMKV.mmkvWithID("addPro").putString("fare_datas_size", datas_ship_method_and_fare.size.toString())
+            }else{
+                MMKV.mmkvWithID("addPro").putString("fare_datas_size", "0")
+            }
             Log.d("checkVariable", datas_ship_method_and_fare.size.toString())
 
-
-            for(key in 0..datas_ship_method_and_fare.size-1) {
-                bundle.putParcelable(key.toString(), datas_ship_method_and_fare.get(key)!!)
+            for (i in 0..datas_ship_method_and_fare.size-1!!) {
+                val jsonTutList_mutableList_itemShipingFare: String = GsonProvider.gson.toJson(datas_ship_method_and_fare[i])
+                MMKV.mmkvWithID("addPro").putString("value_fare_item${i}", jsonTutList_mutableList_itemShipingFare)
             }
 
-            intent.putExtra("bundle_ShippingFareActivity", bundle)
+            //篩選所有已勾選的運費方式
+            for (i in 0..datas_ship_method_and_fare.size-1!!) {
+                if(datas_ship_method_and_fare[i].onoff ==true ){
+                    mutableList_itemShipingFare_filtered.add(
+                        datas_ship_method_and_fare[i]
+                    )
+                }
+            }
+
+            //MMKV放入已經確定勾選的Fare Item Size
+            if(mutableList_itemShipingFare_filtered.size.toString() != ""){
+                MMKV.mmkvWithID("addPro").putString("fare_datas_filtered_size", mutableList_itemShipingFare_filtered.size.toString())
+            }else{
+                MMKV.mmkvWithID("addPro").putString("fare_datas_filtered_size", "0")
+
+            }
+            Log.d("check_content","fare_datas_filtered_size : ${mutableList_itemShipingFare_filtered.size.toString()}")
+
+            for (i in 0..mutableList_itemShipingFare_filtered.size-1!!) {
+                val jsonTutList_mutableList_itemShipingFare_filtered: String = GsonProvider.gson.toJson(mutableList_itemShipingFare_filtered[i])
+                MMKV.mmkvWithID("addPro").putString("value_fare_item_filtered${i}", jsonTutList_mutableList_itemShipingFare_filtered)
+
+            }
+
+            value_txtViewFareRange = fare_pick_max_and_min_num(mutableList_itemShipingFare_filtered.size)
+            MMKV.mmkvWithID("addPro").putString("value_txtViewFareRange", value_txtViewFareRange)
+
+            //取出所有Fare Item(拿掉btn_delete參數)
+            for(i in 0..datas_ship_method_and_fare.size!!-1){
+                //去除btn_delete參數重新創造List(資料庫存取用)
+                if(datas_ship_method_and_fare[i].shipment_desc != ""){
+                    mutableList_itemShipingFare_certained.add(ItemShippingFare_Certained(datas_ship_method_and_fare[i].shipment_desc, datas_ship_method_and_fare[i].price, datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)) //傳輸API需要
+                }
+            }
+
+            val gson = Gson()
+            val gsonPretty = GsonBuilder().setPrettyPrinting().create()
+
+            val jsonTutList_fare: String = gson.toJson(mutableList_itemShipingFare_certained)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
+            val jsonTutListPretty_fare: String = gsonPretty.toJson(mutableList_itemShipingFare_certained)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
+
+            MMKV.mmkvWithID("addPro").putString("jsonTutList_fare", jsonTutList_fare)
+
 
             startActivity(intent)
             finish()
@@ -375,4 +432,31 @@ class ShippingFareActivity : AppCompatActivity(){
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
+
+
+    //計算費用最大最小範圍
+    fun fare_pick_max_and_min_num(size: Int): String {
+        //挑出最大與最小的數字
+        var min: Int =mutableList_itemShipingFare_filtered[0].price.toInt()
+        var max: Int =mutableList_itemShipingFare_filtered[0].price.toInt()
+
+        for (f in 1..size-1) {
+            if(mutableList_itemShipingFare_filtered[f].price.toInt() >= min ){
+                max = mutableList_itemShipingFare_filtered[f].price.toInt()
+            }else{
+                min = mutableList_itemShipingFare_filtered[f].price.toInt()
+            }
+        }
+
+        return "HKD$${min}-HKD$${max}"
+
+    }
+
+    override fun onBackPressed() {
+
+        val intent = Intent(this, AddNewProductActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
 }

@@ -59,6 +59,13 @@ class MerchanCategoryActivity : BaseActivity() {
         initClick()
 
         generateProductCategoryItems()
+
+        try{
+            Thread.sleep(800)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
+
         generateSubProductCategoryItems()
     }
 
@@ -170,7 +177,7 @@ class MerchanCategoryActivity : BaseActivity() {
             getSubProductCategory(sub_url)
 
             try{
-                Thread.sleep(800)
+                Thread.sleep(500)
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }

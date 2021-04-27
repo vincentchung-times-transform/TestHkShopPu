@@ -47,8 +47,8 @@ class CategoryMultiAdapter : RecyclerView.Adapter<CategoryMultiAdapter.CategoryL
         val item = mData.get(position)
         viewHolder.title.text = item.c_shop_category
         viewHolder.itemView.isSelected = item.isSelect
-        var image_url = ApiConstants.API_HOST+item.unselected_shop_category_icon
-        var image_sel_url = ApiConstants.API_HOST+item.selected_shop_category_icon
+        var image_url = ApiConstants.IMG_HOST+item.unselected_shop_category_icon
+        var image_sel_url = ApiConstants.IMG_HOST+item.selected_shop_category_icon
         Log.d("ShopCategoryAdapter", "ImageUrl：" + image_url)
         Glide.with(viewHolder.image_un)
             .load(image_url)

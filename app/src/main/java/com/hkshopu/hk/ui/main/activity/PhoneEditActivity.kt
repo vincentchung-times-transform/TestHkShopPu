@@ -32,6 +32,8 @@ class PhoneEditActivity : BaseActivity(), TextWatcher {
     private lateinit var binding: ActivityPhoneeditBinding
 
     private val VM = AuthVModel()
+    var phone_country: String = ""
+    var phone_number: String = ""
     var phone: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +50,14 @@ class PhoneEditActivity : BaseActivity(), TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
     override fun afterTextChanged(p0: Editable?) {
-        phone = binding.etPhoneedit.text.toString()
+        phone_number = binding.editShopphoneNumber.text.toString()
+        phone_country = binding.editShopphoneCountry.diaL_CODE
+        phone = phone_country + phone_number
     }
 
     private fun initView() {
-        binding.etPhoneedit.addTextChangedListener(this)
+        binding.editShopphoneNumber.addTextChangedListener(this)
+        binding.editShopphoneCountry.addTextChangedListener(this)
         binding.layoutPhoneEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
         }

@@ -4,7 +4,7 @@ package com.hkshopu.hk.data.repository
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.google.gson.reflect.TypeToken
-import com.hkshopu.hk.data.bean.ShopInfoBean
+
 import com.hkshopu.hk.data.service.AuthService
 import com.hkshopu.hk.data.service.ShopmanageService
 import com.hkshopu.hk.net.ApiConstants

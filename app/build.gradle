@@ -14,7 +14,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
 
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -121,6 +121,7 @@ dependencies {
     implementation 'com.github.tiper:MaterialSpinner:1.4.2'
     implementation 'com.gauravk.bubblenavigation:bubblenavigation:1.0.7'
     implementation 'com.tencent:mmkv:1.0.15'
+    implementation 'com.asdev.PhoneEditText-Android:PhoneEditText-Android:1.1.1'
 
     //Facebook
     implementation 'com.facebook.android:facebook-login:5.15.3'

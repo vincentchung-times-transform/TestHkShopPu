@@ -47,7 +47,7 @@
         android:layout_gravity="top"
         android:text="●"
         android:textColor="@color/gray_txt"
-        android:textSize="8sp"
+        android:textSize="4sp"
         android:visibility="invisible"
         tools:ignore="RtlCompat" />
 </LinearLayout>
