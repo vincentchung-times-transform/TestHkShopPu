@@ -9,6 +9,8 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -45,6 +47,7 @@ import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import okhttp3.Response
 import org.jetbrains.anko.singleLine
+import org.jetbrains.anko.themedViewSwitcher
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
@@ -74,8 +77,8 @@ class AddNewProductActivity : BaseActivity() {
     var value_editTextMerchanQunt :String = ""
     var inven_price_range: String = ""
     var inven_quant_range: String = ""
-    var value_txtViewFareRange :String = ""
-    var value_needMoreTimeToStockUp = false
+    var MMKV_value_txtViewFareRange :String = ""
+    var boolean_needMoreTimeToStockUp = false
     var value_editMoreTimeInput :String = ""
     var MMKV_user_id: Int = 0
     var MMKV_shop_id: Int = 0
@@ -85,31 +88,14 @@ class AddNewProductActivity : BaseActivity() {
     var MMKV_length:String = "0"
     var MMKV_width: String = "0"
     var MMKV_height: String = "0"
+    var value_checked_brandNew = "new"
+    var MMKV_jsonTutList_inven : String = "[{ \"spec_desc_1\": \"\",\"spec_desc_2\": \"\",\"spec_dec_1_items\": \"\",\"spec_dec_2_items\": \"\",\"price\": 0,\"quantity\": 0 }]"
+    var MMKV_jsonTutList_fare : String = "[{\"shipment_desc\":\"\",\"price\":0,\"onoff\":\"of\",\"shop_id\" : 0 }]"
+
 
     //宣告運費項目陣列變數
     var mutableList_itemShipingFare = mutableListOf<ItemShippingFare>()
     var mutableList_itemShipingFare_filtered = mutableListOf<ItemShippingFare>()
-    var mutableList_itemShipingFare_certained = mutableListOf<ItemShippingFare_Certained>()
-
-    //宣告規格與庫存價格項目陣列變數
-//    var mutableList_itemInvenSpec = mutableListOf<InventoryItemSpec>()
-//    var mutableList_itemInvenSize = mutableListOf<InventoryItemSize>()
-    var mutableList_InvenDatas = mutableListOf<InventoryItemDatas>()
-
-//    var fare_price_range: String = "no fare price range"
-//    var inven_price_range: String = "no inven price range"
-//    var inven_quant_range: String = "no inven quant range"
-
-
-
-    var value_checked_brandNew = "全新"
-
-    var jsonTutList_inven : String = "[{ \"spec_desc_1\": \"\",\"spec_desc_2\": \"\",\"spec_dec_1_items\": \"\",\"spec_dec_2_items\": \"\",\"price\": 0,\"quantity\": 0 }]"
-
-    var jsonTutList_fare : String = "[{\"shipment_desc\":\"\",\"price\":0,\"onoff\":\"on\",\"shop_id\" : 0 }]"
-
-
-
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,14 +104,6 @@ class AddNewProductActivity : BaseActivity() {
         setContentView(binding.root)
 
         initVM()
-
-        //設定預設資料
-        initProCategoryDatas()
-        initProFareDatas()
-        initInvenDatas()
-
-        initMMKV_and_initViewValue()
-
         initView()
 
     }
@@ -135,13 +113,11 @@ class AddNewProductActivity : BaseActivity() {
 
         MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
         MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+        var pics_list_size = MMKV.mmkvWithID("addPro").getInt("value_pics_size", 0)
 
         Thread(Runnable {
 
-            //預設從MMKV取得資料(無資料則取預設值)
-            var pics_size = MMKV.mmkvWithID("addPro").getInt("value_pics_size", 0)
-
-            for (i in 0..pics_size - 1) {
+            for (i in 0..pics_list_size - 1) {
 
                 var previouslyEncodedImage: String? =
                     MMKV.mmkvWithID("addPro").getString("value_pic${i}", "")
@@ -164,16 +140,15 @@ class AddNewProductActivity : BaseActivity() {
 
                 }
             }
+            Log.d("mutableList_pics", mutableList_pics.toString())
 
             runOnUiThread {
-
                 val mAdapter = PicsAdapter()
-
-                mAdapter.updateList(mutableList_pics)     //傳入資料
                 binding.rView.layoutManager =
                     LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 binding.rView.adapter = mAdapter
 
+                mAdapter.updateList(mutableList_pics)
             }
 
         }).start()
@@ -191,10 +166,8 @@ class AddNewProductActivity : BaseActivity() {
         binding.editTextEntryProductDiscription.setText(value_editTextEntryProductDiscription)
 
 
-
-
         value_checked_brandNew = MMKV.mmkvWithID("addPro").getString("value_checked_brandNew", value_checked_brandNew).toString()
-        if(value_checked_brandNew=="全新"){
+        if(value_checked_brandNew=="new"){
 
             val scale = baseContext.resources.displayMetrics.density
             var elevation = 10
@@ -219,47 +192,41 @@ class AddNewProductActivity : BaseActivity() {
             binding.tvSecondhand.setBackgroundResource(R.drawable.bg_userinfo_gender)
         }
 
-
-
-        value_needMoreTimeToStockUp = MMKV.mmkvWithID("addPro").getBoolean(
-            "value_needMoreTimeToStockUp",
+        binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
+        boolean_needMoreTimeToStockUp = MMKV.mmkvWithID("addPro").getBoolean(
+            "boolean_needMoreTimeToStockUp",
             false
         )
-        value_editMoreTimeInput = MMKV.mmkvWithID("addPro").getString("value_editMoreTimeInput", "").toString()
-
-        if(value_needMoreTimeToStockUp==false){
-            binding.needMoreTimeToStockUp.isChecked = false
+        if(boolean_needMoreTimeToStockUp==false){
+            binding.needMoreTimeToStockUp.isChecked =false
         }else{
-            binding.needMoreTimeToStockUp.isChecked = true
+            binding.needMoreTimeToStockUp.isChecked =true
         }
+        value_editMoreTimeInput = MMKV.mmkvWithID("addPro").getString("value_editMoreTimeInput", "").toString()
         binding.editMoreTimeInput.setText(value_editMoreTimeInput)
 
+        if(value_editMoreTimeInput.isNotEmpty() && value_editMoreTimeInput.toInt()>0){
+            binding.editMoreTimeInput.isVisible = true
+        }else{
+            binding.editMoreTimeInput.isVisible = false
+        }
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.P)
     fun initView() {
 
-
-        //預設較長備貨時間設定
-        binding.editMoreTimeInput.isVisible = false
-        binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
-        binding.needMoreTimeToStockUp.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                binding.editMoreTimeInput.isVisible = true
-                MMKV.mmkvWithID("addPro").putBoolean("value_needMoreTimeToStockUp", true)
-
-
-            } else {
-                binding.editMoreTimeInput.isVisible = false
-                MMKV.mmkvWithID("addPro").putBoolean("value_needMoreTimeToStockUp", false)
-            }
-        }
-
+        initMMKV_and_initViewValue()
+        initProCategoryDatas()
+        initProFareDatas()
+        initInvenDatas()
         initEditText()
         initClick()
+
     }
 
     fun initEditText() {
+
 
         binding.editTextEntryProductName.singleLine = true
         binding.editTextEntryProductName.setOnEditorActionListener() { v, actionId, event ->
@@ -282,6 +249,23 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+        val textWatcher_editTextEntryProductName = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+                value_editTextEntryProductName =
+                    binding.editTextEntryProductName.text.toString()
+                MMKV.mmkvWithID("addPro").putString(
+                    "value_editTextEntryProductName",
+                    value_editTextEntryProductName
+                )
+            }
+        }
+        binding.editTextEntryProductName.addTextChangedListener(textWatcher_editTextEntryProductName)
 
         binding.editTextEntryProductDiscription.singleLine = true
         binding.editTextEntryProductDiscription.setOnEditorActionListener() { v, actionId, event ->
@@ -304,6 +288,25 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+        val textWatcher_editTextEntryProductDiscription = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+                value_editTextEntryProductDiscription =
+                    binding.editTextEntryProductDiscription.text.toString()
+                MMKV.mmkvWithID("addPro").putString(
+                    "value_editTextEntryProductDiscription",
+                    value_editTextEntryProductDiscription
+                )
+
+            }
+        }
+        binding.editTextEntryProductDiscription.addTextChangedListener(textWatcher_editTextEntryProductDiscription)
+
 
         binding.editTextMerchanPrice.singleLine = true
         binding.editTextMerchanPrice.setOnEditorActionListener() { v, actionId, event ->
@@ -325,6 +328,23 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+        val textWatcher_editTextMerchanPrice = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+                value_editTextMerchanPrice = binding.editTextMerchanPrice.text.toString()
+                MMKV.mmkvWithID("addPro").putString(
+                    "value_editTextMerchanPrice",
+                    value_editTextMerchanPrice
+                )
+            }
+        }
+        binding.editTextMerchanPrice.addTextChangedListener(textWatcher_editTextMerchanPrice)
+
 
         binding.editTextMerchanQunt.singleLine = true
         binding.editTextMerchanQunt.setOnEditorActionListener() { v, actionId, event ->
@@ -346,6 +366,24 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+        val textWatcher_editTextMerchanQunt = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+                value_editTextMerchanQunt = binding.editTextMerchanQunt.text.toString()
+                MMKV.mmkvWithID("addPro").putString(
+                    "value_editTextMerchanQunt",
+                    value_editTextMerchanQunt
+                )
+            }
+        }
+        binding.editTextMerchanQunt.addTextChangedListener(textWatcher_editTextMerchanQunt)
+
+
 
         binding.editMoreTimeInput.singleLine = true
         binding.editMoreTimeInput.setOnEditorActionListener() { v, actionId, event ->
@@ -366,9 +404,114 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+        val textWatcher_editMoreTimeInput = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+                value_editMoreTimeInput = binding.editMoreTimeInput.text.toString()
+                MMKV.mmkvWithID("addPro").putString(
+                    "value_editMoreTimeInput",
+                    value_editMoreTimeInput
+                )
+            }
+        }
+        binding.editMoreTimeInput.addTextChangedListener(textWatcher_editMoreTimeInput)
+
+
     }
 
     fun initClick() {
+
+        binding.btnOnShelf.setOnClickListener {
+
+            var pic_list : ArrayList<File> = arrayListOf()
+            var file: File? = null
+            for(i in 0..mutableList_pics.size-1){
+                file = processImage(mutableList_pics.get(i).bitmap, i)
+                pic_list.add(file!!)
+            }
+
+            Log.d("addNewPro", mutableList_pics.size.toString())
+            Log.d("addNewPro", pic_list.toString())
+            Log.d("addNewPro", "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }")
+            Log.d("addNewPro", MMKV_jsonTutList_fare)
+
+//            VM.add_product(this, 1, 1, 1, "0", 0, "0", 0, 0, 0, "new", pic_list,  "{ \"product_spec_list\" : ${jsonTutList_inven} }", 1, 0, 0, 0, jsonTutList_fare)
+
+            if(pic_list.size >=1){
+                if(value_editTextEntryProductName.isNotEmpty()){
+                    if(value_editTextEntryProductDiscription.isNotEmpty()){
+                        if(MMKV_proCate_id.isNotEmpty()||MMKV_proSubCate_id.isNotEmpty()){
+                            if(MMKV_weight.isNotEmpty() && MMKV_length.isNotEmpty() && MMKV_width.isNotEmpty() && MMKV_height.isNotEmpty()){
+                                if( value_editTextMerchanPrice.isNotEmpty() && value_editTextMerchanQunt.isNotEmpty() &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
+                                    if(MMKV_value_txtViewFareRange.isNotEmpty()){
+
+                                        var inven_switch_off_json = "{ \"product_spec_list\" : [{\"price\": ${value_editTextMerchanPrice}, \"quantity\": ${value_editTextMerchanQunt}, \"spec_dec_1_items\":\"\",\"spec_dec_2_items\":\"\",\"spec_desc_1\":\"\",\"spec_desc_2\":\"\"}]}"
+
+                                        //quantity and product_price is discarded
+                                        doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, 0, value_editTextEntryProductDiscription, 0, 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  inven_switch_off_json, MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), MMKV_jsonTutList_fare, value_editMoreTimeInput.toInt(), "launched")
+                                        Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}"+"value_editMoreTimeInput: ${value_editMoreTimeInput}")
+
+                                    }else{
+                                        Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                    }
+                                }else if( binding.iosSwitchSpecification.isOpened()){
+                                    if( inven_price_range.isNotEmpty() && inven_quant_range.isNotEmpty()){
+                                        if(MMKV_value_txtViewFareRange .isNotEmpty()){
+
+                                            //quantity and product_price is discarded
+                                            doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, 0, value_editTextEntryProductDiscription, 0, 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }", MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), MMKV_jsonTutList_fare, value_editMoreTimeInput.toInt(), "launched")
+                                            Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}"+"value_editMoreTimeInput: ${value_editMoreTimeInput}")
+
+                                        }else{
+                                            Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                        }
+                                    }else{
+                                        Log.d("testtestetest", inven_price_range.toString()+inven_quant_range.toString())
+                                        Toast.makeText(this, "商品庫存尚未設定", Toast.LENGTH_SHORT).show()
+                                    }
+                                } else{
+                                    Toast.makeText(this, "商品價格與數量尚未填寫", Toast.LENGTH_SHORT).show()
+                                }
+                            }else{
+
+                                Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}")
+                                Toast.makeText(this, "包裹大小尚未輸入完成", Toast.LENGTH_SHORT).show()
+                            }
+                        }else{
+                            Toast.makeText(this, "商品分類尚未選擇", Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        Toast.makeText(this, "請輸入商品描述", Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    Toast.makeText(this, "請輸入商品名稱", Toast.LENGTH_SHORT).show()
+                }
+            }else{
+                Toast.makeText(this, "請選取至少一張照片", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.needMoreTimeToStockUp.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.editMoreTimeInput.isVisible = true
+                MMKV.mmkvWithID("addPro").putBoolean(
+                    "boolean_needMoreTimeToStockUp",
+                    true
+                )
+
+            } else {
+                binding.editMoreTimeInput.isVisible = false
+                MMKV.mmkvWithID("addPro").putBoolean(
+                    "boolean_needMoreTimeToStockUp",
+                    false
+                )
+            }
+        }
 
         binding.btnAddPics.setOnClickListener {
 
@@ -444,24 +587,22 @@ class AddNewProductActivity : BaseActivity() {
         binding.tvBrandnew.setOnClickListener {
 
             val scale = baseContext.resources.displayMetrics.density
-            var elevation = 10
+            var elevation = 0
             val e = (elevation * scale + 0.5f).toInt() //to dp
             var e_zero = 0
-
-
 
             binding.tvBrandnew.setElevation(e.toFloat())
             binding.tvSecondhand.setElevation(e_zero.toFloat())
             binding.tvBrandnew.setBackgroundResource(R.drawable.bg_userinfo_gender)
             binding.tvSecondhand.setBackgroundResource(R.drawable.bg_edit_login)
 
-            value_checked_brandNew = "全新"
+            value_checked_brandNew = "new"
             MMKV.mmkvWithID("addPro").putString("value_checked_brandNew", value_checked_brandNew)
         }
         binding.tvSecondhand.setOnClickListener {
 
             val scale = baseContext.resources.displayMetrics.density
-            var elevation = 10
+            var elevation = 0
             val e = (elevation * scale + 0.5f).toInt() //to dp
             var e_zero = 0
 
@@ -470,33 +611,22 @@ class AddNewProductActivity : BaseActivity() {
             binding.tvBrandnew.setBackgroundResource(R.drawable.bg_edit_login)
             binding.tvSecondhand.setBackgroundResource(R.drawable.bg_userinfo_gender)
 
-            value_checked_brandNew = "二手"
+            value_checked_brandNew = "secondhand"
             MMKV.mmkvWithID("addPro").putString("value_checked_brandNew", value_checked_brandNew)
 
         }
 
-        //go to category page
-        binding.btnAddcategory.setOnClickListener {
-
-//            val intent = Intent(this, LoginPasswordActivity::class.java)
-//            startActivity(intent)
-
-        }
-
-        //go to AddProductSpecificationMainActivity
         binding.containerAddSpecification.setOnClickListener {
             val intent = Intent(this, AddProductSpecificationMainActivity::class.java)
             startActivity(intent)
             finish()
 
         }
-
         binding.containerShippingFare.setOnClickListener {
             val intent = Intent(this, ShippingFareActivity::class.java)
             startActivity(intent)
             finish()
         }
-
 
         binding.categoryContainer.setOnClickListener {
             val intent = Intent(this, MerchanCategoryActivity::class.java)
@@ -507,75 +637,59 @@ class AddNewProductActivity : BaseActivity() {
         binding.btnStore.setOnClickListener {
 
             var pic_list : ArrayList<File> = arrayListOf()
-
             var file: File? = null
-
             for(i in 0..mutableList_pics.size-1){
-
                 file = processImage(mutableList_pics.get(i).bitmap, i)
-
                 pic_list.add(file!!)
-
             }
 
             Log.d("addNewPro", mutableList_pics.size.toString())
             Log.d("addNewPro", pic_list.toString())
-            Log.d("addNewPro", "{ \"product_spec_list\" : ${jsonTutList_inven} }")
-            Log.d("addNewPro", jsonTutList_fare)
+            Log.d("addNewPro", "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }")
+            Log.d("addNewPro", MMKV_jsonTutList_fare)
 
 //            VM.add_product(this, 1, 1, 1, "0", 0, "0", 0, 0, 0, "new", pic_list,  "{ \"product_spec_list\" : ${jsonTutList_inven} }", 1, 0, 0, 0, jsonTutList_fare)
 
-
-            var inven_price_range: String = ""
-
             if(pic_list.size >=1){
-                if(value_editTextEntryProductName !== ""){
+                if(value_editTextEntryProductName.isNotEmpty()){
+                    if(value_editTextEntryProductDiscription.isNotEmpty()){
+                        if(MMKV_proCate_id.isNotEmpty()||MMKV_proSubCate_id.isNotEmpty()){
+                            if(MMKV_weight.isNotEmpty() && MMKV_length.isNotEmpty() && MMKV_width.isNotEmpty() && MMKV_height.isNotEmpty()){
+                                if( value_editTextMerchanPrice.isNotEmpty() && value_editTextMerchanQunt.isNotEmpty() &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
+                                    if(MMKV_value_txtViewFareRange.isNotEmpty()){
 
-                    if(value_editTextEntryProductDiscription !==""){
-                        if(MMKV_proCate_id !==""||MMKV_proSubCate_id !==""){
-                            if(MMKV_weight !=="" && MMKV_length !=="" && MMKV_width !=="" && MMKV_height !==""){
+                                        var inven_switch_off_json = "{ \"product_spec_list\" : [{\"price\": ${value_editTextMerchanPrice}, \"quantity\": ${value_editTextMerchanQunt}, \"spec_dec_1_items\":\"\",\"spec_dec_2_items\":\"\",\"spec_desc_1\":\"\",\"spec_desc_2\":\"\"}]}"
 
-                                if( !(value_editTextMerchanPrice =="" && value_editTextMerchanQunt=="") &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
-
-                                    if(value_txtViewFareRange !==""){
-
-                                        doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, value_editTextMerchanQunt.toInt(), value_editTextEntryProductDiscription, value_editTextMerchanPrice.toInt(), 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  "{ \"product_spec_list\" : ${jsonTutList_inven} }", MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), jsonTutList_fare)
-                                        Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${jsonTutList_fare}")
+                                        //quantity and product_price is discarded
+                                        doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, 0, value_editTextEntryProductDiscription, 0, 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  inven_switch_off_json, MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), MMKV_jsonTutList_fare, value_editMoreTimeInput.toInt(), "draft")
+                                        Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}"+"value_editMoreTimeInput: ${value_editMoreTimeInput}")
 
                                     }else{
-
                                         Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
                                     }
-
-
                                 }else if( binding.iosSwitchSpecification.isOpened()){
+                                    if( inven_price_range.isNotEmpty() && inven_quant_range.isNotEmpty()){
+                                        if(MMKV_value_txtViewFareRange .isNotEmpty()){
 
-                                    if( inven_price_range !="" && inven_quant_range !=""){
-
-                                        if(value_txtViewFareRange !==""){
-
-                                            doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, value_editTextMerchanQunt.toInt(), value_editTextEntryProductDiscription, value_editTextMerchanPrice.toInt(), 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  "{ \"product_spec_list\" : ${jsonTutList_inven} }", MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), jsonTutList_fare)
-                                            Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${jsonTutList_fare}")
+                                            //quantity and product_price is discarded
+                                            doAddProduct( MMKV_shop_id, MMKV_proCate_id.toInt(), MMKV_proSubCate_id.toInt(), value_editTextEntryProductName, 0, value_editTextEntryProductDiscription, 0, 0, MMKV_weight.toInt(), value_checked_brandNew, pic_list.size.toInt(), pic_list,  "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }", MMKV_user_id, MMKV_length.toInt(), MMKV_width.toInt(), MMKV_height.toInt(), MMKV_jsonTutList_fare, value_editMoreTimeInput.toInt(), "draft")
+                                            Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}"+"value_editMoreTimeInput: ${value_editMoreTimeInput}")
 
                                         }else{
-
                                             Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
                                         }
-
-
                                     }else{
-
+                                        Log.d("testtestetest", inven_price_range.toString()+inven_quant_range.toString())
                                         Toast.makeText(this, "商品庫存尚未設定", Toast.LENGTH_SHORT).show()
-
                                     }
-
                                 } else{
                                     Toast.makeText(this, "商品價格與數量尚未填寫", Toast.LENGTH_SHORT).show()
                                 }
                             }else{
+
+                                Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${value_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${value_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${value_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${value_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${value_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonTutList_fare: ${MMKV_jsonTutList_fare}")
                                 Toast.makeText(this, "包裹大小尚未輸入完成", Toast.LENGTH_SHORT).show()
                             }
-
                         }else{
                             Toast.makeText(this, "商品分類尚未選擇", Toast.LENGTH_SHORT).show()
                         }
@@ -634,7 +748,6 @@ class AddNewProductActivity : BaseActivity() {
                 if (clipData != null) {
                     //multiple images selecetd
                     if(mutableList_pics.size == 0) {
-
                         for (i in 0 until clipData.itemCount) {
                             if (i == 0) {
                                 //取得圖片uri存到變數imageUri並轉成bitmap
@@ -651,7 +764,6 @@ class AddNewProductActivity : BaseActivity() {
                                 } catch (e: FileNotFoundException) {
                                     e.printStackTrace()
                                 }
-
                             } else {
                                 //取得圖片uri存到變數imageUri並轉成bitmap
                                 val imageUri = clipData.getItemAt(i).uri
@@ -668,20 +780,13 @@ class AddNewProductActivity : BaseActivity() {
                                             R.drawable.custom_unit_transparent
                                         )
                                     )
-
-
                                 } catch (e: FileNotFoundException) {
                                     e.printStackTrace()
                                 }
-
                             }
-
                         }
-
                     }else{
-
                         for (i in 0 until clipData.itemCount) {
-
                             //取得圖片uri存到變數imageUri並轉成bitmap
                             val imageUri = clipData.getItemAt(i).uri
                             Log.d("URI", imageUri.toString())
@@ -697,16 +802,11 @@ class AddNewProductActivity : BaseActivity() {
                                         R.drawable.custom_unit_transparent
                                     )
                                 )
-
-
                             } catch (e: FileNotFoundException) {
                                 e.printStackTrace()
                             }
-
                         }
                     }
-
-
 
                     MMKV.mmkvWithID("addPro").putInt(
                         "value_pics_size",
@@ -714,17 +814,13 @@ class AddNewProductActivity : BaseActivity() {
                     )
 
                     for (i in 0..mutableList_pics.size-1) {
-
                         //transfer to Base64
                         val baos = ByteArrayOutputStream()
                         mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                         val b = baos.toByteArray()
-
                         val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-
                         MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
                     }
-
 
                 } else {
                     //single image selected
@@ -737,19 +833,15 @@ class AddNewProductActivity : BaseActivity() {
                         if (mutableList_pics.size == 0) {
                             //新增所選圖片以及第一張cover image至mutableList_pics中
                             mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
-
-
                         } else {
                             mutableList_pics.add(
                                 ItemPics(bitmap, R.drawable.custom_unit_transparent)
                             )
-
                         }
 
                         MMKV.mmkvWithID("addPro").putInt("value_pics_size", mutableList_pics.size)
 
                         for (i in 0..mutableList_pics.size-1) {
-
                             //transfer to Base64
                             val baos = ByteArrayOutputStream()
                             mutableList_pics[i].bitmap.compress(
@@ -758,40 +850,21 @@ class AddNewProductActivity : BaseActivity() {
                                 baos
                             )
                             val b = baos.toByteArray()
-
                             val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-
                             MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
-
                         }
-
-
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()
                     }
                 }
 
-
                 runOnUiThread {
-
                     val mAdapter = PicsAdapter()
-
                     mAdapter.updateList(mutableList_pics)     //傳入資料
                     binding.rView.layoutManager =
                         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     binding.rView.adapter = mAdapter
-
                 }
-
-//                for (b in bitmaps) {
-//                    runOnUiThread { imageView.setImageBitmap(b) }
-//                    try {
-//                        Thread.sleep(3000)
-//                    } catch (e: InterruptedException) {
-//                        e.printStackTrace()
-//                    }
-//                }
-
 
             }).start()
         }
@@ -799,30 +872,16 @@ class AddNewProductActivity : BaseActivity() {
 
     fun initProCategoryDatas() {
 
-        //取得Bundle傳來的分類資料
-//        var sharedPreferences : SharedPreferences = getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
-        var product_sub_category_id: String? = intent.getBundleExtra("bundle")?.getString("id")
-        var product_category_id: String? = intent.getBundleExtra("bundle")?.getString("product_category_id")
-        var c_product_category: String? = intent.getBundleExtra("bundle")?.getString("c_product_category")
-        var c_product_sub_category: String? = intent.getBundleExtra("bundle")?.getString("c_product_sub_category")
-
-
-
         MMKV_proCate_id = MMKV.mmkvWithID("addPro").getString("product_category_id", "").toString()
         MMKV_proSubCate_id = MMKV.mmkvWithID("addPro").getString("product_sub_category_id", "").toString()
         value_textViewSeletedCategory = MMKV.mmkvWithID("addPro").getString("value_textViewSeletedCategory", value_textViewSeletedCategory).toString()
         binding.textViewSeletedCategory.setText(value_textViewSeletedCategory)
+        Log.d("MMKV_proCate_id", "MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id}"+"value_textViewSeletedCategory: ${value_textViewSeletedCategory} ; ")
 
-
-        Log.d("product_category_id", "product_sub_category_id: ${product_sub_category_id} ; "+"product_category_id: ${product_category_id}"+"c_product_category: ${c_product_category} ; "+"c_product_sub_category: ${c_product_sub_category} ; ")
-
-
-        if (MMKV_proCate_id.equals("") || MMKV_proSubCate_id.equals("")) {
+        if (MMKV_proCate_id.isEmpty() || MMKV_proSubCate_id.isEmpty()) {
             binding.textViewSeletedCategory.isVisible = false
             binding.btnAddcategory.isVisible = true
-
         } else {
-
             binding.textViewSeletedCategory.isVisible = true
             binding.btnAddcategory.isVisible = false
         }
@@ -833,40 +892,18 @@ class AddNewProductActivity : BaseActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
     fun initProFareDatas() {
 
-        //取得Bundle傳來的分類資料
-//        var sharedPreferences : SharedPreferences = getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
-//        var datas_packagesWeights: String? =
-//            intent.getBundleExtra("bundle_ShippingFareActivity")?.getString("datas_packagesWeights", "")
-//        var datas_lenght: String? =
-//            intent.getBundleExtra("bundle_ShippingFareActivity")?.getString("datas_lenght", "")
-//        var datas_width: String? =
-//            intent.getBundleExtra("bundle_ShippingFareActivity")?.getString("datas_width", "")
-//        var datas_height: String? =
-//            intent.getBundleExtra("bundle_ShippingFareActivity")?.getString("datas_height", "")
-//        var fare_datas_size_bundle: Int? = intent.getBundleExtra("bundle_ShippingFareActivity")?.getInt("datas_size", 0)
-
-
-
-
-        MMKV_weight = MMKV.mmkvWithID("addPro").getString("datas_packagesWeights", "0").toString()
-        MMKV_length = MMKV.mmkvWithID("addPro").getString("datas_lenght", "0").toString()
-        MMKV_width = MMKV.mmkvWithID("addPro").getString("datas_width", "0").toString()
-        MMKV_height = MMKV.mmkvWithID("addPro").getString("datas_height", "0").toString()
-
+        MMKV_weight = MMKV.mmkvWithID("addPro").getString("datas_packagesWeights", "").toString()
+        MMKV_length = MMKV.mmkvWithID("addPro").getString("datas_lenght", "").toString()
+        MMKV_width = MMKV.mmkvWithID("addPro").getString("datas_width", "").toString()
+        MMKV_height = MMKV.mmkvWithID("addPro").getString("datas_height", "").toString()
         var fare_datas_size = MMKV.mmkvWithID("addPro").getString("fare_datas_size", "0").toString().toInt()
         var fare_datas_filtered_size = MMKV.mmkvWithID("addPro").getString("fare_datas_filtered_size","0").toString().toInt()
+        MMKV_value_txtViewFareRange = MMKV.mmkvWithID("addPro").getString("value_txtViewFareRange", "").toString()
+        MMKV_jsonTutList_fare = MMKV.mmkvWithID("addPro").getString("jsonTutList_fare", MMKV_jsonTutList_fare).toString()
+        Log.d("MMKV_weight", "MMKV_weight : ${MMKV_weight}, MMKV_length : ${MMKV_length}, MMKV_width : ${MMKV_width}, MMKV_height : ${MMKV_height}, fare_datas_size : ${fare_datas_size}, fare_datas_filtered_size : ${fare_datas_filtered_size}, MMKV_value_txtViewFareRange: ${MMKV_value_txtViewFareRange}")
+        Log.d("MMKV_jsonTutList_fare", "MMKV_jsonTutList_fare : " + MMKV_jsonTutList_fare.toString())
 
-
-        Log.d("MMKV_weight", "datas_packagesWeights : ${MMKV_weight}, datas_lenght : ${MMKV_length}, datas_width : ${MMKV_width}, datas_height : ${MMKV_height}, fare_datas_size : ${fare_datas_size}, fare_datas_filtered_size : ${fare_datas_filtered_size}")
-        value_txtViewFareRange = MMKV.mmkvWithID("addPro").getString("value_txtViewFareRange", "").toString()
-        binding.txtViewFareRange.text = value_txtViewFareRange
-        jsonTutList_fare = MMKV.mmkvWithID("addPro").getString("jsonTutList_fare", jsonTutList_fare).toString()
-
-
-
-
-//        jsonTutList_fare = MMKV.mmkvWithID("addPro").getString("jsonTutList_fare", "").toString()
-//        Log.d("AddNewProductActivity_MMKV", "jsonTutList_fare : " + jsonTutList_fare.toString())
+        binding.txtViewFareRange.text = MMKV_value_txtViewFareRange
 
         if (fare_datas_size != null) {
 
@@ -875,13 +912,11 @@ class AddNewProductActivity : BaseActivity() {
                 binding.rViewFareItem.isVisible = true
                 binding.imgLineFare.isVisible = true
 
-                //MMKV取出過濾後的Fare Item
+                //MMKV取出 Filtered Fare Item
                 for (i in 0..fare_datas_filtered_size-1!!) {
-
                     var json_invens : String? = MMKV.mmkvWithID("addPro").getString("value_fare_item_filtered${i}", "")
                     val json = json_invens
                     val value_fare_item_filtered = gson.fromJson(json, ItemShippingFare::class.java)
-
                     mutableList_itemShipingFare_filtered.add(value_fare_item_filtered) //顯示在UI
                 }
 
@@ -897,41 +932,28 @@ class AddNewProductActivity : BaseActivity() {
                     Thread(Runnable {
 
                         mAdapters_shippingFareChecked.updateList(mutableList_itemShipingFare_filtered)
-
                         runOnUiThread {
-
                             mAdapters_shippingFareChecked.notifyDataSetChanged()
-
                         }
 
+
                     }).start()
-
-
                 }else{
-
                     binding.rViewFareItem.isVisible = false
                     binding.imgLineFare.isVisible = false
-
                 }
             }
             else{
-
                 binding.rViewFareItem.isVisible = false
                 binding.imgLineFare.isVisible = false
-
             }
 
         } else {
-
             binding.rViewFareItem.isVisible = false
             binding.imgLineFare.isVisible = false
-
         }
         //挑選最大與最小金額，回傳價格區間
-        binding.txtViewFareRange.text = value_txtViewFareRange
-
-        //清空以勾選運送陣列，避免重複新增資料(initMMKV已新增一次)
-//                mutableList_itemShipingFare_filtered.clear()
+        binding.txtViewFareRange.text = MMKV_value_txtViewFareRange
 
     }
 
@@ -942,8 +964,8 @@ class AddNewProductActivity : BaseActivity() {
 
         var inven_datas_size = MMKV.mmkvWithID("addPro").getInt("inven_datas_size", 0)
 
-        jsonTutList_inven = MMKV.mmkvWithID("addPro").getString("jsonTutList_inven", jsonTutList_inven).toString()
-        Log.d("jsonTutList_inven", "jsonTutList_inven : " + jsonTutList_inven.toString())
+        MMKV_jsonTutList_inven = MMKV.mmkvWithID("addPro").getString("jsonTutList_inven", MMKV_jsonTutList_inven).toString()
+        Log.d("MMKV_jsonTutList_inven", "MMKV_jsonTutList_inven : " + MMKV_jsonTutList_inven.toString())
 
         //MMKV取出mutableList_InvenDatas
 //        for(i in 0..inven_datas_size!!-1){
@@ -961,7 +983,8 @@ class AddNewProductActivity : BaseActivity() {
         inven_quant_range = MMKV.mmkvWithID("addPro").getString("inven_quant_range", inven_quant_range).toString()
         value_editTextMerchanPrice = MMKV.mmkvWithID("addPro").getString("value_editTextMerchanPrice", value_editTextMerchanPrice).toString()
         value_editTextMerchanQunt = MMKV.mmkvWithID("addPro").getString("value_editTextMerchanQunt", value_editTextMerchanQunt).toString()
-
+        binding.editTextMerchanPrice.setText(value_editTextMerchanPrice)
+        binding.editTextMerchanQunt.setText(value_editTextMerchanQunt)
 
         //預設containerSpecification的背景
         if(inven_price_range != "" && inven_quant_range != "" ){
@@ -987,10 +1010,6 @@ class AddNewProductActivity : BaseActivity() {
             binding.textViewMerchanQuntRange.text = inven_quant_range
 
         }else{
-
-
-            binding.editTextMerchanPrice.setText(value_editTextMerchanPrice)
-            binding.editTextMerchanQunt.setText(value_editTextMerchanQunt)
 
             binding.iosSwitchSpecification.closeSwitcher()
 
@@ -1035,30 +1054,7 @@ class AddNewProductActivity : BaseActivity() {
                 binding.containerProductSpecQuant.setElevation(e.toFloat())
                 binding.containerProductSpecSwitch.setElevation(e.toFloat())
 
-                //從bundle載入所有添加的運費方式
-//                    for (i in 0..datas_invenSpec_size-1!!) {
-//                        mutableList_itemInvenSpec.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSpec> ("spec"+i.toString())!!)
-//                    }
-//
-//
-//                    for (i in 0..datas_invenSize_size-1!!) {
-//                        mutableList_itemInvenSize.add(intent.getBundleExtra("InventoryAndPriceActivity")?.getParcelable<InventoryItemSize> ("size"+i.toString())!!)
-//                    }
-
-
-//                for(key in 0..inven_datas_size!!-1){
-//
-//                    mutableList_InvenDatas.add(
-//                        intent.getBundleExtra("InventoryAndPriceActivity")
-//                            ?.getParcelable<InventoryItemDatas>("InvenDatas" + key.toString())!!
-//                    )
-//
-//                }
-
-
             }
-
-
         } else {
 
             binding.iosSwitchSpecification.closeSwitcher()
@@ -1140,7 +1136,7 @@ class AddNewProductActivity : BaseActivity() {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
-    private fun doAddProduct(shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list_size :Int ,product_pic_list : ArrayList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String) {
+    private fun doAddProduct(shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list_size :Int ,product_pic_list : ArrayList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String, longterm_stock_up : Int, product_status : String) {
         val url = ApiConstants.API_HOST+"/product/save/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
@@ -1183,7 +1179,7 @@ class AddNewProductActivity : BaseActivity() {
 
             }
         })
-        web.Do_ProductAdd(url, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list_size, product_pic_list, product_spec_list, user_id,  length, width, height, shipment_method)
+        web.Do_ProductAdd(url, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list_size, product_pic_list, product_spec_list, user_id,  length, width, height, shipment_method,  longterm_stock_up, product_status)
     }
 
 

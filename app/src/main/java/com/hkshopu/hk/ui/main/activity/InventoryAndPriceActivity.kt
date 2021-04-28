@@ -1131,7 +1131,7 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
             }
         }
 
-        return "HKD$${min}-HKD$${max}"
+        return "${min}-${max}"
 
     }
 

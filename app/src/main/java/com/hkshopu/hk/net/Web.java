@@ -194,7 +194,7 @@ public class Web {
         }
     }
 
-    public void Do_ProductAdd(String url, int shop_id, int product_category_id, int product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, int user_id, int length, int width, int height, String shipment_method) {
+    public void Do_ProductAdd(String url, int shop_id, int product_category_id, int product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, int user_id, int length, int width, int height, String shipment_method, int longterm_stock_up, String product_status) {
         Log.d(TAG, "Do_ProductAdd Url ＝ " + url);
 
         List<MultipartBody.Part> images = new ArrayList<>();
@@ -225,6 +225,8 @@ public class Web {
                 .addFormDataPart("width", String.valueOf(width))
                 .addFormDataPart("height", String.valueOf(height))
                 .addFormDataPart("shipment_method", String.valueOf(shipment_method))
+                .addFormDataPart("longterm_stock_up", String.valueOf(longterm_stock_up))
+                .addFormDataPart("product_status", String.valueOf(product_status))
                 .addFormDataPart("product_pic_list_size", String.valueOf(product_pic_list_size));
 
         for(int i=0; i< product_pic_list.size(); i++){

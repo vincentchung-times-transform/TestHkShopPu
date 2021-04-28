@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ItemShippingFare_Certained(
-    var shipment_desc: String, var price : Int  , var onoff : Boolean = false, var shop_id : Int) : Parcelable {
+    var shipment_desc: String, var price : Int  , var onoff : String = "off", var shop_id : Int) : Parcelable {
 }
