@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="3"
-                tools:context=".ui.main.activity.ShopCategoryActivity"
+                tools:context=".ui.main.store.activity.ShopCategoryActivity"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_shopcategory">
 

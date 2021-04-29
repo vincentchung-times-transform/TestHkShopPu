@@ -27,20 +27,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="n">
-        <activity android:name=".ui.main.activity.MerchanCategoryActivity"
-            android:configChanges="orientation|screenSize"/>
-
-        <activity android:name=".ui.main.activity.MerchandiseActivity" />
-        <activity
-            android:name=".ui.main.activity.ShippingFareActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.main.activity.InventoryAndPriceActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.main.activity.AddProductSpecificationMainActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity
-            android:name=".ui.main.activity.AddNewProductActivity"
-            android:windowSoftInputMode="adjustPan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -107,38 +93,64 @@
             android:name=".ui.user.activity.MailAddressActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.activity.OnBoardActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.OnBoardActivity"
+            android:launchMode="singleTask" />
+
+<!-- Shop -->
+        <activity
+            android:name="com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.activity.ShopmenuActivity"
-            android:launchMode="singleTask" />
-        <activity
-            android:name=".ui.main.activity.AddShopActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name=".ui.main.activity.AddBankAccountActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddBankAccountActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name=".ui.main.activity.AddShopAddressActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopAddressActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name=".ui.main.activity.ShopCategoryActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.ShopCategoryActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.activity.ShopInfoModifyActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.ShopInfoModifyActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.activity.AddShopBriefActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopBriefActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
+
         <activity
-            android:name=".ui.main.activity.ShippingFeeActivity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.PhoneEditActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.hkshopu.hk.ui.main.store.activity.EmailAdd1Activity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name="com.hkshopu.hk.ui.main.store.activity.SocialAccountSetActivity"
+            android:launchMode="singleTask" />
+<!-- Product -->
+        <activity android:name=".ui.main.product.activity.MerchanCategoryActivity"
+            android:configChanges="orientation|screenSize"/>
+
+        <activity android:name="com.hkshopu.hk.ui.main.store.activity.MerchandiseActivity" />
+
+        <activity android:name=".ui.main.product.activity.InventoryAndPriceActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".ui.main.product.activity.AddProductSpecificationMainActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.main.product.activity.AddNewProductActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.main.product.activity.ShippingFareActivity"
             android:launchMode="singleTask" />
 
         <meta-data
+
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>

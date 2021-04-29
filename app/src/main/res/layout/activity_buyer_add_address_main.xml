@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hkshop_color_bg"
-    tools:context=".ui.main.activity.BuyerAddAddressMainActivity">
+    tools:context=".ui.main.store.activity.BuyerAddAddressMainActivity">
 
 
     <RelativeLayout

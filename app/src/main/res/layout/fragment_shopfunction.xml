@@ -55,30 +55,11 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="57dp"
-                android:src="@mipmap/ic_wallet" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="8dp"
-                android:text="待付款"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <LinearLayout
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -99,7 +80,8 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -119,7 +101,8 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -270,13 +253,13 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="52dp">
+        android:layout_height="88dp">
 
         <ImageView
             android:id="@+id/iv_storesort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="42dp"
             android:src="@mipmap/ic_storesort" />
 
@@ -284,17 +267,59 @@
             android:id="@+id/tv_storesort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="13dp"
             android:layout_toRightOf="@id/iv_storesort"
             android:text="店舖分類" />
+
+        <TextView
+            android:id="@+id/tv_storesort1"
+            android:layout_width="72dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/iv_storesort"
+            android:layout_alignStart="@id/tv_storesort"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_storesort2"
+            android:layout_width="72dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/iv_storesort"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:layout_toEndOf="@+id/tv_storesort1"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_storesort3"
+            android:layout_width="72dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/iv_storesort"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:layout_toEndOf="@+id/tv_storesort2"
+            android:background="@drawable/customborder_shopcategory"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/iv_chevron_storesort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="35dp"
             android:src="@mipmap/ic_chevron" />
 
@@ -303,7 +328,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="50dp"
             android:layout_toLeftOf="@id/iv_chevron_storesort"
             android:text="更多" />

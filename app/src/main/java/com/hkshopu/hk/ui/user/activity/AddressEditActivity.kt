@@ -1,23 +1,17 @@
 package com.hkshopu.hk.ui.user.activity
 
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityAddresseditBinding
-import com.hkshopu.hk.databinding.ActivityUserinfoBinding
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.widget.view.KeyboardUtil
-import java.util.*
 
 
 class AddressEditActivity : BaseActivity(), TextWatcher {

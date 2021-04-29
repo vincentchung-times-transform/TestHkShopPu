@@ -6,16 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityLoginPasswordBinding
 import com.hkshopu.hk.databinding.ActivityNewPasswordBinding
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
+import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 
 class NewPasswordActivity : AppCompatActivity() {

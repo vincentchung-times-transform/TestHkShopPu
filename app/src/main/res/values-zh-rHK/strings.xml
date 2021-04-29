@@ -109,6 +109,7 @@
     <string name="countryinput">＋國碼</string>
     <string name="hk">＋852</string>
     <string name="logout">登出</string>
+    <string name="currency">HKD</string>
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
 
     <string name="terms_of_service">SpinnerDemo</string>

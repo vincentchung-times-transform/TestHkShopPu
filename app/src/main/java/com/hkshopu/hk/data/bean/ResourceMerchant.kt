@@ -1,7 +1,7 @@
 package com.hkshopu.hk.data.bean
 
 import com.hkshopu.hk.R
-import com.hkshopu.hk.ui.main.fragment.*
+import com.hkshopu.hk.ui.main.store.fragment.*
 
 interface ResourceMerchant {
     companion object {

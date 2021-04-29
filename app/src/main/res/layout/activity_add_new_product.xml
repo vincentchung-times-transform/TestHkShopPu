@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.activity.AddNewProductActivity">
+    tools:context=".ui.main.product.activity.AddNewProductActivity">
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_alignParentTop="true"
@@ -306,34 +306,46 @@
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:text="@string/txtview_price"/>
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
-
                         <TextView
-                            android:id="@+id/textView_merchanPrice_range"
+                            android:id="@+id/textView_merchanPrice_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="@color/dark_gray"
                             android:text=""
+                            android:gravity="center_vertical"
                             android:layout_alignParentTop="true"
                             android:textSize="14sp" />
-
-
-                        <EditText
-                            android:id="@+id/editText_merchanPrice"
+                        <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentTop="true"
-                            android:background="@color/white"
-                            android:hint="@string/txtview_priceinput"
-                            android:textAlignment="textEnd"
-                            android:imeOptions="actionDone"
-                            android:singleLine="true"
-                            android:textSize="14sp" />
+                            android:layout_height="match_parent">
 
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/textView_merchanPrice_range"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/dark_gray"
+                                android:text=""
+                                android:layout_alignParentTop="true"
+                                android:textSize="14sp" />
 
+
+                            <EditText
+                                android:id="@+id/editText_merchanPrice"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentTop="true"
+                                android:background="@color/white"
+                                android:hint="@string/txtview_priceinput"
+                                android:textAlignment="textEnd"
+                                android:imeOptions="actionDone"
+                                android:singleLine="true"
+                                android:textSize="14sp" />
+
+                        </RelativeLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
 

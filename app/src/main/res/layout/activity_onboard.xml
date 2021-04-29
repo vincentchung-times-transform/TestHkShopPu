@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/onboarding_background"
-    tools:context=".ui.main.activity.OnBoardActivity">
+    tools:context=".ui.main.store.activity.OnBoardActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

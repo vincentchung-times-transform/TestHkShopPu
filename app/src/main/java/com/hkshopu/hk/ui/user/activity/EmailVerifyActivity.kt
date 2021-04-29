@@ -7,20 +7,15 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.databinding.ActivityEmailverifyBinding
-import com.hkshopu.hk.databinding.ActivityLoginBinding
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
+import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.utils.extension.getResColor
 import com.hkshopu.hk.widget.view.KeyboardUtil
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
 import java.util.*
 import kotlin.concurrent.schedule
 

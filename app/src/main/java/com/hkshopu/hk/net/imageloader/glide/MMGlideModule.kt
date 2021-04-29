@@ -49,7 +49,7 @@ class MMGlideModule : AppGlideModule() {
         // Replace the http connection with okhttp
         //使用okhttp作为glide的urlLoader ,并添加图片解密拦截器
         val client = OkHttpClient.Builder()
-            .addInterceptor(ImgDecodeInterceptor()) //添加图片解密拦截器
+//            .addInterceptor(ImgDecodeInterceptor()) //添加图片解密拦截器
             .build()
         val factory = OkHttpUrlLoader.Factory(client)
         registry.replace(GlideUrl::class.java, InputStream::class.java, factory)

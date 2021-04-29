@@ -66,13 +66,16 @@ class ShopInfoBean {
     @SerializedName("address_room")
     var address_room: String= ""
 
+    @SerializedName("product_count")
+    var product_count: Int = 0
+
     @SerializedName("rating")
-    var rating: String= ""
+    var rating: Int = 0
 
     @SerializedName("follower")
-    var follower: String= ""
+    var follower: Int = 0
 
     @SerializedName("income")
-    var income: String= ""
+    var income: Int = 0
 
 }

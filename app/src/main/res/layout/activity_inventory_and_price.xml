@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
     android:orientation="vertical"
-    tools:context=".ui.main.activity.InventoryAndPriceActivity">
+    tools:context=".ui.main.product.activity.InventoryAndPriceActivity">
 
     <RelativeLayout
         android:id="@+id/titleBar"

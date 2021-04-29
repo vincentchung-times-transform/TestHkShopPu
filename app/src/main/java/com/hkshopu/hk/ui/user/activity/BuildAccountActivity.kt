@@ -10,7 +10,6 @@ import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
-import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -30,14 +29,10 @@ import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityBuildacntBinding
-import com.hkshopu.hk.ui.main.activity.ShopmenuActivity
+import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.KeyboardUtil
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
 import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 
 class BuildAccountActivity : BaseActivity(), TextWatcher {
