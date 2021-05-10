@@ -26,6 +26,9 @@ import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.BoardingObjBean
 import com.hkshopu.hk.databinding.ActivityOnboardBinding
+import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.product.activity.EditProductActivity
+import com.hkshopu.hk.ui.main.product.activity.MerchandiseActivity
 import com.hkshopu.hk.ui.user.activity.BuildAccountActivity
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
@@ -66,7 +69,8 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
             .build()
 
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
         setBoardingData()
         initViewPager()
 
@@ -218,8 +222,18 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
-            val intent = Intent(this, ShopmenuActivity::class.java)
+//            val intent = Intent(this, ShopmenuActivity::class.java)
+//            startActivity(intent)
+
+//            val intent = Intent(this, EditProductActivity::class.java)
+//            startActivity(intent)
+
+            val intent = Intent(this, MyMerchantsActivity::class.java)
             startActivity(intent)
+
+//            val intent = Intent(this, MerchandiseActivity::class.java)
+//            startActivity(intent)
+
 
 //            val intent = Intent(this, AddNewProductActivity::class.java)
 //            startActivity(intent)

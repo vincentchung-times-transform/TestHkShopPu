@@ -19,7 +19,10 @@ class EventAddShopSuccess()
 class EventGetShopCatSuccess(val list: ArrayList<String>)
 
 //Add Product Events
+class EventProductSearch(val keyword: String = "")
 class EventProductCatSelected(val selectrdId: Int = 1, var c_product_category: String)
+
+
 class EventProductCatLastPostion(val postion: Int = 1)
 
 //Other Events (Not Used)

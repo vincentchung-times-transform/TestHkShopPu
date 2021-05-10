@@ -22,7 +22,7 @@ import com.hkshopu.hk.ui.main.product.adapter.InventoryAndPriceSpecAdapter
 import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
-class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
+class AddInventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
     private lateinit var binding : ActivityInventoryAndPriceBinding
     val mAdapters_InvenSpec = InventoryAndPriceSpecAdapter()
@@ -70,7 +70,7 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
     fun save_Price_Quant_Datas() {
 
-           //取得Bundle傳來的分類資料
+        //取得Bundle傳來的分類資料
         var datas_spec_size: Int =
             intent.getBundleExtra("bundle_AddProductSpecificationMainActivity")?.getInt("datas_spec_size")!!
         var datas_size_size: Int =
@@ -998,6 +998,24 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
 
     fun setTextWatcher_price(textView: TextView, editText : EditText, postion : Int) {
 
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+            override fun afterTextChanged(s: Editable?) {
+
+                if(editText.text.toString().length >= 2 && editText.text.toString().startsWith("0")){
+                    editText.setText(editText.text.toString().replace("0", "", false))
+                    editText.setSelection(editText.text.toString().length)
+                }
+
+            }
+        }
+        editText.addTextChangedListener(textWatcher)
+
         editText.singleLine = true
         editText.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
@@ -1036,6 +1054,10 @@ class InventoryAndPriceActivity : AppCompatActivity(), TextWatcher{
             }
             override fun afterTextChanged(s: Editable?) {
 
+                if(editText.text.toString().length >= 2 && editText.text.toString().startsWith("0")){
+                    editText.setText(editText.text.toString().replace("0", "", false))
+                    editText.setSelection(editText.text.toString().length)
+                }
 
             }
         }

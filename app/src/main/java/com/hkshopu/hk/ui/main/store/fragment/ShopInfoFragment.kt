@@ -21,6 +21,7 @@ import com.hkshopu.hk.databinding.FragmentShopinfoBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.store.activity.MyMerchantsActivity
 import com.hkshopu.hk.ui.main.store.activity.ShopInfoModifyActivity
 import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.utils.rxjava.RxBus
@@ -128,6 +129,11 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo){
 
         binding!!.layoutShoptitle.setOnClickListener {
             val intent = Intent(activity, ShopInfoModifyActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding!!.layoutMerchants.setOnClickListener{
+            val intent = Intent(activity, MyMerchantsActivity::class.java)
             startActivity(intent)
         }
 

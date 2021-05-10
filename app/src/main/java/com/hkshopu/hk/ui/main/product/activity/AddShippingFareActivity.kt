@@ -3,6 +3,7 @@ package com.hkshopu.hk.ui.main.product.activity
 import MyLinearLayoutManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.ArrayMap
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
@@ -19,25 +21,37 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.InventoryItemSize
-import com.hkshopu.hk.data.bean.InventoryItemSpec
-import com.hkshopu.hk.data.bean.ItemShippingFare
-import com.hkshopu.hk.data.bean.ItemShippingFare_Certained
+import com.hkshopu.hk.data.bean.*
 import com.hkshopu.hk.databinding.ActivityMerchandiseBinding
 import com.hkshopu.hk.databinding.ActivityShippingFareBinding
+import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.GsonProvider
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.product.adapter.InventoryAndPriceSpecAdapter
 import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
+import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.tencent.mmkv.MMKV
+import okhttp3.Response
 import org.jetbrains.anko.singleLine
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.lang.reflect.Type
 
-class ShippingFareActivity : AppCompatActivity(){
+class AddShippingFareActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityShippingFareBinding
+    private val VM = ShopVModel()
 
     val mAdapters_shippingFare = ShippingFareAdapter(this)
     var mutableList_itemShipingFare = mutableListOf<ItemShippingFare>()
@@ -46,18 +60,24 @@ class ShippingFareActivity : AppCompatActivity(){
 
     var value_txtViewFareRange :String = ""
 
+
+
     var weight_check = false
     var length_check = false
     var width_check = false
     var height_check = false
 
+
+    var product_edit_spec_session = false
     //資料變數宣告
-    var datas_packagesWeights : String = ""
-    var datas_lenght : String = ""
-    var datas_width : String = ""
-    var datas_height : String = ""
-
-
+    var MMKV_user_id: Int = 0
+    var MMKV_shop_id: Int = 1
+    var MMKV_product_id: Int = 1 //待合併
+    var MMKV_weight: String = ""
+    var MMKV_length:String = ""
+    var MMKV_width: String = ""
+    var MMKV_height: String = ""
+    var sync_to_shop = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,13 +85,45 @@ class ShippingFareActivity : AppCompatActivity(){
         binding = ActivityShippingFareBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
+        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+        MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+        product_edit_spec_session =  MMKV.mmkvWithID("http").getBoolean("product_edit_spec_session", false)
+
+        if(product_edit_spec_session.equals(false)){
+
+            product_edit_spec_session = true
+            getProductInfo(MMKV_product_id)
+        }
 
 
+        initVM()
         initView()
     }
 
     fun initView() {
 
+        MMKV_weight = MMKV.mmkvWithID("addPro").getString("datas_packagesWeights", "").toString()
+        MMKV_length = MMKV.mmkvWithID("addPro").getString("datas_length", "").toString()
+        MMKV_width = MMKV.mmkvWithID("addPro").getString("datas_width", "").toString()
+        MMKV_height = MMKV.mmkvWithID("addPro").getString("datas_height", "").toString()
+        binding.editPackageWeight.setText(MMKV_weight)
+        binding.editPackageLength.setText(MMKV_length)
+        binding.editPackageWidth.setText(MMKV_width)
+        binding.editPackageHeight.setText(MMKV_height)
+
+
+        var fare_datas_size = MMKV.mmkvWithID("addPro").getString("fare_datas_size","0")
+
+        if (fare_datas_size != null && fare_datas_size.toInt() >=1 ) {
+
+            for (i in 0..fare_datas_size.toInt()-1!!) {
+                mutableList_itemShipingFare.add(GsonProvider.gson.fromJson( MMKV.mmkvWithID("addPro").getString("value_fare_item${i}",""), ItemShippingFare::class.java))
+            }
+
+        }
+
+        //商品運費項目
         initRecyclerView_ShippingFareItem()
 
         binding.btnEditFareOn.isVisible = true
@@ -81,22 +133,26 @@ class ShippingFareActivity : AppCompatActivity(){
         binding.btnShippingFareStore.isEnabled = false
         binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
 
-
-
         setMonitor(binding.editPackageWeight, width_check)
         setMonitor(binding.editPackageLength, length_check)
         setMonitor(binding.editPackageWidth, width_check)
         setMonitor(binding.editPackageHeight, height_check)
 
-
         generateCustomFare_uneditable()
-
 
         initClick()
         initEdit()
     }
 
     fun initClick() {
+
+        binding.checkBoxAsyncFareSetting.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                sync_to_shop = binding.checkBoxAsyncFareSetting.isChecked
+            }else{
+                sync_to_shop = binding.checkBoxAsyncFareSetting.isChecked
+            }
+        }
 
         binding.titleBackAddshop.setOnClickListener {
             val intent = Intent(this, AddNewProductActivity::class.java)
@@ -137,10 +193,10 @@ class ShippingFareActivity : AppCompatActivity(){
             val intent = Intent(this, AddNewProductActivity::class.java)
             var datas_ship_method_and_fare : MutableList<ItemShippingFare> = mAdapters_shippingFare.get_shipping_method_datas()
 
-            MMKV.mmkvWithID("addPro").putString("datas_packagesWeights", datas_packagesWeights.toString())
-            MMKV.mmkvWithID("addPro").putString("datas_lenght", datas_lenght)
-            MMKV.mmkvWithID("addPro").putString("datas_width", datas_width)
-            MMKV.mmkvWithID("addPro").putString("datas_height", datas_height)
+            MMKV.mmkvWithID("addPro").putString("datas_packagesWeights", MMKV_weight.toString())
+            MMKV.mmkvWithID("addPro").putString("datas_length", MMKV_length)
+            MMKV.mmkvWithID("addPro").putString("datas_width", MMKV_width)
+            MMKV.mmkvWithID("addPro").putString("datas_height", MMKV_height)
 
             if(datas_ship_method_and_fare.size.toString() != ""){
                 MMKV.mmkvWithID("addPro").putString("fare_datas_size", datas_ship_method_and_fare.size.toString())
@@ -173,8 +229,8 @@ class ShippingFareActivity : AppCompatActivity(){
             Log.d("check_content","fare_datas_filtered_size : ${mutableList_itemShipingFare_filtered.size.toString()}")
 
             for (i in 0..mutableList_itemShipingFare_filtered.size-1!!) {
-                val jsonTutList_mutableList_itemShipingFare_filtered: String = GsonProvider.gson.toJson(mutableList_itemShipingFare_filtered[i])
-                MMKV.mmkvWithID("addPro").putString("value_fare_item_filtered${i}", jsonTutList_mutableList_itemShipingFare_filtered)
+            val jsonTutList_mutableList_itemShipingFare_filtered: String = GsonProvider.gson.toJson(mutableList_itemShipingFare_filtered[i])
+            MMKV.mmkvWithID("addPro").putString("value_fare_item_filtered${i}", jsonTutList_mutableList_itemShipingFare_filtered)
 
             }
 
@@ -200,6 +256,15 @@ class ShippingFareActivity : AppCompatActivity(){
             MMKV.mmkvWithID("addPro").putString("jsonTutList_fare", jsonTutList_fare)
 
 
+            //sync prodcut fare settings to Shop fare setting
+            MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+            Log.d("MMKV_shop_id", MMKV_shop_id.toString())
+            if(sync_to_shop == true){
+
+                VM.syncShippingfare(this, MMKV_shop_id, jsonTutList_fare)
+            }
+
+
             startActivity(intent)
             finish()
 
@@ -214,7 +279,7 @@ class ShippingFareActivity : AppCompatActivity(){
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
-                    datas_packagesWeights = binding.editPackageWeight.text.toString()
+                    MMKV_weight = binding.editPackageWeight.text.toString()
 
                     v.hideKeyboard()
                     binding.editPackageWeight.clearFocus()
@@ -230,7 +295,7 @@ class ShippingFareActivity : AppCompatActivity(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                datas_packagesWeights = binding.editPackageWeight.text.toString()
+                MMKV_weight = binding.editPackageWeight.text.toString()
             }
         }
         binding.editPackageWeight.addTextChangedListener(textWatcher_datas_packagesWeights)
@@ -241,7 +306,7 @@ class ShippingFareActivity : AppCompatActivity(){
         binding.editPackageLength.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    datas_lenght = binding.editPackageLength.text.toString()
+                    MMKV_length = binding.editPackageLength.text.toString()
                     v.hideKeyboard()
                     binding.editPackageLength.clearFocus()
                     true
@@ -255,7 +320,7 @@ class ShippingFareActivity : AppCompatActivity(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                datas_lenght = binding.editPackageLength.text.toString()
+                MMKV_length = binding.editPackageLength.text.toString()
             }
         }
         binding.editPackageLength.addTextChangedListener(textWatcher_editPackageLength)
@@ -268,7 +333,7 @@ class ShippingFareActivity : AppCompatActivity(){
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
-                    datas_width = binding.editPackageWidth.text.toString()
+                    MMKV_width = binding.editPackageWidth.text.toString()
 
                     v.hideKeyboard()
                     binding.editPackageWeight.clearFocus()
@@ -284,7 +349,7 @@ class ShippingFareActivity : AppCompatActivity(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                datas_width = binding.editPackageWidth.text.toString()
+                MMKV_width = binding.editPackageWidth.text.toString()
             }
         }
         binding.editPackageWidth.addTextChangedListener(textWatcher_editPackageWidth)
@@ -294,7 +359,7 @@ class ShippingFareActivity : AppCompatActivity(){
         binding.editPackageHeight.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-                    datas_height = binding.editPackageHeight.text.toString()
+                    MMKV_height = binding.editPackageHeight.text.toString()
                     v.hideKeyboard()
                     binding.editPackageHeight.clearFocus()
                     true
@@ -308,7 +373,7 @@ class ShippingFareActivity : AppCompatActivity(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                datas_width = binding.editPackageHeight.text.toString()
+                MMKV_height = binding.editPackageHeight.text.toString()
             }
         }
         binding.editPackageHeight.addTextChangedListener(textWatcher_editPackageHeight)
@@ -317,21 +382,12 @@ class ShippingFareActivity : AppCompatActivity(){
 
     fun initRecyclerView_ShippingFareItem() {
 
-        initFareDatas()
-
         //自訂layoutManager
         binding.rViewFareItemSpec.setLayoutManager(MyLinearLayoutManager(this,false))
         binding.rViewFareItemSpec.adapter = mAdapters_shippingFare
 
         mAdapters_shippingFare.updateList(mutableList_itemShipingFare)
         mAdapters_shippingFare.notifyDataSetChanged()
-    }
-
-    fun initFareDatas() {
-
-        mutableList_itemShipingFare.add(ItemShippingFare("郵局", 0, R.drawable.custom_unit_transparent, "off", 0))
-        mutableList_itemShipingFare.add(ItemShippingFare("順豐速運", 0, R.drawable.custom_unit_transparent, "off", 0))
-        mutableList_itemShipingFare.add(ItemShippingFare("", 0, R.drawable.custom_unit_transparent, "off", 0))
 
     }
 
@@ -494,6 +550,91 @@ class ShippingFareActivity : AppCompatActivity(){
         val intent = Intent(this, AddNewProductActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun initVM() {
+
+        VM.syncShippingfareData.observe(
+            this,
+            Observer {
+                when (it?.status) {
+                    Status.Success -> {
+                        if (it.ret_val.toString().equals("運輸設定更新成功!")) {
+
+                            Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_LONG).show()
+                            Log.d("shippingFare", it.ret_val.toString())
+
+                        } else {
+
+                            Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_LONG).show()
+                            Log.d("shippingFare", it.ret_val.toString())
+
+                        }
+
+                    }
+//                Status.Start -> showLoading()
+//                Status.Complete -> disLoading()
+                }
+            }
+        )
+
+    }
+
+
+
+    private fun getProductInfo(product_id: Int) {
+
+        val url = ApiConstants.API_HOST+"product/${product_id}/product_info_forAndroid/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                val list = ArrayList<ProductInfoBean>()
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("getProductInfo", "返回資料 resStr：" + resStr)
+                    Log.d("getProductInfo", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    if (ret_val.equals("已取得商品資訊!")) {
+
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        Log.d("getProductInfo", "返回資料 jsonArray：" + jsonArray.toString())
+
+                        val fooType: Type = object : TypeToken<List<ProductInfoBean?>?>() {}.type
+                        val productInfoList: List<ProductInfoBean> = Gson().fromJson(
+                            jsonArray.toString(),
+                            fooType
+                        )
+
+
+                        for (i in 0..productInfoList.get(0).product_shipment_list.size - 1) {
+
+                            mutableList_itemShipingFare.add( ItemShippingFare(productInfoList.get(0).product_shipment_list.get(i).shipment_desc, productInfoList.get(0).product_shipment_list.get(i).price, R.drawable.custom_unit_transparent, productInfoList.get(0).product_shipment_list.get(i).onoff, MMKV_shop_id))
+                            var json_shippingItem = GsonProvider.gson.toJson(mutableList_itemShipingFare.get(i))
+                            MMKV.mmkvWithID("addPro").putString("value_fare_item${i}",json_shippingItem)
+                        }
+
+                        MMKV.mmkvWithID("addPro").putString("fare_datas_size",mutableList_itemShipingFare.size.toString())
+
+
+                    }else{
+
+                    }
+
+                } catch (e: JSONException) {
+
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Get_Data(url)
     }
 
 }

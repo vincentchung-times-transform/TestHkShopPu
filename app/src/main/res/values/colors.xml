@@ -45,5 +45,7 @@
     <color name="black_hint_80">#CC48484A</color>
 <!--我的商品-->
     <color name="colorGray_60">#993C3C43</color>
-
+<!--商品-->
+    <color name="unselected_points_products">#D8D8D8</color>
+    <color name="selected_points_products">#8E8E93</color>
 </resources>
