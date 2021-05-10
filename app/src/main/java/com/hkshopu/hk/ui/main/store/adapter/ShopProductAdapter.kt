@@ -24,7 +24,7 @@ class ShopProductAdapter : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinea
     fun setData(list : ArrayList<ShopProductBean>){
         list?:return
         this.mData = list
-//        notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopInfoLinearHolder {
