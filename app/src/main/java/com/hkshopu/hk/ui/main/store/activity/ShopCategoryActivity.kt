@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
-import com.hkshopu.hk.component.CommonVariable
 import com.hkshopu.hk.component.EventShopCatSelected
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 import com.hkshopu.hk.databinding.ActivityShopcategoryBinding
@@ -49,7 +48,7 @@ class ShopCategoryActivity : BaseActivity() {
     private fun initRecyclerView() {
         val layoutManager = GridLayoutManager(this, 3)
         binding.recyclerview.layoutManager = layoutManager
-        adapter.setData(CommonVariable.list)
+        adapter.setData(ApiConstants.list)
         binding.recyclerview.adapter = adapter
         adapter.itemClick = {
 

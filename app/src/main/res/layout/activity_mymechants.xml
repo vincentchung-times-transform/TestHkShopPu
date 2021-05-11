@@ -76,6 +76,8 @@
             android:layout_marginStart="8dp"
             android:background="@null"
             android:layout_toEndOf="@id/iv_magnify"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             android:hint="@string/search_keyword"
             android:textColorHint="@color/colorGray_60"
             android:inputType="text"
@@ -103,7 +105,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabGravity="fill"
+            app:tabIndicatorAnimationMode="linear"
             app:tabIndicatorColor="@color/turquoise"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="top"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
@@ -112,9 +117,9 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mviewPager"
+            android:layout_below="@id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tabs"/>
+            android:layout_height="match_parent" />
 
 
 

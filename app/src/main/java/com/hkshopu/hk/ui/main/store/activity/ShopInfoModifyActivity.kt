@@ -71,13 +71,8 @@ class ShopInfoModifyActivity : BaseActivity() {
             startActivityForResult(gallery, pickImage_s)
         }
 
-        binding.ivChevronShopName.setOnClickListener {
+        binding.tvShopName.setOnClickListener {
             val intent = Intent(this, ShopNameEditActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.ivChevronShopBrief.setOnClickListener {
-            val intent = Intent(this, AddShopBriefActivity::class.java)
             startActivity(intent)
         }
 

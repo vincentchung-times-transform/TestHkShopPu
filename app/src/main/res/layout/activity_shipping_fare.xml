@@ -98,6 +98,7 @@
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:src="@mipmap/ic_chevron"
+                    android:textAlignment="textEnd"
                     android:textSize="14sp" />
 
             </LinearLayout>
