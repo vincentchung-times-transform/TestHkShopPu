@@ -24,6 +24,7 @@ import com.hkshopu.hk.ui.main.store.adapter.ShopProductAdapter
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
+import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
@@ -71,8 +72,9 @@ class MyStoreFragment : Fragment() {
         return v
     }
     private fun initRecyclerView(){
-        val layoutManager = LinearLayoutManager(activity!!,LinearLayoutManager.HORIZONTAL, false)
-        newProduct.layoutManager = layoutManager
+//        val layoutManager = LinearLayoutManager(activity!!)
+//        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+//        newProduct.layoutManager = layoutManager
         newProduct.adapter = adapter
         adapter.itemClick = {
 
@@ -94,21 +96,26 @@ class MyStoreFragment : Fragment() {
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("已取得商品清單!")) {
 
-                        val jsonObject: JSONObject = json.getJSONObject("data")
-                        Log.d("ShopInfoFragment", "返回資料 Object：" + jsonObject.toString())
-                        val shopProductBean: ShopProductBean =
-                            Gson().fromJson(jsonObject.toString(), ShopProductBean::class.java)
-                        list.add(shopProductBean)
-                    }
-                    if(list.size > 0){
-                        adapter.setData(list)
-                        activity!!.runOnUiThread {
-                            initRecyclerView()
-                            btn_addNewMerchant.visibility = View.VISIBLE
-                            newProduct_null.visibility = View.GONE
+                        val translations: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until translations.length()) {
+                            val jsonObject: JSONObject = translations.getJSONObject(i)
+                            val shopProductBean: ShopProductBean =
+                                Gson().fromJson(jsonObject.toString(), ShopProductBean::class.java)
+                            list.add(shopProductBean)
+                        }
 
+                        Log.d("MyStoreFragment", "返回資料 List大小：" + list.size)
+                        if(list.size > 0){
+                            adapter.setData(list)
+                            activity!!.runOnUiThread {
+                                initRecyclerView()
+                                btn_addNewMerchant.visibility = View.VISIBLE
+                                newProduct_null.visibility = View.GONE
+
+                            }
                         }
                     }
+
 
 
                 } catch (e: JSONException) {
