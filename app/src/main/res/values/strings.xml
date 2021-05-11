@@ -107,13 +107,6 @@
     <string name="hk">＋852</string>
     <string name="logout">登出</string>
     <string name="currency">HKD</string>
-    <string name="ad">廣告與行銷活動</string>
-    <string name="logistic">運輸設定</string>
-    <string name="helpcenter">幫助中心</string>
-    <string name="shoppreview">預覽我的店鋪</string>
-    <string name="addnewshop">+ 新增店鋪</string>
-    <string name="addbankaccount2">+ 新增銀行帳號</string>
-    <string name="bankaccount_alert">為確保交易安全性，本操作會進行加密處理，店匯不會顯示你的完整卡號資訊。</string>
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
 
     <string name="terms_of_service">SpinnerDemo</string>
@@ -350,7 +343,7 @@
         HKshopu 必須提醒消費者：為保障消費者權益，請消費者於 HKshopu 上完成交易，如有任何疑問，歡迎來信 <font color="#1DBCCF"><b>service@HKshopu.com</b></font>。
     </string>
 
-    //帳號設定
+<!--    帳號設定-->
     <string name="account_setup">用戶帳號設定</string>
     <string name="my_account">我的帳戶</string>
     <string name="my_setup">我的設定</string>
@@ -360,12 +353,12 @@
     <string name="setup_lan">語言設定</string>
     <string name="password_change">密碼變更</string>
 
-    //社群帳號設定
+<!--    社群帳號設定-->
     <string name="socialaccount_setup">社群帳號設定</string>
     <string name="setup_fb">連結 Facebook 帳號</string>
     <string name="setup_ig">連結 Instagram 帳號</string>
 
-    //新增店鋪
+<!--    新增店鋪-->
     <string name="addshop">新增店鋪</string>
     <string name="addshoppic">請選擇店鋪照片</string>
     <string name="addshoppicintro">點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。</string>
@@ -377,7 +370,7 @@
     <string name="shopsortmore">更多</string>
     <string name="addshopconfirm">確認新增店鋪</string>
 
-    //店鋪資訊
+<!--    店鋪資訊-->
     <string name="tab1">功能服務</string>
     <string name="tab2">我的賣場</string>
     <string name="income_tab1">完成的訂單</string>
@@ -386,16 +379,16 @@
     <string name="merchants_tab2">已售完</string>
     <string name="merchants_tab3">未上架</string>
 
-    //店鋪列表
+<!--    店鋪列表-->
     <string name="loginremind">登入頁面</string>
     <string name="loginremind_title">訪客請先登入以開通買家功能</string>
 
-    //編輯店鋪名稱
+<!--    編輯店鋪名稱-->
     <string name="shopname_edit">編輯店鋪名稱</string>
     <string name="shopname_show">顯示在店鋪簡介</string>
     <string name="change_limit">30天內只能更改一次店鋪名稱</string>
 
-    //修改店鋪資訊
+<!--    修改店鋪資訊-->
     <string name="shop_name">名稱</string>
     <string name="user_account">使用者帳號</string>
     <string name="save">儲存</string>
@@ -404,39 +397,40 @@
     <string name="social_account">社群帳號設定</string>
     <string name="modify_newbg">修改</string>
 
-    //進帳/月
+<!--    進帳/月-->
     <string name="shop_income">進帳/月</string>
 
-    //新增店鋪簡介
+<!--    新增店鋪簡介-->
     <string name="contact">聯絡資訊</string>
 
-    //Email
+<!--    密碼-->
     <string name="addemail_remind">為了保護你的帳戶安全。請再次輸入密碼已進行下一步</string>
     <string name="password_now">現在的密碼</string>
     <string name="go_on">繼續</string>
 
-    //Email
+<!--    Email-->
     <string name="add_email">新增Email</string>
     <string name="email_input">輸入電子郵件</string>
 
-    //我的商品
+<!--    我的商品-->
     <string name="my_merchants">我的商品</string>
     <string name="search_keyword">請輸入商品關鍵字</string>
     <string name="add_newproduct">＋ 新增商品</string>
 
-    //電話號碼
+<!--    電話號碼-->
     <string name="phone">電話號碼</string>
 
-    //關注
+<!--    關注-->
     <string name="shop_attention">關注</string>
     <string name="edit">編輯</string>
 
-    //商店評價
+<!--    商店評價-->
     <string name="shop_evaluation">店鋪評價</string>
 
 
-    //新增商品
+<!--    新增商品&編輯商品-->
     <string name="title_addproduct">新增商品</string>
+    <string name="title_editproduct">編輯商品</string>
     <string name="txtview_productname">商品名稱<font color='red' size='10'><sub> * </sub></font></string>
     <string name="hint_editproductname">輸入商品名稱</string>
     <string name="txtview_productdescription">商品描述<font color='red' size='10'><sub> * </sub></font></string>
@@ -445,6 +439,7 @@
     <string name="brand_new">全新</string>
     <string name="second_hand">二手</string>
     <string name="title_specification">新增規格</string>
+    <string name="title_editSpecification">編輯規格</string>
     <string name="txtview_category">新增商別類別<font color='red' size='10'><sub> * </sub></font></string>
     <string name="txtview_addspecification">新增商別規格</string>
     <string name="txtview_specification">商品規格</string>
@@ -456,24 +451,28 @@
     <string name="txtview_marketingactivities">廣告與行銷活動<font color='red' size='10'><sub> * </sub></font></string>
     <string name="txtview_sharetofb">分享到FACEBOOK</string>
     <string name="txtview_sharetoig">分享到INSTAGRAM</string>
+    <string name="txtview_editProductRemind">編輯商品提醒</string>
+    <string name="txtview_editProductRemind_content">為保障買賣雙方的權利，HKShopu將在您進行商品編輯時短暫下架此商品，在您完成後再上架 。</string>
 
-    //新增產品規格
+<!--    新增&編輯產品規格-->
     <string name="title_adddescription">新增規格</string>
     <string name="editView_inputproductdescription">請輸入商品規格</string>
     <string name="btn_edit">編輯</string>
     <string name="btn_editdone">完成</string>
     <string name="dialog_spec_info">當您要上架的商品有不同規格（例如：顏色、尺寸）時，則會需要使用商品規格功能，設定詳細商品規格，可以讓買家在購買時更清楚迅速的選擇。</string>
 
-    //設定庫存與價格
-    <string name="title_setInventoryAndPrice">新增規格</string>
+<!--    設定庫存與價格-->
+    <string name="title_setInventoryAndPrice">設定庫存與價格</string>
+    <string name="title_editInventoryAndPrice">編輯庫存與價格</string>
     <string name="textView_setInventorySize">尺寸</string>
     <string name="textView_setInventoryPrice">價格</string>
     <string name="textView_setInventoryQuantity">數量</string>
+    <string name="textView_setInventorySoldQuantity">已賣出</string>
     <string name="textView_needMoreTimeToStockUp">需要較長時間備貨嗎?</string>
     <string name="textView_title_spec">規格:</string>
     <string name="textView_clear_all_inventory"><u>全部清空</u></string>
 
-    //運費
+<!--    運費-->
     <string name="title_shippingFare">運費</string>
     <string name="textView_packageWeight">包裹重量(g)<font color='red' size='10'><sub> * </sub></font></string>
     <string name="textView_packageSize">包裹尺寸大小<font color='red' size='10'><sub> * </sub></font></string>
@@ -488,20 +487,23 @@
     <string name="check_box_text_async_fare_setting">同步更改運輸設定</string>
 
 
-    //商品
+<!--    商品-->
     <string name="textView_more">更多</string>
     <string name="textView_over599freeshipping">滿$599，免運費</string>
     <string name="textView_merchandiseinfo">商品資訊</string>
-    <string name="textView_merchandisecategory">商品類別</string>
+    <string name="textView_merchandisecategory">商品分類</string>
     <string name="textView_sure_to_leave">您尚未儲存變更，確定要離開 ？</string>
     <string name="textView_cancel">取消</string>
     <string name="textView_discard">捨棄</string>
-    <string name="textView_more_time_to_stock">較長備貨天數</string>
+    <string name="textView_merchan_evaluation">商品評價</string>
+    <string name="textView_more_days_to_stock">較長備貨天數</string>
     <string name="texthint_more_time_to_stock_input">請輸入備貨時間</string>
+    <string name="textView_more_time_to_stock">較長備貨 : </string>
+    <string name="textView_day_unit">天</string>
 
 
 
-    //買家新增地址
+<!--    買家新增地址-->
     <string name="title_addaddress">新增地址</string>
     <string name="textView_nameAndCompanyName">姓名/公司名稱</string>
     <string name="texHint_InputNameAndCompanyName">輸入姓名或公司名稱</string>
@@ -510,8 +512,12 @@
     <string name="textView_setDefaultAddressr">設為預設地址</string>
     <string name="textView_setExpressAddress">設為快遞取件地址</string>
 
-    //商品分類
+<!--    商品分類-->
     <string name="title_category">分類總覽</string>
+
+
+<!--    我的商品-->
+    <string name="hkd_dollarSign">HKD$ </string>
 
 
 

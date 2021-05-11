@@ -21,7 +21,7 @@ class StoreOrNotDialogFragment(var baseActivity : BaseActivity ): DialogFragment
 
 
     var signal : Boolean = false
-
+    var product_edit_session = false
 //    companion object {
 //        val TAG = StoreOrNotDialogFragment::class.java.simpleName
 //
@@ -72,7 +72,8 @@ class StoreOrNotDialogFragment(var baseActivity : BaseActivity ): DialogFragment
 
                 var currentActivity : Activity  = baseActivity
 
-
+                product_edit_session=false
+                MMKV.mmkvWithID("http").putBoolean("product_edit_session", product_edit_session)
                 MMKV.mmkvWithID("addPro").clear()
 
                 val intent = Intent(currentActivity, ShopmenuActivity::class.java)

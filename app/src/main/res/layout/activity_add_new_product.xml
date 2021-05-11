@@ -21,6 +21,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_back" />
         <TextView
+            android:id="@+id/title_edit_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_addproduct"
@@ -48,10 +49,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
-                android:paddingTop="10dp"
+                android:paddingTop="12dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
-                android:paddingBottom="10dp"
+                android:paddingBottom="12dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
@@ -72,8 +73,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
                 android:layout_marginTop="8dp"
@@ -94,6 +95,7 @@
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:layout_below="@id/txtView_productname"
+                    android:layout_marginTop="8dp"
                     android:hint="@string/hint_editproductname"
                     android:background="@color/white"/>
             </RelativeLayout>
@@ -103,8 +105,8 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:layout_marginTop="8dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
@@ -122,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtView_productdescription"
                     android:hint="@string/hint_editproductdescription"
+                   android:layout_marginTop="8dp"
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:textSize="14sp"
@@ -137,6 +140,8 @@
                 android:layout_marginTop="8dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
@@ -165,6 +170,8 @@
                 android:layout_height="60dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:gravity="center_vertical"
@@ -227,7 +234,7 @@
                 <LinearLayout
                     android:id="@+id/container_product_spec_switch"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:outlineSpotShadowColor="@color/hkshop_color"
@@ -238,14 +245,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
                         android:text="@string/txtview_specification"/>
 
                     <com.zilchzz.library.widgets.EasySwitcher
                         android:id="@+id/ios_switch_specification"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="31dp"
                         app:sbAnimTime="300"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         app:sbCloseBgColor="#d9d9d9"
                         app:sbOpenBgColor="#34C759"
                         app:sbDefaultOpened="false"
@@ -260,13 +271,12 @@
                     android:layout_height="match_parent"
                     android:elevation="10dp"
                     android:scaleType="fitXY"
-                    android:layout_marginTop="8dp"
                     android:src="@mipmap/description_line"/>
 
                 <LinearLayout
                     android:id="@+id/container_add_specification"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="44dp"
                     android:orientation="horizontal"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
@@ -292,7 +302,7 @@
                 <LinearLayout
                     android:id="@+id/container_product_spec_price"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
@@ -304,55 +314,45 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
                         android:text="@string/txtview_price"/>
-                    <LinearLayout
+
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
+
                         <TextView
-                            android:id="@+id/textView_merchanPrice_unit"
+                            android:id="@+id/textView_merchanPrice_range"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:textColor="@color/dark_gray"
                             android:text=""
-                            android:gravity="center_vertical"
                             android:layout_alignParentTop="true"
                             android:textSize="14sp" />
-                        <RelativeLayout
+
+
+                        <EditText
+                            android:id="@+id/editText_merchanPrice"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:layout_alignParentTop="true"
+                            android:background="@color/white"
+                            android:hint="@string/txtview_priceinput"
+                            android:textAlignment="textEnd"
+                            android:inputType="number"
+                            android:imeOptions="actionDone"
+                            android:singleLine="true"
+                            android:textSize="14sp" />
 
-                            <TextView
-                                android:id="@+id/textView_merchanPrice_range"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:textColor="@color/dark_gray"
-                                android:text=""
-                                android:layout_alignParentTop="true"
-                                android:textSize="14sp" />
-
-
-                            <EditText
-                                android:id="@+id/editText_merchanPrice"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentTop="true"
-                                android:background="@color/white"
-                                android:hint="@string/txtview_priceinput"
-                                android:textAlignment="textEnd"
-                                android:imeOptions="actionDone"
-                                android:singleLine="true"
-                                android:textSize="14sp" />
-
-                        </RelativeLayout>
-                    </LinearLayout>
-
+                    </RelativeLayout>
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/container_product_spec_quant"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
@@ -364,6 +364,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
                         android:text="@string/txtview_quantity"/>
 
@@ -412,7 +414,7 @@
                 <LinearLayout
                     android:id="@+id/container_shipping_fare_click"
                     android:layout_width="match_parent"
-                    android:layout_height="41dp"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/customborder_addproduct"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
@@ -422,6 +424,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
                         android:text="@string/txtview_shippingfee"/>
                     <TextView
@@ -429,12 +433,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:textColor="@color/gray_txt"
                         android:text=""/>
 
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="12dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:src="@mipmap/ic_chevron"/>
 
                 </LinearLayout>
@@ -451,7 +459,8 @@
                     android:id="@+id/r_view_fare_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:layout_below="@id/titleBar" />
@@ -463,7 +472,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
@@ -477,18 +486,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:text="@string/txtview_marketingactivities"
                     android:textColor="@color/black" />
 
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/ic_chevron" />
 
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
@@ -502,6 +515,8 @@
                     android:id="@+id/need_more_time_to_stock_up"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:text="@string/textView_needMoreTimeToStockUp"
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
@@ -509,20 +524,22 @@
                     android:id="@+id/edit_more_time_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:textAlignment="textEnd"
                     android:layout_weight="1"
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:background="@color/white"
-                    android:hint="@string/texthint_more_time_to_stock_input"/>
+                    android:hint="@string/textView_more_days_to_stock"/>
 
             </LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
@@ -534,11 +551,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/fb_small" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:text="@string/txtview_sharetofb"
@@ -548,6 +569,8 @@
                     android:id="@+id/ios_switch_fb"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     app:sbAnimTime="300"
                     app:sbCloseBgColor="#d9d9d9"
                     app:sbOpenBgColor="#34C759"
@@ -559,7 +582,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/customborder_addproduct"
@@ -573,11 +596,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:src="@mipmap/ig_small" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
                     android:text="@string/txtview_sharetoig"
@@ -587,6 +614,8 @@
                     android:id="@+id/ios_switch_ig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
                     app:sbAnimTime="300"
                     app:sbCloseBgColor="#d9d9d9"
                     app:sbOpenBgColor="#34C759"

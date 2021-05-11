@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@drawable/customborder">
+
+    <com.flyco.tablayout.SlidingTabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="28dp"
+        android:layout_centerInParent="true"
+        app:tl_indicator_corner_radius="2dp"
+        app:tl_indicator_width="16dp"
+        app:tl_indicator_color="@color/colorAccent"
+        app:tl_textsize="16sp"
+        app:tl_textSelectColor="@color/black"
+        app:tl_textUnselectColor="@color/black"
+        />
+
+</RelativeLayout>

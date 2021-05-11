@@ -1,7 +1,6 @@
 package com.hkshopu.hk.component
 
 import com.hkshopu.hk.data.bean.ProductCategoryBean
-import com.hkshopu.hk.data.bean.ShopBankAccountBean
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 
 /**
@@ -18,9 +17,12 @@ class EventShopDesUpdated(val shopDes: String? = null)
 class EventShopCatSelected(val list: ArrayList<ShopCategoryBean>)
 class EventAddShopSuccess()
 class EventGetShopCatSuccess(val list: ArrayList<String>)
-class EventGetBankAccountSuccess(val list: ArrayList<ShopBankAccountBean>)
+
 //Add Product Events
+class EventProductSearch(val keyword: String = "")
 class EventProductCatSelected(val selectrdId: Int = 1, var c_product_category: String)
+
+
 class EventProductCatLastPostion(val postion: Int = 1)
 
 //Other Events (Not Used)
