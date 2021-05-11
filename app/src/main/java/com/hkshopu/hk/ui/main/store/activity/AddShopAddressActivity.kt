@@ -1,16 +1,18 @@
 package com.hkshopu.hk.ui.main.store.activity
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Base64
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.databinding.*
 import com.hkshopu.hk.net.ApiConstants
@@ -28,7 +30,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class AddShopAddressActivity : BaseActivity(), TextWatcher {
+class AddShopAddressActivity : BaseActivity(){
     private lateinit var binding: ActivityShopaddresseditBinding
 
     private val VM = AuthVModel()
@@ -57,33 +59,49 @@ class AddShopAddressActivity : BaseActivity(), TextWatcher {
 
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
-    override fun afterTextChanged(p0: Editable?) {
-        companyName = binding.editShopname.text.toString()
-        phone_number = binding.editShopphoneNumber.text.toString()
-        phone_country =binding.tvShopphoneCountry.text.toString()
-        phone = phone_country + phone_number
-        country = binding.editCountry.text.toString()
-        admin = binding.editAdmin.text.toString()
-        thoroughfare = binding.editthoroughfare.text.toString()
-        feature = binding.editfeature.text.toString()
-        subaddress = binding.editsubaddress.text.toString()
-        floor = binding.editfloor.text.toString()
-        room = binding.editroom.text.toString()
-    }
-
     private fun initView() {
-        binding.editShopname.addTextChangedListener(this)
-        binding.editShopphoneNumber.addTextChangedListener(this)
-        binding.editCountry.addTextChangedListener(this)
-        binding.editAdmin.addTextChangedListener(this)
-        binding.editthoroughfare.addTextChangedListener(this)
-        binding.editfeature.addTextChangedListener(this)
-        binding.editsubaddress.addTextChangedListener(this)
-        binding.editfloor.addTextChangedListener(this)
-        binding.editroom.addTextChangedListener(this)
+        binding.editShopname.requestFocus()
+        binding.editShopname.doAfterTextChanged {
+            companyName = binding.editShopname.text.toString()
+        }
+        binding.editShopphoneNumber.doAfterTextChanged {
+            phone_number = binding.editShopphoneNumber.text.toString()
+            phone_country =binding.tvShopphoneCountry.text.toString()
+            phone = phone_country + phone_number
+        }
+
+        binding.editShopname.doAfterTextChanged {
+            companyName = binding.editShopname.text.toString()
+        }
+
+        binding.editCountry.doAfterTextChanged {
+            country = binding.editCountry.text.toString()
+        }
+
+        binding.editAdmin.doAfterTextChanged {
+            admin = binding.editAdmin.text.toString()
+        }
+
+
+        binding.editthoroughfare.doAfterTextChanged {
+            thoroughfare = binding.editthoroughfare.text.toString()
+        }
+
+        binding.editfeature.doAfterTextChanged {
+            feature = binding.editfeature.text.toString()
+        }
+
+        binding.editsubaddress.doAfterTextChanged {
+            subaddress = binding.editsubaddress.text.toString()
+        }
+
+        binding.editfloor.doAfterTextChanged {
+            floor = binding.editfloor.text.toString()
+        }
+
+        binding.editroom.doAfterTextChanged {
+            room = binding.editroom.text.toString()
+        }
 
         binding.layoutShopaddressEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
@@ -107,6 +125,10 @@ class AddShopAddressActivity : BaseActivity(), TextWatcher {
 //                Status.Complete -> disLoading()
 //            }
 //        })
+    }
+    fun EditText.showSoftKeyboard(){
+        (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
+            .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
     var file: File? = null
     private fun initClick() {

@@ -38,7 +38,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
             android:src="@mipmap/ic_notification"
-            android:contentDescription="@string/empty"/>
+            android:contentDescription="@string/empty"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_notifycount"
@@ -50,7 +51,8 @@
             android:gravity="center"
             android:text="1"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -59,11 +61,18 @@
         android:layout_height="match_parent"
         android:layout_below="@id/layout_shopevaluationTitle"
         android:layout_marginTop="25dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bg_shopevalue"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/empty"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_shopevaluation" />
+            tools:listitem="@layout/item_shopevaluation"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
