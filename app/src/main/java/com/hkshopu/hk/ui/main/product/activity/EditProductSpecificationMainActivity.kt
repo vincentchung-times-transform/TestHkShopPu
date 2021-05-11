@@ -54,6 +54,9 @@ class EditProductSpecificationMainActivity : BaseActivity() {
     var secondSpecGrpTitle_check = 0
 
     //頁面資料變數宣告
+    var MMKV_user_id: Int = 0
+    var MMKV_shop_id: Int = 1
+    var MMKV_product_id: Int = 1
     var value_editTextProductSpecFirst = ""
     var value_editTextProductSpecSecond = ""
     var value_datas_spec_size = 0
@@ -65,6 +68,12 @@ class EditProductSpecificationMainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductDescriptionMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
+        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+        MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+        getProductInfo(MMKV_product_id)
+
         initMMKV()
         initView()
     }
