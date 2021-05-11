@@ -88,6 +88,7 @@
     <string name="tab1">功能服務</string>
     <string name="tab2">我的賣場</string>
     <string name="addbrief">新增商店簡介...</string>
+    <string name="addshop">新增店舖</string>
     <string name="useraccount_setup">用戶帳號設定</string>
     <string name="addbankaccount">新增銀行帳號</string>
     <string name="bankcode_input">請輸入銀行代碼</string>
@@ -110,6 +111,14 @@
     <string name="hk">＋852</string>
     <string name="logout">登出</string>
     <string name="currency">HKD</string>
+    <string name="ad">廣告與行銷活動</string>
+    <string name="logistic">運輸設定</string>
+    <string name="helpcenter">幫助中心</string>
+    <string name="shoppreview">預覽我的店鋪</string>
+    <string name="addnewshop">+ 新增店鋪</string>
+    <string name="addbankaccount2">+ 新增銀行帳號</string>
+    <string name="edit">編輯</string>
+    <string name="bankaccount_alert">為確保交易安全性，本操作會進行加密處理，店匯不會顯示你的完整卡號資訊。</string>
     <string name="PLACES_API_KEY">AIzaSyCaggzX2T2Jk2ef6ONP7Uox41NpGCzZ0Tw</string>
 
     <string name="terms_of_service">SpinnerDemo</string>
