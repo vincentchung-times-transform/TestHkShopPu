@@ -94,6 +94,9 @@ class AddNewProductActivity : BaseActivity() {
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //測試git版本控制
+        
+
         //Add Mode
         initVM()
         initView()
