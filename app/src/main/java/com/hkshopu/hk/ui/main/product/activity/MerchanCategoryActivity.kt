@@ -71,7 +71,7 @@ class MerchanCategoryActivity : BaseActivity() {
     fun initClick() {
         binding.titleBackProductCategory.setOnClickListener {
 
-            val intent = Intent(this, EditProductActivity::class.java)
+            val intent = Intent(this, AddNewProductActivity::class.java)
             startActivity(intent)
 
             finish()
@@ -201,13 +201,6 @@ class MerchanCategoryActivity : BaseActivity() {
 
         }).start()
 
-    }
-
-    override fun onBackPressed() {
-
-        val intent = Intent(this, EditProductActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 
 
