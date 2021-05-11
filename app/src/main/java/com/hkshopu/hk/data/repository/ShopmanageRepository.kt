@@ -55,5 +55,13 @@ class ShopmanageRepository : BaseRepository(){
             .compose(handleBean())
     }
 
+    fun syncShippingfare(lifecycleOwner: LifecycleOwner, id : Int ,shipment_settings: String) : Observable<Any>{
+        return service.syncShippingfare(id, shipment_settings)
+            .compose(SchedulersUtil.applySchedulers())
+            .bindUntilEvent(lifecycleOwner,Lifecycle.Event.ON_DESTROY)
+            .compose(handleBean())
+    }
+
+
 
 }

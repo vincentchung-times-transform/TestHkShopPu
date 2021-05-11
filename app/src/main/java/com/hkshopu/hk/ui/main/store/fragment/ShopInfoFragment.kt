@@ -15,17 +15,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.hkshopu.hk.R
-import com.hkshopu.hk.component.CommonVariable
-import com.hkshopu.hk.component.EventGetBankAccountSuccess
 import com.hkshopu.hk.component.EventGetShopCatSuccess
-import com.hkshopu.hk.data.bean.ShopAddressBean
-import com.hkshopu.hk.data.bean.ShopBankAccountBean
 import com.hkshopu.hk.data.bean.ShopInfoBean
 import com.hkshopu.hk.databinding.FragmentShopinfoBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.store.activity.*
+import com.hkshopu.hk.ui.main.store.activity.MyMerchantsActivity
+import com.hkshopu.hk.ui.main.store.activity.ShopInfoModifyActivity
 import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
@@ -36,7 +33,7 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
+class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo){
 
     companion object {
         fun newInstance(): ShopInfoFragment {
@@ -46,7 +43,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             return fragment
         }
     }
-
     private var binding: FragmentShopinfoBinding? = null
     private var fragmentShopInfoBinding: FragmentShopinfoBinding? = null
     private val pickCoverImage = 100
@@ -54,14 +50,14 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     private var imageUri: Uri? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val shopId = arguments!!.getInt("shop_id", 0)
+        val shopId = arguments!!.getInt("shop_id",0)
         MMKV.mmkvWithID("http").putInt(
             "ShopId",
             shopId
         )
 
 
-        var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
+        var url = ApiConstants.API_HOST+"/shop/"+shopId+"/show/"
         binding = FragmentShopinfoBinding.bind(view)
         fragmentShopInfoBinding = binding
         initView()
@@ -77,7 +73,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                     if (isEnabled) {
                         getActivity()!!.supportFragmentManager.beginTransaction().remove(this@ShopInfoFragment).commit()
 
-                    } else {
+                    }else{
                         isEnabled = false
                         requireActivity().onBackPressed()
                     }
@@ -94,7 +90,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
         initFragment()
 
     }
-
     private fun initFragment() {
         binding!!.mviewPager.adapter = object : FragmentStateAdapter(this) {
 
@@ -110,7 +105,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             tab.text = getString(ResourceStore.tabList[position])
 
         }.attach()
-        binding!!.mviewPager.setUserInputEnabled(false);
 //        binding.setViewPager(binding.mviewPager, arrayOf(getString(R.string.product),getString(R.string.info)))
     }
 
@@ -138,27 +132,13 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             startActivity(intent)
         }
 
-        binding!!.layoutShopRate.setOnClickListener {
-            val intent = Intent(activity, ShopEvaluationActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding!!.tvMyProduct.setOnClickListener {
+        binding!!.layoutMerchants.setOnClickListener{
             val intent = Intent(activity, MyMerchantsActivity::class.java)
-            startActivity(intent)
-        }
-        binding!!.tvMyLikes.setOnClickListener {
-            val intent = Intent(activity, ShopAttentionActivity::class.java)
-            startActivity(intent)
-        }
-        binding!!.tvMyIncome.setOnClickListener {
-            val intent = Intent(activity, ShopIncomeActivity::class.java)
             startActivity(intent)
         }
 
 
     }
-
     override fun onDestroyView() {
         // Consider not storing the binding instance in a field, if not needed.
         fragmentShopInfoBinding = null
@@ -171,11 +151,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 val list = ArrayList<ShopInfoBean>()
-                list.clear()
-                CommonVariable.bankaccountlist.clear()
-                CommonVariable.addresslist.clear()
                 val shop_category_id_list = ArrayList<String>()
-                shop_category_id_list.clear()
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
@@ -189,27 +165,11 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                         val shopInfoBean: ShopInfoBean =
                             Gson().fromJson(jsonObject.toString(), ShopInfoBean::class.java)
                         list.add(shopInfoBean)
-                        val bank_account: JSONArray = jsonObject.getJSONArray("shop_bank_account")
-                        for (i in 0 until bank_account.length()) {
-                            val account = bank_account.get(i)
-                            val shopBankAccountBean: ShopBankAccountBean =
-                                Gson().fromJson(account.toString(), ShopBankAccountBean::class.java)
-                            CommonVariable.bankaccountlist.add(shopBankAccountBean)
-                        }
-                        val shopaddress: JSONArray = jsonObject.getJSONArray("shop_address")
-                        if (shopaddress.length() > 0) {
-                            for (i in 0 until shopaddress.length()) {
-                                val address = shopaddress.get(i)
-                                val shopAddressBean: ShopAddressBean =
-                                    Gson().fromJson(address.toString(), ShopAddressBean::class.java)
-                                CommonVariable.addresslist.add(shopAddressBean)
-                            }
-                        }
                         val translations: JSONArray = jsonObject.getJSONArray("shop_category_id")
 
                         for (i in 0 until translations.length()) {
                             val shop_category_id = translations.get(i)
-                            if (!shop_category_id.toString().equals("0")) {
+                            if(!shop_category_id.toString().equals("0")) {
                                 shop_category_id_list.add(shop_category_id.toString())
                                 Log.d(
                                     "ShopInfoFragment",

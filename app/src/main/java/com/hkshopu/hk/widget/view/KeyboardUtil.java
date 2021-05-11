@@ -37,15 +37,10 @@ public class KeyboardUtil {
 
     public static void showKeyboard(final View view) {
         view.requestFocus();
-        view.postDelayed(new Runnable(){
-                               @Override public void run(){
-                                   InputMethodManager keyboard=(InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                   keyboard.showSoftInput(view,0);
-                               }
-                           }
-                ,200);
-//        InputMethodManager inputManager = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//        inputManager.showSoftInput(view, 1);
+        InputMethodManager inputManager =
+                (InputMethodManager) view.getContext().getSystemService(
+                        Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(view, 0);
     }
 
     public static void hideKeyboard(final View view) {

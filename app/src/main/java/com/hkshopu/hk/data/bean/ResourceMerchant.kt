@@ -5,6 +5,7 @@ import com.hkshopu.hk.ui.main.store.fragment.*
 
 interface ResourceMerchant {
     companion object {
+
         val tabList = listOf(
             R.string.merchants_tab1, R.string.merchants_tab2,R.string.merchants_tab3
         )

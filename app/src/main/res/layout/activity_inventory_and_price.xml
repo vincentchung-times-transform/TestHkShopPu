@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
     android:orientation="vertical"
-    tools:context=".ui.main.product.activity.InventoryAndPriceActivity">
+    tools:context=".ui.main.product.activity.AddInventoryAndPriceActivity">
 
     <RelativeLayout
         android:id="@+id/titleBar"
@@ -23,6 +23,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_back" />
         <TextView
+            android:id="@+id/title_inven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_setInventoryAndPrice"
