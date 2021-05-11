@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -27,17 +26,13 @@ import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.BoardingObjBean
 import com.hkshopu.hk.databinding.ActivityOnboardBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.product.activity.EditProductActivity
+import com.hkshopu.hk.ui.main.product.activity.MerchandiseActivity
 import com.hkshopu.hk.ui.user.activity.BuildAccountActivity
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.tencent.mmkv.MMKV
-import okhttp3.Response
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -74,7 +69,8 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
             .build()
 
         // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+
         setBoardingData()
         initViewPager()
 
@@ -179,8 +175,8 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                                     // Application code
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
-//                                    VM.sociallogin(this@OnBoardActivity, email, id, "", "")
-                                    doSocialLogin(email,id,"","")
+                                    VM.sociallogin(this@OnBoardActivity, email, id, "", "")
+
                                 } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
@@ -226,8 +222,18 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
-            val intent = Intent(this, ShopmenuActivity::class.java)
+//            val intent = Intent(this, ShopmenuActivity::class.java)
+//            startActivity(intent)
+
+//            val intent = Intent(this, EditProductActivity::class.java)
+//            startActivity(intent)
+
+            val intent = Intent(this, MyMerchantsActivity::class.java)
             startActivity(intent)
+
+//            val intent = Intent(this, MerchandiseActivity::class.java)
+//            startActivity(intent)
+
 
 //            val intent = Intent(this, AddNewProductActivity::class.java)
 //            startActivity(intent)
@@ -287,49 +293,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
-    private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
-        var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
-                    Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    if (ret_val.equals("登入成功!")) {
-                        var user_id: Int = json.getInt("user_id")
-
-                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
-                            .putString("Email",email)
-                        val intent = Intent(this@OnBoardActivity, ShopmenuActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        runOnUiThread {
-                            val intent = Intent(this@OnBoardActivity, BuildAccountActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                            Toast.makeText(this@OnBoardActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-//                        initRecyclerView()
-
-
-                } catch (e: JSONException) {
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-
-            }
-        })
-        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
-    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -343,8 +306,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
                 val id = account.id.toString()
-//                VM.sociallogin(this, email, "", id, "")
-                doSocialLogin(email,"",id,"")
+                VM.sociallogin(this, email, "", id, "")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("OnBoardActivity", "Google sign in failed", e)
@@ -364,12 +326,12 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
             binding.tv2.text = "不論你是買家、商家或是創業家，一鍵上手"
         } else if (position == 1) {
 
-            binding.titleBanner.text = "我的店鋪 隨時隨地不NG"
-            binding.tv2.text = "無時無刻管理你的店鋪，不再受限地區與時差"
+            binding.titleBanner.text = "快捷支付 安全保障不NG"
+            binding.tv2.text = "提供多種支付選擇，不再受限地區與時差"
         } else {
 
-            binding.titleBanner.text = "簡單明瞭 你我都是行銷高手"
-            binding.tv2.text = "導引頁面清楚，「店匯」帶你輕鬆搞定所有設定"
+            binding.titleBanner.text = "光速送件 告別蝸牛貨運"
+            binding.tv2.text = "除了基本物流方式，加入集運出貨，處處是商機"
 
         }
         for (i in 0 until points.size) {

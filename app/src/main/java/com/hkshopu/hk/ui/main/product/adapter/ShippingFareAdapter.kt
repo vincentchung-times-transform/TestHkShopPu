@@ -1,20 +1,27 @@
 package com.hkshopu.hk.ui.main.adapter
 
 import android.app.Activity
+import android.graphics.BitmapFactory
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent.*
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.Base.BaseActivity
 
 import com.hkshopu.hk.R
+import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.data.bean.ItemShippingFare
+import com.hkshopu.hk.ui.main.product.adapter.PicsAdapter
 import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import org.jetbrains.anko.singleLine
 import java.util.*
@@ -44,6 +51,16 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
 
         init {
 
+            Thread(Runnable {
+
+                activity.runOnUiThread {
+
+                    addEmptyItem()
+                }
+
+            }).start()
+
+
             //僅監控editText_shipping_name是否為空值而disable switchView
             val textWatcher_editText_shipping_name = object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -62,6 +79,12 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 }
                 override fun afterTextChanged(s: Editable?) {
+
+                    if(editText_shipping_fare.text.toString().length >= 2 && editText_shipping_fare.text.toString().startsWith("0")){
+                        editText_shipping_fare.setText(editText_shipping_fare.text.toString().replace("0", "", false))
+                        editText_shipping_fare.setSelection(editText_shipping_fare.text.toString().length)
+                    }
+
                     value_shipping_fare = editText_shipping_fare.text.toString()
                 }
             }
@@ -183,7 +206,15 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                                 adapterPosition
                             )
 
-                            addEmptyItem()
+
+                            Thread(Runnable {
+
+                                activity.runOnUiThread {
+                                    addEmptyItem()
+                                }
+
+                            }).start()
+
 
                         }
 
@@ -201,7 +232,16 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                             adapterPosition
                         )
 
-                        delEmptyItem()
+                        Thread(Runnable {
+
+                            activity.runOnUiThread {
+
+                                delEmptyItem()
+                            }
+
+                        }).start()
+
+
 
                     }
                 }
@@ -273,15 +313,33 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
     fun addEmptyItem(){
 
         empty_item_num=0
-        for(i in 0..mutableList_shipMethod.size-1){
-            if (mutableList_shipMethod[i].shipment_desc == ""){
-                empty_item_num += 1
-            }else{
-                empty_item_num += 0
+        if(mutableList_shipMethod.size>0){
+            for(i in 0..mutableList_shipMethod.size-1){
+                if (mutableList_shipMethod[i].shipment_desc == ""){
+                    empty_item_num += 1
+                }else{
+                    empty_item_num += 0
+                }
             }
-        }
+            if(empty_item_num == 0 ){
+                mutableList_shipMethod.add(
+                    ItemShippingFare(
+                        "",
+                        0,
+                        R.drawable.custom_unit_transparent,
+                        "off",
+                        0
+                    )
+                )
+                try{
+                    Thread.sleep(300)
+                } catch (e: InterruptedException) {
+                    e.printStackTrace()
+                }
 
-        if(empty_item_num == 0 ){
+                notifyDataSetChanged()
+            }
+        }else{
             mutableList_shipMethod.add(
                 ItemShippingFare(
                     "",
@@ -291,9 +349,16 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                     0
                 )
             )
-
+            try{
+                Thread.sleep(300)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
             notifyDataSetChanged()
         }
+
+
+
 
 
 //        storeStatus()
@@ -322,6 +387,12 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                     0
                 )
             )
+
+            try{
+                Thread.sleep(300)
+            } catch (e: InterruptedException) {
+                e.printStackTrace()
+            }
             notifyDataSetChanged()
         }
 

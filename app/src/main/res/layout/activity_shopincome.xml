@@ -84,19 +84,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_below="@id/layout_shopincome"
-        android:orientation="vertical"
-        android:layout_marginTop="24dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/bg_shopincome"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="fitXY"
-            android:contentDescription="@string/empty"/>
+        android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -109,14 +98,12 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/CustomTabText"
-            app:tabTextColor="@color/gray_txt"
-            android:visibility="gone"/>
+            app:tabTextColor="@color/gray_txt" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/mviewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 
