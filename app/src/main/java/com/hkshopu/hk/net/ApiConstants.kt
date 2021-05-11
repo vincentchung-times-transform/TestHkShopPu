@@ -21,23 +21,13 @@ class ApiConstants private constructor() {
         //        var API_HOST = "https://hkshopu-20700.df.r.appspot.com/"
         var IMG_HOST = "https://hkshopu.df.r.appspot.com"
         //        var API_HOST = ""
-        val list = ArrayList<ShopCategoryBean>()
-        var ShopCategory = TreeMap<String,ShopCategoryBean>()
-        var fdsfsdfsdf = "0123456789abcdef"
-        const val API_VERSION = "2/"
-        const val API_PAY_VERSION = "3/"
+
 
         const val OSS_PATH = "https://cartoon202007d.oss-cn-hongkong.aliyuncs.com/api.json.txt"
 //          const val OSS_PATH2 = "https://cartoon202007d.oss-cn-hongkong.aliyuncs.com/api.json.txt"
 //        const val OSS_PATH3 = "https://cartoon202008d.oss-cn-hongkong.aliyuncs.com/api.json.txt"
 
         const val PAY_CALLBACK = "?redirect="
-        var PAY_CALLBACK_PATH = ""
-        var APP_DOWNLOAD_PATH = ""
-        var CS_NUMBER = ""
-        var CS_ROUTE = ""
-        var APP_ID : String? = null
-        var HOTFIX : Int = 0
 
         const val API_PATH = "https://hkshopu.df.r.appspot.com/"
 

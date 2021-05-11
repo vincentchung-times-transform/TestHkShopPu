@@ -20,8 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_addshopbreif"
-            android:background="@color/white"/>
+            android:background="@color/white"
+            android:src="@mipmap/ic_addshopbreif" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -72,8 +72,8 @@
             android:id="@+id/tv_currentnumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_below="@id/tv_productname"
+            android:layout_marginTop="5dp"
             android:layout_toRightOf="@id/tv_current"
             android:textStyle="bold" />
 
@@ -82,28 +82,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_current"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/ic_shopping_bag" />
 
         <TextView
             android:id="@+id/tv_sold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="5dp"
             android:layout_below="@id/tv_currentnumber"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_shopbag"
             android:text="已賣出"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/iv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_current"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/tv_sold"
             android:src="@mipmap/ic_amount" />
 
@@ -111,40 +111,40 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="5dp"
             android:layout_below="@id/tv_currentnumber"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_amount"
             android:text="數量"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/iv_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_shopbag"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/ic_heart" />
 
         <TextView
             android:id="@+id/tv_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="5dp"
             android:layout_below="@id/tv_sold"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/iv_heart"
             android:text="讚"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
         <ImageView
             android:id="@+id/iv_eye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_amount"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="37dp"
+            android:layout_marginTop="8dp"
             android:layout_toRightOf="@id/tv_heart"
             android:src="@mipmap/ic_eye" />
 
@@ -152,36 +152,38 @@
             android:id="@+id/tv_eye"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginBottom="14dp"
             android:layout_below="@id/tv_amount"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="14dp"
             android:layout_toRightOf="@id/iv_eye"
             android:text="檢視"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
     </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_newproduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_store_addbrief"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_products" />
 
     <ImageView
         android:id="@+id/iv_addmerchant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="36dp"
+        android:layout_below="@id/recyclerview_newproduct"
         android:src="@mipmap/ic_addmerchant"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_newproduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_store_addbrief"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_products"
-        android:visibility="gone"/>
 </RelativeLayout>

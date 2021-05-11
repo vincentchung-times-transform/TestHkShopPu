@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_shopaddressEdit">
+    android:id="@+id/layout_shopaddressEdit"
+    android:importantForAutofill="noExcludeDescendants">
 
     <RelativeLayout
         android:id="@+id/layout_shopaddressEditTitle"
@@ -75,14 +76,15 @@
         <EditText
             android:id="@+id/editShopname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="12dp"
             android:hint="@string/shopname_input"
             android:background="@null"
             android:textColorHint="@color/colorTextlightGray"
             android:inputType="text"
             android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             android:textSize="14sp"
             />
 

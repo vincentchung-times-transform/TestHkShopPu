@@ -18,7 +18,6 @@ import com.hkshopu.hk.databinding.ActivityAddProductDescriptionMainBinding
 import com.hkshopu.hk.ui.main.product.adapter.SpecificationSizeAdapter
 import com.hkshopu.hk.ui.main.product.adapter.SpecificationSpecAdapter
 import com.hkshopu.hk.ui.main.product.fragment.SpecificationInfoDialogFragment
-import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
 class AddProductSpecificationMainActivity : BaseActivity() {
@@ -35,71 +34,12 @@ class AddProductSpecificationMainActivity : BaseActivity() {
     var firstSpecGrpTitle_check = 0
     var secondSpecGrpTitle_check = 0
 
-    //頁面資料變數宣告
-    var value_editTextProductSpecFirst = ""
-    var value_editTextProductSpecSecond = ""
-    var value_datas_spec_size = 0
-    var value_datas_size_size = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddProductDescriptionMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initMMKV()
+
         initView()
-    }
-
-    fun initMMKV() {
-
-        value_editTextProductSpecFirst = MMKV.mmkvWithID("addPro").getString("value_editTextProductSpecFirst", "").toString()
-        value_editTextProductSpecSecond = MMKV.mmkvWithID("addPro").getString("value_editTextProductSpecSecond", "").toString()
-        value_datas_spec_size = MMKV.mmkvWithID("addPro").getString("datas_spec_size", "0").toString().toInt()
-        value_datas_size_size = MMKV.mmkvWithID("addPro").getString("datas_size_size", "0").toString().toInt()
-
-        binding.editTextProductSpecFirst.setText(value_editTextProductSpecFirst)
-        binding.editTextProductSpecSecond.setText(value_editTextProductSpecSecond)
-
-        Thread(Runnable {
-
-            for(i in 0..value_datas_spec_size-1){
-                var item_name = MMKV.mmkvWithID("addPro").getString("datas_spec_item${i}", "")
-                mutableList_spec.add(ItemSpecification(item_name.toString(), R.drawable.custom_unit_transparent))
-            }
-
-            runOnUiThread {
-                //更新或新增item
-                mAdapter_spec.updateList(mutableList_spec)
-                mAdapter_spec.notifyDataSetChanged()
-
-                //判斷Next Step Btn is enable or disable
-                changeStatusOfNextStepBtn()
-
-            }
-
-        }).start()
-
-
-        Thread(Runnable {
-
-            for(i in 0..value_datas_size_size-1){
-                var item_name = MMKV.mmkvWithID("addPro").getString("datas_size_item${i}", "")
-                mutableList_size.add(ItemSpecification(item_name.toString(), R.drawable.custom_unit_transparent))
-            }
-
-            runOnUiThread {
-
-                //更新或新增item
-                mAdapter_size.updateList(mutableList_size)
-                mAdapter_size.notifyDataSetChanged()
-
-                //判斷Next Step Btn is enable or disable
-                changeStatusOfNextStepBtn()
-            }
-
-        }).start()
-
-
-
     }
 
     fun initView() {
@@ -156,7 +96,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
         binding.btnNextStep.setOnClickListener {
 
-            val intent = Intent(this, AddInventoryAndPriceActivity::class.java)
+            val intent = Intent(this, InventoryAndPriceActivity::class.java)
             var datas_spec_item : MutableList<ItemSpecification> = mAdapter_spec.get_spec_list()
             var datas_size_item : MutableList<ItemSpecification> = mAdapter_size.get_size_list()
             var datas_spec_size : Int = mAdapter_spec.get_datas_spec_size()
@@ -171,9 +111,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             bundle.putString("datas_spec_title_first", datas_spec_title_first)
             bundle.putString("datas_spec_title_second", datas_spec_title_second)
 
-
-
-
             for(key in 0..datas_spec_item.size-1) {
                 bundle.putParcelable("spec"+key.toString(), datas_spec_item.get(key)!!)
             }
@@ -183,23 +120,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             }
 
             intent.putExtra("bundle_AddProductSpecificationMainActivity", bundle)
-
-            //MMKV input datas
-            MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecFirst", datas_spec_title_first)
-            MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecSecond", datas_spec_title_second)
-            MMKV.mmkvWithID("addPro").putString("datas_spec_size", datas_spec_size.toString())
-            MMKV.mmkvWithID("addPro").putString("datas_size_size", datas_size_size.toString())
-
-            for(i in 0..datas_spec_size-1){
-
-                MMKV.mmkvWithID("addPro").putString("datas_spec_item${i}", datas_spec_item.get(i).spec_name.toString())
-            }
-
-            for(i in 0..datas_size_size-1){
-
-                MMKV.mmkvWithID("addPro").putString("datas_size_item${i}", datas_size_item.get(i).spec_name.toString())
-
-            }
 
             startActivity(intent)
             finish()
@@ -241,7 +161,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                     }else{
                         Thread(Runnable {
 
-                            mutableList_spec.add(ItemSpecification("", R.mipmap.btn_delete_spec_item))
+                            mutableList_spec.add(ItemSpecification("", R.mipmap.btn_cancel))
 
                             runOnUiThread {
 
@@ -283,7 +203,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 mutableList_spec = mAdapter_spec.get_spec_list()
 
                 for ( i in 0..mutableList_spec.size-1) {
-                    mutableList_spec[i] = ItemSpecification(mutableList_spec[i].spec_name.toString() , R.mipmap.btn_delete_spec_item)
+                    mutableList_spec[i] = ItemSpecification(mutableList_spec[i].spec_name.toString() , R.mipmap.btn_cancel)
                 }
 
                 runOnUiThread {
@@ -382,7 +302,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                         Thread(Runnable {
 
                             mutableList_size = mAdapter_size.get_size_list()
-                            mutableList_size.add(ItemSpecification("", R.mipmap.btn_delete_spec_item))
+                            mutableList_size.add(ItemSpecification("", R.mipmap.btn_cancel))
 
                             runOnUiThread {
 
@@ -462,7 +382,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 mutableList_size = mAdapter_size.get_size_list()
 
                 for ( i in 0..mutableList_size.size-1) {
-                    mutableList_size[i] = ItemSpecification(mutableList_size[i].spec_name , R.mipmap.btn_delete_spec_item)
+                    mutableList_size[i] = ItemSpecification(mutableList_size[i].spec_name , R.mipmap.btn_cancel)
                 }
 
 
@@ -495,13 +415,12 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 if(s.toString() == ""){
 
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecFirst", "")
                     firstSpecGrpTitle_check = 0
 
                 }else{
 
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecFirst", s.toString())
                     firstSpecGrpTitle_check = 1
+
 
                 }
             }
@@ -517,13 +436,12 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 if(s.toString() == ""){
 
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecSecondt", "")
                     secondSpecGrpTitle_check = 0
 
                 }else{
 
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecSecond", s.toString() )
                     secondSpecGrpTitle_check = 1
+
 
                 }
             }
@@ -536,8 +454,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
         binding.editTextProductSpecFirst.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecFirst", binding.editTextProductSpecFirst.text.toString())
 
                     binding.editTextProductSpecFirst.hideKeyboard()
                     binding.editTextProductSpecFirst.clearFocus()
@@ -555,7 +471,6 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
-                    MMKV.mmkvWithID("addPro").putString("value_editTextProductSpecSecondt", binding.editTextProductSpecSecond.text.toString())
                     binding.editTextProductSpecSecond.hideKeyboard()
                     binding.editTextProductSpecSecond.clearFocus()
 

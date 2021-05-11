@@ -37,19 +37,29 @@
             android:gravity="center"
             android:text="@string/edit"
             android:textColor="@color/color_somegray"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone"/>
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/layout_shopeattention"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_shopeattentionTitle"
-        android:layout_marginTop="17dp">
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/bg_shoplike"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="@string/empty"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/item_shopattention"/>
+            tools:listitem="@layout/item_shopattention"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
