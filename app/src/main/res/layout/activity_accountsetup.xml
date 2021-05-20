@@ -128,18 +128,45 @@
 
                 </RelativeLayout>
 
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/customborder_onboard_8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/bankaccount" />
+
+                    <ImageView
+                        android:id="@+id/iv_chevron_shop_bankaccount"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="20dp"
+                        android:src="@mipmap/ic_chevron" />
+
+                </RelativeLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="@string/my_setup" />
+                    android:text="@string/my_setup"
+                    android:visibility="gone"/>
 
                 <RelativeLayout
 
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/customborder_onboard_8dp">
+                    android:background="@drawable/customborder_onboard_8dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,7 +191,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
+                    android:background="@drawable/customborder_onboard_8dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -185,7 +213,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-
+                    android:id="@+id/container_logout"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"

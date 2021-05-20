@@ -7,9 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:padding="10dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,6 +19,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textView_title_spec"
+                android:textColor="@color/gray_txt"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" : "
                 android:textColor="@color/gray_txt"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -48,7 +53,7 @@
             android:paddingRight="20dp">
 
             <TextView
-                android:id="@+id/item_spec_column_name_"
+                android:id="@+id/item_spec_column_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -73,7 +78,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/r_view_inventory_item_spec"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"/>
 
 
     </LinearLayout>

@@ -32,6 +32,10 @@ class AdvertisementActivity : BaseActivity() {
             finish()
         }
 
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
+
         binding.ivMyad.setOnClickListener {
             val url = "http://www.hkshopu.com/"
             val i = Intent(Intent.ACTION_VIEW)

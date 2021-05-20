@@ -5,5 +5,5 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ItemShippingFare(
-    var shipment_desc: String, var price : Int  , var btn_delete: Int, var onoff : String = "off", var shop_id : Int) : Parcelable {
+    var shipment_desc: String, var price : Int, var onoff : String = "off", var shop_id : Int) : Parcelable {
 }

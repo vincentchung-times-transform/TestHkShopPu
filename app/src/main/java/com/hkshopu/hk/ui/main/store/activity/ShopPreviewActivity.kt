@@ -33,6 +33,9 @@ class ShopPreviewActivity : BaseActivity() {
             finish()
         }
 
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
     }
 
 

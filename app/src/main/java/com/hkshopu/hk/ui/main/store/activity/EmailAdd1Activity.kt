@@ -8,6 +8,7 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import androidx.core.widget.doAfterTextChanged
 
 import com.hkshopu.hk.Base.BaseActivity
 
@@ -20,31 +21,29 @@ import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 
 
-class EmailAdd1Activity : BaseActivity(), TextWatcher {
+class EmailAdd1Activity : BaseActivity(){
     private lateinit var binding: ActivityEmailadd1Binding
 
     private val VM = AuthVModel()
     var passwordCheck: String = ""
+    var address_id:String = ""
     val email = MMKV.mmkvWithID("http").getString("Email", "");
     val password = MMKV.mmkvWithID("http").getString("Password", "");
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEmailadd1Binding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        address_id = intent.getBundleExtra("bundle")!!.getString("address_id","")
         initView()
         initVM()
         initEditText()
         initClick()
 
     }
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
-    override fun afterTextChanged(p0: Editable?) {
-        passwordCheck = binding.etPassword.text.toString()
 
-    }
+
+
     private fun initView() {
         binding.layoutEmailAdd.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
@@ -69,8 +68,9 @@ class EmailAdd1Activity : BaseActivity(), TextWatcher {
     }
     private fun initEditText() {
 
-//        binding.editEmail.addTextChangedListener(this)
-        binding.etPassword.addTextChangedListener(this)
+        binding.etPassword.doAfterTextChanged {
+            passwordCheck = binding.etPassword.text.toString()
+        }
 
     }
     private fun initClick() {
@@ -95,7 +95,10 @@ class EmailAdd1Activity : BaseActivity(), TextWatcher {
         binding.tvGoOn.setOnClickListener {
             Log.d("EmailAdd1Activity", "PassWordCheck：" + passwordCheck)
             if(passwordCheck.equals(password)) {
+                var bundle = Bundle()
+                bundle.putString("address_id",address_id)
                 val intent = Intent(this, EmailAdd2Activity::class.java)
+                intent.putExtra("bundle",bundle)
                 startActivity(intent)
                 finish()
             }else{

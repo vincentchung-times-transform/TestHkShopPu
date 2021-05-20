@@ -5,13 +5,23 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityAddresseditBinding
+import com.hkshopu.hk.net.ApiConstants
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.tencent.mmkv.MMKV
+import okhttp3.Response
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 
 class AddressEditActivity : BaseActivity(), TextWatcher {
@@ -48,7 +58,7 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
         floor = binding.editfloor.text.toString()
         room = binding.editroom.text.toString()
 
-        if (region.isEmpty() || district.isEmpty() || street_name.isEmpty() || street_no.isEmpty()) {
+        if (region.isEmpty() || district.isEmpty() || street_name.isEmpty()) {
             binding.btnNextStep.isEnabled = false
             binding.btnNextStep.setImageResource(R.mipmap.next_step_inable)
         } else {
@@ -136,8 +146,20 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
             val phone = settings.getString("phone", "")
             val gender = settings.getString("gender", "")
 
-            VM.register(
-                this,
+//            VM.register(
+//                this,
+//                "",
+//                email!!,
+//                password!!,
+//                passwordconf!!,
+//                firstName!!,
+//                lastName!!,
+//                gender!!,
+//                birth!!,
+//                phone!!,
+//                address!!,region!!,district!!,street_name!!,street_no!!,floor!!, room!!
+//            )
+            doRegister(
                 "",
                 email!!,
                 password!!,
@@ -170,9 +192,7 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
             val floor = binding.editfloor.text.toString()
             val room = binding.editroom.text.toString()
             var address = country+admin+street+door+subaddress+floor+room
-            VM.register(
-                this,
-                "",
+            doRegister("",
                 email!!,
                 password!!,
                 passwordconf!!,
@@ -181,9 +201,61 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                 gender!!,
                 birth!!,
                 phone!!,
-                "","","","","","",""
-            )
+                "","","","","","","")
+//            VM.register(
+//                this,
+//                "",
+//                email!!,
+//                password!!,
+//                passwordconf!!,
+//                firstName!!,
+//                lastName!!,
+//                gender!!,
+//                birth!!,
+//                phone!!,
+//                "","","","","","",""
+//            )
         }
+    }
+
+    private fun doRegister(account_name: String, email: String, password: String,confirm_password:String,first_name:String,last_name:String,gender:String,birthday:String,phone:String,address:String,region:String,district:String,street_name:String,street_no:String,floor:String,room:String) {
+        val url = ApiConstants.API_HOST+"/user/registerProcess/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("AddressEditActivity", "返回資料 resStr：" + resStr)
+                    Log.d("AddressEditActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    val status  = json.get("status")
+                    if (status == 0) {
+                        var user_id: Int = json.getInt("user_id")
+                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
+
+                        VM.verifycode(this@AddressEditActivity, email)
+
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(this@AddressEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+//                        initRecyclerView()
+
+
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_Register(url, "",email, password,confirm_password,first_name,last_name,gender,birthday,phone,address,region,district,street_name,street_no,floor,room)
     }
 
     private fun initEditText() {

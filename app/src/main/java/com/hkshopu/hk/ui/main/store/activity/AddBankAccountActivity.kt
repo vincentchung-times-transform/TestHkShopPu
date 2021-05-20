@@ -7,6 +7,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.core.widget.doAfterTextChanged
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.*
@@ -14,7 +15,7 @@ import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.KeyboardUtil
 
 
-class AddBankAccountActivity : BaseActivity(), TextWatcher {
+class AddBankAccountActivity : BaseActivity(){
     private lateinit var binding: ActivityAddbankaccountBinding
 
     private val VM = AuthVModel()
@@ -36,21 +37,26 @@ class AddBankAccountActivity : BaseActivity(), TextWatcher {
 
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
-    override fun afterTextChanged(p0: Editable?) {
-        bankCode = binding.etBankcode.text.toString()
-        bankName = binding.etBankname.text.toString()
-        accountName = binding.etBankaccountname.text.toString()
-        accountNumber = binding.etBankaccountnumber.text.toString()
-    }
+
+
+
+
+
 
     private fun initView() {
-        binding.etBankcode.addTextChangedListener(this)
-        binding.etBankname.addTextChangedListener(this)
-        binding.etBankaccountname.addTextChangedListener(this)
-        binding.etBankaccountnumber.addTextChangedListener(this)
+        binding.etBankcode.doAfterTextChanged {
+            bankCode = binding.etBankcode.text.toString()
+        }
+        binding.etBankname.doAfterTextChanged {
+            bankName = binding.etBankname.text.toString()
+        }
+        binding.etBankaccountname.doAfterTextChanged {
+            accountName = binding.etBankaccountname.text.toString()
+        }
+        binding.etBankaccountnumber.doAfterTextChanged {
+            accountNumber = binding.etBankaccountnumber.text.toString()
+        }
 
         binding.layoutBankaccountEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
@@ -125,7 +131,7 @@ class AddBankAccountActivity : BaseActivity(), TextWatcher {
                     .apply()
             val intent = Intent(this, AddShopAddressActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         } else {
             AlertDialog.Builder(this@AddBankAccountActivity)
                 .setTitle("")

@@ -221,7 +221,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
 
     fun changeDateFormat_forDB(item : String): String {
         val parser = SimpleDateFormat("dd/MM/yyyy")
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        val formatter = SimpleDateFormat("dd/MM/yyyy")
         val output: String = formatter.format(parser.parse(item))
 
         return output

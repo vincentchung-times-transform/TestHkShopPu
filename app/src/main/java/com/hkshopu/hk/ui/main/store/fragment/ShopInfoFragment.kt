@@ -4,32 +4,35 @@ package com.hkshopu.hk.ui.main.store.fragment
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
-import androidx.activity.OnBackPressedCallback
+import android.widget.ImageView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.hkshopu.hk.R
 import com.hkshopu.hk.component.CommonVariable
-import com.hkshopu.hk.component.EventGetBankAccountSuccess
 import com.hkshopu.hk.component.EventGetShopCatSuccess
 import com.hkshopu.hk.data.bean.ShopAddressBean
-import com.hkshopu.hk.data.bean.ShopBankAccountBean
 import com.hkshopu.hk.data.bean.ShopInfoBean
 import com.hkshopu.hk.databinding.FragmentShopinfoBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
 import com.hkshopu.hk.ui.main.store.activity.*
 import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
+import org.jetbrains.anko.find
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -52,6 +55,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     private val pickCoverImage = 100
     private val pickImage = 200
     private var imageUri: Uri? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val shopId = arguments!!.getInt("shop_id", 0)
@@ -66,28 +70,28 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
         fragmentShopInfoBinding = binding
         initView()
         getShopInfo(url)
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    Log.d("ShopInfoFragment", "Fragment back pressed invoked")
-                    // Do custom work here
-
-                    // if you want onBackPressed() to be called as normal afterwards
-                    if (isEnabled) {
-                        getActivity()!!.supportFragmentManager.beginTransaction().remove(this@ShopInfoFragment).commit()
-
-                    } else {
-                        isEnabled = false
-                        requireActivity().onBackPressed()
-                    }
-
+        getView()!!.isFocusableInTouchMode = true
+        getView()!!.requestFocus()
+        getView()!!.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    //go to previous fragemnt
+                    //perform your fragment transaction here
+                    //pass data as arguments
+                    getActivity()!!.supportFragmentManager.beginTransaction().remove(this@ShopInfoFragment).commit()
+                    return@OnKeyListener true
                 }
             }
-            )
+            false
+        })
+
+
     }
 
+
+
     fun initView() {
+
         initClick()
         initVM()
         initEvent()
@@ -105,12 +109,15 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             override fun getItemCount(): Int {
                 return ResourceStore.tabList.size
             }
+
         }
+
+
         TabLayoutMediator(binding!!.tabs, binding!!.mviewPager) { tab, position ->
             tab.text = getString(ResourceStore.tabList[position])
-
         }.attach()
         binding!!.mviewPager.setUserInputEnabled(false);
+
 //        binding.setViewPager(binding.mviewPager, arrayOf(getString(R.string.product),getString(R.string.info)))
     }
 
@@ -125,6 +132,15 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     }
 
     fun initClick() {
+
+        binding!!.ivBack.setOnClickListener {
+            getActivity()!!.supportFragmentManager.beginTransaction().remove(this@ShopInfoFragment).commit()
+        }
+
+        binding!!.ivNotify.setOnClickListener {
+            val intent = Intent(activity, ShopNotifyActivity::class.java)
+            startActivity(intent)
+        }
 
         binding!!.ivShopImg.setOnClickListener {
             val gallery =
@@ -143,15 +159,15 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             startActivity(intent)
         }
 
-        binding!!.tvMyProduct.setOnClickListener {
+        binding!!.layoutMerchants.setOnClickListener {
             val intent = Intent(activity, MyMerchantsActivity::class.java)
             startActivity(intent)
         }
-        binding!!.tvMyLikes.setOnClickListener {
+        binding!!.layoutLikes.setOnClickListener {
             val intent = Intent(activity, ShopAttentionActivity::class.java)
             startActivity(intent)
         }
-        binding!!.tvMyIncome.setOnClickListener {
+        binding!!.layoutIncome.setOnClickListener {
             val intent = Intent(activity, ShopIncomeActivity::class.java)
             startActivity(intent)
         }
@@ -172,8 +188,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                 var resStr: String? = ""
                 val list = ArrayList<ShopInfoBean>()
                 list.clear()
-                CommonVariable.bankaccountlist.clear()
-                CommonVariable.addresslist.clear()
                 val shop_category_id_list = ArrayList<String>()
                 shop_category_id_list.clear()
                 try {
@@ -189,13 +203,13 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                         val shopInfoBean: ShopInfoBean =
                             Gson().fromJson(jsonObject.toString(), ShopInfoBean::class.java)
                         list.add(shopInfoBean)
-                        val bank_account: JSONArray = jsonObject.getJSONArray("shop_bank_account")
-                        for (i in 0 until bank_account.length()) {
-                            val account = bank_account.get(i)
-                            val shopBankAccountBean: ShopBankAccountBean =
-                                Gson().fromJson(account.toString(), ShopBankAccountBean::class.java)
-                            CommonVariable.bankaccountlist.add(shopBankAccountBean)
-                        }
+//                        val bank_account: JSONArray = jsonObject.getJSONArray("shop_bank_account")
+//                        for (i in 0 until bank_account.length()) {
+//                            val account = bank_account.get(i)
+//                            val shopBankAccountBean: ShopBankAccountBean =
+//                                Gson().fromJson(account.toString(), ShopBankAccountBean::class.java)
+//                            CommonVariable.bankaccountlist.add(shopBankAccountBean)
+//                        }
                         val shopaddress: JSONArray = jsonObject.getJSONArray("shop_address")
                         if (shopaddress.length() > 0) {
                             for (i in 0 until shopaddress.length()) {
@@ -203,6 +217,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                                 val shopAddressBean: ShopAddressBean =
                                     Gson().fromJson(address.toString(), ShopAddressBean::class.java)
                                 CommonVariable.addresslist.add(shopAddressBean)
+
                             }
                         }
                         val translations: JSONArray = jsonObject.getJSONArray("shop_category_id")
@@ -217,6 +232,8 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                                 )
                             }
                         }
+
+
                         RxBus.getInstance().post(EventGetShopCatSuccess(shop_category_id_list))
                         activity!!.runOnUiThread {
                             binding!!.tvShoptitle.text = list[0].shop_title
@@ -225,7 +242,17 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                             binding!!.myLikes.text = list[0].follower.toString()
                             binding!!.myIncome.text = list[0].income.toString()
                             binding!!.ivShopImg.loadNovelCover(list[0].shop_icon)
+                            MMKV.mmkvWithID("http").putString("shoptitle", list[0].shop_title)
+                                .putString("description",list[0].long_description)
+                            list[0].email_on ?. let {
+                                if (list[0].email_on.equals("Y")) {
+                                    MMKV.mmkvWithID("http").putString("email_on", list[0].email_on)
+                                        .putString("shop_email", list[0].shop_email)
+                                }
+                                null // finally returns null
+                            } ?: let {
 
+                            }
                         }
 
 

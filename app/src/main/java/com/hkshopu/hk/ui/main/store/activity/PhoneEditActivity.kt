@@ -3,53 +3,65 @@ package com.hkshopu.hk.ui.main.store.activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.widget.Toast
+import androidx.core.widget.doAfterTextChanged
 
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.component.EventAddShopBriefSuccess
+import com.hkshopu.hk.component.EventChangeShopPhoneSuccess
 
 import com.hkshopu.hk.databinding.ActivityPhoneeditBinding
+import com.hkshopu.hk.net.ApiConstants
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
 
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
 import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
+import okhttp3.Response
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 
-class PhoneEditActivity : BaseActivity(), TextWatcher {
+class PhoneEditActivity : BaseActivity(){
     private lateinit var binding: ActivityPhoneeditBinding
 
     private val VM = AuthVModel()
     var phone_country: String = ""
     var phone_number: String = ""
-    var phone: String = ""
+    var phone_pass: String = ""
+    var isphoneShow: String = ""
+    var address_id:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhoneeditBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        address_id = intent.getBundleExtra("bundle")!!.getString("address_id","")
         initView()
         initVM()
         initClick()
 
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-
-    override fun afterTextChanged(p0: Editable?) {
-        phone_number = binding.editShopphoneNumber.text.toString()
-        phone_country = binding.editShopphoneCountry.diaL_CODE
-        phone = phone_country + phone_number
-    }
-
     private fun initView() {
-        binding.editShopphoneNumber.addTextChangedListener(this)
-        binding.editShopphoneCountry.addTextChangedListener(this)
+        binding.editShopphoneNumber.doAfterTextChanged {
+            phone_number = binding.editShopphoneNumber.text.toString()
+            phone_country = binding.tvShopphoneCountry.text.toString()
+            phone_pass = phone_country + phone_number
+
+        }
         binding.layoutPhoneEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
         }
-        val phoneShow: Boolean = MMKV.mmkvWithID("http").getBoolean("PhoneShow", false)
-        if (phoneShow) {
-            binding.switchview.openSwitcher()
+
+        if(binding.switchview.isOpened()){
+            isphoneShow ="Y"
+        }else{
+            isphoneShow ="N"
         }
 
     }
@@ -78,17 +90,61 @@ class PhoneEditActivity : BaseActivity(), TextWatcher {
         }
 
         binding.tvSave.setOnClickListener {
-
+            doShopPhoneUpdate(phone_country,phone_number,isphoneShow)
         }
         binding.switchview.setOnStateChangedListener(object :
             EasySwitcher.SwitchStateChangedListener {
             override fun onStateChanged(isOpen: Boolean) {
-                MMKV.mmkvWithID("http").putBoolean("PhoneShow", isOpen)
-                    .putString("phone", phone)
+                if(isOpen){
+                    isphoneShow ="Y"
+                }else{
+                    isphoneShow ="N"
+                }
             }
         })
 
 
+    }
+
+
+    private fun doShopPhoneUpdate(countrycode: String,phone: String, is_phone_show:String) {
+        val shopId = MMKV.mmkvWithID("http").getInt("ShopId",0)
+        var url = ApiConstants.API_PATH+"shop/"+shopId+"/update/"
+        Log.d("PhoneEditActivity", "資料 countrycode：" + countrycode)
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("PhoneEditActivity", "返回資料 resStr：" + resStr)
+                    Log.d("PhoneEditActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    if (status == 0) {
+//                        if(isphoneShow.equals("Y")) {
+                            RxBus.getInstance().post(EventChangeShopPhoneSuccess(phone_number))
+//                        }
+                        finish()
+                    } else {
+                        runOnUiThread {
+
+                            Toast.makeText(this@PhoneEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_ShopPhoneUpdate(url,address_id,countrycode,phone,is_phone_show)
     }
 
 

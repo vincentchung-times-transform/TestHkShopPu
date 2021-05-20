@@ -2,16 +2,21 @@ package com.hkshopu.hk.ui.main.product.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
+
+import com.hkshopu.hk.component.EventCheckSecondSpecEnableBtnOrNot
 import com.hkshopu.hk.data.bean.ItemSpecification
 import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.hkshopu.hk.utils.rxjava.RxBus
 import org.jetbrains.anko.singleLine
 import java.util.*
 
@@ -60,9 +65,41 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
 
-                        value_spec = editTextView.text.toString()
+                        customSpecName = editTextView.text.toString()
 
-                        onItemUpdate(value_spec , adapterPosition)
+                        if(customSpecName.equals(unAssignList.get(adapterPosition).spec_name)){
+                            value_spec = editTextView.text.toString()
+                            onItemUpdate(value_spec , adapterPosition)
+
+                        }else{
+
+                            //檢查名稱是否重複
+                            var check_duplicate = 0
+
+                            for (i in 0..unAssignList.size - 1) {
+                                if (customSpecName == unAssignList[i].spec_name) {
+                                    check_duplicate = check_duplicate + 1
+                                } else {
+                                    check_duplicate = check_duplicate + 0
+                                }
+                            }
+
+                            if (check_duplicate > 0) {
+                                editTextView.setText("")
+                                Toast.makeText(itemView.context, "規格不可重複", Toast.LENGTH_SHORT).show()
+
+                            } else {
+
+                                value_spec = editTextView.text.toString()
+                                onItemUpdate(value_spec , adapterPosition)
+
+
+                            }
+                        }
+
+                        //identify all the elements have name
+                        var checkEnableBtnOrNot = nextStepEnableOrNot()
+                        RxBus.getInstance().post(EventCheckSecondSpecEnableBtnOrNot(checkEnableBtnOrNot))
 
                         editTextView.clearFocus()
 
@@ -137,15 +174,27 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
 
     fun  nextStepEnableOrNot(): Boolean {
 
-        if(unAssignList.size > 0 ) {
+        var check_empty_num = 0
+
+        if(unAssignList.size>0){
+            for(i in 0..unAssignList.size-1){
+                var spec_name = unAssignList.get(i).spec_name
+                if(spec_name.equals("")){
+                    check_empty_num += 1
+                }
+            }
+        }
+
+
+        if(unAssignList.size > 0 && check_empty_num.equals(0)) {
             nextStepBtnStatus = true
         }else{
             nextStepBtnStatus = false
         }
+
         return nextStepBtnStatus
 
     }
-
 
     fun get_size_list(): MutableList<ItemSpecification> {
         return unAssignList

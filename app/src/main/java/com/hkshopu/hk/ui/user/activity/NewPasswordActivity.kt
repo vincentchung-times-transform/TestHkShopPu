@@ -15,6 +15,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityNewPasswordBinding
 import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.tencent.mmkv.MMKV
 
 class NewPasswordActivity : AppCompatActivity() {
 
@@ -22,6 +23,8 @@ class NewPasswordActivity : AppCompatActivity() {
     private val VM = AuthVModel()
 
     var email: String = ""
+    var password: String = ""
+    var confirm_password = ""
     private lateinit var settings: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +51,9 @@ class NewPasswordActivity : AppCompatActivity() {
                 Status.Success -> {
 
                     if (it.ret_val.toString() == "密碼修改成功!")  {
+                        MMKV.mmkvWithID("http")
+                            .putString("Email",email)
+                            .putString("Password",password)
                         Toast.makeText(this, "密碼修改成功!", Toast.LENGTH_SHORT ).show()
                         val intent = Intent(this, ShopmenuActivity::class.java)
                         startActivity(intent)
@@ -90,10 +96,22 @@ class NewPasswordActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
 
-            var password = binding.edtViewPasswordFirstInput.text.toString()
-            var confirm_password = binding.edtViewPasswordSecondInput.text.toString()
+            password = binding.edtViewPasswordFirstInput.text.toString()
+            confirm_password = binding.edtViewPasswordSecondInput.text.toString()
 
-            VM.reset_password(this, email!!, password!!, confirm_password!!)
+            val regex  = """^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}${'$'}""".toRegex()
+            if(regex.matches(password)||regex.matches(confirm_password)){
+                if(password != confirm_password){
+                    Toast.makeText(this, "密碼不一致", Toast.LENGTH_SHORT).show()
+                }else{
+                    VM.reset_password(this, email!!, password!!, confirm_password!!)
+
+                }
+
+            }else{
+                Toast.makeText(this, "密碼格式錯誤", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         binding.showPassBtn.setOnClickListener {

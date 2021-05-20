@@ -30,7 +30,7 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
     inner class FirstLayerViewHolder(itemView:View)
         :RecyclerView.ViewHolder(itemView){
         val item_spec_title_name = itemView.findViewById<TextView>(R.id.title_spec)
-        val item_spec_column_name = itemView.findViewById<TextView>(R.id.item_spec_column_name_)
+        val item_spec_column_name = itemView.findViewById<TextView>(R.id.item_spec_column_name)
         var item_spec_name = itemView.findViewById<TextView>(R.id.value_spec)
         val r_view_inventory_spec = itemView.findViewById<RecyclerView>(R.id.r_view_inventory_item_spec)
 
@@ -61,7 +61,7 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
         :RecyclerView.ViewHolder(itemView){
         //把layout檔的元件們拉進來，指派給當地變數
 
-        val item_size_name = itemView.findViewById<TextView>(R.id.value_size)
+        val item_size_name = itemView.findViewById<TextView>(R.id.item_spec_column_name)
 
 
         fun bind(item: InventoryItemSize){

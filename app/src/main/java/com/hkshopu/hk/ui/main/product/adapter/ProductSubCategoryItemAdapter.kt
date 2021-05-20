@@ -15,10 +15,12 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.data.bean.ProductChildCategoryBean
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.product.activity.EditMerchanCategoryActivity
+import com.hkshopu.hk.ui.main.product.activity.EditProductActivity
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
 
-class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Adapter<ProductSubCategoryItemAdapter.mViewHolder>()  {
+class ProductSubCategoryItemAdapter(var activity: BaseActivity, var mode: String): RecyclerView.Adapter<ProductSubCategoryItemAdapter.mViewHolder>()  {
 
 
     var product_child_category_list  = mutableListOf<ProductChildCategoryBean>()
@@ -112,14 +114,6 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Ad
             var c_product_category_selected = c_name
             var c_product_sub_category_selected = sub_category_item_selected.c_product_sub_category
 
-            var selected_item_id = holder.adapterPosition + 1
-
-//            var bundle = Bundle()
-//            bundle.putString("id", id_selected.toString())
-//            bundle.putString("product_category_id", product_category_id_selected.toString())
-//            bundle.putString("c_product_category", c_product_category.toString())
-//            bundle.putString("c_product_sub_category", c_product_sub_category_selected.toString())
-
             MMKV.mmkvWithID("addPro").putString(
                 "product_sub_category_id",
                 id_selected.toString()
@@ -133,23 +127,25 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity): RecyclerView.Ad
                 c_product_category_selected + ">" + c_product_sub_category_selected
             )
 
-            //儲存在local端"新增商品分類"資料
-//            val sharedPreferences : SharedPreferences = holder.itemView.context.getSharedPreferences("add_product_categery", Context.MODE_PRIVATE)
-//            val editor : SharedPreferences.Editor = sharedPreferences.edit()
-//            editor.apply {
-//                putString("id", id.toString())
-//                putString("product_category_id", product_category_id.toString())
-//                putString("c_product_sub_category", product_category_id.toString())
-//            }.apply()
+
+            when(mode){
+                "add"->{
+                    var currentActivity: Activity = activity
+                    val intent = Intent(currentActivity, AddNewProductActivity::class.java)
+                    currentActivity.startActivity(intent)
+                    activity.finish()
+                }
+                "edit"->{
+                    var currentActivity: Activity = activity
+                    val intent = Intent(currentActivity, EditProductActivity::class.java)
+                    currentActivity.startActivity(intent)
+                    activity.finish()
+
+                }
+            }
 
 
-            var currentActivity: Activity = activity
 
-            val intent = Intent(currentActivity, AddNewProductActivity::class.java)
-//            intent.putExtra("bundle", bundle)
-            currentActivity.startActivity(intent)
-
-            activity.finish()
 
         }
 

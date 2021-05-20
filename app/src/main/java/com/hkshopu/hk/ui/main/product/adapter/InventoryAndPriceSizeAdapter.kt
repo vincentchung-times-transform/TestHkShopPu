@@ -24,7 +24,7 @@ class InventoryAndPriceSizeAdapter: RecyclerView.Adapter<InventoryAndPriceSizeAd
         View.OnClickListener {
 
             //把layout檔的元件們拉進來，指派給當地變數
-            val textView_value_name = itemView.findViewById<TextView>(R.id.value_size)
+            val textView_value_name = itemView.findViewById<TextView>(R.id.second_spec_name)
             val editText_value_price = itemView.findViewById<EditText>(R.id.value_price)
             val editText_value_quantity = itemView.findViewById<EditText>(R.id.value_quantity)
             var textView_Hkdollars =  itemView.findViewById<TextView>(R.id.textView_HKdolors)

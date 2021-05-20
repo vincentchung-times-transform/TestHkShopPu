@@ -23,7 +23,8 @@ class ShopVModel : BaseViewModel() {
     val shopnameLiveData = MediatorLiveData<UIDataBean<Any>>()
     val addnewshopLiveData = MediatorLiveData<UIDataBean<Any>>()
     val addProductData = MediatorLiveData<UIDataBean<Any>>()
-
+    val syncShippingfareData = MediatorLiveData<UIDataBean<Any>>()
+    val updateProductStatusData = MediatorLiveData<UIDataBean<Any>>()
 
     fun shopnamecheck(lifecycleOwner: LifecycleOwner, shop_title: String) {
         repository.shopnamecheck(lifecycleOwner, shop_title)
@@ -38,6 +39,17 @@ class ShopVModel : BaseViewModel() {
     fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list : MutableList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String) {
         repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list, product_spec_list, user_id, length, width, height, shipment_method)
             .subscribe(StatusResourceObserver(addProductData, silent = false))
+    }
+
+    fun syncShippingfare(lifecycleOwner: LifecycleOwner, id : Int, shipment_settings : String) {
+        repository.syncShippingfare(lifecycleOwner, id, shipment_settings)
+            .subscribe(StatusResourceObserver(syncShippingfareData, silent = false))
+    }
+
+
+    fun updateProductStatus(lifecycleOwner: LifecycleOwner, id : Int, status : String) {
+        repository.updateProductStatus(lifecycleOwner, id, status)
+            .subscribe(StatusResourceObserver(updateProductStatusData, silent = false))
     }
 
 
@@ -109,6 +121,7 @@ class ShopVModel : BaseViewModel() {
                 }
             })
     }
+
 //    fun login(lifecycleOwner: LifecycleOwner, phone: String, password: String) {
 //        repository.login(lifecycleOwner, phone, password)
 //            .subscribe(StatusResourceObserver(loginLiveData, silent = false))

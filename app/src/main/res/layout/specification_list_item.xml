@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
+   android:layout_marginLeft="8dp"
     android:layout_height="wrap_content">
 
     <RelativeLayout
@@ -9,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/customborder_specification"
         android:gravity="center_vertical"
-        android:paddingLeft="4dp"
+        android:paddingLeft="2dp"
         android:paddingRight="8dp"
         android:layout_marginStart="2dp">
 
@@ -18,9 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:layout_marginRight="4dp"
+            android:layout_marginRight="2dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/btn_cancel" />
+            android:src="@mipmap/btn_delete_spec_item" />
 
         <EditText
             android:id="@+id/edt_specification_text"

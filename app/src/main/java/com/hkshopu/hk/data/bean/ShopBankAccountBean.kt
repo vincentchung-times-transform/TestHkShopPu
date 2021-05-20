@@ -20,4 +20,7 @@ class ShopBankAccountBean {
 
     @SerializedName("account_name")
     var account_name: String= ""
+
+    @SerializedName("is_default")
+    var is_default: String= ""
 }

@@ -1,25 +1,33 @@
 package com.hkshopu.hk.ui.main.store.adapter
 
+import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
 
 import com.hkshopu.hk.data.bean.ShopProductBean
+import com.hkshopu.hk.ui.main.product.activity.MerchandiseActivity
 import com.hkshopu.hk.utils.extension.inflate
 import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.widget.view.click
+import com.tencent.mmkv.MMKV
 
 
 import org.jetbrains.anko.find
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.*
 
-class ShopProductAdapter : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinearHolder>(){
+class ShopProductAdapter(var fragment: Fragment) : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinearHolder>(){
     private var mData: ArrayList<ShopProductBean> = ArrayList()
     var itemClick : ((id: Int) -> Unit)? = null
+
+    var MMKV_product_id: Int = 1
 
     fun setData(list : ArrayList<ShopProductBean>){
         list?:return
@@ -44,6 +52,16 @@ class ShopProductAdapter : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinea
     override fun onBindViewHolder(holder: ShopInfoLinearHolder, position: Int) {
         val item = mData.get(position)
         holder.bindShop(item)
+
+        holder.itemView.setOnClickListener{
+
+            MMKV_product_id = mData.get(holder.adapterPosition).id
+            MMKV.mmkvWithID("http").putInt("ProductId", MMKV_product_id)
+
+            val intent = Intent(fragment.context, MerchandiseActivity::class.java)
+            fragment.context?.startActivity(intent)
+        }
+
     }
 
     inner class ShopInfoLinearHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -59,13 +77,40 @@ class ShopProductAdapter : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinea
             container.click {
                 itemClick?.invoke(bean.id)
             }
+
+            MMKV_product_id = bean.id
             image.loadNovelCover(bean.pic_path)
             title.text = bean.product_title
-            price.text = bean.product_price.toString()
-            sold.text = "已賣出"+bean.sold_quantity
-            amount.text = "數量"+bean.quantity
-            heart.text = "讚"+bean.like
-            eye.text = "檢視"+bean.seen
+
+            if(bean.product_price.equals(-1)){
+                price.text = "${bean.min_price}-${bean.max_price}"
+            }else{
+                price.text = bean.product_price.toString()
+            }
+
+
+
+            if(bean.sold_quantity.toString().length>3){
+                var one_thous = 1000
+                var float = bean.sold_quantity.toDouble()/one_thous.toDouble()
+                var bigDecimal = float.toBigDecimal()
+                sold.text = "${bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toString()}k"
+            }else{
+                sold.text = "${bean.sold_quantity.toString()}"
+            }
+
+            if(bean.sum_quantity.toString().length>3){
+                var one_thous = 1000
+                var float = bean.sum_quantity.toDouble()/one_thous.toDouble()
+                var bigDecimal = float.toBigDecimal()
+                amount.text = "${bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toString()}k"
+            }else{
+                amount.text =  "${bean.sum_quantity.toString()}"
+            }
+
+
+            heart.text = "${bean.like.toString()}"
+            eye.text = "${bean.seen.toString()}"
 
         }
     }

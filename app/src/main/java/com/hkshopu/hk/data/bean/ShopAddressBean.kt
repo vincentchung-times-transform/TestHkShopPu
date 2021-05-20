@@ -42,6 +42,11 @@ class ShopAddressBean {
     @SerializedName("room")
     var room: String= ""
 
+    @SerializedName("is_address_show")
+    var is_address_show: String= ""
+
+    @SerializedName("is_default")
+    var is_default: String= ""
     @SerializedName("product_count")
     var product_count: Int = 0
 

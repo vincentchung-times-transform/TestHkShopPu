@@ -54,4 +54,12 @@ class ShopProductBean {
     @SerializedName("pic_path")
     var pic_path: String= ""
 
+    @SerializedName("min_price")
+    var min_price: Int = 0
+
+    @SerializedName("max_price")
+    var max_price: Int = 0
+
+    @SerializedName("sum_quantity")
+    var sum_quantity: Int = 0
 }

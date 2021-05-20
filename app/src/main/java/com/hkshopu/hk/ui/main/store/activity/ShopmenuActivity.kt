@@ -3,6 +3,7 @@ package com.hkshopu.hk.ui.main.store.activity
 
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 
 import androidx.fragment.app.Fragment
 
@@ -31,6 +32,7 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     private lateinit var binding: ActivityMainBinding
 
     lateinit var manager: FragmentManager
+    var page_position = 0
     var url = ApiConstants.API_HOST + "/shop_category/index/"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +57,7 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         fragments.add(SecondFragment)
         fragments.add(ShopListFragment)
         binding.viewPager.adapter =
-            object : FragmentPagerAdapter(manager, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+            object : FragmentPagerAdapter(manager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
                 override fun getItem(position: Int) = fragments[position]
                 override fun getCount() = fragments.size
             }
@@ -67,6 +69,7 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     fun initView() {
         binding.bottomNavigationViewLinear.setNavigationChangeListener { view, position ->
 //            Log.d("ShopMenuActivity", "BottomView position：" + position)
+            page_position = position
             binding.viewPager.setCurrentItem(position, true);
 
         }
@@ -87,8 +90,8 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("ShopCategoryActivity", "返回資料 resStr：" + resStr)
-                    Log.d("ShopCategoryActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("ShopmenuActivity", "返回資料 resStr：" + resStr)
+                    Log.d("ShopmenuActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("已取得商店清單!")) {
 
@@ -121,9 +124,27 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         })
         web.Get_Data(url)
     }
-
     override fun onBackPressed() {
         super.onBackPressed()
+        if(page_position !=0){
+            binding.bottomNavigationViewLinear.setCurrentActiveItem(0)
+            binding.viewPager.setCurrentItem(0, true)
+        }else{
+
+            AlertDialog.Builder(this)
+                .setTitle("")
+                .setMessage("您確定要離開 ？")
+                .setNegativeButton("確定"){
+                    // 此為 Lambda 寫法
+                        dialog, which ->
+                    finishAffinity()
+                }
+                .setPositiveButton("取消"){ dialog, which -> dialog.cancel()
+
+                }
+                .show()
+        }
+
     }
 
     override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

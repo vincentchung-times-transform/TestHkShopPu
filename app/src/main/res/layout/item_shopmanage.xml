@@ -43,11 +43,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_gravity="center"
-        android:layout_marginEnd="20dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
         android:text="編輯"
+        android:textColor="@color/color_somegray"
         android:textSize="14sp"
-        android:textColor="@color/color_somegray"/>
+        android:visibility="invisible"/>
 
     <com.kaelli.niceratingbar.NiceRatingBar
         android:id="@+id/ratingBar"

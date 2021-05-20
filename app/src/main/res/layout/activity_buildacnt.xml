@@ -82,8 +82,7 @@
             android:gravity="center_vertical"
             android:layout_marginBottom="10dp">
 
-            <com.hkshopu.hk.widget.view.ETextWithDelete
-                xmlns:app="http://schemas.android.com/apk/res-auto"
+            <EditText
                 android:id="@+id/editEmail_reg"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -92,8 +91,7 @@
                 android:inputType="textEmailAddress"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:textColorHint="#48484A"
-                app:delSrc="@mipmap/ic_edit_del_1" />
+                android:textColorHint="#48484A" />
 
         </LinearLayout>
 

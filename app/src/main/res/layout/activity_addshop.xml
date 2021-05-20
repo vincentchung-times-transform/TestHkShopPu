@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_shopbg"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -318,12 +318,14 @@
 
                     <TextView
                         android:id="@+id/tv_storesort1"
-                        android:layout_width="75dp"
-                        android:layout_height="35dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
                         android:layout_below="@id/iv_storesort_act"
-                        android:layout_alignLeft="@id/iv_storesort_act"
+                        android:layout_alignStart="@id/iv_storesort_act"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
@@ -331,13 +333,15 @@
 
                     <TextView
                         android:id="@+id/tv_storesort2"
-                        android:layout_width="75dp"
-                        android:layout_height="35dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
                         android:layout_below="@id/iv_storesort_act"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_toRightOf="@+id/tv_storesort1"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
                         android:gravity="center"
                         android:text=""
                         android:textColor="@color/white"
@@ -345,13 +349,15 @@
 
                     <TextView
                         android:id="@+id/tv_storesort3"
-                        android:layout_width="75dp"
-                        android:layout_height="35dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
                         android:layout_below="@id/iv_storesort_act"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:layout_toRightOf="@+id/tv_storesort2"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
                         android:background="@drawable/customborder_shopcategory"
                         android:gravity="center"
                         android:text=""

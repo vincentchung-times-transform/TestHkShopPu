@@ -7,18 +7,23 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.support.v4.media.MediaBrowserCompat
 import android.util.Base64
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventAddShopSuccess
 import com.hkshopu.hk.databinding.*
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -30,7 +35,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 
 
-class AddShopAddressActivity : BaseActivity(){
+class AddShopAddressActivity : BaseActivity() {
     private lateinit var binding: ActivityShopaddresseditBinding
 
     private val VM = AuthVModel()
@@ -66,7 +71,7 @@ class AddShopAddressActivity : BaseActivity(){
         }
         binding.editShopphoneNumber.doAfterTextChanged {
             phone_number = binding.editShopphoneNumber.text.toString()
-            phone_country =binding.tvShopphoneCountry.text.toString()
+            phone_country = binding.tvShopphoneCountry.text.toString()
             phone = phone_country + phone_number
         }
 
@@ -107,7 +112,6 @@ class AddShopAddressActivity : BaseActivity(){
             KeyboardUtil.hideKeyboard(it)
         }
 
-
     }
 
     private fun initVM() {
@@ -126,10 +130,12 @@ class AddShopAddressActivity : BaseActivity(){
 //            }
 //        })
     }
-    fun EditText.showSoftKeyboard(){
+
+    fun EditText.showSoftKeyboard() {
         (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
             .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
+
     var file: File? = null
     private fun initClick() {
         binding.ivBack.setOnClickListener {
@@ -138,48 +144,81 @@ class AddShopAddressActivity : BaseActivity(){
         }
 
         binding.tvCreateshop.setOnClickListener {
-            file = processImage()
-            var shopName = settings.getString("shopname", "")
-            var shop_category_id1 = settings.getInt("shop_category_id1", 0)
-            var shop_category_id2= settings.getInt("shop_category_id2", 0)
-            var shop_category_id3= settings.getInt("shop_category_id3", 0)
-            var bankCode = settings.getString("bankcode", "")
-            var bankName = settings.getString("bankname", "")
-            var accountName = settings.getString("accountname", "")
-            var accountNumber = settings.getString("accountnumber", "")
-            doAddShop(
-                shopName!!,
-                userId.toString(),
-                shop_category_id1,
-                shop_category_id2,
-                shop_category_id3,
-                bankCode!!,
-                bankName!!,
-                accountName!!,
-                accountNumber!!,
-                companyName,
-                phone_country,
-                phone_number,
-                "",
-                country,
-                admin,
-                thoroughfare,
-                feature,
-                subaddress,
-                floor,
-                room,
-                file!!
-            )
+            var sErrorMsg = ""
+            if (country.isEmpty()) {
+                sErrorMsg = """
+            $sErrorMsg${getString(R.string.region_input)}
+            
+            """.trimMargin()
+            }
+            if (admin.isEmpty()) {
+                sErrorMsg = """
+            $sErrorMsg${getString(R.string.admin_input)}
+            
+            """.trimIndent()
+            }
+            if (thoroughfare.isEmpty()) {
+                sErrorMsg = """
+            $sErrorMsg${getString(R.string.thoroughfare_input)}
+            
+            """.trimMargin()
+            }
+            if (sErrorMsg.isEmpty()) {
+                file = processImage()
+                var shopName = settings.getString("shopname", "")
+                var shop_category_id1 = settings.getInt("shop_category_id1", 0)
+                var shop_category_id2 = settings.getInt("shop_category_id2", 0)
+                var shop_category_id3 = settings.getInt("shop_category_id3", 0)
+                var bankCode = settings.getString("bankcode", "")
+                var bankName = settings.getString("bankname", "")
+                var accountName = settings.getString("accountname", "")
+                var accountNumber = settings.getString("accountnumber", "")
+                doAddShop(
+                    shopName!!,
+                    userId.toString(),
+                    shop_category_id1,
+                    shop_category_id2,
+                    shop_category_id3,
+                    bankCode!!,
+                    bankName!!,
+                    accountName!!,
+                    accountNumber!!,
+                    companyName,
+                    phone_country,
+                    phone_number,
+                    "",
+                    country,
+                    admin,
+                    thoroughfare,
+                    feature,
+                    subaddress,
+                    floor,
+                    room,
+                    file!!
+                )
+            } else {
+                AlertDialog.Builder(this@AddShopAddressActivity)
+                    .setTitle("")
+                    .setMessage(sErrorMsg)
+                    .setPositiveButton("確定") {
+                        // 此為 Lambda 寫法
+                            dialog, which ->
+                        dialog.cancel()
+                    }
+                    .show()
+
+            }
         }
 
     }
+
     fun processImage(): File? {
         val file: File
         val path = getExternalFilesDir(null).toString()
         file = File(path, "image" + ".jpg")
         var mImageUri = settings.getString("image", null);
         val decodedString: ByteArray = Base64.decode(mImageUri, Base64.DEFAULT)
-        val bitmap:Bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        val bitmap: Bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
         val bos = ByteArrayOutputStream()
         bitmap.compress(CompressFormat.JPEG, 100 /*ignored for PNG*/, bos)
         val bitmapdata: ByteArray = bos.toByteArray()
@@ -189,7 +228,6 @@ class AddShopAddressActivity : BaseActivity(){
         fos.close()
         return file
     }
-
 
 
     private fun doAddShop(
@@ -215,8 +253,9 @@ class AddShopAddressActivity : BaseActivity(){
         address_room: String,
         postImg: File
     ) {
-        val url = ApiConstants.API_HOST+"/shop/save/"
+        val url = ApiConstants.API_HOST + "/shop/save/"
         val editor = settings.edit()
+        editor.clear()
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -226,18 +265,26 @@ class AddShopAddressActivity : BaseActivity(){
                     Log.d("AddShopAddressActivity", "返回資料 resStr：" + resStr)
                     Log.d("AddShopAddressActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
-                    if (ret_val.equals("商店與選擇商店分類新增成功!")) {
-                        var user_id: Int = json.getInt("user_id")
+                    val status = json.get("status")
+                    if (status == 0) {
+                        RxBus.getInstance().post(EventAddShopSuccess())
                         var shop_id: Int = json.getInt("shop_id")
-                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
-                        MMKV.mmkvWithID("http").putInt("ShopId", shop_id)
-                        editor.clear()
+//                        MMKV.mmkvWithID("http").putInt("ShopId", shop_id)
                         val intent = Intent(
                             this@AddShopAddressActivity,
                             ShopmenuActivity::class.java
                         )
                         startActivity(intent)
                         finish()
+//                        runOnUiThread {
+//
+//                            Toast.makeText(
+//                                this@AddShopAddressActivity,
+//                                ret_val.toString(),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+
                     } else {
                         runOnUiThread {
                             Toast.makeText(

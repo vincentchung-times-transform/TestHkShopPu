@@ -123,7 +123,8 @@
             android:gravity="center_vertical"
             android:text="@string/shopname_show"
             android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:visibility="gone"/>
 
         <com.zilchzz.library.widgets.EasySwitcher
             android:id="@+id/switchview"
@@ -136,7 +137,8 @@
             app:sbCloseBgColor="#d9d9d9"
             app:sbOpenBgColor="#34C759"
             app:sbDefaultOpened="false"
-            app:sbToggleColor="@color/white" />
+            app:sbToggleColor="@color/white"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_goOn"

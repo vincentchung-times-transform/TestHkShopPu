@@ -89,16 +89,15 @@
                 android:background="@drawable/customborder_onboard_16dp"
                 android:orientation="horizontal">
 
-                <com.asdev.phoneedittext.PhoneEditText
-                    android:id="@+id/editShopphone_country"
+                <TextView
+                    android:id="@+id/tv_Shopphone_country"
                     android:layout_width="96dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:background="@drawable/bg_edit_shopaddress"
-                    android:hint="@string/shopphone_countryinput"
+                    android:text="@string/hk"
                     android:gravity="center"
-                    android:inputType="phone"
-                    android:textColorHint="@color/colorTextlightGray"
+                    android:textColor="@color/dark_gray"
                     android:textSize="14sp" />
 
                 <EditText
@@ -112,7 +111,7 @@
                     android:paddingEnd="0dp"
                     android:hint="@string/shopphone_input"
                     android:inputType="phone"
-                    android:textColorHint="@color/colorTextlightGray"
+                    android:textColor="@color/colorTextlightGray"
                     android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>

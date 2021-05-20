@@ -26,10 +26,18 @@ import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityLoginBinding
+import com.hkshopu.hk.net.ApiConstants
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.tencent.mmkv.MMKV
+import okhttp3.Response
 import org.jetbrains.anko.singleLine
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 
 
@@ -109,55 +117,33 @@ class LoginActivity : BaseActivity(), TextWatcher {
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
 
     private fun initVM() {
-        VM.loginLiveData.observe(this, Observer {
+
+        VM.emailcheckLiveData.observe(this, Observer {
             when (it?.status) {
                 Status.Success -> {
+                    if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                        if (it.ret_val!!.equals("該電子郵件已存在!")) {
+                            settings.edit()
+                                .putString("email", email)
+                                .apply()
 
-                    if (it.ret_val.toString() == "密碼錯誤!") {
+                            val intent = Intent(this, LoginPasswordActivity::class.java)
+                            startActivity(intent)
 
-                        val editor : SharedPreferences.Editor = settings_rememberEmail.edit()
-                        editor.apply {
-                            putString("rememberEmail", "true")
-                        }.apply()
-
-
-                        settings.edit().apply {
-                            putString("email", email)
-                        }.apply()
-
-                        val intent = Intent(this, LoginPasswordActivity::class.java)
-                        startActivity(intent)
-
-                    } else {
-                        Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_SHORT ).show()
+                        }else{
+                            Toast.makeText(this, "電子郵件不存在", Toast.LENGTH_SHORT).show()
+                        }
+                    }else {
+                        Toast.makeText(this, "電子郵件格式錯誤", Toast.LENGTH_SHORT).show()
                     }
-
                 }
 //                Status.Start -> showLoading()
 //                Status.Complete -> disLoading()
             }
         })
 
-        VM.socialloginLiveData.observe(this, Observer {
-            when (it?.status) {
-                Status.Success -> {
-//                    Log.d("OnBoardActivity", "Sign-In Result" + it.data)
-                    if (it.ret_val.toString().isNotEmpty()) {
-                        val intent = Intent(this, ShopmenuActivity::class.java)
-                        startActivity(intent)
-                        finish()
 
-                    } else {
-                        val intent = Intent(this, BuildAccountActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
 
-                }
-//                Status.Start -> showLoading()
-//                Status.Complete -> disLoading()
-            }
-        })
     }
 
     private fun initView() {
@@ -186,8 +172,18 @@ class LoginActivity : BaseActivity(), TextWatcher {
         binding.btnNextStep.setOnClickListener {
 
             email = binding.editEmail.text.toString()
-//            val password = binding.password1.text.toString()
-            VM.login(this, email, "checkfortheemail")
+            val editor : SharedPreferences.Editor = settings_rememberEmail.edit()
+            editor.apply {
+                putString("rememberEmail", "true")
+            }.apply()
+
+            settings.edit().apply {
+                putString("email", email)
+            }.apply()
+
+            VM.emailCheck(this,email)
+
+
 
         }
 
@@ -228,8 +224,7 @@ class LoginActivity : BaseActivity(), TextWatcher {
                                     // Application code
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
-                                    VM.sociallogin(this@LoginActivity, email, id, "", "")
-                                } catch (e: Exception) {
+                                    doSocialLogin(email,id,"","")                                              } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
                             }
@@ -295,13 +290,73 @@ class LoginActivity : BaseActivity(), TextWatcher {
                 val email = account.email.toString()
                 val id = account.id.toString()
 
-                VM.sociallogin(this, email, "", id, "")
+                doSocialLogin(email,"",id,"")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("OnBoardActivity", "Google sign in failed", e)
                 // ...
             }
         }
+    }
+
+
+    private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
+        var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
+                    Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    if (status != 0) {
+                        var user_id: Int = json.getInt("user_id")
+
+                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
+                            .putString("Email",email)
+
+                        val editor_email : SharedPreferences.Editor = settings_rememberEmail.edit()
+                        editor_email.apply {
+                            putString("rememberEmail", "true")
+                        }.apply()
+
+                        settings_rememberPassword = getSharedPreferences("rememberPassword", 0)
+
+                        val editor_password : SharedPreferences.Editor = settings_rememberPassword.edit()
+                        editor_password.apply {
+                            putString("rememberPassword", "true")
+                        }.apply()
+
+
+                        val intent = Intent(this@LoginActivity, ShopmenuActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        runOnUiThread {
+                            val intent = Intent(this@LoginActivity, BuildAccountActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                            Toast.makeText(this@LoginActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+//                        initRecyclerView()
+
+
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
     }
 
 

@@ -21,6 +21,26 @@ class ShopInfoBean {
     @SerializedName("shop_description")
     var shop_description: String= ""
 
+    @SerializedName("background_pic")
+    var background_pic: String= ""
+
+    @SerializedName("shop_phone")
+    var shop_phone: String= ""
+
+    @SerializedName("shop_email")
+    var shop_email: String= ""
+    @SerializedName("email_on")
+    var email_on: String= ""
+
+    @SerializedName("long_description")
+    var long_description: String= ""
+
+    @SerializedName("facebook_on")
+    var facebook_on: String= ""
+
+    @SerializedName("instagram_on")
+    var instagram_on: String= ""
+
     @SerializedName("product_count")
     var product_count: Int = 0
 

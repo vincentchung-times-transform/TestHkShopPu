@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.hkshopu.hk.R
+import com.hkshopu.hk.databinding.FragmentFirstBinding
 
-class FirstFragment : Fragment() {
+class FirstFragment : Fragment((R.layout.fragment_first)) {
 
     companion object {
         fun newInstance(): FirstFragment {
@@ -21,23 +23,33 @@ class FirstFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-// Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_first, container, false)
+    private var binding: FragmentFirstBinding? = null
+    private var fragmentFirstBinding: FragmentFirstBinding? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentFirstBinding.bind(view)
+        fragmentFirstBinding = binding
+        initView()
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // you can execute the logic here
+                if (isEnabled) {
 
+                } else {
+                    activity?.onBackPressed()
+                }
+            }
+        })
 
-        v.findViewById<ImageView>(R.id.btn_learn_more).setOnClickListener{
+    }
+
+    private fun initView() {
+        binding!!.btnLearnMore.setOnClickListener {
             val url = "http://www.hkshopu.com/"
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(url)
             startActivity(i)
         }
-
-
-        return v
     }
 
 }

@@ -29,9 +29,17 @@ import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
 import com.hkshopu.hk.databinding.ActivityBuildacntBinding
+import com.hkshopu.hk.net.ApiConstants
+import com.hkshopu.hk.net.Web
+import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
 import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.tencent.mmkv.MMKV
+import okhttp3.Response
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 
 
@@ -175,9 +183,11 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                                     // Application code
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
-                                    VM.sociallogin(this@BuildAccountActivity, email, id, "", "")
+
+                                    doSocialLogin(email,id,"","")
                                 } catch (e: Exception) {
-                                    e.printStackTrace()
+
+                                        e.printStackTrace()
                                 }
                             }
                         val parameters = Bundle()
@@ -206,8 +216,19 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
 
         binding.imgViewNextStep.setOnClickListener {
 
-            VM.emailCheck(this,email)
 
+            val regex  = """^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}${'$'}""".toRegex()
+            if(regex.matches(password)||regex.matches(passwordconf)){
+                if(password != passwordconf){
+                    Toast.makeText(this, "密碼不一致", Toast.LENGTH_SHORT).show()
+                }else{
+
+                    VM.emailCheck(this,email)
+                }
+            }else{
+                Toast.makeText(this, "密碼格式錯誤", Toast.LENGTH_SHORT).show()
+
+            }
         }
         binding.tvAgreeterm.setOnClickListener {
             val intent = Intent(this, TermsOfServiceActivity::class.java)
@@ -243,7 +264,7 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
                 val id = account.id.toString()
-                VM.sociallogin(this, email, "", id, "")
+                doSocialLogin(email,"",id,"")
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("BuildAccountActivity", "Google sign in failed", e)
@@ -280,5 +301,51 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
             }
         }
     }
+
+    private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
+        var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
+                    Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    if (status != 0) {
+                        var user_id: Int = json.getInt("user_id")
+
+                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
+                            .putString("Email",email)
+                        val intent = Intent(this@BuildAccountActivity, ShopmenuActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        runOnUiThread {
+                            val intent = Intent(this@BuildAccountActivity, BuildAccountActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                            Toast.makeText(this@BuildAccountActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+//                        initRecyclerView()
+
+
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
+    }
+
 
 }

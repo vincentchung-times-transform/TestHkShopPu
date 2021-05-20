@@ -1,6 +1,8 @@
 package com.hkshopu.hk.ui.main.product.fragment
 
+import android.content.Intent
 import android.graphics.drawable.InsetDrawable
+import android.os.BaseBundle
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +10,14 @@ import android.view.ViewGroup
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventShopDesUpdated
+import com.hkshopu.hk.ui.main.product.activity.AddProductSpecificationMainActivity
+import com.hkshopu.hk.ui.main.store.activity.HelpCenterActivity
+import com.hkshopu.hk.utils.rxjava.RxBus
 
-class SpecificationInfoDialogFragment : DialogFragment(), View.OnClickListener {
+class SpecificationInfoDialogFragment() : DialogFragment(), View.OnClickListener {
     companion object {
         val TAG = SpecificationInfoDialogFragment::class.java.simpleName
 
@@ -50,9 +57,9 @@ class SpecificationInfoDialogFragment : DialogFragment(), View.OnClickListener {
         )
         dialog!!.window!!.setBackgroundDrawable(inset)
 
-        v.findViewById<View>(R.id.btn_to_help_center).setOnClickListener(this)
+//        v.findViewById<View>(R.id.btn_to_help_center).setOnClickListener(this)
         v.findViewById<View>(R.id.btn_keep_going).setOnClickListener(this)
-
+        v.findViewById<View>(R.id.btn_to_help_center).setOnClickListener(this)
         return v
     }
 
@@ -62,11 +69,8 @@ class SpecificationInfoDialogFragment : DialogFragment(), View.OnClickListener {
                 dismiss()
             }
             R.id.btn_to_help_center -> {
-//                var ShopDes = et_shopDes!!.text.toString()
-//                if(!ShopDes.isEmpty()){
-//                    RxBus.getInstance().post(EventShopDesUpdated(ShopDes))
-//                    dismiss()
-//                }
+                val intent = Intent(view.context, HelpCenterActivity::class.java)
+                startActivity(intent)
             }
         }
     }

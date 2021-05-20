@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_shopbg"
+    android:background="@color/white"
     tools:context=".ui.main.store.activity.ShippingFareActivity">
 
 
@@ -98,6 +98,7 @@
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:src="@mipmap/ic_chevron"
+                    android:textAlignment="textEnd"
                     android:textSize="14sp" />
 
             </LinearLayout>

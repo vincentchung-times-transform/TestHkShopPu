@@ -298,7 +298,8 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                     Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
                     Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
-                    if (ret_val.equals("登入成功!")) {
+                    val status = json.get("status")
+                    if (status != 0) {
                         var user_id: Int = json.getInt("user_id")
 
                         MMKV.mmkvWithID("http").putInt("UserId", user_id)

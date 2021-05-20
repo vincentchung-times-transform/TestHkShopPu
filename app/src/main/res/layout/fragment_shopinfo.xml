@@ -13,13 +13,13 @@
         android:layout_marginTop="15dp">
 
         <ImageView
-            android:id="@+id/iv_setting"
+
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="18dp"
-            android:src="@mipmap/ic_setting" />
-
+            android:src="@mipmap/ic_arrow_back" />
 
         <ImageView
             android:id="@+id/iv_notify"
@@ -75,16 +75,22 @@
                         android:layout_height="96dp"
                         android:layout_centerHorizontal="true">
 
-                        <com.makeramen.roundedimageview.RoundedImageView
-                            xmlns:app="http://schemas.android.com/apk/res-auto"
-                            android:id="@+id/iv_shopImg"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:src="@mipmap/ic_no_image"
-                            app:riv_border_color="@color/white"
-                            app:riv_border_width="2dp"
-                            app:riv_corner_radius="30dp"
-                            app:riv_oval="true"/>
+                            android:layout_centerInParent="true"
+                            app:cardBackgroundColor="@color/colordivideline"
+                            app:cardCornerRadius="50dp">
+
+                            <ImageView
+                                android:id="@+id/iv_shopImg"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop"
+                                android:layout_centerInParent="true"
+                                android:src="@mipmap/ic_no_image"/>
+
+                        </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
 

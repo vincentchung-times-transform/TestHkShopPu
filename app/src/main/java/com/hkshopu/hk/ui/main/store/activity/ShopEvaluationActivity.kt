@@ -29,6 +29,9 @@ class ShopEvaluationActivity : BaseActivity() {
             finish()
         }
 
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
 
 //
 //        btn_Login.setOnClickListener {

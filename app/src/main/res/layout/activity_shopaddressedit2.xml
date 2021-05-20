@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_shopaddressEdit"
+    android:importantForAutofill="noExcludeDescendants">
+
+    <RelativeLayout
+        android:id="@+id/layout_shopaddressEditTitle"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/title_addaddress"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/ic_notification"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_notifycount"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/customborder_round_turquise"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/layout_shopname"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@id/layout_shopaddressEditTitle"
+        android:orientation="vertical"
+        android:background="@drawable/customborder_onboard_16dp">
+        <TextView
+            android:id="@+id/tv_shopnameHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/shopname"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+        <EditText
+            android:id="@+id/editShopname"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:hint="@string/shopname_input"
+            android:background="@null"
+            android:textColorHint="@color/colorTextlightGray"
+            android:inputType="text"
+            android:singleLine="true"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:textSize="14sp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_shopphone"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_below="@id/layout_shopname"
+        android:background="@drawable/customborder_onboard_16dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_shopphoneHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/shopphone"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/customborder_onboard_16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_Shopphone_country"
+                android:layout_width="96dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:text="@string/hk"
+                android:gravity="center"
+                android:textColor="@color/colorTextlightGray"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/editShopphone_number"
+                android:layout_width="204dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:paddingStart="24dp"
+                android:paddingEnd="0dp"
+                android:hint="@string/shopphone_input"
+                android:inputType="phone"
+                android:textColorHint="@color/colorTextlightGray"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_shopaddressHead"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@+id/layout_shopphone"
+        android:orientation="vertical"
+        android:background="@drawable/customborder_onboard_16dp">
+
+        <TextView
+            android:id="@+id/tv_mailaddressHead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/shopaddress_input"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/layout_address"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editCountry"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/region"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"
+                />
+
+            <EditText
+
+                android:id="@+id/editAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/admin"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingLeft="16dp"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_thoroughfare"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/layout_address"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editthoroughfare"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="5"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/thoroughfare"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/editfeature"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="7"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/feature"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_subaddress"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/layout_thoroughfare"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editsubaddress"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/subaddress"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_building"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@id/layout_subaddress"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editfloor"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/floor"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/editroom"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:layout_marginStart="18dp"
+                android:background="@drawable/bg_edit_shopaddress"
+                android:hint="@string/room"
+                android:textColorHint="@color/colorTextlightGray"
+                android:inputType="text"
+                android:paddingStart="16dp"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/iv_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:src="@mipmap/ic_save_en"
+        android:contentDescription="@string/empty"
+        android:layout_below="@id/layout_shopaddressHead"
+        android:layout_marginTop="176dp"/>
+
+
+</RelativeLayout>
