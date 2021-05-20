@@ -25,7 +25,6 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
     val mAdapters_InvenSize = InventoryAndPriceSizeAdapter()
 
-
     //把水平rview元件拉進來
     inner class FirstLayerViewHolder(itemView:View)
         :RecyclerView.ViewHolder(itemView){
@@ -56,6 +55,7 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
+
     //這裡跟原本一樣，把大卡片項目模板的元件們拉進來
     inner class SecondLayerViewHolder(itemView:View)
         :RecyclerView.ViewHolder(itemView){
@@ -78,38 +78,25 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
         return when(viewType){
             0->{
-                //這裡把container載入進來，做出巢狀recyclerview
                 val inflater = LayoutInflater.from(parent.context)
                 val itemView = inflater.inflate(R.layout.inventoryandprice_spec_list_item,parent,false)
+//                mAdapters_InvenSize.updateList(mutableList_InvenSize)
 
-                //設定水平滑動的recyclerview
-                //因為綁adapter跟layoutmanager這些是一次性的東西，如果寫在onBindViewHolder，就會在使用者每一次下滑捲動 系統更新項目資料的時候一直重複呼叫!
+//                val linearlayout = LinearLayoutManager(parent.context)
+//                linearlayout.orientation = RecyclerView.VERTICAL
 
-                mAdapters_InvenSize.updateList(mutableList_InvenSize)
-
-                val linearlayout = LinearLayoutManager(parent.context)
-                linearlayout.orientation = RecyclerView.VERTICAL
-
-                FirstLayerViewHolder(itemView).r_view_inventory_spec.layoutManager = linearlayout
-                FirstLayerViewHolder(itemView).r_view_inventory_spec.adapter = mAdapters_InvenSize
-                FirstLayerViewHolder(itemView)
+//                FirstLayerViewHolder(itemView).r_view_inventory_spec.layoutManager = linearlayout
+//                FirstLayerViewHolder(itemView).r_view_inventory_spec.adapter = mAdapters_InvenSize
+                return FirstLayerViewHolder(itemView)
 
 
             }
-            1->{
-                //載入大卡片的項目模板
-                val inflater = LayoutInflater.from(parent.context)
-                val itemView = inflater.inflate(R.layout.inventoryandprice_spec_list_item,parent,false)
-                SecondLayerViewHolder(itemView)
-            }
-
-
             else -> {
 
                 //暫時替代
                 val inflater = LayoutInflater.from(parent.context)
                 val itemView = inflater.inflate(R.layout.inventoryandprice_spec_list_item,parent,false)
-                SecondLayerViewHolder(itemView)
+                return SecondLayerViewHolder(itemView)
 
             }
         }

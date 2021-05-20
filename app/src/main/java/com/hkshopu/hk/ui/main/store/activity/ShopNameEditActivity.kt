@@ -1,14 +1,11 @@
 package com.hkshopu.hk.ui.main.store.activity
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 
 import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.component.EventChangeShopPhoneSuccess
 import com.hkshopu.hk.component.EventChangeShopTitleSuccess
 
 import com.hkshopu.hk.databinding.ActivityShopnameeditBinding
@@ -31,12 +28,15 @@ class ShopNameEditActivity : BaseActivity(){
 
     private val VM = AuthVModel()
     var shopName: String = ""
+    var shopName_old: String = ""
     var address_id:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShopnameeditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         address_id = intent.getBundleExtra("bundle")!!.getString("address_id","")
+        shopName_old = intent.getBundleExtra("bundle")!!.getString("shop_name","")
         initView()
         initVM()
         initClick()
@@ -46,6 +46,7 @@ class ShopNameEditActivity : BaseActivity(){
 
 
     private fun initView() {
+        binding.etShopnameedit.setText(shopName_old)
         binding.layoutShopnameEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
         }

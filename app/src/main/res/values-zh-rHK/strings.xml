@@ -535,5 +535,14 @@
     <!--    我的商品-->
     <string name="hkd_dollarSign">HKD$ </string>
 
+    <!--    店舖地址-->
+    <string name="region">地域</string>
+    <string name="region_input">請輸入地域</string>
+    <string name="admin">地區</string>
+    <string name="admin_input">請輸入地區</string>
+    <string name="thoroughfare">街道名稱</string>
+    <string name="thoroughfare_input">請輸入街道名稱</string>
+    <string name="feature">街道門牌</string>
+
 
 </resources>

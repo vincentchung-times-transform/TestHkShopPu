@@ -107,7 +107,9 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             "0"
         ).toString().toInt()
 
-        if(datas_price_size.equals(0)||datas_quant_size.equals(0)){
+        if(datas_price_size.equals(0)||datas_quant_size.equals(0)
+            ||datas_price_size*datas_quant_size != datas_price_size
+            ||datas_price_size*datas_quant_size != datas_quant_size){
 
 
             for (i in 0..datas_spec_size*datas_size_size - 1) {

@@ -535,9 +535,18 @@
     <string name="bankaccount_alert">為確保交易安全性，本操作會進行加密處理，店匯不會顯示你的完整卡號資訊。</string>
     <string name="addbankaccount2">+ 新增銀行帳號</string>
 
-
 <!--    商品功能頁面-->
     <string name="logistic">運輸設定</string>
     <string name="helpcenter">幫助中心</string>
     <string name="shoppreview">預覽我的店鋪</string>
+
+    <!--    店舖地址-->
+    <string name="region">地域</string>
+    <string name="region_input">請輸入地域</string>
+    <string name="admin">地區</string>
+    <string name="admin_input">請輸入地區</string>
+    <string name="thoroughfare">街道名稱</string>
+    <string name="thoroughfare_input">請輸入街道名稱</string>
+    <string name="feature">街道門牌</string>
+
 </resources>
