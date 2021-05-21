@@ -149,6 +149,7 @@ class SpecificationSizeAdapter: RecyclerView.Adapter<SpecificationSizeAdapter.mV
     //更新資料用
     fun updateList(list01:MutableList<ItemSpecification>) {
         unAssignList = list01
+        notifyDataSetChanged()
     }
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)

@@ -17,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.Base.BaseActivity
 
 import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventCheckInvenSpecEnableBtnOrNot
+import com.hkshopu.hk.component.EventCheckShipmentEnableBtnOrNot
 import com.hkshopu.hk.data.bean.ItemPics
 import com.hkshopu.hk.data.bean.ItemShippingFare
 import com.hkshopu.hk.ui.main.product.adapter.PicsAdapter
 import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import org.jetbrains.anko.singleLine
@@ -155,7 +158,6 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
                         }
 
 
-
                         true
                     }
                     else -> false
@@ -263,6 +265,8 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
 
 
                     }
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
                 }
             })
 

@@ -544,5 +544,12 @@
     <string name="thoroughfare_input">請輸入街道名稱</string>
     <string name="feature">街道門牌</string>
 
+    <!--    刪除店舖-->
+    <string name="store_delete_apply">申請刪除店鋪</string>
+    <string name="store_delete_apply_note">店鋪一旦刪除，商品都會自動下架！ 確定要刪除此店鋪嗎？</string>
+    <string name="store_delete">已確認刪除店鋪</string>
+    <string name="store_orders">請先完成進行中的訂單再申請刪除店鋪</string>
+    <string name="store_restore">若是需要恢復店鋪，請前往幫助中心查看恢復方式。</string>
+
 
 </resources>

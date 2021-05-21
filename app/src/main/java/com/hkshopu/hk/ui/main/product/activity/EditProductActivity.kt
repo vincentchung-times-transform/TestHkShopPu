@@ -1454,7 +1454,6 @@ class EditProductActivity : BaseActivity() {
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-
                     }
 //                        initRecyclerView()
 
@@ -1769,6 +1768,7 @@ class EditProductActivity : BaseActivity() {
 
 
                             for (i in 0..productInfoList.price.size - 1) {
+
                                 MMKV.mmkvWithID("addPro").putString(
                                     "spec_price${i}",
                                     productInfoList.price.get(i).toString()

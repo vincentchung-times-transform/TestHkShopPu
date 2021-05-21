@@ -22,7 +22,8 @@ import java.util.*
 class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolder>(){
     private var mData: ArrayList<ShopListBean> = ArrayList()
     var itemClick : ((id: Int) -> Unit)? = null
-
+    var deleteClick : ((id: Int) -> Unit)? = null
+    private var cancel_inner:Boolean = false
     fun setData(list : ArrayList<ShopListBean>){
         list?:return
         this.mData = list
@@ -38,6 +39,12 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
     override fun getItemCount(): Int {
         return mData.size
     }
+    //更新資料用
+    fun updateData(cancel: Boolean){
+        cancel_inner =cancel
+        this.notifyDataSetChanged()
+    }
+
     fun removeAt(position: Int) {
         mData.removeAt(position)
         notifyItemRemoved(position)
@@ -57,6 +64,8 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
         val score = itemView.find<TextView>(R.id.tv_shopScore)
         val follower = itemView.find<TextView>(R.id.tv_LikeNums)
         val income = itemView.find<TextView>(R.id.tv_IncomeNums)
+        val delete = itemView.find<ImageView>(R.id.iv_cancel)
+        val dummy = itemView.find<ImageView>(R.id.iv_dummy)
         fun bindShop(bean : ShopListBean){
             container.click {
                 itemClick?.invoke(bean.id)
@@ -67,6 +76,17 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
             follower.text = bean.follower
             score.text = bean.rating
             income.text = bean.income
+            if (cancel_inner) {
+                delete.visibility = View.VISIBLE
+                dummy.visibility = View.VISIBLE
+            } else {
+                delete.visibility = View.GONE
+                dummy.visibility = View.GONE
+            }
+            delete.click {
+//                removeAt(absoluteAdapterPosition)
+                deleteClick?.invoke(bean.id)
+            }
 
         }
     }

@@ -100,8 +100,6 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
                         //identify all the elements have name
                         var checkEnableBtnOrNot = nextStepEnableOrNot()
 
-                        Toast.makeText(itemView.context, checkEnableBtnOrNot.toString(), Toast.LENGTH_SHORT).show()
-
                         RxBus.getInstance().post(EventCheckFirstSpecEnableBtnOrNot(checkEnableBtnOrNot))
 
 
@@ -150,6 +148,7 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
     //更新資料用
     fun updateList(list:MutableList<ItemSpecification>){
         unAssignList = list
+        notifyDataSetChanged()
     }
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)

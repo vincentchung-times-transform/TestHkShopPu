@@ -108,10 +108,10 @@
             <EditText
                 android:id="@+id/et_addshopbrief"
                 android:layout_width="match_parent"
-                android:layout_height="268dp"
+                android:layout_height="230dp"
                 android:layout_below="@id/iv_addshopbrief_view"
                 android:layout_marginStart="36dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="36dp"
                 android:background="@android:color/transparent"
                 android:gravity="top"
@@ -127,7 +127,7 @@
                 android:layout_marginTop="4dp"
                 android:text="@string/contact"
                 android:textSize="14sp"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_addshopbrief_contact1"
@@ -149,7 +149,8 @@
                 android:layout_marginTop="12dp"
                 android:layout_toEndOf="@id/iv_addshopbrief_contact1"
                 android:text=""
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/iv_addshopbrief_email"
@@ -182,7 +183,7 @@
                 android:layout_marginStart="36dp"
                 android:layout_marginTop="12dp"
                 android:src="@mipmap/ic_location"
-                android:visibility="gone" />
+                android:visibility="gone"  />
 
             <TextView
                 android:id="@+id/tv_addshopbrief_address"

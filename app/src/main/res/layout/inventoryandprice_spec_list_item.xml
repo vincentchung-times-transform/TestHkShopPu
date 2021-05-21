@@ -2,6 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="8dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,6 +13,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/container_spec_first_layer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -79,7 +83,8 @@
             android:id="@+id/r_view_inventory_item_spec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"/>
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"/>
 
 
     </LinearLayout>

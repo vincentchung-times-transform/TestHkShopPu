@@ -1,6 +1,7 @@
 package com.hkshopu.hk.ui.main.product.activity
 
 import MyLinearLayoutManager
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -13,16 +14,22 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hkshopu.hk.Base.response.Status
 import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventCheckInvenSpecEnableBtnOrNot
+import com.hkshopu.hk.component.EventCheckShipmentEnableBtnOrNot
 import com.hkshopu.hk.data.bean.*
 import com.hkshopu.hk.databinding.ActivityShippingFareBinding
 import com.hkshopu.hk.net.GsonProvider
 import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
 import com.hkshopu.hk.ui.user.vm.ShopVModel
+import com.hkshopu.hk.utils.rxjava.RxBus
+import com.hkshopu.hk.widget.view.disable
+import com.hkshopu.hk.widget.view.enable
 import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
@@ -129,14 +136,28 @@ class AddShippingFareActivity : AppCompatActivity(){
         binding.btnEditFareOff.isEnabled = false
 
         if(MMKV_datas_packagesWeights.isNotEmpty() && MMKV_datas_length.isNotEmpty() && MMKV_datas_width.isNotEmpty() && MMKV_datas_height.isNotEmpty()){
-            binding.btnShippingFareStore.isEnabled = true
-            binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore)
+
+
+            var check_onOff= 0
+            for (i in 0..mAdapters_shippingFare.get_shipping_method_datas().size-1){
+                if(  mAdapters_shippingFare.get_shipping_method_datas().get(i).onoff.equals("on")){
+                    check_onOff+=1
+                }
+            }
+            if(check_onOff>1){
+                binding.btnShippingFareStore.isEnabled = true
+                binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore)
+            }else{
+                binding.btnShippingFareStore.isEnabled = false
+                binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
+            }
+
         }else{
             binding.btnShippingFareStore.isEnabled = false
             binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
         }
 
-
+        initEvent()
         initClick()
         initEdit()
     }
@@ -529,5 +550,40 @@ class AddShippingFareActivity : AppCompatActivity(){
         finish()
     }
 
+
+    @SuppressLint("CheckResult")
+    fun initEvent() {
+        var boolean: Boolean
+
+        RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
+            .subscribe({
+                when (it) {
+                    is EventCheckShipmentEnableBtnOrNot -> {
+
+                        boolean = it.boolean
+
+                        var check_onOff= 0
+                        for (i in 0..mAdapters_shippingFare.get_shipping_method_datas().size-1){
+                            if(  mAdapters_shippingFare.get_shipping_method_datas().get(i).onoff.equals("on")){
+                                check_onOff=check_onOff+1
+                            }
+                        }
+
+
+                        if(check_onOff>0 && MMKV_datas_packagesWeights.isNotEmpty() && MMKV_datas_length.isNotEmpty() && MMKV_datas_width.isNotEmpty() && MMKV_datas_height.isNotEmpty()){
+                            binding.btnShippingFareStore.isEnabled = true
+                            binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore)
+                        }else{
+                            binding.btnShippingFareStore.isEnabled = false
+                            binding.btnShippingFareStore.setImageResource(R.mipmap.btn_shippingfarestore_disable)
+                        }
+
+                    }
+                }
+            }, {
+                it.printStackTrace()
+            })
+
+    }
 
 }

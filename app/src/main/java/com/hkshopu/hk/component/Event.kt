@@ -33,8 +33,11 @@ class EventProductCatLastPostion(val postion: Int = 1)
 
 class EventdeleverFragmentAfterUpdateStatus(val action : String)
 
+class EventCheckShipmentEnableBtnOrNot(val boolean : Boolean)
+
 class EventCheckFirstSpecEnableBtnOrNot(val boolean : Boolean)
 class EventCheckSecondSpecEnableBtnOrNot(val boolean : Boolean)
+class EventCheckInvenSpecEnableBtnOrNot(val boolean : Boolean)
 
 //Other Events (Not Used)
 
@@ -49,6 +52,8 @@ class EventPhoneShow(val show:Boolean,val phone: String? = null)
 class EventLaunchConfigsSuccess
 
 class EventRechargeSuccess
+
+class EventRefreshShopList
 
 class EventRefreshHome
 

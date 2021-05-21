@@ -22,7 +22,6 @@
             android:src="@mipmap/ic_setting"
             android:visibility="invisible"/>
 
-
         <ImageView
             android:id="@+id/iv_notify"
             android:layout_width="wrap_content"
@@ -31,7 +30,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
             android:src="@mipmap/ic_notification"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
 
         <TextView
             android:id="@+id/tv_notifycount"
@@ -44,7 +43,18 @@
             android:text="1"
             android:textColor="@color/white"
             android:textSize="10sp"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_shopdelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/iv_notify"
+            android:src="@mipmap/ic_shopdelete"
+            android:visibility="visible"/>
+
     </RelativeLayout>
 
     <ScrollView
