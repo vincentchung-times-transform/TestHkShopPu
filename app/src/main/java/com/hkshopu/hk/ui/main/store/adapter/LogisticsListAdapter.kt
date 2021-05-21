@@ -62,7 +62,7 @@ class LogisticsListAdapter :
 
     fun removeItem(position: Int) {
         this.mData.removeAt(position)
-        notifyItemChanged(position)
+        notifyItemRemoved(position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LogisticsListLinearHolder {
@@ -102,10 +102,9 @@ class LogisticsListAdapter :
 
         }
         viewHolder.cancel.setOnClickListener {
-            removeItem(position)
+            removeItem(viewHolder.adapterPosition)
         }
 //        value_shipping_name = viewHolder.name.text.toString()
-
 
         //editText_shipping_name編輯鍵盤監控
         viewHolder.name.singleLine = true

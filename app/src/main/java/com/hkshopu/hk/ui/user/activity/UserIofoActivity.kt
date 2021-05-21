@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
@@ -197,6 +198,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
         binding.editFirstName.addTextChangedListener(this)
         binding.editlastName.addTextChangedListener(this)
         binding.editmobile.addTextChangedListener(this)
+        binding.editmobile.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(10)))
     }
     fun ShowDatePick(view: View) {
         if (view.getId() === R.id.show_date_btn) {

@@ -152,6 +152,35 @@ public class Web {
         });
     }
 
+    public void Do_verifyCode(String url,String email ) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("email", email)
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .post(formBody)
+                .build();
+
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+//                response.close();
+//                Log.d(TAG, "Return Content ＝ " + response.body().string());
+            }
+        });
+    }
+
+
     public void Do_Register(String url,String account_name ,String email, String password,String confirm_password ,String first_name,String last_name,String gender,String birthday,String phone,String address,String region,String district,String street_name,String street_no,String floor,String room ) {
 
         RequestBody formBody = new FormBody.Builder()

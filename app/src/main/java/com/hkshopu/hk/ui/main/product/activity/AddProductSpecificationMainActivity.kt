@@ -223,7 +223,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
             }
 
 
-            val intent = Intent(this, AddInventoryAndPriceActivity::class.java)
+            val intent = Intent(this, AddInventoryAndPriceOldActivity::class.java)
             startActivity(intent)
             finish()
 
@@ -236,7 +236,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 Toast.makeText(this, "請先輸入第一層商品規格名稱", Toast.LENGTH_SHORT).show()
             }else{
                 mutableList_spec = mAdapter_spec.get_spec_list()
-                if (mutableList_spec.size < 10) {
+                if (mutableList_spec.size < 3) {
 
                     if (EDIT_MODE_SPEC == "0") {
 
@@ -257,6 +257,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                                 runOnUiThread {
                                     //更新或新增item
                                     mAdapter_spec.updateList(mutableList_spec)
+                                    binding.btnNextStep.disable()
+                                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
 
                                 }
 
@@ -283,6 +285,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                                     //更新或新增item
                                     mAdapter_spec.updateList(mutableList_spec)
+                                    binding.btnNextStep.disable()
+                                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
 
                                 }
 
@@ -295,7 +299,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                 } else {
 
-                    Toast.makeText(this, "只能新增最多十個規格", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "只能新增最多三個規格", Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -395,7 +399,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                 Toast.makeText(this, "請先完成輸入第一層規格內容", Toast.LENGTH_SHORT).show()
             }else{
                 mutableList_size = mAdapter_size.get_size_list()
-                if (mutableList_size.size < 10) {
+                if (mutableList_size.size < 3) {
 
                     if (EDIT_MODE_SIZE == "0") {
 
@@ -417,6 +421,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                                     //更新或新增item
                                     mAdapter_size.updateList(mutableList_size)
+                                    binding.btnNextStep.disable()
+                                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
                                 }
 
                             }).start()
@@ -447,6 +453,8 @@ class AddProductSpecificationMainActivity : BaseActivity() {
 
                                     //更新或新增item
                                     mAdapter_size.updateList(mutableList_size)
+                                    binding.btnNextStep.disable()
+                                    binding.btnNextStep.setImageResource(R.mipmap.btn_nextstepdisable)
 
                                 }
 
@@ -460,7 +468,7 @@ class AddProductSpecificationMainActivity : BaseActivity() {
                     }
 
                 } else {
-                    Toast.makeText(this, "只能新增最多十個規格", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "只能新增最多三個規格", Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -1782,6 +1782,8 @@ class EditProductActivity : BaseActivity() {
                                 )
                             }
                         }
+
+
                         initMMKV_and_initViewValue()
 
                     }else{

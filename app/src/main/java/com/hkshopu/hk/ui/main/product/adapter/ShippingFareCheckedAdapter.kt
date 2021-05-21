@@ -1,5 +1,6 @@
 package com.hkshopu.hk.ui.main.product.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,7 @@ import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
 class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapter.mViewHolder>(),
     ITHelperInterface {
 
-    var mutableList_shipMethod = mutableListOf<ItemShippingFare>()
+    var mutableList_shipMethod: MutableList<ItemShippingFare> = mutableListOf()
 
     inner class mViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
@@ -31,6 +32,7 @@ class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapte
         }
 
         fun bind(item: ItemShippingFare) {
+            Log.d("fdkodfkod", item.toString())
             //綁定當地變數與dataModel中的每個值
             editText_shipping_name.setText(item.shipment_desc)
             textView_shipping_fare.setText(item.price.toString())
@@ -57,10 +59,9 @@ class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapte
     override fun onBindViewHolder(holder: mViewHolder, position: Int) {
 
         //呼叫上面的bind方法來綁定資料
-        holder.bind(mutableList_shipMethod[position] as ItemShippingFare)
+        holder.bind(mutableList_shipMethod[position] )
 
     }
-
 
     //更新資料用
     fun updateList(list: MutableList<ItemShippingFare>) {

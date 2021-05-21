@@ -75,6 +75,8 @@ class EditProductSpecificationMainActivity : BaseActivity() {
         binding = ActivityAddProductDescriptionMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        MMKV.mmkvWithID("addPro").putBoolean("rebuild_datas", false)
+
         MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
         MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
         MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
@@ -255,7 +257,7 @@ class EditProductSpecificationMainActivity : BaseActivity() {
             }
 
 
-            val intent = Intent(this, EditInventoryAndPriceActivity::class.java)
+            val intent = Intent(this, EditInventoryAndPriceOldActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -267,7 +269,7 @@ class EditProductSpecificationMainActivity : BaseActivity() {
                 Toast.makeText(this, "請先輸入第一層商品規格名稱", Toast.LENGTH_SHORT).show()
             }else{
                 mutableList_spec = mAdapter_spec.get_spec_list()
-                if (mutableList_spec.size < 10) {
+                if (mutableList_spec.size < 3) {
 
                     if (EDIT_MODE_SPEC == "0") {
 
@@ -346,7 +348,7 @@ class EditProductSpecificationMainActivity : BaseActivity() {
 
                 } else {
 
-                    Toast.makeText(this, "只能新增最多十個規格", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "只能新增最多三個規格", Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -528,7 +530,7 @@ class EditProductSpecificationMainActivity : BaseActivity() {
                     }
 
                 } else {
-                    Toast.makeText(this, "只能新增最多十個規格", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "只能新增最多三個規格", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -884,74 +886,77 @@ class EditProductSpecificationMainActivity : BaseActivity() {
 
                         Log.d("getProductInfo", "返回資料 productInfoList：" + productInfoList.toString())
 
-
-                        //EditProductSpecificationMainActivity
-                        MMKV.mmkvWithID("addPro").putString(
-                            "value_editTextProductSpecFirst",
-                            productInfoList.spec_desc_1.get(0)
-                        )
-                        MMKV.mmkvWithID("addPro").putString(
-                            "value_editTextProductSpecSecond",
-                            productInfoList.spec_desc_2.get(0)
-                        )
-
-                        var mutableSet_spec_dec_1_items: MutableSet<String> =
-                            productInfoList.spec_dec_1_items.toMutableSet()
-                        var mutableSet_spec_dec_2_items: MutableSet<String> =
-                            productInfoList.spec_dec_2_items.toMutableSet()
-                        var mutableList_spec_dec_1_items: MutableList<String> =
-                            mutableSet_spec_dec_1_items.toMutableList()
-                        var mutableList_spec_dec_2_items: MutableList<String> =
-                            mutableSet_spec_dec_2_items.toMutableList()
-
-                        MMKV.mmkvWithID("addPro").putString(
-                            "datas_spec_size",
-                            mutableSet_spec_dec_1_items.size.toString()
-                        )
-                        MMKV.mmkvWithID("addPro").putString(
-                            "datas_size_size",
-                            mutableSet_spec_dec_2_items.size.toString()
-                        )
-
-                        for (i in 0..mutableSet_spec_dec_1_items.size - 1) {
+                        if(productInfoList.product_spec_on.equals("on")){
+                            //EditProductSpecificationMainActivity
                             MMKV.mmkvWithID("addPro").putString(
-                                "datas_spec_item${i}",
-                                mutableList_spec_dec_1_items.get(i)
+                                "value_editTextProductSpecFirst",
+                                productInfoList.spec_desc_1.get(0)
                             )
+                            MMKV.mmkvWithID("addPro").putString(
+                                "value_editTextProductSpecSecond",
+                                productInfoList.spec_desc_2.get(0)
+                            )
+
+                            var mutableSet_spec_dec_1_items: MutableSet<String> =
+                                productInfoList.spec_dec_1_items.toMutableSet()
+                            var mutableSet_spec_dec_2_items: MutableSet<String> =
+                                productInfoList.spec_dec_2_items.toMutableSet()
+                            var mutableList_spec_dec_1_items: MutableList<String> =
+                                mutableSet_spec_dec_1_items.toMutableList()
+                            var mutableList_spec_dec_2_items: MutableList<String> =
+                                mutableSet_spec_dec_2_items.toMutableList()
+
+                            MMKV.mmkvWithID("addPro").putString(
+                                "datas_spec_size",
+                                mutableSet_spec_dec_1_items.size.toString()
+                            )
+                            MMKV.mmkvWithID("addPro").putString(
+                                "datas_size_size",
+                                mutableSet_spec_dec_2_items.size.toString()
+                            )
+
+                            for (i in 0..mutableSet_spec_dec_1_items.size - 1) {
+                                MMKV.mmkvWithID("addPro").putString(
+                                    "datas_spec_item${i}",
+                                    mutableList_spec_dec_1_items.get(i)
+                                )
+                            }
+
+
+                            for (i in 0..mutableSet_spec_dec_2_items.size - 1) {
+                                MMKV.mmkvWithID("addPro").putString(
+                                    "datas_size_item${i}",
+                                    mutableList_spec_dec_2_items.get(i)
+                                )
+                            }
+
+                            MMKV.mmkvWithID("addPro").putString(
+                                "datas_price_size",
+                                productInfoList.price.size.toString()
+                            )
+                            MMKV.mmkvWithID("addPro").putString(
+                                "datas_quant_size",
+                                productInfoList.spec_quantity.size.toString()
+                            )
+
+
+                            for (i in 0..productInfoList.price.size - 1) {
+
+                                MMKV.mmkvWithID("addPro").putString(
+                                    "spec_price${i}",
+                                    productInfoList.price.get(i).toString()
+                                )
+                            }
+
+                            for (i in 0..productInfoList.spec_quantity.size - 1) {
+                                MMKV.mmkvWithID("addPro").putString(
+                                    "spec_quantity${i}",
+                                    productInfoList.spec_quantity.get(i).toString()
+                                )
+                            }
                         }
 
 
-                        for (i in 0..mutableSet_spec_dec_2_items.size - 1) {
-                            MMKV.mmkvWithID("addPro").putString(
-                                "datas_size_item${i}",
-                                mutableList_spec_dec_2_items.get(i)
-                            )
-                        }
-
-                        MMKV.mmkvWithID("addPro").putString(
-                            "datas_price_size",
-                            productInfoList.price.size.toString()
-                        )
-                        MMKV.mmkvWithID("addPro").putString(
-                            "datas_quant_size",
-                            productInfoList.spec_quantity.size.toString()
-                        )
-
-
-                        for (i in 0..productInfoList.price.size - 1) {
-
-                            MMKV.mmkvWithID("addPro").putString(
-                                "spec_price${i}",
-                                productInfoList.price.get(i).toString()
-                            )
-                        }
-
-                        for (i in 0..productInfoList.spec_quantity.size - 1) {
-                            MMKV.mmkvWithID("addPro").putString(
-                                "spec_quantity${i}",
-                                productInfoList.spec_quantity.get(i).toString()
-                            )
-                        }
 
                         initMMKV()
 

@@ -100,6 +100,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     }
 
     private fun initFragment() {
+
         binding!!.mviewPager.adapter = object : FragmentStateAdapter(this) {
 
             override fun createFragment(position: Int): Fragment {
@@ -111,7 +112,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             }
 
         }
-
 
         TabLayoutMediator(binding!!.tabs, binding!!.mviewPager) { tab, position ->
             tab.text = getString(ResourceStore.tabList[position])

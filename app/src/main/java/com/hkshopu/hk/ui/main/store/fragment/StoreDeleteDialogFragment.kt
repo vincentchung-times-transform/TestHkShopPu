@@ -15,8 +15,10 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventRefreshShopList
 import com.hkshopu.hk.ui.main.store.activity.HelpCenterActivity
 import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
+import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 
 class StoreDeleteDialogFragment(): DialogFragment(), View.OnClickListener {
@@ -69,7 +71,10 @@ class StoreDeleteDialogFragment(): DialogFragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.btn_confirm -> dismiss()
+            R.id.btn_confirm -> {
+                RxBus.getInstance().post(EventRefreshShopList())
+                dismiss()
+            }
             R.id.btn_tohelp -> {
 
                 val intent = Intent(activity, HelpCenterActivity::class.java)

@@ -171,6 +171,7 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                 phone!!,
                 address!!,region!!,district!!,street_name!!,street_no!!,floor!!, room!!
             )
+
         }
 
 
@@ -234,7 +235,14 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                         var user_id: Int = json.getInt("user_id")
                         MMKV.mmkvWithID("http").putInt("UserId", user_id)
 
-                        VM.verifycode(this@AddressEditActivity, email)
+                        doVerifyCode(email)
+
+                        runOnUiThread {
+                            Toast.makeText(this@AddressEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+//                            VM.verifycode(this@AddressEditActivity, email)
+
+                        }
+
 
                     } else {
                         runOnUiThread {
@@ -256,6 +264,53 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
             }
         })
         web.Do_Register(url, "",email, password,confirm_password,first_name,last_name,gender,birthday,phone,address,region,district,street_name,street_no,floor,room)
+    }
+
+
+    private fun doVerifyCode(email: String) {
+        val url = ApiConstants.API_HOST+"user/generateAndSendValidationCodeProcess/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("AddressEditActivity", "返回資料 resStr：" + resStr)
+                    Log.d("AddressEditActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    val status  = json.get("status")
+                    if (status == 0) {
+                        var user_id: Int = json.getInt("user_id")
+                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
+
+                        runOnUiThread {
+                            Toast.makeText(this@AddressEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+
+                        val intent = Intent(this@AddressEditActivity, EmailVerifyActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(this@AddressEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+//                        initRecyclerView()
+
+
+                } catch (e: JSONException) {
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_verifyCode(url, email)
     }
 
     private fun initEditText() {

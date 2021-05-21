@@ -455,8 +455,8 @@
 
     <string name="title_specification">新增規格</string>
     <string name="title_editSpecification">編輯規格</string>
-    <string name="txtview_category">新增商別類別<font color='red' size='10'><sub> * </sub></font></string>
-    <string name="txtview_addspecification">新增商別規格</string>
+    <string name="txtview_category">新增商品類別<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="txtview_addspecification">新增商品規格</string>
     <string name="txtview_specification">商品規格</string>
     <string name="txtview_price">商品價格<font color='red' size='10'><sub> * </sub></font></string>
     <string name="txtview_quantity">商品數量<font color='red' size='10'><sub> * </sub></font></string>

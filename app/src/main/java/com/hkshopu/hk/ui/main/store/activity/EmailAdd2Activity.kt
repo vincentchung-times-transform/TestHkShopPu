@@ -56,7 +56,7 @@ class EmailAdd2Activity : BaseActivity(){
             KeyboardUtil.hideKeyboard(it)
         }
 
-        binding.switchview.openSwitcher()
+//        binding.switchview.openSwitcher()
 
     }
     private fun initVM() {

@@ -1223,8 +1223,6 @@ class AddNewProductActivity : BaseActivity() {
 
 
 
-
-
                     //自訂layoutManager
                     runOnUiThread {
                         binding.rViewFareItem.setLayoutManager(MyLinearLayoutManager(this, false))
@@ -1233,15 +1231,13 @@ class AddNewProductActivity : BaseActivity() {
 
                     }
 
-                    Thread(Runnable {
-
-                        mAdapters_shippingFareChecked.updateList(mutableList_itemShipingFare_filtered)
-                        runOnUiThread {
-                            mAdapters_shippingFareChecked.notifyDataSetChanged()
-                        }
+                    mAdapters_shippingFareChecked.updateList(mutableList_itemShipingFare_filtered)
 
 
-                    }).start()
+                    runOnUiThread {
+                        mAdapters_shippingFareChecked.notifyDataSetChanged()
+                    }
+
                 }else{
                     runOnUiThread {
                         binding.rViewFareItem.isVisible = false

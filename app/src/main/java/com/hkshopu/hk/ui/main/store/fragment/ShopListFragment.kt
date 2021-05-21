@@ -182,8 +182,10 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
 
 
                     } else {
+
                         activity!!.runOnUiThread {
                             binding!!.container1.visibility = View.VISIBLE
+                            binding!!.container2.visibility = View.GONE
                         }
 
                     }

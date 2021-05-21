@@ -58,6 +58,12 @@ class SpecificationSpecAdapter: RecyclerView.Adapter<SpecificationSpecAdapter.mV
             }
             editTextView.addTextChangedListener(textWatcher)
 
+            editTextView.setOnFocusChangeListener { v, hasFocus ->
+                if(hasFocus ){
+                    RxBus.getInstance().post(EventCheckFirstSpecEnableBtnOrNot(false))
+                }
+            }
+
             //editTextView編輯模式
             editTextView.singleLine = true
             editTextView.setOnEditorActionListener() { v, actionId, event ->
