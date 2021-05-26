@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.fragment.TermsOfServiceFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:text="@string/title_terms_of_services"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/awareness_and_acceptance_of_terms_s1"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/awareness_and_acceptance_of_terms_contents_s1"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/links_to_third_party_websites_s2"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/links_to_third_party_websites_contents_s2"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/your_registration_obligations_s3"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/your_registration_obligations_contents_s3"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/member_account_password_and_security_s4"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/member_account_password_and_security_contents_s4"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/what_you_provide_s5"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/what_you_provide_contents_s5"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/protection_of_children_and_youth_s6"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/protection_of_children_and_youth_contents_s6"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/the_users_legal_obligations_and_commitments_s7"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/the_users_legal_obligations_and_commitments_contents_s7"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/System_interruption_or_failure_s8"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/System_interruption_or_failure_contents_s8"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/information_or_suggestion_s9"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/information_or_suggestion_contents_s9"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/advertising_s10"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/advertising_contents_s10"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/buying_and_selling_or_other_transactions_s11"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/buying_and_selling_or_other_transactions_contents_s11"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/protection_of_intellectual_property_s12"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/protection_of_intellectual_property_contents_s12"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/payment_s13"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/payment_contents_s13"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/notification_s14"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/notification_contents_s14"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/termination_s15"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/termination_contents_s15"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/governing_law_and_competent_court_s16"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/governing_law_and_competent_court_contents_s16"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:text="@string/governing_law_and_competent_court_s17"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:textSize="13sp"
+            android:textColor="#48484A"
+            android:text="@string/governing_law_and_competent_court_contents_s17"
+            android:lineSpacingExtra="5sp"
+            android:translationY="-2.38sp"
+            android:gravity="top" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="tiffany_blue">#FFA3DCEF</color>
+    <color name="apple_green">#FFAEEEE0</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#000000</color>
+    <color name="dark_gray">#48484A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorWhite_helf">#80ffffff</color>
+    <color name="colorGray">#888888</color>
+    <color name="colorAccent">#ADAFB2</color>
+    <color name="colorShopBack">#EFEFEF</color>
+    <color name="colorYellow">#F6BF02</color>
+    <color name="colorCategory">#F9C784</color>
+    <color name="turquoise">#1DBCCF</color>
+    <color name="colorDivider">#ebebeb</color>
+    <color name="background800">#424242</color>
+    <color name="colorTextGray">#555555</color>
+    <color name="colorTextlightGray">#8E8E93</color>
+    <color name="light_grey">#E5E5E5</color>
+    <color name="colorText">#202020</color>
+    <color name="colordivideline">#c4c4c4</color>
+    <color name="tomato">#ee3224</color>
+    <color name="purpley_grey">#9b9b9b</color>
+    <color name="material_grey_700">#616161</color>
+    <color name="colorbottomgray">#979797</color>
+    <color name="color_somegray">#8E8E93</color>
+    <color name="color_shopbg">#F6FBFA</color>
+    <color name="color_storeprofile">#F6F6F6</color>
+<!--By Vince-->
+    <color name="onboarding_background">#E4FBFF</color>
+    <color name="transparent">#FFFFFFFF</color>
+    <color name="editbox_color">#E5E5EA</color>
+    <color name="hkshop_color">#1DBCCF</color>
+    <color name="hkshop_color_shadow">#1A1DBCCF</color>
+    <color name="gray_txt">#8E8E93</color>
+    <color name="hkshop_color_bg">#1A1DBCCF</color>
+    <color name="customborder_gray">#E9E9EB</color>
+    <color name="loginpage_white">#E5E5E5</color>
+<!--修改店鋪資訊-->
+    <color name="black_hint_80">#CC48484A</color>
+<!--我的商品-->
+    <color name="colorGray_60">#993C3C43</color>
+<!--商品-->
+    <color name="unselected_points_products">#D8D8D8</color>
+    <color name="selected_points_products">#8E8E93</color>
+</resources>

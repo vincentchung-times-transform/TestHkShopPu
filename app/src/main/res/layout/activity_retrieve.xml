@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.user.activity.RetrieveEmailVerifyActivity"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:backgroundTint="@color/white">
+
+
+        <ImageView
+            android:id="@+id/titleBack"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:drawablePadding="6dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textAlignment="center"
+            android:text="@string/email_authentication"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            tools:ignore="RtlCompat" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/please_input_verification_code"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/gray_txt"
+            android:text="已寄送驗證碼至您登入的電子郵件信箱"
+            android:gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/textView_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/gray_txt"
+            android:text="deflaut@times-transform.com"
+            android:gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/edt_authenticate01"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="36sp"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:background="@mipmap/authenticate_rectangle"
+                />
+            <EditText
+                android:id="@+id/edt_authenticate02"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="36sp"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:background="@mipmap/authenticate_rectangle"
+                />
+            <EditText
+                android:id="@+id/edt_authenticate03"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="36sp"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:background="@mipmap/authenticate_rectangle"
+                />
+            <EditText
+                android:id="@+id/edt_authenticate04"
+                android:digits="1234567890"
+                android:inputType="number"
+                android:maxLength="1"
+                android:textSize="36sp"
+                android:layout_width="75dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                android:textAlignment="center"
+                android:background="@mipmap/authenticate_rectangle"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/gray_txt"
+                android:text="@string/fail_to_recieve_verification_code"
+                android:gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/btn_resend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:text="@string/resend_email"
+                android:gravity="center_horizontal"
+                android:textColor="@color/hkshop_color"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_authenticate"
+                style="@style/buttonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_below="@id/layout_Pwd"
+                android:layout_marginTop="30dp"
+                android:scaleType="fitCenter"
+                android:background="@color/white"
+                android:src="@mipmap/btn_authenticate" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textAlignment="textEnd"
+                    android:text=" 註冊帳號代表您同意"/>
+
+
+                <TextView
+                    android:id="@+id/terms_of_service"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="14sp"
+                    android:textColor="@color/hkshop_color"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    android:text=" &lt;用戶協議條款&gt; "/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        app:srcCompat="@mipmap/botton_logo" />
+
+
+
+
+</RelativeLayout>
