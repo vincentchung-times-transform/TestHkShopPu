@@ -274,7 +274,7 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
     }
 
     fun ShowHidePass(view: View) {
-        if (view.getId() === R.id.show_pass_btn) {
+        if (view.getId() == R.id.show_pass_btn) {
             if (binding.passwordReg.getTransformationMethod()
                     .equals(PasswordTransformationMethod.getInstance())
             ) {
@@ -287,7 +287,7 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                 binding.passwordReg.setTransformationMethod(PasswordTransformationMethod.getInstance())
             }
         }
-        if (view.getId() === R.id.show_passconf_btn) {
+        if (view.getId() == R.id.show_passconf_btn) {
             if (binding.passwordConf.getTransformationMethod()
                     .equals(PasswordTransformationMethod.getInstance())
             ) {

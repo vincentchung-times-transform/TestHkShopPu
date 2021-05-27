@@ -17,6 +17,7 @@ import com.hkshopu.hk.R
 import com.hkshopu.hk.component.EventCheckInvenSpecEnableBtnOrNot
 import com.hkshopu.hk.component.EventProductCatSelected
 import com.hkshopu.hk.data.bean.InventoryItemSize
+import com.hkshopu.hk.data.bean.ItemInvenFirstNestedLayer
 
 import com.hkshopu.hk.data.bean.ItemInvenSecondNestedLayer
 import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
@@ -28,6 +29,9 @@ class InventoryAndPriceSizeNestedAdapter(var unAssignList: MutableList<ItemInven
     ITHelperInterface {
 
 
+    var parentPosition =0
+
+
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
@@ -36,7 +40,7 @@ class InventoryAndPriceSizeNestedAdapter(var unAssignList: MutableList<ItemInven
         val textView_value_price = itemView.findViewById<TextView>(R.id.value_price)
         val textView_value_quantity = itemView.findViewById<TextView>(R.id.value_quantity)
         var textView_Hkdollars =  itemView.findViewById<TextView>(R.id.textView_HKdolors)
-
+        var unAssignList : MutableList<ItemInvenSecondNestedLayer> = mutableListOf()
 
         //選高資料變數
         var value_name:String =""
@@ -100,17 +104,6 @@ class InventoryAndPriceSizeNestedAdapter(var unAssignList: MutableList<ItemInven
 
     }
 
-    //更新資料用
-    fun updateList(list:MutableList<ItemInvenSecondNestedLayer>){
-        unAssignList = list
-    }
-
-    fun onItemUpdate(name:String, price: String,  quant:String, position: Int) {
-
-        unAssignList[position] = ItemInvenSecondNestedLayer(name, price, quant)
-        notifyItemChanged(position)
-
-    }
 
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)

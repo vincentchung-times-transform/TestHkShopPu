@@ -6,6 +6,8 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:padding="10dp"
+    android:elevation="10dp"
+    android:outlineSpotShadowColor="@color/hkshop_color"
     android:layout_marginTop="8dp"
     android:orientation="vertical">
 

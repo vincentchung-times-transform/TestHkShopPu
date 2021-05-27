@@ -2,6 +2,7 @@ package com.hkshopu.hk.ui.main.store.activity
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
@@ -53,7 +54,9 @@ class PhoneEditActivity : BaseActivity(){
 
     private fun initView() {
         binding.editShopphoneNumber.setText(phone_old)
+        binding.editShopphoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
         binding.editShopphoneNumber.doAfterTextChanged {
+
             phone_number = binding.editShopphoneNumber.text.toString()
             phone_country = binding.tvShopphoneCountry.text.toString()
             phone_pass = phone_country + phone_number
@@ -67,7 +70,7 @@ class PhoneEditActivity : BaseActivity(){
             binding.switchview.openSwitcher()
             isphoneShow ="Y"
         }else{
-            binding.switchview.openSwitcher()
+            binding.switchview.closeSwitcher()
             isphoneShow ="N"
         }
 
@@ -97,7 +100,12 @@ class PhoneEditActivity : BaseActivity(){
         }
 
         binding.tvSave.setOnClickListener {
+
+            if(phone_number.isNullOrEmpty()){
+                phone_number = phone_old
+            }
             doShopPhoneUpdate(phone_country,phone_number,isphoneShow)
+
         }
         binding.switchview.setOnStateChangedListener(object :
             EasySwitcher.SwitchStateChangedListener {

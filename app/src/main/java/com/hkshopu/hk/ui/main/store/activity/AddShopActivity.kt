@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.InputFilter
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -310,6 +311,7 @@ class AddShopActivity : BaseActivity() {
 
 
     private fun initEditText() {
+        binding.etShopname.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(15)))
         binding.etShopname.doAfterTextChanged {
             shopName = binding.etShopname.text.toString()
 

@@ -240,19 +240,41 @@ class ShopInfoModifyActivity : BaseActivity() {
 
                         runOnUiThread {
                             binding!!.tvShopName.text = list[0].shop_title
+                            val shop_is_phone_show = list[0].shop_is_phone_show
+
+//                            if(shop_is_phone_show.equals("Y")) {
+//                                binding.tvShopPhone.text = list[0].shop_phone
+//                            }else{
+//                                binding.tvShopPhone.text = list[0].shop_phone
+//                            }
                             binding.tvShopPhone.text = list[0].shop_phone
-                            binding.tvUserEmail.text = list[0].shop_email
+
+                            list[0].email_on ?. let {
+                                if (list[0].email_on.equals("Y")) {
+
+                                }
+                                null // finally returns null
+                            } ?: let {
+
+                            }
+                            val email_old = list[0].shop_email
+
+                            list[0].email_on ?. let {
+//                                if (list[0].email_on.equals("Y")) {
+//                                }
+                                binding.tvUserEmail.text = email_old
+                                null // finally returns null
+                            } ?: let {
+
+                            }
+
                             binding.tvShopBrief.text = list[0].shop_description
                             binding!!.ivShopImg.load(list[0].shop_icon)
                             binding!!.ivShoppicB.load(list[0].shop_pic)
                             if(list[0].shop_pic.length > 0) {
                                 binding.tvShoppicBAdd.setText(R.string.modify_newbg)
                             }
-
-
                         }
-
-
                     }
 //                        initRecyclerView()
 

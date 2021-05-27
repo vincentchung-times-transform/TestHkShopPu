@@ -278,6 +278,35 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             MMKV.mmkvWithID("addPro").putString("inven_quant_range", inven_quant_range)
 
 
+
+
+            MMKV.mmkvWithID("addPro").putString(
+                "datas_price_size",
+                mutableList_InvenDatas.size.toString()
+            )
+
+            MMKV.mmkvWithID("addPro").putString(
+                "datas_quant_size",
+                mutableList_InvenDatas.size.toString()
+            )
+
+
+            for (i in 0..mutableList_InvenDatas.size - 1) {
+
+                MMKV.mmkvWithID("addPro").putString(
+                    "spec_price${i}",
+                    mutableList_InvenDatas.get(i).price.toString()
+                )
+            }
+
+            for (i in 0..mutableList_InvenDatas.size - 1) {
+                MMKV.mmkvWithID("addPro").putString(
+                    "spec_quantity${i}",
+                    mutableList_InvenDatas.get(i).quantity.toString()
+                )
+            }
+
+
             MMKV.mmkvWithID("addPro_temp").clear()
 
             val intent = Intent(this, AddNewProductActivity::class.java)

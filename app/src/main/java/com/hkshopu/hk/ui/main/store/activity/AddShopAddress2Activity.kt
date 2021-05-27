@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Base64
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -15,11 +16,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.doAfterTextChanged
 import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.R
+import com.hkshopu.hk.component.EventAddShopBriefSuccess
+import com.hkshopu.hk.component.EventRefreshAddressList
 import com.hkshopu.hk.databinding.*
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -67,6 +71,7 @@ class AddShopAddress2Activity : BaseActivity() {
 
         }
 
+        binding.editShopphoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
         binding.editShopphoneNumber.doAfterTextChanged {
             phone_number = binding.editShopphoneNumber.text.toString()
             phone_country = binding.tvShopphoneCountry.text.toString()
@@ -262,10 +267,13 @@ class AddShopAddress2Activity : BaseActivity() {
                     val status = json.get("status")
                     if (status == 0) {
 
+                        RxBus.getInstance().post(EventRefreshAddressList())
+
                         val intent = Intent(
                             this@AddShopAddress2Activity,
                             ShopAddressListActivity::class.java
                         )
+
                         startActivity(intent)
                         finish()
                     } else {

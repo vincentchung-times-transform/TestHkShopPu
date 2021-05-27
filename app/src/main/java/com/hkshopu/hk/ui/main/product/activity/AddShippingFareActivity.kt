@@ -263,7 +263,6 @@ class AddShippingFareActivity : AppCompatActivity(){
 
 
 
-            //篩選所有已勾選的運費方式
             for (i in 0..datas_ship_method_and_fare.size-1!!) {
                 if(datas_ship_method_and_fare[i].shipment_desc != ""){
                     if( datas_ship_method_and_fare[i].price.isNullOrEmpty()){
@@ -312,24 +311,33 @@ class AddShippingFareActivity : AppCompatActivity(){
             value_txtViewFareRange = fare_pick_max_and_min_num(mutableList_itemShipingFare_certained.size)
             MMKV.mmkvWithID("addPro").putString("value_txtViewFareRange", value_txtViewFareRange)
 
+
             val gson = Gson()
             val gsonPretty = GsonBuilder().setPrettyPrinting().create()
 
-            val jsonTutList_fare: String = gson.toJson(mutableList_itemShipingFare_filtered)
+            val jsonList_shipment_all: String = gson.toJson(mutableList_itemShipingFare_filtered)
             Log.d("AddNewProductActivity", mutableList_itemShipingFare_filtered.toString())
-            val jsonTutListPretty_fare: String = gsonPretty.toJson(mutableList_itemShipingFare_filtered)
+            val jsonList_shipment_all_pretty: String = gsonPretty.toJson(mutableList_itemShipingFare_filtered)
             Log.d("AddNewProductActivity", mutableList_itemShipingFare_filtered.toString())
 
-            MMKV.mmkvWithID("addPro").putString("jsonTutList_fare", jsonTutList_fare)
+            val jsonList_shipment_certained: String = gson.toJson(mutableList_itemShipingFare_certained)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
+            val jsonList_shipment_certained_pretty: String = gsonPretty.toJson(mutableList_itemShipingFare_certained)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
+
+
+            MMKV.mmkvWithID("addPro").putString("jsonList_shipment_all", jsonList_shipment_all)
+            MMKV.mmkvWithID("addPro").putString("jsonList_shipment_certained", jsonList_shipment_certained)
 
 
             //sync prodcut fare settings to Shop fare setting
             MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
             Log.d("MMKV_shop_id", MMKV_shop_id.toString()+sync_to_shop.toString())
 
+
             if(sync_to_shop == true){
 
-                VM.syncShippingfare(this, MMKV_shop_id, jsonTutList_fare)
+                VM.syncShippingfare(this, MMKV_shop_id, jsonList_shipment_all)
             }
 
             val intent = Intent(this, AddNewProductActivity::class.java)
@@ -342,12 +350,20 @@ class AddShippingFareActivity : AppCompatActivity(){
 
     fun initEdit() {
 
+        binding.editPackageWeight.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
+
         binding.editPackageWeight.singleLine = true
         binding.editPackageWeight.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
                     MMKV_datas_packagesWeights = binding.editPackageWeight.text.toString()
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     v.hideKeyboard()
                     binding.editPackageWeight.clearFocus()
@@ -376,13 +392,20 @@ class AddShippingFareActivity : AppCompatActivity(){
         }
         binding.editPackageWeight.addTextChangedListener(textWatcher_datas_packagesWeights)
 
-
+        binding.editPackageLength.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
 
         binding.editPackageLength.singleLine = true
         binding.editPackageLength.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     MMKV_datas_length = binding.editPackageLength.text.toString()
+
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
                     v.hideKeyboard()
                     binding.editPackageLength.clearFocus()
                     true
@@ -410,7 +433,11 @@ class AddShippingFareActivity : AppCompatActivity(){
         binding.editPackageLength.addTextChangedListener(textWatcher_editPackageLength)
 
 
-
+        binding.editPackageWidth.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
 
         binding.editPackageWidth.singleLine = true
         binding.editPackageWidth.setOnEditorActionListener() { v, actionId, event ->
@@ -418,6 +445,8 @@ class AddShippingFareActivity : AppCompatActivity(){
                 EditorInfo.IME_ACTION_DONE -> {
 
                     MMKV_datas_width = binding.editPackageWidth.text.toString()
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     v.hideKeyboard()
                     binding.editPackageWidth.clearFocus()
@@ -446,12 +475,18 @@ class AddShippingFareActivity : AppCompatActivity(){
         }
         binding.editPackageWidth.addTextChangedListener(textWatcher_editPackageWidth)
 
-
+        binding.editPackageHeight.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
         binding.editPackageHeight.singleLine = true
         binding.editPackageHeight.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     MMKV_datas_height = binding.editPackageHeight.text.toString()
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     v.hideKeyboard()
                     binding.editPackageHeight.clearFocus()

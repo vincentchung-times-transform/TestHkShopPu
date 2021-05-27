@@ -8,6 +8,7 @@ import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.media.MediaBrowserCompat
+import android.text.InputFilter
 import android.util.Base64
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
@@ -69,6 +70,7 @@ class AddShopAddressActivity : BaseActivity() {
         binding.editShopname.doAfterTextChanged {
             companyName = binding.editShopname.text.toString()
         }
+        binding.editShopphoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
         binding.editShopphoneNumber.doAfterTextChanged {
             phone_number = binding.editShopphoneNumber.text.toString()
             phone_country = binding.tvShopphoneCountry.text.toString()

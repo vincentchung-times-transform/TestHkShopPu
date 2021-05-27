@@ -538,11 +538,12 @@ class MerchandiseActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
 
                                 var mutableList_first_layer = mutableListOf<ItemInvenFirstNestedLayer>()
-                                var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
 
 
                                 if(!datas_spec_title_first.equals("") && datas_spec_title_second.equals("")){
                                     specGroup_only = true
+
+                                        var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
 
                                         for(i in 0..datas_spec_size-1){
                                             mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_spec.get(i).spec_name,"", "") )
@@ -558,10 +559,13 @@ class MerchandiseActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                                 }else{
                                     specGroup_only = false
 
-                                    for(i in 0..datas_size_size-1){
-                                        mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i).spec_name,"", "") )
-                                    }
+
                                     for(i in 0..datas_spec_size-1){
+
+                                        var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
+                                        for(i in 0..datas_size_size-1){
+                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i).spec_name,"", "") )
+                                        }
                                         mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_second_layer))
                                     }
 
@@ -570,47 +574,58 @@ class MerchandiseActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                                     val first_size: Int = datas_spec_size
 
                                     var priceData_firstLayer: MutableList<MutableList<Int>> = mutableListOf()
-                                    var priceData_secondLayer: MutableList<Int>  = mutableListOf()
-                                    for(i in 0..second_size-1){
-                                        priceData_secondLayer.add(0)
-                                    }
                                     for (i in 0..first_size-1){
+
+                                        var priceData_secondLayer: MutableList<Int>  = mutableListOf()
+
+                                        for(i in 0..second_size-1){
+                                            priceData_secondLayer.add(0)
+                                        }
+
                                         priceData_firstLayer.add(priceData_secondLayer)
                                     }
 
 
                                     var quant_Data_firstLayer: MutableList<MutableList<Int>> = mutableListOf()
-                                    var quant_Data_secondLayer: MutableList<Int>  = mutableListOf()
-                                    for(i in 0..second_size-1){
-                                        quant_Data_secondLayer.add(0)
-                                    }
+
                                     for (i in 0..first_size-1){
-                                        quant_Data_firstLayer.add(priceData_secondLayer)
+
+                                        var quant_Data_secondLayer: MutableList<Int>  = mutableListOf()
+
+                                        for(i in 0..second_size-1){
+                                            quant_Data_secondLayer.add(0)
+                                        }
+                                        quant_Data_firstLayer.add(quant_Data_secondLayer)
                                     }
 
 
                                     for (r in 0 until first_size) {
                                         for (c in 0 until second_size) {
-                                            for (i in 0 until first_size * second_size) {
-                                                var index = r*second_size+c
-                                                priceData_firstLayer[r][c] = mutableList_price.get(index)
-                                                quant_Data_firstLayer[r][c] = mutableList_quant.get(index)
-                                            }
+
+                                            var index = r*second_size+c
+
+                                            priceData_firstLayer[r][c] = mutableList_price.get(index)
+                                            quant_Data_firstLayer[r][c] = mutableList_quant.get(index)
+
                                         }
                                     }
 
+                                    Log.d("dsdsdsd" ,  "priceData_firstLayer : ${priceData_firstLayer.toString()}")
+                                    Log.d("dsdsdsd" ,  "quant_Data_secondLayer : ${quant_Data_firstLayer.toString()}")
 
                                     for(i in 0..datas_spec_size-1){
                                         for(j in 0..datas_size_size-1){
                                             mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).price = priceData_firstLayer.get(i).get(j).toString()
                                             mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).quantity = quant_Data_firstLayer.get(i).get(j).toString()
+                                            Log.d("dsdsdsdsdaaaa" ,  "priceData_firstLayer.get(i).get(j) : ${priceData_firstLayer.get(i).get(j).toString()}")
+                                            Log.d("dsdsdsdsdaaaa" ,  "quant_Data_firstLayer.get(i).get(j) : ${quant_Data_firstLayer.get(i).get(j).toString()}")
                                         }
                                     }
 
+                                    Log.d("dsdsdsd" ,  "mutableList_first_layer : ${mutableList_first_layer.toString()}")
 
                                 }
 
-                                Log.d("dfijdsiojfd", mutableList_first_layer.toString())
 
                                 binding.rViewInventory.setLayoutManager(MyLinearLayoutManager(this@MerchandiseActivity,false))
                                 binding.rViewInventory.adapter = mAdapter

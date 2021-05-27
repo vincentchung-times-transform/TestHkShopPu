@@ -836,7 +836,7 @@ public class Web {
         }
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("address_ID",jsonArray.toString())
+                .addFormDataPart("address_id",jsonArray.toString())
                 .build();
 
 //        RequestBody requestBody = RequestBody.create(jsonObject.toString(),JSON);

@@ -135,9 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/txtView_productdescription"
                     android:hint="@string/hint_editproductdescription"
+                    android:singleLine="false"
                     android:layout_marginTop="8dp"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"
                     android:textSize="14sp"
                     android:background="@color/white"/>
             </RelativeLayout>
@@ -499,6 +498,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:visibility="gone"
                 android:background="@drawable/customborder_addproduct"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -674,7 +674,7 @@
             android:paddingBottom="20dp"
             android:paddingRight="10dp"
             android:layout_weight="1"
-            android:src="@mipmap/btn_store"/>
+            android:src="@mipmap/btn_store_product_coloful"/>
         <ImageView
             android:id="@+id/btn_on_shelf"
             android:layout_width="match_parent"

@@ -10,7 +10,6 @@
     android:paddingRight="10dp"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:elevation="10dp"
     android:background="@drawable/customborder_addproduct">
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,7 +48,7 @@
                     android:id="@+id/value_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
+
                     android:textColor="@color/black"
                     android:text="0"
                     android:textSize="14sp" />
@@ -64,7 +63,6 @@
                 android:textSize="14sp"
                 android:layout_weight="1"
                 android:textColor="@color/black"
-                android:background="@color/white"
                 android:text="0" />
 
             <TextView
@@ -74,8 +72,7 @@
                 android:layout_weight="1"
                 android:textSize="14sp"
                 android:text="0"
-                android:textColor="@color/black"
-                android:background="@color/white"/>
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

@@ -52,7 +52,7 @@ class EditShippingFareActivity : AppCompatActivity(){
     var MMKV_width: String = ""
     var MMKV_height: String = ""
     var sync_to_shop = false
-    lateinit var productInfoList :  ProductInfoBean
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +63,8 @@ class EditShippingFareActivity : AppCompatActivity(){
         MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
         MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
         MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+
+        binding.progressBar6.visibility = View.GONE
 
 
         initVM()
@@ -111,7 +113,7 @@ class EditShippingFareActivity : AppCompatActivity(){
         if (fare_datas_size != null && fare_datas_size.toInt() >=1 ) {
 
             for (i in 0..fare_datas_size.toInt()-1!!) {
-                mutableList_itemShipingFare.add(GsonProvider.gson.fromJson( MMKV.mmkvWithID("addPro").getString("value_fare_item${i}",""), ItemShippingFare::class.java))
+                mutableList_itemShipingFare.add(GsonProvider.gson.fromJson( MMKV.mmkvWithID("editPro").getString("value_fare_item${i}",""), ItemShippingFare::class.java))
             }
 
         }
@@ -227,50 +229,80 @@ class EditShippingFareActivity : AppCompatActivity(){
                 MMKV.mmkvWithID("editPro").putString("value_fare_item${i}", jsonTutList_mutableList_itemShipingFare)
             }
 
+
+            //將從API取出的資料以ItemShippingFare的形式存取並裝成mutableList_itemShipingFare_filtered
+            for (i in 0..datas_ship_method_and_fare.size - 1) {
+
+                if(datas_ship_method_and_fare[i].shipment_desc != ""){
+                    if( datas_ship_method_and_fare[i].price.isNullOrEmpty()){
+                        mutableList_itemShipingFare_filtered.add(
+                            ItemShippingFare_Filtered(datas_ship_method_and_fare[i].shipment_desc, 0, datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)
+                        )
+                    }else{
+                        mutableList_itemShipingFare_filtered.add(
+                            ItemShippingFare_Filtered(datas_ship_method_and_fare[i].shipment_desc, datas_ship_method_and_fare[i].price.toInt(), datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)
+                        )
+                    }
+
+                }
+            }
+            MMKV.mmkvWithID("editPro").putString("fare_datas_filtered_size", mutableList_itemShipingFare_filtered.size.toString())
+
+            //mutableList_itemShipingFare_filtered一個個項目裝進mmkv，避免mmkv filtered item ID錯亂，保持以流水號型式
+            for(i in 0..mutableList_itemShipingFare_filtered.size-1){
+
+                var json_shippingItem = GsonProvider.gson.toJson(mutableList_itemShipingFare_filtered.get(i))
+                MMKV.mmkvWithID("editPro").putString("value_fare_item_filtered${i}",json_shippingItem)
+
+            }
+
+
             //篩選所有已勾選的運費方式
             for (i in 0..datas_ship_method_and_fare.size-1!!) {
                 if(datas_ship_method_and_fare[i].onoff == "on" ){
-                    mutableList_itemShipingFare_filtered.add(
-                        ItemShippingFare_Filtered(datas_ship_method_and_fare[i].shipment_desc, datas_ship_method_and_fare[i].price.toInt(), datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)
+                    mutableList_itemShipingFare_certained.add(
+                        ItemShippingFare_Certained(datas_ship_method_and_fare[i].shipment_desc, datas_ship_method_and_fare[i].price.toString(), datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)
                     )
                 }
             }
 
             //MMKV放入已經確定勾選的Fare Item Size
-            if(mutableList_itemShipingFare_filtered.size.toString() != ""){
-                MMKV.mmkvWithID("editPro").putString("fare_datas_filtered_size", mutableList_itemShipingFare_filtered.size.toString())
+            if(mutableList_itemShipingFare_certained.size.toString() != ""){
+                MMKV.mmkvWithID("editPro").putString("fare_datas_certained_size", mutableList_itemShipingFare_certained.size.toString())
             }else{
-                MMKV.mmkvWithID("editPro").putString("fare_datas_filtered_size", "0")
+                MMKV.mmkvWithID("editPro").putString("fare_datas_certained_size", "0")
 
             }
-            Log.d("check_content","fare_datas_filtered_size : ${mutableList_itemShipingFare_filtered.size.toString()}")
+            Log.d("check_content","fare_datas_certained_size : ${mutableList_itemShipingFare_certained.size.toString()}")
 
-            for (i in 0..mutableList_itemShipingFare_filtered.size-1!!) {
-                val jsonTutList_mutableList_itemShipingFare_filtered: String = GsonProvider.gson.toJson(mutableList_itemShipingFare_filtered[i])
-                MMKV.mmkvWithID("editPro").putString("value_fare_item_filtered${i}", jsonTutList_mutableList_itemShipingFare_filtered)
+            for (i in 0..mutableList_itemShipingFare_certained.size-1!!) {
+                val jsonTutList_mutableList_itemShipingFare_certained: String = GsonProvider.gson.toJson(mutableList_itemShipingFare_certained[i])
+                MMKV.mmkvWithID("editPro").putString("value_fare_item_certained${i}", jsonTutList_mutableList_itemShipingFare_certained)
 
             }
 
-            value_txtViewFareRange = fare_pick_max_and_min_num(mutableList_itemShipingFare_filtered.size)
+            value_txtViewFareRange = fare_pick_max_and_min_num(mutableList_itemShipingFare_certained.size)
             MMKV.mmkvWithID("editPro").putString("value_txtViewFareRange", value_txtViewFareRange)
 
-            //取出所有Fare Item(拿掉btn_delete參數)
-            for(i in 0..datas_ship_method_and_fare.size!!-1){
-                //去除btn_delete參數重新創造List(資料庫存取用)
-                if(datas_ship_method_and_fare[i].shipment_desc != ""){
-                    mutableList_itemShipingFare_certained.add(ItemShippingFare_Certained(datas_ship_method_and_fare[i].shipment_desc, datas_ship_method_and_fare[i].price, datas_ship_method_and_fare[i].onoff, datas_ship_method_and_fare[i].shop_id)) //傳輸API需要
-                }
-            }
+
+
 
             val gson = Gson()
             val gsonPretty = GsonBuilder().setPrettyPrinting().create()
 
-            val jsonTutList_fare: String = gson.toJson(mutableList_itemShipingFare_certained)
+            val jsonList_shipment_all: String = gson.toJson(mutableList_itemShipingFare_filtered)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_filtered.toString())
+            val jsonList_shipment_all_pretty: String = gsonPretty.toJson(mutableList_itemShipingFare_filtered)
+            Log.d("AddNewProductActivity", mutableList_itemShipingFare_filtered.toString())
+
+            val jsonList_shipment_certained: String = gson.toJson(mutableList_itemShipingFare_certained)
             Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
-            val jsonTutListPretty_fare: String = gsonPretty.toJson(mutableList_itemShipingFare_certained)
+            val jsonList_shipment_certained_pretty: String = gsonPretty.toJson(mutableList_itemShipingFare_certained)
             Log.d("AddNewProductActivity", mutableList_itemShipingFare_certained.toString())
 
-            MMKV.mmkvWithID("editPro").putString("jsonTutList_fare", jsonTutList_fare)
+
+            MMKV.mmkvWithID("editPro").putString("jsonList_shipment_all", jsonList_shipment_all)
+            MMKV.mmkvWithID("editPro").putString("jsonList_shipment_certained", jsonList_shipment_certained)
 
 
             //sync prodcut fare settings to Shop fare setting
@@ -278,9 +310,9 @@ class EditShippingFareActivity : AppCompatActivity(){
             Log.d("MMKV_shop_id", MMKV_shop_id.toString())
             if(sync_to_shop == true){
 
-                VM.syncShippingfare(this, MMKV_shop_id, jsonTutList_fare)
-            }
+                VM.syncShippingfare(this, MMKV_shop_id, jsonList_shipment_all)
 
+            }
 
             startActivity(intent)
             finish()
@@ -291,12 +323,19 @@ class EditShippingFareActivity : AppCompatActivity(){
 
     fun initEdit() {
 
+        binding.editPackageWeight.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
         binding.editPackageWeight.singleLine = true
         binding.editPackageWeight.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
                     MMKV_weight = binding.editPackageWeight.text.toString()
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     binding.editPackageWeight.clearFocus()
                     v.hideKeyboard()
@@ -326,12 +365,19 @@ class EditShippingFareActivity : AppCompatActivity(){
         binding.editPackageWeight.addTextChangedListener(textWatcher_datas_packagesWeights)
 
 
-
+        binding.editPackageLength.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
         binding.editPackageLength.singleLine = true
         binding.editPackageLength.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     MMKV_length = binding.editPackageLength.text.toString()
+
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
                     v.hideKeyboard()
                     binding.editPackageLength.clearFocus()
                     true
@@ -360,13 +406,20 @@ class EditShippingFareActivity : AppCompatActivity(){
 
 
 
-
+        binding.editPackageWidth.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
         binding.editPackageWidth.singleLine = true
         binding.editPackageWidth.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
                     MMKV_width = binding.editPackageWidth.text.toString()
+
+
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     binding.editPackageWidth.clearFocus()
                     v.hideKeyboard()
@@ -396,14 +449,18 @@ class EditShippingFareActivity : AppCompatActivity(){
         }
         binding.editPackageWidth.addTextChangedListener(textWatcher_editPackageWidth)
 
-
+        binding.editPackageHeight.setOnFocusChangeListener { v, hasFocus ->
+            if(hasFocus ){
+                RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(false))
+            }
+        }
         binding.editPackageHeight.singleLine = true
         binding.editPackageHeight.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     MMKV_height = binding.editPackageHeight.text.toString()
 
-
+                    RxBus.getInstance().post(EventCheckShipmentEnableBtnOrNot(true))
 
                     binding.editPackageHeight.clearFocus()
                     v.hideKeyboard()
@@ -474,16 +531,16 @@ class EditShippingFareActivity : AppCompatActivity(){
     //計算費用最大最小範圍
     fun fare_pick_max_and_min_num(size: Int): String {
 
-        if(mutableList_itemShipingFare_filtered.size>0){
+        if(mutableList_itemShipingFare_certained.size>0){
             //挑出最大與最小的數字
-            var min: Int =mutableList_itemShipingFare_filtered[0].price.toInt()
-            var max: Int =mutableList_itemShipingFare_filtered[0].price.toInt()
+            var min: Int =mutableList_itemShipingFare_certained[0].price.toInt()
+            var max: Int =mutableList_itemShipingFare_certained[0].price.toInt()
 
             for (f in 1..size-1) {
-                if(mutableList_itemShipingFare_filtered[f].price.toInt() >= min ){
-                    max = mutableList_itemShipingFare_filtered[f].price.toInt()
+                if(mutableList_itemShipingFare_certained[f].price.toInt() >= min ){
+                    max = mutableList_itemShipingFare_certained[f].price.toInt()
                 }else{
-                    min = mutableList_itemShipingFare_filtered[f].price.toInt()
+                    min = mutableList_itemShipingFare_certained[f].price.toInt()
                 }
             }
 

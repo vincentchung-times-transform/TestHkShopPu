@@ -113,6 +113,7 @@ class AddShopBriefActivity : BaseActivity() {
         }
 
         binding.ivAddshopbriefSave.setOnClickListener {
+
             doShopDesUpdate(description)
         }
 

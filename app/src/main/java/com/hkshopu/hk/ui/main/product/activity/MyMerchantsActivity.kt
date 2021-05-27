@@ -121,7 +121,7 @@ class MyMerchantsActivity : BaseActivity() {
 
         binding.ivBack.setOnClickListener {
 
-//            RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus("action"))
+            RxBus.getInstance().post(EventRefreshShopInfo())
             finish()
         }
 

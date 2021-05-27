@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import com.google.gson.Gson
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.component.EventRefreshAddressList
 
 import com.hkshopu.hk.data.bean.*
 
@@ -67,7 +68,9 @@ class ShopAddressListActivity : BaseActivity() {
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
-
+                    is EventRefreshAddressList ->{
+                        getShopAddressList(url)
+                    }
 
                 }
             }, {
@@ -101,6 +104,8 @@ class ShopAddressListActivity : BaseActivity() {
                                 list.add(0,shopAddressListBean)
                                 binding.switchview.openSwitcher()
                             }else{
+
+                                binding.switchview.closeSwitcher()
                                 list.add(shopAddressListBean)
                             }
 
@@ -108,8 +113,11 @@ class ShopAddressListActivity : BaseActivity() {
 
                         }
 
-                        adapter.setData(list)
+
                         runOnUiThread {
+
+                            adapter.setData(list)
+
                             if(list.size > 1){
                                 binding.tvEdit.visibility = View.VISIBLE
                             }

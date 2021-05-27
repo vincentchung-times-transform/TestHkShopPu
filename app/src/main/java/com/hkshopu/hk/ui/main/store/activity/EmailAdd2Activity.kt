@@ -96,6 +96,10 @@ class EmailAdd2Activity : BaseActivity(){
         }
 
         binding.tvSave.setOnClickListener {
+
+            if(email.isNullOrEmpty()){
+                email = email_old
+            }
             Do_ShopEmailUpdate(email,isEmailShow)
         }
 

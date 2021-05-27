@@ -123,6 +123,7 @@ class LoginActivity : BaseActivity(), TextWatcher {
                 Status.Success -> {
                     if(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                         if (it.ret_val!!.equals("該電子郵件已存在!")) {
+
                             settings.edit()
                                 .putString("email", email)
                                 .apply()
@@ -177,9 +178,6 @@ class LoginActivity : BaseActivity(), TextWatcher {
                 putString("rememberEmail", "true")
             }.apply()
 
-            settings.edit().apply {
-                putString("email", email)
-            }.apply()
 
             VM.emailCheck(this,email)
 

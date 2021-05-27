@@ -49,6 +49,7 @@ class EventTransferToFragmentAfterUpdate(val index : Int)
 class EventProductSearch(val keyword: String = "")
 class EventProductDelete(val boolean: Boolean)
 class EventdeleverFragmentAfterUpdateStatus(val action : String)
+class EventRefreshShopInfo
 
 //Other Events (Not Used)
 
@@ -60,6 +61,7 @@ class EventLaunchConfigsSuccess
 class EventRechargeSuccess
 
 class EventRefreshShopList
+class EventRefreshAddressList
 
 class EventRefreshHome
 

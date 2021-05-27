@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -51,12 +52,12 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
         binding = ActivityLoginPasswordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         initDatasFromBundle()
         initView()
-        initEditText()
-        initClick()
         initVM()
 
+        binding.edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance())
     }
 
     //settings of textWatcher
@@ -67,6 +68,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
     override fun afterTextChanged(s: Editable?) {
 //        val email = binding.editEmail.text.toString()
         password = binding.edtPassword.text.toString()
+
         if (password!!.isEmpty()) {
             binding.btnLogin.disable()
         } else {
@@ -116,7 +118,6 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
     private fun initView() {
 
         binding.txtViewLoginEmail.setText(email!!)
-
         binding.titleBack.setOnClickListener {
 
             finish()
@@ -142,7 +143,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
         }
 
         //hide showPassword eye and hidePassword eye show
-        binding.showPassBtn.setOnClickListener {
+        binding.showPassBtnLogin.setOnClickListener {
             ShowHidePass(it)
         }
 
@@ -163,13 +164,15 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
     private fun initEditText() {
 
         binding.edtPassword.addTextChangedListener(this)
+        binding.edtPassword.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(16)))
+
 
         binding.edtPassword.singleLine = true
         binding.edtPassword.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
-                    email = binding.edtPassword.text.toString()
+                    password = binding.edtPassword.text.toString()
 
                     binding.edtPassword.clearFocus()
                     KeyboardUtil.hideKeyboard(binding.edtPassword)
@@ -186,17 +189,17 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
 
 
     fun ShowHidePass(view: View) {
-        if (view.getId() === R.id.show_pass_btn) {
-            if (binding.edtPassword.getTransformationMethod()
-                    .equals(PasswordTransformationMethod.getInstance())
-            ) {
+        if (view.getId() == R.id.show_pass_btn_login) {
+            if (binding.edtPassword.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())) {
                 (view as ImageView).setImageResource(R.mipmap.ic_eyeon)
                 //Show Password
                 binding.edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance())
+
             } else {
                 (view as ImageView).setImageResource(R.mipmap.ic_eyeoff)
                 //Hide Password
                 binding.edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance())
+
             }
         }
     }

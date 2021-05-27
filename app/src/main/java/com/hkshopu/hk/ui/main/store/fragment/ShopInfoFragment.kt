@@ -20,10 +20,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
 import com.hkshopu.hk.R
-import com.hkshopu.hk.component.CommonVariable
-import com.hkshopu.hk.component.EventGetShopCatSuccess
-import com.hkshopu.hk.component.EventTransferToFragmentAfterUpdate
-import com.hkshopu.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.hkshopu.hk.component.*
 import com.hkshopu.hk.data.bean.ShopAddressBean
 import com.hkshopu.hk.data.bean.ShopInfoBean
 import com.hkshopu.hk.databinding.FragmentShopinfoBinding
@@ -155,25 +152,24 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
     @SuppressLint("CheckResult")
     fun initEvent() {
-        var index: Int
-
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
-                    is EventdeleverFragmentAfterUpdateStatus -> {
-                        var action = it.action
+                    is EventRefreshShopInfo -> {
 
+                        Thread(Runnable {
 
-//                        Thread(Runnable {
-//
-//                            activity?.runOnUiThread {
-//
-//                                val shopId = arguments!!.getInt("shop_id", 0)
-//                                var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
-//                                getShopInfo(url)
+//                            try{
+//                                Thread.sleep(1000)
+//                            } catch (e: InterruptedException) {
+//                                e.printStackTrace()
 //                            }
 //
-//                        }).start()
+                            val shopId = arguments!!.getInt("shop_id", 0)
+                            var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
+                            getShopInfo(url)
+
+                        }).start()
 
                     }
 

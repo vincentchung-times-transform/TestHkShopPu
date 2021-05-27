@@ -1,16 +1,18 @@
 package com.hkshopu.hk.ui.main.product.adapter
 
+import MyLinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.view.NestedScrollingParent
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.*
+import com.hkshopu.hk.data.bean.ItemInvenFirstNestedLayer
 import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
 import java.util.*
 
@@ -30,6 +32,8 @@ class InventoryAndPriceSpecNestedAdapter: RecyclerView.Adapter<RecyclerView.View
         var item_spec_name = itemView.findViewById<TextView>(R.id.value_spec)
         val r_view_inventory_spec = itemView.findViewById<RecyclerView>(R.id.r_view_inventory_item_spec)
 
+
+
         init {
 
         }
@@ -46,6 +50,8 @@ class InventoryAndPriceSpecNestedAdapter: RecyclerView.Adapter<RecyclerView.View
                 item_spec_title_name.text = item.spec_desc_1
                 item_spec_column_name.text = item.spec_desc_2
             }
+//                val viewPool = RecycledViewPool()
+//                holder.r_view_inventory_spec.setRecycledViewPool(viewPool)
 
             val mAdapter = InventoryAndPriceSizeNestedAdapter(item.mutableList_itemInvenSecondLayer)
             r_view_inventory_spec.layoutManager =
@@ -72,7 +78,9 @@ class InventoryAndPriceSpecNestedAdapter: RecyclerView.Adapter<RecyclerView.View
         when (holder) {
 
             is FirstLayerViewHolder -> {
+
                 holder.bind(mutableList_InvenSpec[position])
+
 
             }
         }
@@ -84,7 +92,7 @@ class InventoryAndPriceSpecNestedAdapter: RecyclerView.Adapter<RecyclerView.View
     fun updateList(list_spec: MutableList<ItemInvenFirstNestedLayer>, specGroup_only: Boolean) {
         mutableList_InvenSpec = list_spec
         this.specGroup_only = specGroup_only
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
 
     }
 

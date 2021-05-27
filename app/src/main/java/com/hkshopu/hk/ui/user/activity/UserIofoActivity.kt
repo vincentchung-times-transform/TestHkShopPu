@@ -198,7 +198,7 @@ class UserIofoActivity : BaseActivity(), TextWatcher {
         binding.editFirstName.addTextChangedListener(this)
         binding.editlastName.addTextChangedListener(this)
         binding.editmobile.addTextChangedListener(this)
-        binding.editmobile.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(10)))
+        binding.editmobile.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
     }
     fun ShowDatePick(view: View) {
         if (view.getId() === R.id.show_date_btn) {
