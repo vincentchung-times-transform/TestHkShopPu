@@ -5,13 +5,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleOwner
 import com.mallotec.reb.localeplugin.utils.LocaleHelper
-import com.tencent.mmkv.MMKV
+
 
 open class BaseActivity : AppCompatActivity(),LifecycleOwner {
     var isForground = true
     override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
         overrideConfiguration?.setLocale(LocaleHelper.getInstance().getSetLocale())
         super.applyOverrideConfiguration(overrideConfiguration)
+
+
     }
 
     override fun onResume() {

@@ -76,7 +76,7 @@
                     android:layout_marginTop="5dp"
                     android:textSize="14sp"
                     android:background="@color/white"
-                    android:textColor="@color/gray_txt"
+                    android:textColor="@color/bright_gray"
                     android:hint="@string/texHint_InputNameAndCompanyName"/>
 
             </LinearLayout>
@@ -104,7 +104,7 @@
                     android:textSize="14sp"
                     android:layout_marginTop="5dp"
                     android:background="@color/white"
-                    android:textColor="@color/gray_txt"
+                    android:textColor="@color/bright_gray"
                     android:hint="@string/texHint_InputPhoneNumber"/>
 
             </LinearLayout>

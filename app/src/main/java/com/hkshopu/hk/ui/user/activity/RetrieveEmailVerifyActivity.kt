@@ -39,6 +39,9 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
         binding = ActivityRetrieveBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.progressBarRetrieveEmail.visibility = View.GONE
+        binding.ivLoadingBackgroundRetrieveEmail.visibility = View.GONE
+
         //local資料存取
         settings = this.getSharedPreferences("DATA", 0)
         email = settings.getString("email", "").toString()
@@ -57,6 +60,9 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
             when (it?.status) {
                 Status.Success -> {
 
+                    binding.progressBarRetrieveEmail.visibility = View.GONE
+                    binding.ivLoadingBackgroundRetrieveEmail.visibility = View.GONE
+
                     if (it.ret_val.toString() == "已寄出驗證碼!") {
                         Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_SHORT).show()
                         Toast.makeText(this, "一分鐘後才能再寄送", Toast.LENGTH_SHORT).show()
@@ -74,6 +80,9 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
         VM.emailverifyLiveData.observe(this, Observer {
             when (it?.status) {
                 Status.Success -> {
+
+                    binding.progressBarRetrieveEmail.visibility = View.GONE
+                    binding.ivLoadingBackgroundRetrieveEmail.visibility = View.GONE
 
                     if (it.ret_val.toString() == "驗證成功!") {
 
@@ -119,6 +128,9 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
 
         binding.btnResend.setOnClickListener {
 
+            binding.progressBarRetrieveEmail.visibility = View.VISIBLE
+            binding.ivLoadingBackgroundRetrieveEmail.visibility = View.VISIBLE
+
             binding.btnResend.setTextColor(Color.parseColor("#48484A"))
             binding.btnResend.isEnabled = false
             Timer().schedule(60000) {
@@ -131,6 +143,9 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
         }
 
         binding.btnAuthenticate.setOnClickListener {
+
+            binding.progressBarRetrieveEmail.visibility = View.VISIBLE
+            binding.ivLoadingBackgroundRetrieveEmail.visibility = View.VISIBLE
 
             number1 = binding.edtAuthenticate01.text.toString()
             number2 = binding.edtAuthenticate02.text.toString()

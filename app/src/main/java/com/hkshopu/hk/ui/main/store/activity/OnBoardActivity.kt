@@ -1,11 +1,16 @@
 package com.hkshopu.hk.ui.main.store.activity
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Point
+import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -30,6 +35,7 @@ import com.hkshopu.hk.databinding.ActivityOnboardBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
+import com.hkshopu.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
 import com.hkshopu.hk.ui.user.activity.BuildAccountActivity
 import com.hkshopu.hk.ui.user.activity.LoginActivity
 import com.hkshopu.hk.ui.user.vm.AuthVModel
@@ -40,6 +46,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 
 class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
@@ -67,6 +74,18 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        var height = 0
+        var width = getScreenWidth(this)
+
+        MMKV.mmkvWithID("phone_size").putInt("height",height)
+        MMKV.mmkvWithID("phone_size").putInt("width",width)
+
+        runOnUiThread {
+            binding.progressBarShopInfo.visibility = View.GONE
+            binding.ivLoadingBackgroundShopInfo.visibility = View.GONE
+        }
+
+
         callbackManager = CallbackManager.Factory.create()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestId()
@@ -80,6 +99,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
         initVM()
         initClick()
+
 
     }
 
@@ -206,13 +226,17 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
         binding.btnGoogle.setOnClickListener {
 
+
             GoogleSignIn()
+
+
         }
 
         binding.btnSignup.setOnClickListener {
 
             val intent = Intent(this, BuildAccountActivity::class.java)
             startActivity(intent)
+
         }
 
         binding.tvLogin.setOnClickListener {
@@ -226,12 +250,12 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
-            val intent = Intent(this, ShopmenuActivity::class.java)
-            startActivity(intent)
 
-//            val intent = Intent(this, AddNewProductActivity::class.java)
+//            val intent = Intent(this, ShopmenuActivity::class.java)
 //            startActivity(intent)
-//            finish()
+
+            val intent = Intent(this, ProductDetailedPageBuyerViewActivity::class.java)
+            startActivity(intent)
 
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)
@@ -284,39 +308,147 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     }
 
     private fun GoogleSignIn() {
+
         val signInIntent = mGoogleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
+
     }
+
     private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
         var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
+                var user_id: Int = 0
+                var ret_val: Any = ""
+                var status: Any = 999
                 try {
+
+                    runOnUiThread {
+                        binding.progressBarShopInfo.visibility = View.VISIBLE
+                        binding.ivLoadingBackgroundShopInfo.visibility = View.VISIBLE
+                    }
+
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
+
                     Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
                     Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    val status = json.get("status")
+
+                    ret_val = json.get("ret_val")
+                    status = json.get("status")
+
                     if (status != 0) {
-                        var user_id: Int = json.getInt("user_id")
+                        user_id= json.getInt("user_id")
 
                         MMKV.mmkvWithID("http").putInt("UserId", user_id)
                             .putString("Email",email)
+
+                        doInsertAuditLog(user_id,
+                            "第三方登入/doSocialLogin()",
+                            "email: ${email.toString()} ; " +
+                                    "facebook_account: ${facebook_account} ; " +
+                                    "google_account : ${google_account} ; " +
+                                    "apple_account : ${apple_account} ; ",
+                            json.get("ret_val").toString()
+                        )
+
                         val intent = Intent(this@OnBoardActivity, ShopmenuActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
+
+                        var user_id: Int = json.getInt("user_id")
+
+                        doInsertAuditLog(user_id,
+                            "第三方登入/doSocialLogin()",
+                            "email: ${email.toString()} ; " +
+                                    "facebook_account: ${facebook_account} ; " +
+                                    "google_account : ${google_account} ; " +
+                                    "apple_account : ${apple_account} ; ",
+                            json.get("ret_val").toString()
+                        )
+
                         runOnUiThread {
+
                             val intent = Intent(this@OnBoardActivity, BuildAccountActivity::class.java)
+
                             startActivity(intent)
                             finish()
                             Toast.makeText(this@OnBoardActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-//                        initRecyclerView()
 
+                        }
+
+
+                    }
+
+                    runOnUiThread {
+                        binding.progressBarShopInfo.visibility = View.GONE
+                        binding.ivLoadingBackgroundShopInfo.visibility = View.GONE
+                    }
+
+                } catch (e: JSONException) {
+
+
+                    doInsertAuditLog(user_id,
+                        "第三方登入/doSocialLogin()",
+                        "email: ${email.toString()} ; " +
+                                "facebook_account: ${facebook_account} ; " +
+                                "google_account : ${google_account} ; " +
+                                "apple_account : ${apple_account} ; ",
+                        ret_val.toString()
+                    )
+
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+
+                    doInsertAuditLog(user_id,
+                        "第三方登入/doSocialLogin()",
+                        "email: ${email.toString()} ; " +
+                                "facebook_account: ${facebook_account} ; " +
+                                "google_account : ${google_account} ; " +
+                                "apple_account : ${apple_account} ; ",
+                        ret_val.toString()
+                    )
+
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
+    }
+
+    private fun doInsertAuditLog(user_id: Int,action: String, parameter_in: String, parameter_out: String) {
+
+        var url = ApiConstants.API_PATH+"user/${user_id}/auditLog/"
+
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+
+                    Log.d("doInsertAuditLog", "返回資料 resStr：" + resStr)
+//                    Log.d("doInsertAuditLog", "返回資料 ret_val：" + json.get("ret_val"))
+
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+
+                    if (status == 0) {
+
+                        if (ret_val.equals("新增成功")){
+                            Log.d("doInsertAuditLog", "訊息狀態：訊息已送出!!")
+                        }else{
+                            Log.d("doInsertAuditLog", "訊息狀態：訊息尚未送出~")
+                        }
+
+                    }
 
                 } catch (e: JSONException) {
 
@@ -329,7 +461,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
             }
         })
-        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
+        web.InsertAuditLog(url, action,parameter_in,parameter_out)
     }
 
 
@@ -340,12 +472,14 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
+
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
                 val id = account.id.toString()
 //                VM.sociallogin(this, email, "", id, "")
                 doSocialLogin(email,"",id,"")
+
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("OnBoardActivity", "Google sign in failed", e)
@@ -395,5 +529,59 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     override fun onPageScrollStateChanged(state: Int) {
 
     }
+
+    fun getScreenWidth(activity: Activity): Int {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.widthPixels
+    }
+
+
+//
+//    screenSizeInDp.apply {
+//        // screen width in dp
+//        textView.append("\n\nWidth : $x dp")
+//
+//        // screen height in dp
+//        textView.append("\nHeight : $y dp")
+//    }
+//}
+//}
+//
+//
+//// extension property to get display metrics instance
+//val Activity.displayMetrics: DisplayMetrics
+//    get() {
+//        // display metrics is a structure describing general information
+//        // about a display, such as its size, density, and font scaling
+//        val displayMetrics = DisplayMetrics()
+//
+//        if (Build.VERSION.SDK_INT >= 30){
+//            display?.apply {
+//                getRealMetrics(displayMetrics)
+//            }
+//        }else{
+//            // getMetrics() method was deprecated in api level 30
+//            windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        }
+//
+//        return displayMetrics
+//    }
+//
+//
+//// extension property to get screen width and height in dp
+//val Activity.screenSizeInDp: Point
+//    get() {
+//        val point = Point()
+//        displayMetrics.apply {
+//            // screen width in dp
+//            point.x = (widthPixels / density).roundToInt()
+//
+//            // screen height in dp
+//            point.y = (heightPixels / density).roundToInt()
+//        }
+//
+//        return point
+//    }
 
 }

@@ -26,7 +26,7 @@ import com.hkshopu.hk.component.EventAddShopSuccess
 import com.hkshopu.hk.component.EventShopCatSelected
 import com.hkshopu.hk.data.bean.ShopCategoryBean
 import com.hkshopu.hk.databinding.ActivityAddshopBinding
-import com.hkshopu.hk.ui.main.product.fragment.StoreOrNotDialogStoreProductsFragment
+import com.hkshopu.hk.ui.main.productSeller.fragment.StoreOrNotDialogStoreProductsFragment
 import com.hkshopu.hk.ui.user.vm.ShopVModel
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.hkshopu.hk.widget.view.KeyboardUtil
@@ -66,7 +66,11 @@ class AddShopActivity : BaseActivity() {
 
         initView()
         initEditText()
-        initClick()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            initClick()
+        }
+
         initEvent()
         initVM()
 
@@ -162,8 +166,11 @@ class AddShopActivity : BaseActivity() {
                             )
 
                             binding.tvStoresort1.visibility = View.VISIBLE
+                            binding.cardViewStoreSort01.visibility = View.VISIBLE
                             binding.tvStoresort2.visibility = View.INVISIBLE
+                            binding.cardViewStoreSort02.visibility = View.INVISIBLE
                             binding.tvStoresort3.visibility = View.INVISIBLE
+                            binding.cardViewStoreSort03.visibility = View.INVISIBLE
 
                         } else if (list.size == 2) {
                             shop_category_id1 = list[0].id
@@ -179,6 +186,7 @@ class AddShopActivity : BaseActivity() {
                                 )
                             )
                             binding.tvStoresort1.visibility = View.VISIBLE
+                            binding.cardViewStoreSort01.visibility = View.VISIBLE
                             binding.tvStoresort2.text = storesort2
                             binding.tvStoresort2.setBackgroundColor(
                                 Color.parseColor(
@@ -186,7 +194,9 @@ class AddShopActivity : BaseActivity() {
                                 )
                             )
                             binding.tvStoresort2.visibility = View.VISIBLE
+                            binding.cardViewStoreSort02.visibility = View.VISIBLE
                             binding.tvStoresort3.visibility = View.INVISIBLE
+                            binding.cardViewStoreSort03.visibility = View.INVISIBLE
                         } else {
                             shop_category_id1 = list[0].id
                             shop_category_id2 = list[1].id
@@ -204,6 +214,7 @@ class AddShopActivity : BaseActivity() {
                                 )
                             )
                             binding.tvStoresort1.visibility = View.VISIBLE
+                            binding.cardViewStoreSort01.visibility = View.VISIBLE
                             binding.tvStoresort2.text = storesort2
                             binding.tvStoresort2.setBackgroundColor(
                                 Color.parseColor(
@@ -211,6 +222,7 @@ class AddShopActivity : BaseActivity() {
                                 )
                             )
                             binding.tvStoresort2.visibility = View.VISIBLE
+                            binding.cardViewStoreSort02.visibility = View.VISIBLE
                             binding.tvStoresort3.text = storesort3
                             binding.tvStoresort3.setBackgroundColor(
                                 Color.parseColor(
@@ -218,6 +230,7 @@ class AddShopActivity : BaseActivity() {
                                 )
                             )
                             binding.tvStoresort3.visibility = View.VISIBLE
+                            binding.cardViewStoreSort03.visibility = View.VISIBLE
                         }
                         binding.layoutStoresortPri.visibility = View.GONE
                         binding.layoutStoresortAct.visibility = View.VISIBLE
@@ -299,7 +312,7 @@ class AddShopActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        binding.tvMoreStoresort.setOnClickListener {
+        binding.layoutStoresortPri.setOnClickListener {
             var bundle = Bundle()
             bundle.putBoolean("toShopFunction",false)
             val intent = Intent(this, ShopCategoryActivity::class.java)
@@ -311,7 +324,7 @@ class AddShopActivity : BaseActivity() {
 
 
     private fun initEditText() {
-        binding.etShopname.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(15)))
+        binding.etShopname.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(50)))
         binding.etShopname.doAfterTextChanged {
             shopName = binding.etShopname.text.toString()
 

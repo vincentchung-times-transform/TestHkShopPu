@@ -37,7 +37,7 @@
     <color name="editbox_color">#E5E5EA</color>
     <color name="hkshop_color">#1DBCCF</color>
     <color name="hkshop_color_shadow">#1A1DBCCF</color>
-    <color name="gray_txt">#8E8E93</color>
+    <color name="bright_gray">#8E8E93</color>
     <color name="hkshop_color_bg">#1A1DBCCF</color>
     <color name="customborder_gray">#E9E9EB</color>
     <color name="loginpage_white">#E5E5E5</color>
@@ -48,4 +48,8 @@
 <!--商品-->
     <color name="unselected_points_products">#D8D8D8</color>
     <color name="selected_points_products">#8E8E93</color>
+<!--    商品(買家)-->
+    <color name="bright_red">#FC4D3F</color>
+    <color name="light_gray_F6F6F6">#F6F6F6</color>
+    <color name="light_gray_E5E5EA">#E5E5EA</color>
 </resources>

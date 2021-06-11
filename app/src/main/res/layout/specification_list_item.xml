@@ -15,7 +15,7 @@
         android:layout_marginStart="2dp">
 
         <ImageView
-            android:id="@+id/btn_cancel_specification"
+            android:id="@+id/btn_delete_specification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -27,7 +27,7 @@
             android:id="@+id/edt_specification_text"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
-            android:layout_toRightOf="@id/btn_cancel_specification"
+            android:layout_toRightOf="@id/btn_delete_specification"
             android:background="@drawable/customborder_specification"
             android:imeOptions="actionDone"
             android:hint="     "

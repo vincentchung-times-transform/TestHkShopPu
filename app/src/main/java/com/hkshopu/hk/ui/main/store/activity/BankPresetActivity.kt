@@ -142,7 +142,9 @@ class BankPresetActivity : BaseActivity() {
 
                         runOnUiThread {
                             val intent = Intent(this@BankPresetActivity, BankListActivity::class.java)
+
                             RxBus.getInstance().post(EventSyncBank())
+
                             startActivity(intent)
                             finish()
                             Toast.makeText(this@BankPresetActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()

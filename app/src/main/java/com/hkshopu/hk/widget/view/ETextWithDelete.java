@@ -11,11 +11,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-import com.hkshopu.hk.R;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
-
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
+
+import com.hkshopu.hk.R;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 /**
  * @author: adan
@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat;
  * @date: 2016-02-28
  * @time: 23:34
  */
+
 public class ETextWithDelete extends AppCompatEditText implements View.OnFocusChangeListener {
     private Drawable drawable;
     private Context mContext;

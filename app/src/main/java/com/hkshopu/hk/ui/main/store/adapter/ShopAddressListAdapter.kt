@@ -4,10 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
 import com.hkshopu.hk.application.App
@@ -89,19 +86,25 @@ class ShopAddressListAdapter : RecyclerView.Adapter<ShopAddressListAdapter.BankL
         viewHolder.address.text = address
 
         if(item.is_default.equals("Y")){
-
             viewHolder.preset.visibility = View.VISIBLE
-
+            viewHolder.container_address_item.setBackgroundResource(R.drawable.customborder_onboard_16dp_down)
+        }else{
+            viewHolder.preset.visibility = View.GONE
+            viewHolder.container_address_item.setBackgroundResource(R.drawable.customborder_onboard_8dp)
         }
+
         viewHolder.preset.setOnClickListener {
 
             intentClick?.invoke(item.id)
+
         }
 
 //        if(item.is_default.isEmpty()||item.is_default.equals("null")) {
             if (cancel_inner) {
                 if(item.is_default.equals("N")){
                     viewHolder.cancel.visibility = View.VISIBLE
+                }else{
+                    viewHolder.cancel.visibility = View.GONE
                 }
             } else {
                 viewHolder.cancel.visibility = View.GONE
@@ -111,6 +114,9 @@ class ShopAddressListAdapter : RecyclerView.Adapter<ShopAddressListAdapter.BankL
                 cancelClick?.invoke(item.id)
             }
 //        }
+
+
+
     }
 
     interface OnItemClickListener {
@@ -123,6 +129,7 @@ class ShopAddressListAdapter : RecyclerView.Adapter<ShopAddressListAdapter.BankL
         var name = itemView.find<TextView>(R.id.tv_shopname)
         var phone = itemView.find<TextView>(R.id.tv_shopphone)
         val address = itemView.find<TextView>(R.id.tv_shopaddress)
+        var container_address_item = itemView.find<LinearLayout>(R.id.container_address_item)
 
 
     }

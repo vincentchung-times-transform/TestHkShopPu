@@ -60,6 +60,9 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
         binding = ActivityBuildacntBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.progressBarBuildAccount.visibility = View.GONE
+        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+
         callbackManager = CallbackManager.Factory.create()
 
         settings = getSharedPreferences("DATA",0)
@@ -302,36 +305,143 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
         }
     }
 
+
     private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
         var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
+                var user_id: Int = 0
+                var ret_val: Any = ""
+                var status: Any = 999
                 try {
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccount.visibility = View.VISIBLE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.VISIBLE
+                    }
+
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
+
                     Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
                     Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    val status = json.get("status")
+
+                    ret_val = json.get("ret_val")
+                    status = json.get("status")
+
                     if (status != 0) {
-                        var user_id: Int = json.getInt("user_id")
+                        user_id= json.getInt("user_id")
 
                         MMKV.mmkvWithID("http").putInt("UserId", user_id)
                             .putString("Email",email)
+
+                        doInsertAuditLog(user_id,
+                            "第三方登入/doSocialLogin()",
+                            "email: ${email.toString()} ; " +
+                                    "facebook_account: ${facebook_account} ; " +
+                                    "google_account : ${google_account} ; " +
+                                    "apple_account : ${apple_account} ; ",
+                            json.get("ret_val").toString()
+                        )
+
                         val intent = Intent(this@BuildAccountActivity, ShopmenuActivity::class.java)
                         startActivity(intent)
                         finish()
                     } else {
+
+                        var user_id: Int = json.getInt("user_id")
+
+                        doInsertAuditLog(user_id,
+                            "第三方登入/doSocialLogin()",
+                            "email: ${email.toString()} ; " +
+                                    "facebook_account: ${facebook_account} ; " +
+                                    "google_account : ${google_account} ; " +
+                                    "apple_account : ${apple_account} ; ",
+                            json.get("ret_val").toString()
+                        )
+
                         runOnUiThread {
+
                             val intent = Intent(this@BuildAccountActivity, BuildAccountActivity::class.java)
+
                             startActivity(intent)
                             finish()
                             Toast.makeText(this@BuildAccountActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
-                        }
-                    }
-//                        initRecyclerView()
 
+                        }
+
+
+                    }
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccount.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                    }
+
+                } catch (e: JSONException) {
+
+
+                    doInsertAuditLog(user_id,
+                        "第三方登入/doSocialLogin()",
+                        "email: ${email.toString()} ; " +
+                                "facebook_account: ${facebook_account} ; " +
+                                "google_account : ${google_account} ; " +
+                                "apple_account : ${apple_account} ; ",
+                        ret_val.toString()
+                    )
+
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+
+                    doInsertAuditLog(user_id,
+                        "第三方登入/doSocialLogin()",
+                        "email: ${email.toString()} ; " +
+                                "facebook_account: ${facebook_account} ; " +
+                                "google_account : ${google_account} ; " +
+                                "apple_account : ${apple_account} ; ",
+                        ret_val.toString()
+                    )
+
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+            }
+        })
+        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
+    }
+
+
+    private fun doInsertAuditLog(user_id: Int,action: String, parameter_in: String, parameter_out: String) {
+
+        var url = ApiConstants.API_PATH+"user/${user_id}/auditLog/"
+
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+
+                    Log.d("doInsertAuditLog", "返回資料 resStr：" + resStr)
+//                    Log.d("doInsertAuditLog", "返回資料 ret_val：" + json.get("ret_val"))
+
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+
+                    if (status == 0) {
+
+                        if (ret_val.equals("新增成功")){
+                            Log.d("doInsertAuditLog", "訊息狀態：訊息已送出!!")
+                        }else{
+                            Log.d("doInsertAuditLog", "訊息狀態：訊息尚未送出~")
+                        }
+
+                    }
 
                 } catch (e: JSONException) {
 
@@ -344,8 +454,9 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
 
             }
         })
-        web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
+        web.InsertAuditLog(url, action,parameter_in,parameter_out)
     }
+
 
 
 }

@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_shopaddressEdit"
+    android:background="@color/color_shopbg"
     android:importantForAutofill="noExcludeDescendants">
 
     <RelativeLayout
@@ -84,6 +85,7 @@
             android:textColorHint="@color/colorTextlightGray"
             android:inputType="text"
             android:singleLine="true"
+            android:imeOptions="actionDone"
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:textSize="14sp"
@@ -142,6 +144,8 @@
                 android:paddingStart="24dp"
                 android:paddingEnd="0dp"
                 android:hint="@string/shopphone_input"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:inputType="phone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:textSize="14sp" />
@@ -186,6 +190,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/region"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -201,6 +207,8 @@
                 android:layout_marginStart="18dp"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/admin"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingLeft="16dp"
@@ -225,6 +233,8 @@
                 android:layout_weight="5"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/thoroughfare"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -239,6 +249,8 @@
                 android:layout_marginStart="18dp"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/feature"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -262,6 +274,8 @@
                 android:layout_height="44dp"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/subaddress"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -288,6 +302,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/floor"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -302,6 +318,8 @@
                 android:layout_marginStart="18dp"
                 android:background="@drawable/bg_edit_shopaddress"
                 android:hint="@string/room"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColorHint="@color/colorTextlightGray"
                 android:inputType="text"
                 android:paddingStart="16dp"
@@ -310,16 +328,15 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <ImageView
         android:id="@+id/iv_save"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:src="@mipmap/ic_save_en"
-        android:contentDescription="@string/empty"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/layout_shopaddressHead"
-        android:layout_marginTop="176dp"/>
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

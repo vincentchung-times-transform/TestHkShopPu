@@ -1,21 +1,24 @@
 package com.hkshopu.hk.ui.main.store.fragment
 
 
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
-import android.widget.ImageView
-import androidx.core.view.isVisible
+import android.view.View.MeasureSpec
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.gson.Gson
@@ -27,14 +30,14 @@ import com.hkshopu.hk.databinding.FragmentShopinfoBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
-import com.hkshopu.hk.ui.main.product.activity.MyMerchantsActivity
+import com.hkshopu.hk.ui.main.productSeller.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.productSeller.activity.MyMerchantsActivity
 import com.hkshopu.hk.ui.main.store.activity.*
 import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
-import org.jetbrains.anko.find
+import org.jetbrains.anko.support.v4.viewPager
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -60,14 +63,20 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentShopinfoBinding.bind(view)
+        fragmentShopInfoBinding = binding
+
+        binding!!.progressBarShopInfo.visibility = View.VISIBLE
+        binding!!.ivLoadingBackgroundShopInfo.visibility = View.VISIBLE
+
+
         val shopId = arguments!!.getInt("shop_id", 0)
         MMKV.mmkvWithID("http").putInt(
             "ShopId",
             shopId
         )
         var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
-        binding = FragmentShopinfoBinding.bind(view)
-        fragmentShopInfoBinding = binding
+
 
         initView()
         getShopInfo(url)
@@ -86,6 +95,8 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             false
         })
 
+        initEvent()
+
 
     }
 
@@ -93,7 +104,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
     fun initView() {
 
-        binding!!.progressBar5.visibility = View.GONE
         binding!!.ivAddmerchant.visibility = View.GONE
 
         initClick()
@@ -104,6 +114,8 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     }
 
     private fun initFragment() {
+
+
 
         binding!!.mviewPager.adapter = object : FragmentStateAdapter(this) {
 
@@ -117,20 +129,47 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
         }
 
+
+        binding!!.mviewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                val view = ResourceStore.pagerFragments[0].view
+                view!!.post {
+                    val wMeasureSpec = MeasureSpec.makeMeasureSpec(view.width, MeasureSpec.EXACTLY)
+                    val hMeasureSpec = MeasureSpec.makeMeasureSpec(view.height, MeasureSpec.UNSPECIFIED)
+                    view!!.measure(wMeasureSpec, hMeasureSpec)
+
+                    if (binding!!.mviewPager.layoutParams.height != view.measuredHeight) {
+                        // ParentViewGroup is, for example, LinearLayout
+                        // ... or whatever the parent of the ViewPager2 is
+                        binding!!.mviewPager.layoutParams = (binding!!.mviewPager.layoutParams as ViewGroup.LayoutParams)
+                            .also { lp -> lp.height = view.measuredHeight }
+                    }
+                }
+            }
+        })
+
+        binding!!.mviewPager.setUserInputEnabled(false)
+
         TabLayoutMediator(binding!!.tabs, binding!!.mviewPager) { tab, position ->
             tab.text = getString(ResourceStore.tabList[position])
         }.attach()
-        binding!!.mviewPager.setUserInputEnabled(false);
 
 
         binding!!.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab!!.position){
                     0->{
+
                         binding!!.ivAddmerchant.visibility = View.GONE
+
+
                     }
                     1->{
-                        binding!!.ivAddmerchant.visibility = View.VISIBLE
+
+//                        binding!!.ivAddmerchant.visibility = View.VISIBLE
+
                     }
                 }
 
@@ -142,7 +181,11 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+
 //        binding.setViewPager(binding.mviewPager, arrayOf(getString(R.string.product),getString(R.string.info)))
+
+
+
     }
 
 
@@ -152,12 +195,16 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
     @SuppressLint("CheckResult")
     fun initEvent() {
+
+        var boolean = false
+
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
                     is EventRefreshShopInfo -> {
 
                         Thread(Runnable {
+
 
 //                            try{
 //                                Thread.sleep(1000)
@@ -167,9 +214,24 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 //
                             val shopId = arguments!!.getInt("shop_id", 0)
                             var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
+
                             getShopInfo(url)
 
+
                         }).start()
+
+                    }
+
+                    is EventAddProductButtonVisibility -> {
+                        boolean = it.boolean
+
+                        if(boolean){
+                            binding!!.ivAddmerchant.visibility = View.VISIBLE
+
+                        }else{
+                            binding!!.ivAddmerchant.visibility = View.GONE
+                        }
+
 
                     }
 
@@ -246,10 +308,6 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                 val shop_category_id_list = ArrayList<String>()
                 shop_category_id_list.clear()
                 try {
-                    activity!!.runOnUiThread {
-                        binding!!.progressBar5.visibility = View.VISIBLE
-
-                    }
 
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
@@ -295,6 +353,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
 
                         RxBus.getInstance().post(EventGetShopCatSuccess(shop_category_id_list))
+
                         activity!!.runOnUiThread {
                             binding!!.tvShoptitle.text = list[0].shop_title
                             binding!!.myProduct.text = list[0].product_count.toString()
@@ -302,8 +361,12 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                             binding!!.myLikes.text = list[0].follower.toString()
                             binding!!.myIncome.text = list[0].income.toString()
                             binding!!.ivShopImg.loadNovelCover(list[0].shop_icon)
+
                             MMKV.mmkvWithID("http").putString("shoptitle", list[0].shop_title)
                                 .putString("description",list[0].long_description)
+
+                            RxBus.getInstance().post(EventAddShopBriefSuccess(list[0].long_description))
+
                             list[0].email_on ?. let {
                                 if (list[0].email_on.equals("Y")) {
                                     MMKV.mmkvWithID("http").putString("email_on", list[0].email_on)
@@ -317,10 +380,17 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
 
 
                     }
+
+
+
 //                        initRecyclerView()
 
+
+
                     activity!!.runOnUiThread {
-                        binding!!.progressBar5.visibility = View.GONE
+
+                        binding!!.progressBarShopInfo.visibility = View.GONE
+                        binding!!.ivLoadingBackgroundShopInfo.visibility = View.GONE
 
                     }
 
@@ -350,8 +420,5 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             binding!!.ivShopImg.setImageURI(imageUri)
         }
     }
-
-
-
 
 }

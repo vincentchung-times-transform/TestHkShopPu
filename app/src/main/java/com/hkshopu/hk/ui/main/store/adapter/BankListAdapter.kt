@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hkshopu.hk.R
@@ -65,31 +66,43 @@ class BankListAdapter : RecyclerView.Adapter<BankListAdapter.BankListLinearHolde
     }
     var cancelClick: ((id: String) -> Unit)? = null
     var toPresetClick: ((id: String) -> Unit)? = null
+
     override fun onBindViewHolder(holder: BankListLinearHolder, position: Int) {
         val viewHolder: BankListLinearHolder = holder
         val item = mData.get(position)
         viewHolder.code.text = item.code
         viewHolder.name.text = item.name
         viewHolder.number.text = item.account
+
         if(item.is_default.equals("Y")){
             viewHolder.preset.visibility = View.VISIBLE
+            viewHolder.container_bank_item.setBackgroundResource(R.drawable.customborder_onboard_16dp_down)
         }else{
             viewHolder.preset.visibility = View.GONE
+            viewHolder.container_bank_item.setBackgroundResource(R.drawable.customborder_onboard_8dp)
         }
+
+
         viewHolder.preset.setOnClickListener {
             toPresetClick?.invoke("go")
         }
-        if(item.is_default.isEmpty()||item.is_default.equals("N")) {
-            if (cancel_inner) {
+
+        if (cancel_inner) {
+            if(item.is_default.isEmpty()||item.is_default.equals("N")) {
                 viewHolder.cancel.visibility = View.VISIBLE
-            } else {
+            }else{
                 viewHolder.cancel.visibility = View.GONE
             }
-            viewHolder.cancel.setOnClickListener {
-                removeItem(position)
-                cancelClick?.invoke(item.id)
-            }
+
+        } else {
+            viewHolder.cancel.visibility = View.GONE
         }
+
+        viewHolder.cancel.setOnClickListener {
+            removeItem(position)
+            cancelClick?.invoke(item.id)
+        }
+
     }
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int,bean:ItemData)
@@ -101,6 +114,7 @@ class BankListAdapter : RecyclerView.Adapter<BankListAdapter.BankListLinearHolde
         val code = itemView.find<TextView>(R.id.tv_code)
         var name = itemView.find<TextView>(R.id.tv_name)
         var number = itemView.find<TextView>(R.id.tv_number)
+        var container_bank_item = itemView.find<LinearLayout>(R.id.container_bank_item)
 
 
     }

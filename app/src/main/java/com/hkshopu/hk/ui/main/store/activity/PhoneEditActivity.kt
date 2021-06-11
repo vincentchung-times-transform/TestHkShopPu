@@ -59,6 +59,7 @@ class PhoneEditActivity : BaseActivity(){
 
             phone_number = binding.editShopphoneNumber.text.toString()
             phone_country = binding.tvShopphoneCountry.text.toString()
+            phone_country = binding.tvShopphoneCountry.text.toString().replace("+", "", false)
             phone_pass = phone_country + phone_number
 
         }
@@ -117,7 +118,6 @@ class PhoneEditActivity : BaseActivity(){
                 }
             }
         })
-
 
     }
 

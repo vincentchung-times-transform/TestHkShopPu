@@ -5,17 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.product.activity.EditProductActivity">
+    tools:context=".ui.main.productSeller.activity.EditProductActivity">
 
 
     <ProgressBar
-        android:id="@+id/progressBar3"
+        android:id="@+id/progressBar_edit_product"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="10dp"
+        android:elevation="20dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/imgView_loading_background_edit_product"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:src="@drawable/customview_loading_background" />
+
 
     <RelativeLayout
         android:id="@+id/titleBar"
@@ -96,6 +104,7 @@
                     android:id="@+id/txtView_productname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:text="@string/txtview_productname"/>
                 <EditText
@@ -103,6 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
+                    android:textColor="@color/dark_gray"
+                    android:textColorHint="@color/bright_gray"
                     android:singleLine="true"
                     android:imeOptions="actionDone"
                     android:layout_below="@id/txtView_productname"
@@ -133,6 +144,8 @@
                     android:id="@+id/editText_entry_product_discription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/dark_gray"
+                    android:textColorHint="@color/bright_gray"
                     android:layout_below="@id/txtView_productdescription"
                     android:hint="@string/hint_editproductdescription"
                     android:singleLine="false"
@@ -150,8 +163,6 @@
                 android:layout_marginTop="8dp"
                 android:paddingLeft="30dp"
                 android:paddingRight="30dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
@@ -159,6 +170,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:text="@string/txtview_category"/>
 
@@ -166,6 +178,8 @@
                     android:id="@+id/textView_seleted_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/dark_gray"
                     android:text=""/>
                 <ImageView
                     android:id="@+id/btn_addcategory"
@@ -255,6 +269,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
@@ -324,6 +339,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
@@ -365,6 +381,8 @@
                                 android:inputType="number"
                                 android:singleLine="true"
                                 android:textAlignment="textEnd"
+                                android:textColor="@color/dark_gray"
+                                android:textColorHint="@color/bright_gray"
                                 android:textSize="14sp" />
 
                         </RelativeLayout>
@@ -387,6 +405,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
@@ -411,6 +430,8 @@
                             android:layout_height="match_parent"
                             android:hint="@string/txtview_quantityinput"
                             android:background="@color/white"
+                            android:textColor="@color/dark_gray"
+                            android:textColorHint="@color/bright_gray"
                             android:singleLine="true"
                             android:inputType="number"
                             android:textAlignment="textEnd"
@@ -448,6 +469,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
                         android:textColor="@color/black"
@@ -459,7 +481,7 @@
                         android:textSize="14sp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:textColor="@color/gray_txt"
+                        android:textColor="@color/dark_gray"
                         android:text=""/>
 
                     <ImageView
@@ -528,6 +550,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct"
@@ -543,7 +566,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
                     android:text="@string/textView_needMoreTimeToStockUp"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
                 <EditText
                     android:id="@+id/edit_more_time_input"
@@ -551,6 +574,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginBottom="12dp"
+                    android:textColor="@color/dark_gray"
+                    android:textColorHint="@color/bright_gray"
                     android:textAlignment="textEnd"
                     android:layout_weight="1"
                     android:singleLine="true"

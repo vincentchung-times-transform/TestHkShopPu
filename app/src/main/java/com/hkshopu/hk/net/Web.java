@@ -46,6 +46,32 @@ public class Web {
 
     }
 
+    public void InsertAuditLog(String url, String action, String parameter_in, String parameter_out) {
+
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("action", action)
+                .add("parameter_in", parameter_in)
+                .add("parameter_out", parameter_out)
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
 
     public void Get_Data(String url) {
 
@@ -605,13 +631,13 @@ public class Web {
     }
 
 
-    public void Do_ShopBankAccountUpdate(String url,String code,String name,String account,String account_name) {
+    public void Do_ShopBankAccountUpdate(String url,String code,String name, String account_name,String account) {
 
         RequestBody formBody = new FormBody.Builder()
                 .add("code",code)
                 .add("name",name)
-                .add("account",account)
                 .add("account_name",account_name)
+                .add("account",account)
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -1072,4 +1098,85 @@ public class Web {
             throw new RuntimeException(e);
         }
     }
+
+
+    public void getSimilarProducts(String url, String user_id, int product_id) {
+
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("user_id", String.valueOf(user_id))
+                .add("product_id", String.valueOf(product_id))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+    public void doLikeProductForBuyer(String url, int user_id, int product_id, String like) {
+
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("user_id", String.valueOf(user_id))
+                .add("product_id", String.valueOf(product_id))
+                .add("like", String.valueOf(like))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+    public void doFollowShopForBuyer(String url, int user_id, int shop_id, String follow) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("user_id", String.valueOf(user_id))
+                .add("shop_id", String.valueOf(shop_id))
+                .add("follow", String.valueOf(follow))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+
 }

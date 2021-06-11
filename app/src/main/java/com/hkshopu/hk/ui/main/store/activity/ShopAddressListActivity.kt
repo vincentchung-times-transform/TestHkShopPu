@@ -100,13 +100,18 @@ class ShopAddressListActivity : BaseActivity() {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
                             val shopAddressListBean: ShopAddressListBean =
                                 Gson().fromJson(jsonObject.toString(), ShopAddressListBean::class.java)
+
+
                             if(shopAddressListBean.is_default.equals("Y")){
+
                                 list.add(0,shopAddressListBean)
-                                binding.switchview.openSwitcher()
+                                binding.switchviewShopAddressStatusOnShopBrief.openSwitcher()
+
                             }else{
 
-                                binding.switchview.closeSwitcher()
+                                binding.switchviewShopAddressStatusOnShopBrief.closeSwitcher()
                                 list.add(shopAddressListBean)
+
                             }
 
 
@@ -157,27 +162,26 @@ class ShopAddressListActivity : BaseActivity() {
                 binding.tvEdit.text = "編輯"
                 binding.tvEdit.textColor = Color.parseColor("#8E8E93")
                 adapter.updateData(false)
-                doShopAddressDel(addressIds)
+
             }
 
         }
 
         binding.tvAddshopaddress.setOnClickListener {
-            val intent = Intent(this, AddShopAddress2Activity::class.java)
+            val intent = Intent(this, AddShopAddressSellerInfoActivity::class.java)
             startActivity(intent)
 
         }
         adapter.cancelClick = {
-
             addressIds.add(it)
-
+            doShopAddressDel(addressIds)
         }
         adapter.intentClick = {
         val intent = Intent(this@ShopAddressListActivity, ShopAddressPresetActivity::class.java)
             startActivity(intent)
         }
         var isAddressShow: String = ""
-        binding.switchview.setOnStateChangedListener(object :
+        binding.switchviewShopAddressStatusOnShopBrief.setOnStateChangedListener(object :
             EasySwitcher.SwitchStateChangedListener {
             override fun onStateChanged(isOpen: Boolean) {
 

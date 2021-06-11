@@ -7,6 +7,24 @@
     tools:context=".ui.user.activity.RetrieveEmailVerifyActivity"
     android:orientation="vertical">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar_retrieve_email"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/iv_loading_background_retrieve_email"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:src="@drawable/customview_loading_background" />
+
+
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
@@ -57,7 +75,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:layout_marginTop="20dp"
-            android:textColor="@color/gray_txt"
+            android:textColor="@color/bright_gray"
             android:text="已寄送驗證碼至您登入的電子郵件信箱"
             android:gravity="center_horizontal"/>
         <TextView
@@ -65,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:textColor="@color/gray_txt"
+            android:textColor="@color/bright_gray"
             android:text="deflaut@times-transform.com"
             android:gravity="center_horizontal"/>
         <LinearLayout
@@ -139,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:layout_marginTop="30dp"
-                android:textColor="@color/gray_txt"
+                android:textColor="@color/bright_gray"
                 android:text="@string/fail_to_recieve_verification_code"
                 android:gravity="center_horizontal"/>
             <TextView

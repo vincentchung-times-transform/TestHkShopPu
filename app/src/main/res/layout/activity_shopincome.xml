@@ -109,7 +109,7 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/black"
             app:tabTextAppearance="@style/CustomTabText"
-            app:tabTextColor="@color/gray_txt"
+            app:tabTextColor="@color/bright_gray"
             android:visibility="gone"/>
 
         <androidx.viewpager2.widget.ViewPager2

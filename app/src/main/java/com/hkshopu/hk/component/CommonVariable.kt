@@ -13,6 +13,8 @@ import kotlin.collections.ArrayList
  * @Version: 1.0.0
  * @Description:
  */
+
+
 class CommonVariable private constructor() {
 
     companion object {

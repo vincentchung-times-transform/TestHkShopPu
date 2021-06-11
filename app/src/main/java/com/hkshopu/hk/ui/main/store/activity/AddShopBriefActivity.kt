@@ -20,6 +20,7 @@ import com.hkshopu.hk.Base.BaseActivity
 import com.hkshopu.hk.component.CommonVariable
 import com.hkshopu.hk.component.EventAddShopBriefSuccess
 import com.hkshopu.hk.component.EventGetShopCatSuccess
+import com.hkshopu.hk.component.EventRefreshShopInfo
 import com.hkshopu.hk.data.bean.*
 import com.hkshopu.hk.databinding.ActivityAddshopbriefBinding
 import com.hkshopu.hk.net.ApiConstants
@@ -68,6 +69,7 @@ class AddShopBriefActivity : BaseActivity() {
         initView()
         initVM()
         initClick()
+
         getShopBrief(url)
 
 
@@ -167,21 +169,24 @@ class AddShopBriefActivity : BaseActivity() {
                                     for (i in 0 until shopaddress.length()) {
                                         val address = shopaddress.get(i)
                                         if(address.toString().length > 0) {
+
                                             val shopAddressBriefBean: ShopAddressBriefBean =
                                                 Gson().fromJson(address.toString(), ShopAddressBriefBean::class.java)
                                             list.add(shopAddressBriefBean)
+
                                             if(list[i].area.length > 0) {
                                                 val address_brief =
                                                     list[i].area + list[i].district + list[i].road + list[i].number + list[i].other + list[i].floor + list[i].room
                                                 binding.ivAddshopbriefAddress.visibility = View.VISIBLE
                                                 binding.tvAddshopbriefAddress.visibility = View.VISIBLE
                                                 binding.tvAddshopbriefAddress.text = address_brief
+                                                binding.tvAddshopbriefContact.visibility = View.VISIBLE
 
                                             }
+
                                         }
 
                                     }
-                                    binding.tvAddshopbriefContact.visibility = View.VISIBLE
                                 }
 
                             }
@@ -304,6 +309,7 @@ class AddShopBriefActivity : BaseActivity() {
 
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
+
                     if (status == 0) {
                         runOnUiThread {
                             Toast.makeText(this@AddShopBriefActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
@@ -314,6 +320,8 @@ class AddShopBriefActivity : BaseActivity() {
                             Toast.makeText(this@AddShopBriefActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
+
+                    RxBus.getInstance().post(EventRefreshShopInfo())
 
                 } catch (e: JSONException) {
 
@@ -326,7 +334,7 @@ class AddShopBriefActivity : BaseActivity() {
 
             }
         })
-        web.Do_ShopBgUpdate(url, address_id,postImg)
+        web.Do_ShopBgUpdate(url, address_id, postImg)
     }
     private fun doShopDesUpdate(description: String) {
         val shopId = mmkvWithID("http").getInt("ShopId",0)
@@ -343,7 +351,9 @@ class AddShopBriefActivity : BaseActivity() {
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
                     if (status == 0) {
-                        RxBus.getInstance().post(EventAddShopBriefSuccess(description))
+
+                        RxBus.getInstance().post(EventRefreshShopInfo())
+
                         finish()
                     } else {
                         runOnUiThread {

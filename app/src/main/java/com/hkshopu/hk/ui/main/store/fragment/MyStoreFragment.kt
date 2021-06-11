@@ -3,31 +3,25 @@ package com.hkshopu.hk.ui.main.store.fragment
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
-
+import android.view.WindowManager
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventAddShopBriefSuccess
-import com.hkshopu.hk.data.bean.ProductInfoBean
-
+import com.hkshopu.hk.component.*
 import com.hkshopu.hk.data.bean.ShopProductBean
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.product.activity.AddNewProductActivity
+import com.hkshopu.hk.ui.main.productSeller.activity.AddNewProductActivity
 import com.hkshopu.hk.ui.main.store.activity.AddShopBriefActivity
 import com.hkshopu.hk.ui.main.store.adapter.ShopProductAdapter
 import com.hkshopu.hk.utils.rxjava.RxBus
@@ -39,9 +33,11 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
+
 class MyStoreFragment : Fragment() {
 
     companion object {
+
         fun newInstance(): MyStoreFragment {
             val args = Bundle()
             val fragment = MyStoreFragment()
@@ -49,20 +45,26 @@ class MyStoreFragment : Fragment() {
             return fragment
         }
     }
-    lateinit var storeBrief:RelativeLayout
-    lateinit var shopBrief:TextView
-    lateinit var shopBrief_edit:TextView
-    lateinit var addShopBrief:RelativeLayout
-    lateinit var newProduct_null :RelativeLayout
+
+    lateinit var layout_store_brief_content_having: RelativeLayout
+    lateinit var tv_shop_brief: TextView
+    lateinit var tv_shop_brief_editation: TextView
+    lateinit var imgBtn_shop_brief_adding: ImageView
+
+    lateinit var newProductDefault :RelativeLayout
     lateinit var newProduct :RecyclerView
+
+
     private val adapter = ShopProductAdapter(this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_mystore, container, false)
+
         val shopId = MMKV.mmkvWithID("http").getInt("ShopId",0)
         var url = ApiConstants.API_HOST+"/product/"+shopId+"/shop_product/"
         getShopProduct(url)
@@ -73,24 +75,30 @@ class MyStoreFragment : Fragment() {
         MMKV.mmkvWithID("editPro").clear()
 
 
+        layout_store_brief_content_having = v.find<RelativeLayout>(R.id.layout_store_brief_content_having)
+        tv_shop_brief = v.find<TextView>(R.id.tv_shop_brief)
+        tv_shop_brief_editation = v.find<TextView>(R.id.tv_shop_brief_editation)
 
-        storeBrief = v.find<RelativeLayout>(R.id.layout_store_brief)
-        shopBrief = v.find<TextView>(R.id.tv_shop_brief)
-        shopBrief_edit = v.find<TextView>(R.id.tv_shop_brief_more)
-        shopBrief_edit.setOnClickListener {
-            val intent = Intent(activity, AddShopBriefActivity::class.java)
-            activity!!.startActivity(intent)
-        }
-        addShopBrief = v.find<RelativeLayout>(R.id.layout_store_addbrief)
-
-        val btn_addShopBrief = v.find<ImageButton>(R.id.iv_addshopbrief)
-        btn_addShopBrief.setOnClickListener {
+        tv_shop_brief_editation.setOnClickListener {
             val intent = Intent(activity, AddShopBriefActivity::class.java)
             activity!!.startActivity(intent)
         }
 
+        imgBtn_shop_brief_adding = v.find<ImageButton>(R.id.imgBtn_shop_brief_adding)
 
-        newProduct_null = v.find<RelativeLayout>(R.id.layout_new_product)
+        imgBtn_shop_brief_adding.setOnClickListener {
+            val intent = Intent(activity, AddShopBriefActivity::class.java)
+            activity!!.startActivity(intent)
+        }
+
+        newProductDefault = v.find<RelativeLayout>(R.id.layout_new_product)
+        newProductDefault.setOnClickListener {
+
+            val intent = Intent(activity, AddNewProductActivity::class.java)
+            activity!!.startActivity(intent)
+
+        }
+
         newProduct = v.find<RecyclerView>(R.id.recyclerview_newproduct)
 
         initView()
@@ -100,6 +108,8 @@ class MyStoreFragment : Fragment() {
     }
 
     private fun initView(){
+
+
         val description = MMKV.mmkvWithID("http").getString("description","")
 
         Log.d(
@@ -107,32 +117,72 @@ class MyStoreFragment : Fragment() {
             "資料 description：" + description
         )
 
-        if(description!!.length >0){
+        if(!description!!.isNullOrEmpty()){
 
-            Log.d("fdjhfidjfidj", "簡介顯示")
-            storeBrief.visibility = View.VISIBLE
-            shopBrief.visibility =View.VISIBLE
-            shopBrief.text = description
+            layout_store_brief_content_having.visibility = View.VISIBLE
+            tv_shop_brief.visibility =View.VISIBLE
+            tv_shop_brief.text = description
+            tv_shop_brief_editation.visibility =View.VISIBLE
+
+            imgBtn_shop_brief_adding.visibility = View.GONE
+
 
         }else{
-            Log.d("fdjhfidjfidj", "沒有簡介")
-            addShopBrief.visibility = View.VISIBLE
-            storeBrief.visibility = View.GONE
-            shopBrief.visibility =View.GONE
+
+            layout_store_brief_content_having.visibility = View.GONE
+            tv_shop_brief.visibility =View.GONE
+            tv_shop_brief.text = description
+            tv_shop_brief_editation.visibility =View.GONE
+
+            imgBtn_shop_brief_adding.visibility = View.VISIBLE
 
         }
+
     }
+
+
 
     @SuppressLint("CheckResult")
     fun initEvent() {
+
+        var shop_description = ""
+
         RxBus.getInstance().toMainThreadObservable(activity!!, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
                     is EventAddShopBriefSuccess -> {
 
-                        addShopBrief.visibility = View.INVISIBLE
-                        storeBrief.visibility = View.VISIBLE
-                        shopBrief.text = it.description
+                        shop_description = it.description!!
+
+                        if(!shop_description!!.isNullOrEmpty()){
+
+                            layout_store_brief_content_having.visibility = View.VISIBLE
+                            tv_shop_brief.visibility =View.VISIBLE
+                            tv_shop_brief.text = shop_description
+                            tv_shop_brief_editation.visibility =View.VISIBLE
+
+                            imgBtn_shop_brief_adding.visibility = View.GONE
+
+
+                        }else{
+
+                            layout_store_brief_content_having.visibility = View.GONE
+                            tv_shop_brief.visibility =View.GONE
+                            tv_shop_brief.text = shop_description
+                            tv_shop_brief_editation.visibility =View.GONE
+
+                            imgBtn_shop_brief_adding.visibility = View.VISIBLE
+
+                        }
+
+
+                    }
+                    is EventMyStoreFragmentRefresh ->{
+
+                        val shopId = MMKV.mmkvWithID("http").getInt("ShopId",0)
+                        var url = ApiConstants.API_HOST+"/product/"+shopId+"/shop_product/"
+                        getShopProduct(url)
+
                     }
                 }
 
@@ -141,21 +191,18 @@ class MyStoreFragment : Fragment() {
 
 
 
-
-
-
-
     private fun initRecyclerView(){
-
 
         val layoutManager = GridLayoutManager(activity!!,2)
         newProduct.layoutManager = layoutManager
-
         newProduct.adapter = adapter
-        adapter.itemClick = {
 
+        adapter.itemClick = {
+            val intent = Intent(activity, AddNewProductActivity::class.java)
+            activity!!.startActivity(intent)
         }
         newProduct.visibility = View.VISIBLE
+
     }
 
     private fun getShopProduct(url: String) {
@@ -181,19 +228,34 @@ class MyStoreFragment : Fragment() {
                                 Gson().fromJson(jsonObject.toString(), ShopProductBean::class.java)
                             list.add(shopProductBean)
                         }
-
                     }
 
                     Log.d("MyStoreFragment", "返回資料 list：" + list.toString())
 
                     if(list.size > 0){
-                        adapter.setData(list)
-                        activity!!.runOnUiThread {
-                            initRecyclerView()
 
-                            newProduct_null.visibility = View.GONE
+                        activity!!.runOnUiThread {
+
+                            adapter.setData(list)
+                            initRecyclerView()
+                            newProductDefault.visibility = View.GONE
 
                         }
+
+                        RxBus.getInstance().post(EventAddProductButtonVisibility(true))
+
+                    }else{
+
+                        activity!!.runOnUiThread {
+
+                            adapter.setData(list)
+                            initRecyclerView()
+                            newProductDefault.visibility = View.VISIBLE
+
+                        }
+
+                        RxBus.getInstance().post(EventAddProductButtonVisibility(false))
+
                     }
 
                 } catch (e: JSONException) {
@@ -209,5 +271,6 @@ class MyStoreFragment : Fragment() {
         })
         web.Get_Data(url)
     }
+
 
 }

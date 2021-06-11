@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.hkshopu.hk"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -27,6 +27,32 @@ android {
 
         // Inject the Maps API key into the manifest
         manifestPlaceholders = [ mapsApiKey : properties.getProperty("MAPS_API_KEY", "") ]
+
+
+        signingConfigs {
+            release {
+                storeFile file('C:\\hkshopu')
+                keyAlias 'key0'
+                storePassword '123456'
+                keyPassword '123456'
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+            debug {
+//            signingConfig signingConfigs.release
+            }
+        }
+
+        lintOptions {
+            checkReleaseBuilds false
+        }
+
     }
     buildFeatures {
         viewBinding true

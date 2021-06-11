@@ -105,7 +105,7 @@
     <string name="shopphone_countryinput">＋請輸入國碼</string>
     <string name="shopphone_input">請輸入電話號碼</string>
     <string name="countryinput">＋國碼</string>
-    <string name="hk">852</string>
+    <string name="hk">+852</string>
     <string name="logout">登出</string>
     <string name="currency">HKD$</string>
     <string name="ad">廣告與行銷活動</string>
@@ -559,6 +559,25 @@
     <string name="product_active_apply">確定要上架商品嗎？</string>
     <string name="product_draft_apply">確定要下架商品嗎？</string>
     <string name="product_draft_apply_note">下架商品後仍能在“未上架”中找到儲存的資訊。</string>
+
+    <!--    商品(買家)-->
+    <string name="products_quantity">商品數量 : </string>
+    <string name="days_for_stocking">較長備貨天數 : </string>
+    <string name="quantity">數量</string>
+    <string name="products_specification_choosing">請選擇產品規格</string>
+    <string name="logistics_choosing">請選擇收件方式</string>
+    <string name="logistics_fare">運費 : </string>
+    <string name="following_count">人關注</string>
+
+    <!--    購物車-->
+    <string name="title_shoppingCart">購物車</string>
+    <string name="seleting_all">全選</string>
+    <string name="sum_price">總金額</string>
+    <string name="product_price_total">商品合計</string>
+    <string name="payment_detail">付款明細</string>
+    <string name="commdity_total">商品總計</string>
+    <string name="freight_total">運費總計</string>
+    <string name="select_payment_method_first_please">請先選擇付款方式</string>
 
 
 </resources>

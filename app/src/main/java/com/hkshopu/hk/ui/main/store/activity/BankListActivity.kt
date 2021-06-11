@@ -7,31 +7,15 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.gson.Gson
 import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.application.App
 import com.hkshopu.hk.component.*
-import com.hkshopu.hk.data.bean.ProductChildCategoryBean
-import com.hkshopu.hk.data.bean.ShopAddressBean
 import com.hkshopu.hk.data.bean.ShopBankAccountBean
-import com.hkshopu.hk.data.bean.ShopInfoBean
-import com.hkshopu.hk.databinding.ActivityAccountsetupBinding
 import com.hkshopu.hk.databinding.ActivityBankaccountlistBinding
 import com.hkshopu.hk.net.ApiConstants
 import com.hkshopu.hk.net.Web
 import com.hkshopu.hk.net.WebListener
 import com.hkshopu.hk.ui.main.store.adapter.BankListAdapter
-import com.hkshopu.hk.ui.main.store.adapter.CategoryMultiAdapter
-import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.ui.user.vm.ShopVModel
-import com.hkshopu.hk.utils.extension.loadNovelCover
 import com.hkshopu.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -67,6 +51,9 @@ class BankListActivity : BaseActivity() {
     private fun initView() {
         adapter.cancelClick = {
             cancelurl =  ApiConstants.API_HOST +"shop/bankAccount/"+it+"/"
+            if(cancelurl.isNotEmpty()){
+                doShopBankDel(cancelurl)
+            }
         }
         adapter.toPresetClick = {
             val intent = Intent(this, BankPresetActivity::class.java)
@@ -145,7 +132,7 @@ class BankListActivity : BaseActivity() {
     private fun initClick() {
 
         binding.tvAddbankaccount2.setOnClickListener {
-            val intent = Intent(this, AddBankAccount2Activity::class.java)
+            val intent = Intent(this, AddBankAccountSellerInfoActivity::class.java)
             startActivity(intent)
         }
         binding.ivBack.setOnClickListener {
@@ -166,9 +153,8 @@ class BankListActivity : BaseActivity() {
                 binding.tvEdit.text = "編輯"
                 binding.tvEdit.textColor = Color.parseColor("#8E8E93")
                 adapter.updateData(false)
-                if(cancelurl.isNotEmpty()){
-                    doShopBankDel(cancelurl)
-                }
+
+
             }
 
 

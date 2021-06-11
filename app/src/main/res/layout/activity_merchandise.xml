@@ -5,16 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.product.activity.MerchandiseActivity">
+    tools:context=".ui.main.productSeller.activity.MerchandiseActivity">
+
 
     <ProgressBar
         android:id="@+id/progressBar_merchandise"
         style="?android:attr/progressBarStyle"
-        android:layout_centerVertical="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
         android:layout_centerHorizontal="true"
-        android:elevation="10dp"
+        android:layout_centerVertical="true"/>
+
+    <ImageView
+        android:id="@+id/imgView_loading_background_merchandise"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="18dp"
+        android:src="@drawable/customview_loading_background" />
 
 
     <RelativeLayout
@@ -53,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="96dp"
         android:weightSum="2"
+        android:elevation="10dp"
         android:layout_alignParentBottom="true"
         android:background="@color/white"
         android:orientation="horizontal">
@@ -152,7 +162,7 @@
                         android:layout_weight="1"
                         android:textSize="18sp"
                         android:textColor="@color/black"
-                        android:text="乾燥花 永生花 禮物 生日 夜燈 婚禮 情人節"/>
+                        android:text=""/>
 <!--                    <ImageView-->
 <!--                        android:layout_width="wrap_content"-->
 <!--                        android:layout_height="wrap_content"-->
@@ -242,7 +252,7 @@
                         android:textSize="18sp"
                         android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:text="HKD$ 300 - 400" />
+                        android:text="HKD$ 0" />
 
                 </LinearLayout>
 
@@ -274,7 +284,7 @@
                             android:layout_height="match_parent"
                             android:textSize="12sp"
                             android:layout_marginStart="4dp"
-                            android:text="43"/>
+                            android:text="-"/>
 
                     </LinearLayout>
                     <LinearLayout
@@ -299,7 +309,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_marginStart="4dp"
-                            android:text="1"
+                            android:text="-"
                             android:textSize="12sp" />
 
                     </LinearLayout>
@@ -327,7 +337,7 @@
                             android:layout_height="match_parent"
                             android:textSize="12sp"
                             android:layout_marginStart="4dp"
-                            android:text="1"/>
+                            android:text="-"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -336,13 +346,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:clipToPadding="false">
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/r_view_inventory"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:paddingBottom="8dp"
                     android:clipToPadding="false"/>
             </RelativeLayout>
 
@@ -1545,7 +1554,6 @@
                 android:paddingLeft="20dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-
                 android:paddingTop="10dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
@@ -1595,13 +1603,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
+                        android:textSize="14sp"
                         android:text="運費："/>
                     <TextView
                         android:id="@+id/textView_shipping_fare_range"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="HKD$90 - HKD$120"/>
+                        android:textSize="14sp"
+                        android:text="HKD$ - "/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -1613,6 +1623,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:textSize="14sp"
                         android:textColor="@color/hkshop_color"
                         android:text="@string/textView_more_time_to_stock"/>
 
@@ -1620,12 +1631,15 @@
                         android:id="@+id/tv_longestStockUpDays"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="20"
+                        android:textSize="14sp"
+                        android:layout_marginStart="4dp"
+                        android:text="-"
                         android:textColor="@color/hkshop_color" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="4dp"
+                        android:textSize="14sp"
                         android:textColor="@color/hkshop_color"
                         android:text="@string/textView_day_unit"/>
 
@@ -1654,6 +1668,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textSize="14sp"
                         android:text="@string/textView_merchandiseinfo"/>
                     <ImageView
                         android:id="@+id/status_lebal"
@@ -1672,7 +1687,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="1"/>
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -1687,8 +1704,6 @@
                 android:layout_marginTop="8dp"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:background="@drawable/customborder_addproduct">
@@ -1696,6 +1711,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:textSize="14sp"
                     android:textColor="@color/black"
                     android:text="@string/textView_merchandisecategory"/>
 
@@ -1703,6 +1719,7 @@
                     android:id="@+id/textView_seleted_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="14sp"
                     android:text=""/>
 
             </LinearLayout>
@@ -1723,7 +1740,7 @@
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:orientation="vertical">
-                textView_merchan_evaluation
+                textView_merchan_evaluationz
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1733,7 +1750,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textColor="@color/gray_txt"
+                        android:textSize="14sp"
+                        android:textColor="@color/black"
                         android:text="@string/textView_merchan_evaluation"/>
                     <TextView
                         android:layout_width="wrap_content"

@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/customborder_product_inven"
+    android:background="@drawable/customborder_addproduct"
     android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:padding="10dp"
     android:elevation="10dp"
     android:outlineSpotShadowColor="@color/hkshop_color"
-    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,14 +27,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/textView_title_spec"
-                android:textColor="@color/gray_txt"
+                android:textColor="@color/bright_gray"
                 android:textSize="12sp"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" : "
-                android:textColor="@color/gray_txt"
+                android:textColor="@color/bright_gray"
                 android:textSize="12sp"
                 android:textStyle="bold" />
             <TextView
@@ -59,7 +59,7 @@
             android:orientation="horizontal"
             android:weightSum="4"
             android:paddingLeft="10dp"
-            android:paddingRight="20dp">
+            android:paddingRight="10dp">
 
             <TextView
                 android:id="@+id/item_spec_column_name"
@@ -67,12 +67,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/textView_setInventorySize"
+                android:textAlignment="center"
                 android:textSize="12sp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textAlignment="center"
                 android:text="@string/textView_setInventoryPrice"
                 android:textSize="12sp" />
 
@@ -80,6 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAlignment="center"
                 android:text="@string/textView_setInventoryQuantity"
                 android:textSize="12sp" />
 
@@ -87,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:textAlignment="center"
                 android:textSize="12sp"
                 android:text="@string/textView_setInventorySoldQuantity" />
 

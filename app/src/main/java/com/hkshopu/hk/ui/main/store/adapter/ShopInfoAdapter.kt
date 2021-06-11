@@ -21,9 +21,12 @@ import java.util.*
 
 class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolder>(){
     private var mData: ArrayList<ShopListBean> = ArrayList()
+
     var itemClick : ((id: Int) -> Unit)? = null
     var deleteClick : ((id: Int) -> Unit)? = null
+
     private var cancel_inner:Boolean = false
+
     fun setData(list : ArrayList<ShopListBean>){
         list?:return
         this.mData = list

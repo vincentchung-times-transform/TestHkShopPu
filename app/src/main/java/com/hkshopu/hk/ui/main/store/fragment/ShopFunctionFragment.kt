@@ -134,6 +134,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort1.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort01.visibility = View.VISIBLE
                                 }
                             }
                         }
@@ -155,6 +156,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort1.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort01.visibility = View.VISIBLE
                                 } else if (key.equals(shop_category_id2)) {
                                     val shopCategoryBean: ShopCategoryBean =
                                         CommonVariable.ShopCategory[key]!!
@@ -168,6 +170,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort2.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort02.visibility = View.VISIBLE
                                 }
                             }
                         }
@@ -190,6 +193,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort1.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort01.visibility = View.VISIBLE
                                 } else if (key.equals(shop_category_id2)) {
                                     val shopCategoryBean: ShopCategoryBean =
                                         CommonVariable.ShopCategory[key]!!
@@ -203,6 +207,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort2.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort02.visibility = View.VISIBLE
                                 } else if (key.equals(shop_category_id3)) {
                                     val shopCategoryBean: ShopCategoryBean =
                                         CommonVariable.ShopCategory[key]!!
@@ -216,6 +221,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                         )
                                     )
                                     binding!!.tvStoresort3.visibility = View.VISIBLE
+                                    binding!!.cardViewStoreSort03.visibility = View.VISIBLE
                                 }
                             }
                         }
@@ -237,8 +243,11 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                             )
 
                             binding!!.tvStoresort1.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort01.visibility = View.VISIBLE
                             binding!!.tvStoresort2.visibility = View.INVISIBLE
+                            binding!!.cardViewStoreSort02.visibility = View.INVISIBLE
                             binding!!.tvStoresort3.visibility = View.INVISIBLE
+                            binding!!.cardViewStoreSort03.visibility = View.INVISIBLE
                             category_id_list.add(shop_category_id1.toString())
                         } else if (list.size == 2) {
                             shop_category_id1 = list[0].id
@@ -254,6 +263,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                 )
                             )
                             binding!!.tvStoresort1.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort01.visibility = View.VISIBLE
                             binding!!.tvStoresort2.text = storesort2
                             binding!!.tvStoresort2.setBackgroundColor(
                                 Color.parseColor(
@@ -261,9 +271,11 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                 )
                             )
                             binding!!.tvStoresort2.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort02.visibility = View.VISIBLE
                             category_id_list.add(shop_category_id1.toString())
                             category_id_list.add(shop_category_id2.toString())
                             binding!!.tvStoresort3.visibility = View.INVISIBLE
+                            binding!!.cardViewStoreSort03.visibility = View.INVISIBLE
                         } else {
                             shop_category_id1 = list[0].id
                             shop_category_id2 = list[1].id
@@ -281,6 +293,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                 )
                             )
                             binding!!.tvStoresort1.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort01.visibility = View.VISIBLE
 
                             binding!!.tvStoresort2.text = storesort2
                             binding!!.tvStoresort2.setBackgroundColor(
@@ -289,6 +302,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                 )
                             )
                             binding!!.tvStoresort2.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort02.visibility = View.VISIBLE
                             binding!!.tvStoresort3.text = storesort3
                             binding!!.tvStoresort3.setBackgroundColor(
                                 Color.parseColor(
@@ -296,6 +310,8 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
                                 )
                             )
                             binding!!.tvStoresort3.visibility = View.VISIBLE
+                            binding!!.cardViewStoreSort03.visibility = View.VISIBLE
+
                             category_id_list.add(shop_category_id1.toString())
                             category_id_list.add(shop_category_id2.toString())
                             category_id_list.add(shop_category_id3.toString())

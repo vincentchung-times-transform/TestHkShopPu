@@ -10,6 +10,8 @@ import androidx.lifecycle.Lifecycle
 
 import com.google.gson.Gson
 import com.hkshopu.hk.Base.BaseActivity
+import com.hkshopu.hk.component.EventRefreshAddressList
+import com.hkshopu.hk.component.EventSyncBank
 import com.hkshopu.hk.data.bean.ShopAddressListBean
 
 import com.hkshopu.hk.data.bean.ShopBankAccountBean
@@ -155,9 +157,13 @@ class ShopAddressPresetActivity : BaseActivity() {
 
                         runOnUiThread {
                             val intent = Intent(this@ShopAddressPresetActivity, ShopAddressListActivity::class.java)
+
+                            RxBus.getInstance().post(EventRefreshAddressList())
+
+                            Toast.makeText(this@ShopAddressPresetActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
                             startActivity(intent)
                             finish()
-                            Toast.makeText(this@ShopAddressPresetActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+
                         }
 
 

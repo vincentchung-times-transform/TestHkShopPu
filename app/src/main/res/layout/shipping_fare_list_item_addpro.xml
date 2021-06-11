@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="運費廠商"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView

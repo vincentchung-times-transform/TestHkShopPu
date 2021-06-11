@@ -141,7 +141,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddBankAccount2Activity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddBankAccountSellerInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
@@ -151,7 +151,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopAddress2Activity"
+            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopAddressSellerInfoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
@@ -244,44 +244,44 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
-<!-- Product -->EditMerchanCategoryActivity
-        <activity android:name=".ui.main.product.activity.AddMerchanCategoryActivity"
+<!-- Product -->
+        <activity android:name=".ui.main.productSeller.activity.AddMerchanCategoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ui.main.product.activity.EditMerchanCategoryActivity"
+        <activity android:name=".ui.main.productSeller.activity.EditMerchanCategoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name="com.hkshopu.hk.ui.main.product.activity.MerchandiseActivity"
+        <activity android:name="com.hkshopu.hk.ui.main.productSeller.activity.MerchandiseActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.main.product.activity.AddNewProductActivity"
+            android:name=".ui.main.productSeller.activity.AddNewProductActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.main.product.activity.AddProductSpecificationMainActivity"
+        <activity android:name=".ui.main.productSeller.activity.AddProductSpecificationMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.main.product.activity.AddInventoryAndPriceActivity"
+        <activity android:name=".ui.main.productSeller.activity.AddInventoryAndPriceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 <!--        <activity android:name=".ui.main.product.activity.AddInventoryAndPriceOldActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:windowSoftInputMode="adjustPan"/>-->
-        <activity android:name=".ui.main.product.activity.AddShippingFareActivity"
+        <activity android:name=".ui.main.productSeller.activity.AddShippingFareActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.main.product.activity.EditProductActivity"
+            android:name=".ui.main.productSeller.activity.EditProductActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.main.product.activity.EditProductSpecificationMainActivity"
+            android:name=".ui.main.productSeller.activity.EditProductSpecificationMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.main.product.activity.EditInventoryAndPriceActivity"
+            android:name=".ui.main.productSeller.activity.EditInventoryAndPriceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 <!--        <activity-->
@@ -289,12 +289,12 @@
 <!--            android:screenOrientation="portrait"-->
 <!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
-            android:name=".ui.main.product.activity.EditShippingFareActivity"
+            android:name=".ui.main.productSeller.activity.EditShippingFareActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.product.activity.MyMerchantsActivity"
+            android:name=".ui.main.productSeller.activity.MyMerchantsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
@@ -313,6 +313,18 @@
 
         <activity
             android:name=".ui.main.store.activity.MySalesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name=".ui.main.shoppingCart.activity.ShoppingCartActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
