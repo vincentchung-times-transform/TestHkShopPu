@@ -1,12 +1,12 @@
-package com.hkshopu.hk.ui.user.vm
+package com.HKSHOPU.hk.ui.user.vm
 
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MediatorLiveData
-import com.hkshopu.hk.Base.BaseViewModel
-import com.hkshopu.hk.Base.response.StatusResourceObserver
-import com.hkshopu.hk.Base.response.UIDataBean
-import com.hkshopu.hk.data.repository.AuthRepository
+import com.HKSHOPU.hk.Base.BaseViewModel
+import com.HKSHOPU.hk.Base.response.StatusResourceObserver
+import com.HKSHOPU.hk.Base.response.UIDataBean
+import com.HKSHOPU.hk.data.repository.AuthRepository
 
 class AuthVModel : BaseViewModel() {
 

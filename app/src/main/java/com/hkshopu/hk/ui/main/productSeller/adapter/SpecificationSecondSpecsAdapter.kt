@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,14 +10,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
-import com.hkshopu.hk.component.EventCheckSecondSpecEnableBtnOrNot
-import com.hkshopu.hk.component.EventInvenSpecDatasRebuild
-import com.hkshopu.hk.data.bean.ItemSpecification
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
-import com.hkshopu.hk.utils.rxjava.RxBus
-import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.HKSHOPU.hk.component.EventCheckSecondSpecEnableBtnOrNot
+import com.HKSHOPU.hk.component.EventInvenSpecDatasRebuild
+import com.HKSHOPU.hk.data.bean.ItemSpecification
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import org.jetbrains.anko.singleLine
 import java.util.*
 

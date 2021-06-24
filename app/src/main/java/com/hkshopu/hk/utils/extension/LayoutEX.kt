@@ -1,4 +1,4 @@
-package com.hkshopu.hk.utils.extension
+package com.HKSHOPU.hk.utils.extension
 
 import android.content.Context
 import android.view.LayoutInflater

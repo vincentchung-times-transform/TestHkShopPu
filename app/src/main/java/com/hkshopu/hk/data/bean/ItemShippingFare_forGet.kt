@@ -1,4 +1,4 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

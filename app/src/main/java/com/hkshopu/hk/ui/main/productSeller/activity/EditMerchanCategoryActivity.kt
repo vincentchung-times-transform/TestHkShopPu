@@ -1,29 +1,27 @@
-package com.hkshopu.hk.ui.main.productSeller.activity
+package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.hkshopu.hk.Base.BaseActivity
+import com.HKSHOPU.hk.Base.BaseActivity
 
-import com.hkshopu.hk.component.EventProductCatSelected
-import com.hkshopu.hk.data.bean.ProductCategoryBean
-import com.hkshopu.hk.data.bean.ProductChildCategoryBean
-import com.hkshopu.hk.databinding.ActivityMerchanCategoryBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.productSeller.adapter.ProductCategoryItemAdapter
-import com.hkshopu.hk.ui.main.productSeller.adapter.ProductSubCategoryItemAdapter
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.component.EventProductCatSelected
+import com.HKSHOPU.hk.data.bean.ProductCategoryBean
+import com.HKSHOPU.hk.data.bean.ProductChildCategoryBean
+import com.HKSHOPU.hk.databinding.ActivityMerchanCategoryBinding
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.ProductCategoryItemAdapter
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.ProductSubCategoryItemAdapter
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import okhttp3.Response
-import org.jetbrains.anko.runOnUiThread
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -229,10 +227,10 @@ class EditMerchanCategoryActivity : BaseActivity() {
                         )
 
 
-                        //預設篩選product_category_id為1的子項目
+                        //預設篩選product_category_id為15204092-0379-44fa-aa44-a9f364dcfa73的子項目
                         selected_product_child_category_list = product_child_category_list.filter {
                             it.product_category_id.equals(
-                                1
+                                product_category_list.get(0).id
                             )
                         } as MutableList<ProductChildCategoryBean>
 
@@ -279,7 +277,7 @@ class EditMerchanCategoryActivity : BaseActivity() {
 
     @SuppressLint("CheckResult")
     fun initEvent() {
-        var selectedId: Int
+        var selectedId: String
         var c_product_category: String
 
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
@@ -287,7 +285,7 @@ class EditMerchanCategoryActivity : BaseActivity() {
                 when (it) {
                     is EventProductCatSelected -> {
 
-                        selectedId = it.selectrdId
+                        selectedId = it.selectdId
                         c_product_category = it.c_product_category
 
                         Thread(Runnable {
@@ -304,7 +302,6 @@ class EditMerchanCategoryActivity : BaseActivity() {
                             } as MutableList<ProductChildCategoryBean>
 
                             runOnUiThread {
-
 
                                 mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
                                 mAdapters_SubProCateItem.set_c_name(c_product_category)

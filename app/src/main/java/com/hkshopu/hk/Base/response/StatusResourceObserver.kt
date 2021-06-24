@@ -1,12 +1,12 @@
-package com.hkshopu.hk.Base.response
+package com.HKSHOPU.hk.Base.response
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import androidx.lifecycle.MediatorLiveData
-import com.hkshopu.hk.application.App
-import com.hkshopu.hk.data.exception.RequestException
-import com.hkshopu.hk.utils.extension.toast
+import com.HKSHOPU.hk.application.App
+import com.HKSHOPU.hk.data.exception.RequestException
+import com.HKSHOPU.hk.utils.extension.toast
 import io.reactivex.observers.ResourceObserver
 import retrofit2.HttpException
 import java.net.SocketTimeoutException

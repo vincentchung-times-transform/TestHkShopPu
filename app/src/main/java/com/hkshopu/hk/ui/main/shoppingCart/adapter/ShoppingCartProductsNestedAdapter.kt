@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.shoppingCart.adapter
+package com.HKSHOPU.hk.ui.main.shoppingCart.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,20 +8,26 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.facebook.FacebookSdk.getApplicationContext
-import com.facebook.internal.Mutable
-import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.ShoppingCartProductItemNestedLayer
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.data.bean.ShoppingCartProductItemNestedLayer
+import com.HKSHOPU.hk.data.bean.ShoppingCartProductShipmentItem
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.squareup.picasso.Picasso
 import java.util.*
 
 
-class ShoppingCartProductsNestedAdapter(var mutableList_shoppingCartProductItem: MutableList<ShoppingCartProductItemNestedLayer>, var edit_mode: Boolean): RecyclerView.Adapter<ShoppingCartProductsNestedAdapter.mViewHolder>(),
-    ITHelperInterface {
+class ShoppingCartProductsNestedAdapter(
+    var mutableList_shoppingCartProductItem: MutableList<ShoppingCartProductItemNestedLayer>,
+    var shipmentList: MutableList<ShoppingCartProductShipmentItem>,
+    var edit_mode: Boolean
+    ): RecyclerView.Adapter<ShoppingCartProductsNestedAdapter.mViewHolder>(), ITHelperInterface {
 
+    var hkd_dollarSign = ""
 
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
+        var product_id: String = ""
         //把layout檔的元件們拉進來，指派給當地變數
         val imgView_product_icon = itemView.findViewById<ImageView>(R.id.imgView_product_icon)
         val textView_product_name = itemView.findViewById<TextView>(R.id.textView_product_name)
@@ -33,21 +39,41 @@ class ShoppingCartProductsNestedAdapter(var mutableList_shoppingCartProductItem:
         val shopping_cart_tv_value_quantitiy = itemView.findViewById<TextView>(R.id.shopping_cart_tv_value_quantitiy)
         var shopping_cart_ic_math_add =  itemView.findViewById<ImageView>(R.id.shopping_cart_ic_math_add)
         val textView_price = itemView.findViewById<TextView>(R.id.textView_price)
+        var unit_price = 0
+        var total_price = 0
         var container_logistics_spinner = itemView.findViewById<Spinner>(R.id.container_logistics_spinner)
+        var textView_logistics_fare_selecting = itemView.findViewById<TextView>(R.id.textView_logistics_fare_selecting)
         var shopping_cart_tv_value_quantitiy_confirmed = itemView.findViewById<TextView>(R.id.shopping_cart_tv_value_quantitiy_confirmed)
         var layout_quantity_abacus = itemView.findViewById<LinearLayout>(R.id.layout_quantity_abacus)
         var layout_logistics_selecting = itemView.findViewById<LinearLayout>(R.id.layout_logistics_selecting)
         var layout_logistics_selecting_confirmed = itemView.findViewById<LinearLayout>(R.id.layout_logistics_selecting_confirmed)
         var btn_delete_shopping_cart_prodcut = itemView.findViewById<ImageView>(R.id.btn_delete_shopping_cart_prodcut)
 
-
-
         init {
+            hkd_dollarSign = itemView.context.getResources().getString(R.string.hkd_dollarSign)
+        }
+
+        fun bind(item: ShoppingCartProductItemNestedLayer){
+
+            product_id = item.product_id
+            Picasso.with(itemView.context).load(item.product_pic).into( imgView_product_icon)
+            textView_product_name.setText(item.product_title.toString())
+            textView_product_first_spec_item.setText(item.product_spec.get(0).spec_desc_1.toString())
+            textView_product_first_spec_content.setText(item.product_spec.get(0).spec_desc_2.toString())
+            textView_product_second_spec_name.setText(item.product_spec.get(0).spec_dec_1_items.toString())
+            textView_product_second_spec_item.setText(item.product_spec.get(0).spec_dec_2_items.toString())
+            unit_price = item.product_spec.get(0).spec_price
+            total_price = unit_price*item.product_spec.get(0).shopping_cart_quantity
+            textView_price.setText(total_price.toString())
+            shopping_cart_ic_math_subtract.setOnClickListener(this)
+            shopping_cart_tv_value_quantitiy.setText(item.product_spec.get(0).shopping_cart_quantity.toString())
+            shopping_cart_ic_math_add.setOnClickListener(this)
+            textView_logistics_fare_selecting.setText(shipmentList.get(0).shipment_price.toString())
 
             val logistics_list: MutableList<String> = ArrayList<String>()
 
-            for (i in 0..3) {
-                logistics_list.add("Logistics_${i}")
+            for (i in 0 until shipmentList.size) {
+                logistics_list.add("${shipmentList.get(i).shipment_desc.toString()}${"\r"}${hkd_dollarSign}${shipmentList.get(i).shipment_price.toString()}")
             }
 
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
@@ -66,7 +92,7 @@ class ShoppingCartProductsNestedAdapter(var mutableList_shoppingCartProductItem:
                     position: Int,
                     id: Long,
                 ) {
-
+                    textView_logistics_fare_selecting.setText(shipmentList.get(position).shipment_price.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -74,23 +100,6 @@ class ShoppingCartProductsNestedAdapter(var mutableList_shoppingCartProductItem:
                 }
 
             }
-        }
-
-
-        fun bind(item: ShoppingCartProductItemNestedLayer){
-
-            imgView_product_icon //尚未設定
-            textView_product_name.setText(item.product_name.toString())
-            textView_product_first_spec_item.setText(item.product_fist_spec_name.toString())
-            textView_product_first_spec_content.setText(item.product_fist_spec_item.toString())
-            textView_product_second_spec_name.setText(item.product_second_spec_name.toString())
-            textView_product_second_spec_item.setText(item.product_second_spec_item.toString())
-            textView_product_first_spec_item.setText(item.product_fist_spec_name.toString())
-            shopping_cart_ic_math_subtract.setOnClickListener(this)
-            shopping_cart_tv_value_quantitiy //尚未設定
-            shopping_cart_ic_math_add.setOnClickListener(this)
-            textView_price //尚未設定
-
 
             if(edit_mode){
                 btn_delete_shopping_cart_prodcut.visibility = View.VISIBLE
@@ -116,14 +125,19 @@ class ShoppingCartProductsNestedAdapter(var mutableList_shoppingCartProductItem:
                     var quant =  shopping_cart_tv_value_quantitiy.text.toString().toInt()
                     quant += 1
                     shopping_cart_tv_value_quantitiy.setText(quant.toString())
+
+                    total_price+=unit_price
+                    textView_price.setText(total_price.toString())
                 }
                 R.id.shopping_cart_ic_math_subtract ->{
                     var quant =  shopping_cart_tv_value_quantitiy.text.toString().toInt()
 
                     if(quant>0){
                         quant -= 1
+                        total_price-=unit_price
                     }
                     shopping_cart_tv_value_quantitiy.setText(quant.toString())
+                    textView_price.setText(total_price.toString())
                 }
 
             }

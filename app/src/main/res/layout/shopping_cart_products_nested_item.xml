@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -192,9 +193,7 @@
 
                 </RelativeLayout>
 
-
                 <TextView
-                    android:id="@+id/textView_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -203,7 +202,17 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textAlignment="textEnd"
-                    android:text="HKD$999"/>
+                    android:text="@string/hkd_dollarSign"
+                    tools:ignore="RtlCompat" />
+                <TextView
+                    android:id="@+id/textView_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -307,13 +316,21 @@
                             android:textSize="12sp"/>
 
                         <TextView
-                            android:id="@+id/textView_logistics_fare_selecting"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text="HKD$99"
+                            android:text="@string/hkd_dollarSign"
                             android:gravity="center_vertical"
                             android:textColor="@color/bright_gray"
                             android:textSize="12sp"/>
+                        <TextView
+                            android:id="@+id/textView_logistics_fare_selecting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=""
+                            android:gravity="center_vertical"
+                            android:textColor="@color/bright_gray"
+                            android:textSize="12sp"/>
+
 
 
                     </LinearLayout>

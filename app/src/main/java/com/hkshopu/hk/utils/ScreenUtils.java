@@ -1,4 +1,4 @@
-package com.hkshopu.hk.utils;
+package com.HKSHOPU.hk.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.view.Display;
 import android.view.WindowManager;
 
 
-import com.hkshopu.hk.application.App;
+import com.HKSHOPU.hk.application.App;
 
 import java.lang.reflect.Method;
 

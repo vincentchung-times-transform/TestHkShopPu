@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,12 +10,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityUserinfoBinding
-import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityUserinfoBinding
+import com.HKSHOPU.hk.ui.user.vm.AuthVModel
+import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import java.text.SimpleDateFormat
 import java.util.*
 

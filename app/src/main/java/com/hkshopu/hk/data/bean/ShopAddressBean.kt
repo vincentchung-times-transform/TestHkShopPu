@@ -1,4 +1,4 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import com.google.gson.annotations.SerializedName
 
@@ -7,7 +7,7 @@ class ShopAddressBean {
     var id: String= ""
 
     @SerializedName("shop_id")
-    var shop_id: Int = 0;
+    var shop_id: String = ""
 
     @SerializedName("name")
     var name: String= ""

@@ -1,11 +1,11 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import com.google.gson.annotations.SerializedName
 
 class DetailedProductSpecificationBean {
 
     @SerializedName("id")
-    var id: MutableList<MutableList<Int>> = mutableListOf()
+    var id: MutableList<MutableList<String>> = mutableListOf()
 
     @SerializedName("spec_desc_1")
     var spec_desc_1: String = ""

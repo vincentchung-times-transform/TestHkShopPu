@@ -10,14 +10,12 @@ android {
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        applicationId "com.hkshopu.hk"
+
+        applicationId "com.HKSHOPU.hk"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-
-
-
+        versionCode 6
+        versionName "1.0.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         Properties properties = new Properties()
@@ -170,5 +168,6 @@ dependencies {
     //NiceRatingBar
     implementation 'com.github.KaelLi1989:NiceRatingBar:1.0.0'
 
-
+    //SmartMaterialSpinner
+    implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
 }

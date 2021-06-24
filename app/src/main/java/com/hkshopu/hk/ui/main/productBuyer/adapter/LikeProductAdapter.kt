@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productBuyer.adapter
+package com.HKSHOPU.hk.ui.main.productBuyer.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -11,16 +11,18 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.ProductDetailedPageForBuyer_RecommendedProductsBean
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventBuyerDetailedProductNewProDetailedFragment
+import com.HKSHOPU.hk.component.EventChangeShopCategory
+import com.HKSHOPU.hk.data.bean.ProductDetailedPageForBuyer_RecommendedProductsBean
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
 
-import com.hkshopu.hk.ui.main.productSeller.activity.MerchandiseActivity
-import com.hkshopu.hk.utils.extension.inflate
-import com.hkshopu.hk.widget.view.click
+import com.HKSHOPU.hk.utils.extension.inflate
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.widget.view.click
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -35,9 +37,9 @@ import java.io.IOException
 
 class LikeProductAdapter(var product_type: String, var activity: Activity) : RecyclerView.Adapter<LikeProductAdapter.ShopInfoLinearHolder>(){
 
-    var itemClick : ((id: Int) -> Unit)? = null
+    var itemClick : ((id: String) -> Unit)? = null
 
-    var MMKV_product_id: Int = 1
+    var MMKV_product_id: String = "1"
     var mutablelist_buyerProductsBean: MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean> = mutableListOf()
 
     fun setData(list : MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean>){
@@ -67,13 +69,17 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
 
         holder.itemView.setOnClickListener{
 
-            MMKV_product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).id
-            MMKV.mmkvWithID("http").putInt("ProductId", MMKV_product_id)
+            MMKV_product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).product_id
+            MMKV.mmkvWithID("http").putString("ProductId", MMKV_product_id)
 
-            val intent = Intent(holder.itemView.context, ProductDetailedPageBuyerViewActivity::class.java)
-            activity.finish()
+            itemClick?.invoke(MMKV_product_id)
 
-            holder.itemView.context?.startActivity(intent)
+            RxBus.getInstance().post(EventBuyerDetailedProductNewProDetailedFragment(MMKV_product_id))
+
+//            val intent = Intent(holder.itemView.context, ProductDetailedPageBuyerViewActivity::class.java)
+//            activity.finish()
+//
+//            holder.itemView.context?.startActivity(intent)
 
         }
 
@@ -136,16 +142,16 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
                     like = "Y"
                 }
 
-                var MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
+                var MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "")
 
-                doLikeProductForBuyer(25, bean.id, like)
+                doLikeProductForBuyer("25", bean.product_id, like)
 
 
             }
 
         }
 
-        private fun doLikeProductForBuyer (user_id: Int , product_id: Int, like: String) {
+        private fun doLikeProductForBuyer (user_id: String , product_id: String, like: String) {
 
             val url = ApiConstants.API_HOST+"product/like_product/"
             val web = Web(object : WebListener {

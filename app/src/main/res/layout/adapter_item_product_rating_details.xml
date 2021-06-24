@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_like_product"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="20dp"
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical"
+    android:background="@drawable/customborder_addproduct">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:src="@mipmap/description_line" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:cardCornerRadius="25dp">
+            <ImageView
+                android:id="@+id/iv_rating_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/no_image"/>
+        </androidx.cardview.widget.CardView>
+
+
+        <TextView
+            android:id="@+id/tv_rating_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="no user name"
+            android:textSize="14dp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="8dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_weight="1"/>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_rating_user_star01"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_star" />
+
+            <ImageView
+                android:id="@+id/iv_rating_user_star02"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/ic_star" />
+
+            <ImageView
+                android:id="@+id/iv_rating_user_star03"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/ic_star" />
+
+            <ImageView
+                android:id="@+id/iv_rating_user_star04"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/ic_star" />
+
+            <ImageView
+                android:id="@+id/iv_rating_user_star05"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:scaleType="centerInside"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/ic_star" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_rating_user_average_rating"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:text="0.0"
+            android:textAlignment="center"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_rating_user_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+        android:text="no comment"
+        android:textColor="@color/black"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

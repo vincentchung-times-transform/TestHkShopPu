@@ -1,4 +1,4 @@
-package com.hkshopu.hk.application
+package com.HKSHOPU.hk.application
 
 import android.app.Application
 import androidx.lifecycle.Lifecycle
@@ -8,8 +8,6 @@ import com.mallotec.reb.localeplugin.LocaleConstant
 import com.mallotec.reb.localeplugin.LocalePlugin
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.hkshopu.hk.BuildConfig
-import com.hkshopu.hk.R
 import com.tencent.mmkv.MMKV
 
 class App : Application(), LifecycleOwner {

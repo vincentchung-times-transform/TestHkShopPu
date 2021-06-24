@@ -1,7 +1,7 @@
-package com.hkshopu.hk.net.retrofit;
+package com.HKSHOPU.hk.net.retrofit;
 
 
-import com.hkshopu.hk.BuildConfig;
+import com.HKSHOPU.hk.BuildConfig;
 
 import java.io.IOException;
 

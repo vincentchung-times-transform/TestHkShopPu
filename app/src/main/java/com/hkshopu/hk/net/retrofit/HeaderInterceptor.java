@@ -1,4 +1,4 @@
-package com.hkshopu.hk.net.retrofit;
+package com.HKSHOPU.hk.net.retrofit;
 
 
 import com.tencent.mmkv.MMKV;

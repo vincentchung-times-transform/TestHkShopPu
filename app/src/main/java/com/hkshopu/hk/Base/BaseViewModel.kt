@@ -1,8 +1,8 @@
-package com.hkshopu.hk.Base
+package com.HKSHOPU.hk.Base
 
 
 import androidx.lifecycle.ViewModel
-import com.hkshopu.hk.Base.response.UIDataBean
+import com.HKSHOPU.hk.Base.response.UIDataBean
 
 
 /**

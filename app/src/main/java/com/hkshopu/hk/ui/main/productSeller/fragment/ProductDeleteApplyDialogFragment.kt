@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -13,19 +13,20 @@ import android.widget.Toast
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventMyStoreFragmentRefresh
-import com.hkshopu.hk.component.EventdeleverFragmentAfterUpdateStatus
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventRefreshShopInfo
+import com.HKSHOPU.hk.component.EventRefreshShopList
+import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import okhttp3.Response
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 
-class ProductDeleteApplyDialogFragment(var product_id:Int, var keyword: String): DialogFragment(), View.OnClickListener {
+class ProductDeleteApplyDialogFragment(var product_id: String, var keyword: String): DialogFragment(), View.OnClickListener {
 
 
     var signal : Boolean = false
@@ -94,7 +95,7 @@ class ProductDeleteApplyDialogFragment(var product_id:Int, var keyword: String):
         }
     }
 
-    private fun Do_ProductDelete(product_id: Int) {
+    private fun Do_ProductDelete(product_id: String) {
 
         progressBar_product_delete_apply.visibility = View.VISIBLE
         iv_loading_background_product_delete_apply.visibility = View.VISIBLE
@@ -123,6 +124,8 @@ class ProductDeleteApplyDialogFragment(var product_id:Int, var keyword: String):
 
                             }
                             RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
+                            RxBus.getInstance().post(EventRefreshShopInfo())
+                            RxBus.getInstance().post(EventRefreshShopList())
 
                             dismiss()
 

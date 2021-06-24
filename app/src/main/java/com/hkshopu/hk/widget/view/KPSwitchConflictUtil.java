@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hkshopu.hk.widget.view;
+package com.HKSHOPU.hk.widget.view;
 
 import android.app.Activity;
 import android.view.MotionEvent;
@@ -117,7 +117,7 @@ public class KPSwitchConflictUtil {
                     focusView, panelLayout, switchClickListener);
         }
 
-        if (com.hkshopu.hk.widget.view.KPSwitchConflictUtil.isHandleByPlaceholder(activity)) {
+        if (com.HKSHOPU.hk.widget.view.KPSwitchConflictUtil.isHandleByPlaceholder(activity)) {
             focusView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
@@ -270,7 +270,7 @@ public class KPSwitchConflictUtil {
 
                         // bound-trigger panel is visible.
                         // to show keyboard.
-                        com.hkshopu.hk.widget.view.KPSwitchConflictUtil.showKeyboard(panelLayout, focusView);
+                        com.HKSHOPU.hk.widget.view.KPSwitchConflictUtil.showKeyboard(panelLayout, focusView);
                         switchToPanel = false;
 
                     } else {
@@ -281,7 +281,7 @@ public class KPSwitchConflictUtil {
                 } else {
                     // panel is gone.
                     // to show panel.
-                    com.hkshopu.hk.widget.view.KPSwitchConflictUtil.showPanel(panelLayout);
+                    com.HKSHOPU.hk.widget.view.KPSwitchConflictUtil.showPanel(panelLayout);
                     switchToPanel = true;
 
                     // to show bound-trigger panel.

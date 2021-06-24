@@ -1,13 +1,13 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import com.google.gson.annotations.SerializedName
 
 class ShopLogisticBean {
     @SerializedName("id")
-    var id: Int= 0
+    var id: String= ""
 
     @SerializedName("shop_id")
-    var shop_id: Int = 0
+    var shop_id: String = ""
 
     @SerializedName("shipment_desc")
     var shipment_desc: String= ""
@@ -15,18 +15,18 @@ class ShopLogisticBean {
     @SerializedName("onoff")
     var onoff: String= ""
 
-    fun getID(): Int? {
+    fun getID(): String? {
         return id
     }
 
-    fun setID(ID: Int) {
+    fun setID(ID: String) {
         this.id = ID
     }
-    fun getShopID(): Int? {
+    fun getShopID(): String? {
         return shop_id
     }
 
-    fun setShopID(Shop_id: Int) {
+    fun setShopID(Shop_id: String) {
         this.shop_id = Shop_id
     }
 
@@ -37,6 +37,7 @@ class ShopLogisticBean {
     fun setShipmentDesc(Shipment_desc: String) {
         this.shipment_desc = Shipment_desc
     }
+
     fun getOnOff(): String? {
         return onoff
     }

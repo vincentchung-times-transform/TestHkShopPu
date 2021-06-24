@@ -1,10 +1,10 @@
-package com.hkshopu.hk.net.imageloader.glide
+package com.HKSHOPU.hk.net.imageloader.glide
 
 import android.content.Context
 import android.graphics.*
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.hkshopu.hk.utils.extension.dp2px
+import com.HKSHOPU.hk.utils.extension.dp2px
 import java.security.MessageDigest
 
 

@@ -126,7 +126,8 @@
                 android:hint="@string/password"
                 android:textColorHint="@color/dark_gray"
                 android:inputType="textPassword"
-                android:paddingLeft="18dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:textSize="18sp"
                 />
 
@@ -156,7 +157,8 @@
                 android:background="@drawable/bg_edit_login"
                 android:hint="@string/passwordconf"
                 android:inputType="textPassword"
-                android:paddingLeft="18dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 android:textColorHint="@color/dark_gray"
                 android:textSize="18sp" />
 

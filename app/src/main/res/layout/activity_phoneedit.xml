@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/layout_shopnameEditTitle"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
         <ImageView
@@ -17,13 +17,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:padding="8dp"
             android:layout_marginStart="18dp"
             android:src="@mipmap/ic_arrow_back" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/dark_gray"
             android:gravity="center"
             android:text="@string/phone"
             android:textSize="18sp" />
@@ -97,7 +100,7 @@
                     android:background="@drawable/bg_edit_shopaddress"
                     android:text="@string/hk"
                     android:gravity="center"
-                    android:textColor="@color/dark_gray"
+                    android:textColor="@color/hkshop_color"
                     android:textSize="14sp" />
 
                 <EditText
@@ -107,8 +110,8 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="8dp"
                     android:background="@drawable/bg_edit_shopaddress"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:hint="@string/shopphone_input"
                     android:inputType="phone"
                     android:textColor="@color/colorTextlightGray"

@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.activity
+package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import android.content.Context
 import android.content.Intent
@@ -14,12 +14,12 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.*
-import com.hkshopu.hk.databinding.ActivityInventoryAndPriceOldBinding
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.data.bean.*
+import com.HKSHOPU.hk.databinding.ActivityInventoryAndPriceOldBinding
+import com.HKSHOPU.hk.widget.view.disable
+import com.HKSHOPU.hk.widget.view.enable
 import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
@@ -49,9 +49,9 @@ class EditInventoryAndPriceOldActivity : BaseActivity(), TextWatcher{
     var rebuild_datas = false
 
     //宣告頁面資料變數
-    var MMKV_user_id: Int = 0
-    var MMKV_shop_id: Int = 1
-    var MMKV_product_id: Int = 1
+    var MMKV_user_id: String = ""
+    var MMKV_shop_id: String = ""
+    var MMKV_product_id: String = ""
     var MMKV_inven_datas_size=0
 
 
@@ -62,9 +62,9 @@ class EditInventoryAndPriceOldActivity : BaseActivity(), TextWatcher{
         binding = ActivityInventoryAndPriceOldBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
-        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
-        MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
+        MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "").toString()
         rebuild_datas = MMKV.mmkvWithID("addPro").getBoolean("rebuild_datas", false)
 
         initMMKV()

@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.os.Bundle
 import android.text.Editable
@@ -13,16 +13,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityLoginBinding
-import com.hkshopu.hk.databinding.ActivityRegisterBinding
-import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.widget.view.KeyboardUtil
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
-
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityRegisterBinding
+import com.HKSHOPU.hk.ui.user.vm.AuthVModel
+import com.HKSHOPU.hk.widget.view.KeyboardUtil
+import com.HKSHOPU.hk.widget.view.disable
+import com.HKSHOPU.hk.widget.view.enable
 
 
 class RegisterActivity : BaseActivity(), TextWatcher {

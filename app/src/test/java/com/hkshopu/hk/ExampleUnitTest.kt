@@ -1,4 +1,4 @@
-package com.hkshopu.hk
+package com.HKSHOPU.hk
 
 import org.junit.Test
 

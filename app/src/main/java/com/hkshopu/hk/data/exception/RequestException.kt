@@ -1,4 +1,4 @@
-package com.hkshopu.hk.data.exception
+package com.HKSHOPU.hk.data.exception
 
 /**
  * @Author: YangYang

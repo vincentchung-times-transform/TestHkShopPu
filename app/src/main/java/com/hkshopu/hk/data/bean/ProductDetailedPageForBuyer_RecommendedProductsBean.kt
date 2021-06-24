@@ -1,15 +1,15 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import com.google.gson.annotations.SerializedName
 
 class ProductDetailedPageForBuyer_RecommendedProductsBean {
 
     //  Similar Products Columns
-    @SerializedName("id")
-    var id: Int = 0
+    @SerializedName("product_id")
+    var product_id: String = ""
 
     @SerializedName("product_category_id")
-    var product_category_id: Int = 0
+    var product_category_id: String = ""
 
     @SerializedName("product_title")
     var product_title: String= ""
@@ -30,7 +30,7 @@ class ProductDetailedPageForBuyer_RecommendedProductsBean {
     var product_spec_on: String = ""
 
     @SerializedName("shop_id")
-    var shop_id: Int = 0
+    var shop_id: String = ""
 
     @SerializedName("shop_title")
     var shop_title: String = ""
@@ -65,13 +65,13 @@ class ProductDetailedPageForBuyer_RecommendedProductsBean {
     var liked: String = ""
 
     @SerializedName("rating")
-    var rating: String = ""
+    var rating: Double = 0.0
 
     @SerializedName("follow_count")
     var follow_count: Int = 0
 
     @SerializedName("shop_rating")
-    var shop_rating: Int = 0
+    var shop_rating: Double = 0.0
 
     @SerializedName("followed")
     var followed: String = ""

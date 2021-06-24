@@ -1,4 +1,4 @@
-package com.hkshopu.hk.Base
+package com.HKSHOPU.hk.Base
 
 import android.content.res.Configuration
 import android.widget.Toast

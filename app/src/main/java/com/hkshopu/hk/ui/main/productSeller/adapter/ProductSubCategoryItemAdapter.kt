@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -9,13 +9,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
 
-import com.hkshopu.hk.data.bean.ProductChildCategoryBean
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.ui.main.productSeller.activity.AddNewProductActivity
-import com.hkshopu.hk.ui.main.productSeller.activity.EditProductActivity
+import com.HKSHOPU.hk.data.bean.ProductChildCategoryBean
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.ui.main.productSeller.activity.AddNewProductActivity
+import com.HKSHOPU.hk.ui.main.productSeller.activity.EditProductActivity
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
 
@@ -25,8 +25,8 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity, var mode: String
     var product_child_category_list  = mutableListOf<ProductChildCategoryBean>()
 
     //categoryItem基本資料變數宣告
-    var id : Int = 0
-    var product_category_id :Int = 0
+    var id : String = ""
+    var product_category_id : String = ""
     lateinit var c_product_category :String
     lateinit var c_product_sub_category : String
     lateinit var e_product_sub_category : String

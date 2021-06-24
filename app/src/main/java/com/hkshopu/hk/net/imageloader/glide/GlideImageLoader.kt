@@ -1,25 +1,21 @@
-package com.hkshopu.hk.net.net.imageloader.glide
+package com.HKSHOPU.hk.net.net.imageloader.glide
 
-import android.R
 import android.content.Context
 import android.graphics.Bitmap
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
-import com.hkshopu.hk.net.imageloader.ImageLoadListener
-import com.hkshopu.hk.net.imageloader.ImageLoader
-import com.hkshopu.hk.net.imageloader.glide.GlideApp
-import com.hkshopu.hk.net.imageloader.glide.GlideRoundTransform
-import com.hkshopu.hk.utils.ScreenUtils
+import com.HKSHOPU.hk.net.imageloader.ImageLoadListener
+import com.HKSHOPU.hk.net.imageloader.ImageLoader
+import com.HKSHOPU.hk.net.imageloader.glide.GlideApp
+import com.HKSHOPU.hk.net.imageloader.glide.GlideRoundTransform
+import com.HKSHOPU.hk.utils.ScreenUtils
 
 
 import jp.wasabeef.glide.transformations.BlurTransformation

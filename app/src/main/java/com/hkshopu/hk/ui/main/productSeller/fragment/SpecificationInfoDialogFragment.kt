@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.content.Intent
 import android.graphics.drawable.InsetDrawable
@@ -9,8 +9,8 @@ import android.view.ViewGroup
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.ui.main.store.activity.HelpCenterActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.ui.main.shopProfile.activity.HelpCenterActivity
 
 class SpecificationInfoDialogFragment() : DialogFragment(), View.OnClickListener {
     companion object {

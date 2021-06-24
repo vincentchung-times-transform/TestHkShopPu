@@ -1,6 +1,5 @@
-package com.hkshopu.hk.utils.rxjava
+package com.HKSHOPU.hk.utils.rxjava
 
-import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.trello.rxlifecycle2.LifecycleTransformer

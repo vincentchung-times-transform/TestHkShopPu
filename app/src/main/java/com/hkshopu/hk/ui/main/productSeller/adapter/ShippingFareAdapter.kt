@@ -1,10 +1,9 @@
-package com.hkshopu.hk.ui.main.adapter
+package com.HKSHOPU.hk.ui.main.adapter
 
 import android.app.Activity
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +12,11 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventCheckShipmentEnableBtnOrNot
-import com.hkshopu.hk.data.bean.ItemShippingFare
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckShipmentEnableBtnOrNot
+import com.HKSHOPU.hk.data.bean.ItemShippingFare
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import org.jetbrains.anko.singleLine
@@ -31,7 +30,7 @@ class ShippingFareAdapter(var activity: Activity): RecyclerView.Adapter<Shipping
     var empty_item_num = 0
     private var editStatus: Boolean = false
 
-    var MMKV_shop_id : Int =MMKV.mmkvWithID("http").getInt("ShopId", 0)
+    var MMKV_shop_id : String =MMKV.mmkvWithID("http").getString("ShopId", "").toString()
 
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
         View.OnClickListener {

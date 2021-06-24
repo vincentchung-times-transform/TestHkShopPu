@@ -1,4 +1,4 @@
-package com.hkshopu.hk.widget.view
+package com.HKSHOPU.hk.widget.view
 
 
 import android.graphics.Typeface

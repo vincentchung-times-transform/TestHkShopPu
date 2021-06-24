@@ -7,10 +7,29 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar_shop_list"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/iv_loading_background_shop_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:src="@drawable/customview_loading_background" />
+
+
+
     <RelativeLayout
         android:id="@+id/layout_shopTitle"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
         <ImageView
@@ -43,161 +62,172 @@
             android:text="1"
             android:textColor="@color/white"
             android:textSize="10sp"
-            android:visibility="visible"/>
-
-        <ImageView
-            android:id="@+id/iv_shopdelete"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/layout_shopdelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
             android:layout_toStartOf="@id/iv_notify"
-            android:src="@mipmap/ic_shopdelete"
-            android:visibility="visible"/>
+            android:visibility="visible">
+            <ImageView
+                android:id="@+id/iv_shopdelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:src="@mipmap/ic_shopdelete" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="92dp"
         android:layout_below="@id/layout_shopTitle"
-        android:scrollbars="none">
-
-        <LinearLayout
-            android:id="@+id/container"
+        android:orientation="vertical">
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scrollbars="none">
 
             <LinearLayout
-                android:id="@+id/container_0"
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/loginremind"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/loginremind_title"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="25dp"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/online_shopping1"/>
-
-                <TextView
-                    android:id="@+id/tv_addonlineshop_login"
+                <LinearLayout
+                    android:id="@+id/container_login"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/login"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:background="@drawable/customborder_onboard_turquise"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp"
-                    android:textSize="18sp" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loginremind"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="35dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loginremind_title"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="25dp"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/online_shopping1"/>
+
+                    <TextView
+                        android:id="@+id/tv_addonlineshop_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:text="@string/login"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:background="@drawable/customborder_onboard_turquise"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="35dp"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/container_add_new_shop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="新增店鋪"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="35dp"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="決定要接下創業的挑戰並新增店鋪嗎？"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="25dp"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@mipmap/bg_addonlineshop"/>
+
+                    <TextView
+                        android:id="@+id/tv_addonlineshop"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:text="+ 新增店鋪"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:background="@drawable/customborder_onboard_turquise"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="35dp"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+                <RelativeLayout
+                    android:id="@+id/container_shop_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        tools:listitem="@layout/item_shopmanage"
+                        />
+
+                </RelativeLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/container_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="新增店鋪"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="決定要接下創業的挑戰並新增店鋪嗎？"
-                    android:textColor="@color/black"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="25dp"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/bg_addonlineshop"/>
-
-                <TextView
-                    android:id="@+id/tv_addonlineshop"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="+ 新增店鋪"
-                    android:textColor="@color/white"
-                    android:gravity="center"
-                    android:background="@drawable/customborder_onboard_turquise"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/container_2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    tools:listitem="@layout/item_shopmanage"
-                    />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-    </ScrollView>
-    <TextView
-        android:id="@+id/tv_addonlineshop2"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="+ 新增店鋪"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:background="@drawable/customborder_onboard_turquise"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="24dp"
-        android:textSize="18sp"
-        android:visibility="gone"/>
-
+        </ScrollView>
+        <TextView
+            android:id="@+id/tv_addonlineshop_for_shopList"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="+ 新增店鋪"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:background="@drawable/customborder_onboard_turquise"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="18sp"
+            android:visibility="gone"/>
+    </LinearLayout>
 </RelativeLayout>

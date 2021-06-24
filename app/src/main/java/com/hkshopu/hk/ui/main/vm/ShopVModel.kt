@@ -1,17 +1,17 @@
-package com.hkshopu.hk.ui.user.vm
+package com.HKSHOPU.hk.ui.user.vm
 
 
 import android.util.Log
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.reflect.TypeToken
-import com.hkshopu.hk.Base.BaseViewModel
-import com.hkshopu.hk.Base.response.StatusResourceObserver
-import com.hkshopu.hk.Base.response.UIDataBean
-import com.hkshopu.hk.data.bean.ShopInfoBean
-import com.hkshopu.hk.data.repository.ShopmanageRepository
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.GsonProvider
+import com.HKSHOPU.hk.Base.BaseViewModel
+import com.HKSHOPU.hk.Base.response.StatusResourceObserver
+import com.HKSHOPU.hk.Base.response.UIDataBean
+import com.HKSHOPU.hk.data.bean.ShopInfoBean
+import com.HKSHOPU.hk.data.repository.ShopmanageRepository
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.GsonProvider
 import okhttp3.*
 import java.io.File
 import java.io.IOException
@@ -36,67 +36,23 @@ class ShopVModel : BaseViewModel() {
             .subscribe(StatusResourceObserver(addnewshopLiveData, silent = false))
     }
 
-    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list : MutableList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String) {
+    fun add_product(lifecycleOwner: LifecycleOwner,shop_id : String, product_category_id : String, product_sub_category_id :String, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list : MutableList<File>, product_spec_list : String, user_id: String,  length : Int, width : Int, height : Int, shipment_method : String) {
         repository.add_product(lifecycleOwner, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list, product_spec_list, user_id, length, width, height, shipment_method)
             .subscribe(StatusResourceObserver(addProductData, silent = false))
     }
 
-    fun syncShippingfare(lifecycleOwner: LifecycleOwner, id : Int, shipment_settings : String) {
+    fun syncShippingfare(lifecycleOwner: LifecycleOwner, id : String, shipment_settings : String) {
         repository.syncShippingfare(lifecycleOwner, id, shipment_settings)
             .subscribe(StatusResourceObserver(syncShippingfareData, silent = false))
     }
 
 
-    fun updateProductStatus(lifecycleOwner: LifecycleOwner, id : Int, status : String) {
+    fun updateProductStatus(lifecycleOwner: LifecycleOwner, id : String, status : String) {
         repository.updateProductStatus(lifecycleOwner, id, status)
             .subscribe(StatusResourceObserver(updateProductStatusData, silent = false))
     }
 
 
-
-
-    fun getShopInfo(successCall: () -> Unit, failed: () -> Unit) {
-        //测试环境 使用测试域名
-        if (true) {
-            ApiConstants.API_HOST = "https://hkshopu-20700.df.r.appspot.com/user/[id]/shop/"
-            successCall.invoke()
-            return
-        }
-        //在正式环境下，先获取API域名
-        val request = Request.Builder()
-            .url(ApiConstants.API_HOST)
-            .get()
-            .build()
-        OkHttpClient()
-            .newCall(request)
-            .enqueue(object : Callback {
-                override fun onFailure(call: Call, e: IOException) {
-                    failed.invoke()
-                }
-
-                override fun onResponse(call: Call, response: Response) {
-                    if (response.isSuccessful) {
-                        val type = object : TypeToken<List<ShopInfoBean>>() {}.type
-
-                        val shopList =
-                            GsonProvider.gson.fromJson<List<ShopInfoBean>>(response.body()!!.charStream(), type)
-                        if (shopList.isEmpty()) {
-                            failed.invoke()
-                            return
-                        }
-
-                        if (ApiConstants.API_HOST.isNotEmpty() || ApiConstants.API_HOST.isNotBlank()) {
-
-                            successCall.invoke()
-                        } else {
-                            failed.invoke()
-                        }
-                        return
-                    }
-                    failed.invoke()
-                }
-            })
-    }
     fun getShopCategory(){
         //测试环境 使用测试域名
         if (true) {
@@ -121,12 +77,5 @@ class ShopVModel : BaseViewModel() {
                 }
             })
     }
-
-//    fun login(lifecycleOwner: LifecycleOwner, phone: String, password: String) {
-//        repository.login(lifecycleOwner, phone, password)
-//            .subscribe(StatusResourceObserver(loginLiveData, silent = false))
-//    }
-
-
 
 }

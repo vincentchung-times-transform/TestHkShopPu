@@ -67,6 +67,21 @@
         <item name="android:layout_marginLeft">10dp</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+    </style>
+
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/dark_gray</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/hkshop_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Theme.App.Dialog.ShrinkScreen" parent="Base.Theme.AppCompat.Dialog">
         <!-- (1)-->
         <item name="android:windowMinWidthMajor">60%</item>

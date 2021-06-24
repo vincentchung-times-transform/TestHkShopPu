@@ -1,23 +1,21 @@
-package com.hkshopu.hk.ui.main.store.adapter
+package com.HKSHOPU.hk.ui.main.shopProfile.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
-import com.hkshopu.hk.data.bean.ShopProductBean
-import com.hkshopu.hk.ui.main.productSeller.activity.MerchandiseActivity
-import com.hkshopu.hk.utils.extension.inflate
-import com.hkshopu.hk.utils.extension.loadNovelCover
-import com.hkshopu.hk.widget.view.click
+import com.HKSHOPU.hk.data.bean.ShopProductBean
+import com.HKSHOPU.hk.ui.main.productSeller.activity.ProductDetailForSalerActivity
+import com.HKSHOPU.hk.utils.extension.inflate
+import com.HKSHOPU.hk.utils.extension.loadNovelCover
+import com.HKSHOPU.hk.widget.view.click
 import com.tencent.mmkv.MMKV
 
 
@@ -27,9 +25,9 @@ import java.util.*
 
 class ShopProductAdapter(var fragment: Fragment) : RecyclerView.Adapter<ShopProductAdapter.ShopInfoLinearHolder>(){
     private var mData: ArrayList<ShopProductBean> = ArrayList()
-    var itemClick : ((id: Int) -> Unit)? = null
+    var itemClick : ((id: String) -> Unit)? = null
 
-    var MMKV_product_id: Int = 1
+    var MMKV_product_id: String = ""
 
     fun setData(list : ArrayList<ShopProductBean>){
         list?:return
@@ -58,9 +56,9 @@ class ShopProductAdapter(var fragment: Fragment) : RecyclerView.Adapter<ShopProd
         holder.itemView.setOnClickListener{
 
             MMKV_product_id = mData.get(holder.adapterPosition).id
-            MMKV.mmkvWithID("http").putInt("ProductId", MMKV_product_id)
+            MMKV.mmkvWithID("http").putString("ProductId", MMKV_product_id)
 
-            val intent = Intent(fragment.context, MerchandiseActivity::class.java)
+            val intent = Intent(fragment.context, ProductDetailForSalerActivity::class.java)
             fragment.context?.startActivity(intent)
 
         }

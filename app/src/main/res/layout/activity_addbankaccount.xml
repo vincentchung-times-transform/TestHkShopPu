@@ -4,13 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/layout_shopnameEditTitle"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
-        android:layout_marginTop="15dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -18,12 +22,14 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="18dp"
+            android:padding="8dp"
             android:src="@mipmap/ic_arrow_back" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:text="@string/addbankaccount"
             android:textSize="18sp" />
@@ -57,45 +63,95 @@
         android:id="@+id/layout_bankaccountEdit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/layout_shopnameEditTitle"
         android:layout_marginTop="12dp">
 
-        <EditText
-            android:id="@+id/et_bankcode"
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/smartSpinner_bankAccount_for_addShop"
+            android:spinnerMode="dropdown"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/customborder_onboard_8dp"
-            android:gravity="center_vertical"
-            android:hint="@string/bankcode_input"
-            android:inputType="number"
-            android:paddingStart="20dp"
-            android:textColorHint="@color/color_somegray"
-            android:textSize="14sp" />
-
-        <EditText
-            android:id="@+id/et_bankname"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_below="@id/et_bankcode"
-            android:layout_marginStart="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/customborder_onboard_8dp"
-            android:gravity="center_vertical"
-            android:hint="@string/bankname_input"
-            android:inputType="text"
+            android:paddingTop="8dp"
             android:paddingStart="20dp"
-            android:textColorHint="@color/color_somegray"
-            android:textSize="14sp" />
+            android:paddingEnd="20dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:background="@drawable/customborder_onboard_8dp"
+            app:smsp_enableFloatingLabel = "false"
+            app:smsp_alwaysShowFloatingLabel="false"
+            app:smsp_floatingLabelColor="@color/dark_gray"
+            app:smsp_floatingLabelText="請選擇銀行"
+            app:smsp_floatingLabelSize="14sp"
+            app:smsp_enableSearchHeader="true"
+            app:smsp_searchHeaderText="請選擇銀行"
+            app:smsp_searchHeaderTextColor="@color/white"
+            app:smsp_searchHeaderBackgroundColor="@color/hkshop_color"
+            app:smsp_hint="請選擇銀行"
+            app:smsp_hintSize="14sp"
+            app:smsp_hintColor="@color/black"
+            app:smsp_itemSize="14sp"
+            app:smsp_itemColor="@color/dark_gray"
+            app:smsp_itemListColor="@color/dark_gray"
+            app:smsp_itemListHintBackgroundColor="#808080"
+            app:smsp_itemListHintColor="#FFFFFF"
+            app:smsp_multilineError="false"
+            app:smsp_selectedItemListColor="@color/black"
+            app:smsp_isSearchable="true"
+            app:smsp_searchHint="請搜選銀行名稱或銀行代碼"
+            app:smsp_searchHintColor="@color/bright_gray"
+            app:smsp_searchTextColor="@color/black"
+            app:smsp_enableErrorLabel="false"
+            app:smsp_underlineSize="0dp"
+            app:smsp_underlineColor="@color/white"/>
+<!--        <EditText-->
+<!--            android:id="@+id/et_bankcode"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="52dp"-->
+<!--            android:elevation="10dp"-->
+<!--            android:outlineSpotShadowColor="@color/hkshop_color"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/customborder_onboard_8dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:hint="@string/bankcode_input"-->
+<!--            android:inputType="number"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:textColorHint="@color/color_somegray"-->
+<!--            android:textSize="14sp" />-->
+
+<!--        <EditText-->
+<!--            android:id="@+id/et_bankname"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="52dp"-->
+<!--            android:layout_below="@id/et_bankcode"-->
+<!--            android:elevation="10dp"-->
+<!--            android:outlineSpotShadowColor="@color/hkshop_color"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="16dp"-->
+<!--            android:background="@drawable/customborder_onboard_8dp"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:hint="@string/bankname_input"-->
+<!--            android:inputType="text"-->
+<!--            android:paddingStart="20dp"-->
+<!--            android:textColorHint="@color/color_somegray"-->
+<!--            android:textSize="14sp" />-->
 
         <EditText
             android:id="@+id/et_bankaccountname"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:layout_below="@id/et_bankname"
+            android:layout_below="@id/smartSpinner_bankAccount_for_addShop"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
             android:layout_marginStart="16dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/customborder_onboard_8dp"
@@ -111,6 +167,10 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_below="@id/et_bankaccountname"
+            android:elevation="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
@@ -136,6 +196,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="224dp"
+            android:clickable="true"
+            android:elevation="10dp"
+            android:focusableInTouchMode="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/customborder_onboard_32dp">
 
@@ -158,7 +221,7 @@
                 android:layout_marginTop="28dp"
                 android:layout_toEndOf="@id/tv_remind_bottom"
                 android:src="@mipmap/ic_check"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/tv_remind"
@@ -176,6 +239,7 @@
             android:id="@+id/layout_toaddshopaddress"
             android:layout_width="match_parent"
             android:layout_height="90dp"
+            android:elevation="8dp"
             android:layout_alignParentBottom="true"
             android:background="@color/color_shopbg">
 

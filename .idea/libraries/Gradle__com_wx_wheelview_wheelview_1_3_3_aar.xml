@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.wx.wheelview:wheelview:1.3.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b33e69244559b838fa63249c0a08e5aa/jetified-wheelview-1.3.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b33e69244559b838fa63249c0a08e5aa/jetified-wheelview-1.3.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b33e69244559b838fa63249c0a08e5aa/jetified-wheelview-1.3.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c7f89b27b839c566fc6f3e4da2d110f6/jetified-wheelview-1.3.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c7f89b27b839c566fc6f3e4da2d110f6/jetified-wheelview-1.3.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c7f89b27b839c566fc6f3e4da2d110f6/jetified-wheelview-1.3.3/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.wx.wheelview/wheelview/1.3.3/88e5b863ae8ad753b106d58361b09e9b766d7a51/wheelview-1.3.3-javadoc.jar!/" />

@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -8,16 +8,20 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventdeleverFragmentAfterUpdateStatus
-import com.hkshopu.hk.ui.user.vm.ShopVModel
-import com.hkshopu.hk.utils.rxjava.RxBus
+import androidx.lifecycle.Observer
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
+import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.HKSHOPU.hk.ui.user.vm.ShopVModel
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 
-class ProductDraftApplyDialogFragment(var product_id:Int, var keyword: String, var fragment: Fragment): DialogFragment(), View.OnClickListener {
+class ProductDraftApplyDialogFragment(var product_id: String, var keyword: String, var fragment: Fragment): DialogFragment(), View.OnClickListener {
 
 
     var signal : Boolean = false
@@ -73,6 +77,42 @@ class ProductDraftApplyDialogFragment(var product_id:Int, var keyword: String, v
         progressBar_product_draft_apply.visibility = View.GONE
         iv_loading_background_product_draft_apply.visibility = View.GONE
 
+        VM.updateProductStatusData.observe(
+            this,
+            Observer {
+                when (it?.status) {
+                    Status.Success -> {
+                        if (it.ret_val.toString().equals("上架/下架成功!")) {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, "下架成功", Toast.LENGTH_LONG).show()
+                            }
+
+                            RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
+                            RxBus.getInstance().post(EventMyStoreFragmentRefresh())
+
+                        } else {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, it.ret_val.toString(), Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+//                        activity!!.runOnUiThread {
+//
+//                            progressBar_product_draft_apply.visibility = View.GONE
+//                            iv_loading_background_product_draft_apply.visibility = View.GONE
+//
+//                        }
+
+                        dismiss()
+                    }
+//                Status.Start -> showLoading()
+//                Status.Complete -> disLoading()
+                }
+            }
+        )
+
         return v
     }
 
@@ -81,16 +121,11 @@ class ProductDraftApplyDialogFragment(var product_id:Int, var keyword: String, v
             R.id.btn_cancel -> dismiss()
             R.id.btn_confirm -> {
 
-                progressBar_product_draft_apply.visibility = View.VISIBLE
-                iv_loading_background_product_draft_apply.visibility = View.VISIBLE
+//                progressBar_product_draft_apply.visibility = View.VISIBLE
+//                iv_loading_background_product_draft_apply.visibility = View.VISIBLE
 
                 VM.updateProductStatus(fragment, product_id, "draft")
-                RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
 
-                progressBar_product_draft_apply.visibility = View.GONE
-                iv_loading_background_product_draft_apply.visibility = View.GONE
-
-                dismiss()
             }
         }
     }

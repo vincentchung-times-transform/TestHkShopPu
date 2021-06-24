@@ -1,8 +1,8 @@
-package com.hkshopu.hk.component
+package com.HKSHOPU.hk.component
 
-import com.hkshopu.hk.data.bean.ShopAddressBean
-import com.hkshopu.hk.data.bean.ShopBankAccountBean
-import com.hkshopu.hk.data.bean.ShopCategoryBean
+import com.HKSHOPU.hk.data.bean.ShopAddressBean
+import com.HKSHOPU.hk.data.bean.ShopBankAccountBean
+import com.HKSHOPU.hk.data.bean.ShopCategoryBean
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -19,8 +19,12 @@ class CommonVariable private constructor() {
 
     companion object {
 
+        //Shop Category
+        var shopCategoryListForAdd = ArrayList<ShopCategoryBean>()
+        var shopCategoryListForEdit = ArrayList<ShopCategoryBean>()
+        var shopCategorySelectedList = ArrayList<String>()
+
         //Shop Info
-        val list = ArrayList<ShopCategoryBean>()
         var ShopCategory = TreeMap<String,ShopCategoryBean>()
         var bankaccountlist = ArrayList<ShopBankAccountBean>()
         var addresslist = ArrayList<ShopAddressBean>()

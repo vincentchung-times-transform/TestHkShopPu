@@ -1,8 +1,8 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
-import com.hkshopu.hk.R
-import com.hkshopu.hk.ui.main.store.fragment.MyStoreFragment
-import com.hkshopu.hk.ui.main.store.fragment.ShopFunctionFragment
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.ui.main.shopProfile.fragment.MyStoreFragment
+import com.HKSHOPU.hk.ui.main.shopProfile.fragment.ShopFunctionFragment
 
 interface ResourceStore {
     companion object {

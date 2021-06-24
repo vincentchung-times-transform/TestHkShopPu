@@ -1,10 +1,10 @@
-package com.hkshopu.hk.net.retrofit
+package com.HKSHOPU.hk.net.retrofit
 
 import android.content.Context
-import com.hkshopu.hk.BuildConfig
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.GsonProvider
-import com.hkshopu.hk.utils.FileUtils
+import com.HKSHOPU.hk.BuildConfig
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.GsonProvider
+import com.HKSHOPU.hk.utils.FileUtils
 import okhttp3.Cache
 import okhttp3.JavaNetCookieJar
 import okhttp3.OkHttpClient

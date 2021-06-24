@@ -1,8 +1,8 @@
-package com.hkshopu.hk.Base.response.function;
+package com.HKSHOPU.hk.Base.response.function;
 
-import com.hkshopu.hk.data.bean.BaseResponse;
-import com.hkshopu.hk.data.bean.ListBean;
-import com.hkshopu.hk.data.exception.RequestException;
+import com.HKSHOPU.hk.data.bean.BaseResponse;
+import com.HKSHOPU.hk.data.bean.ListBean;
+import com.HKSHOPU.hk.data.exception.RequestException;
 
 import io.reactivex.functions.Function;
 

@@ -1,11 +1,10 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.Manifest
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
-import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -27,9 +26,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityMailaddressBinding
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityMailaddressBinding
 import java.io.IOException
 import java.util.*
 

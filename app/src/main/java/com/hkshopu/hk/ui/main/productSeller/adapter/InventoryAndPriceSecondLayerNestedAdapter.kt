@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,10 +7,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
-import com.hkshopu.hk.data.bean.ItemInvenSecondNestedLayer
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.HKSHOPU.hk.data.bean.ItemInvenSecondNestedLayer
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
 import java.util.*
 
 class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<ItemInvenSecondNestedLayer>): RecyclerView.Adapter<InventoryAndPriceSecondLayerNestedAdapter.mViewHolder>(),

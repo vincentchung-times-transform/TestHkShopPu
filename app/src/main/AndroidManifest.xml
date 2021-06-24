@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.hkshopu.hk">
+    package="com.HKSHOPU.hk">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".application.App"
+        android:name="com.HKSHOPU.hk.application.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -40,13 +40,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ui.user.activity.TermsOfServiceActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.user.activity.TermsOfServiceActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.user.activity.NewPasswordActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.user.activity.NewPasswordActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.user.activity.LoginPasswordActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.user.activity.LoginPasswordActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
@@ -55,10 +55,10 @@
                app to run.
         -->
 
-        <activity android:name=".ui.user.activity.RetrieveEmailVerifyActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.user.activity.RetrieveEmailVerifyActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.LaunchActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.LaunchActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -68,12 +68,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.user.activity.LoginActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.user.activity.AddressEditActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.AddressEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
@@ -105,183 +105,187 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.user.activity.BuildAccountActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.BuildAccountActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.user.activity.UserIofoActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.UserIofoActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.user.activity.EmailVerifyActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.EmailVerifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.user.activity.MailAddressActivity"
+            android:name="com.HKSHOPU.hk.ui.user.activity.MailAddressActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.OnBoardActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.OnBoardActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
 <!-- Shop -->
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopmenuActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddShopActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddBankAccountActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddBankAccountBeforeBuildedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddBankAccountSellerInfoActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddBankAccountAfterBuiledctivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopAddressActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddShopAddressBeforeBuildActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopAddressSellerInfoActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddShopAddressAfterBuildedActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopCategoryActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopCategoryForAddShopActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopInfoModifyActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopCategoryForEditShopActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AddShopBriefActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopInfoModifyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AddShopBriefActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AccountSetupActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AccountSetupActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopAttentionActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopAttentionActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopEvaluationActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.AdvertisementActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopAddressListActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopAddressPresetActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopEvaluationActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopNameEditActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.AdvertisementActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopAddressListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopAddressPresetActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.BankListActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopNameEditActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.BankListActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.BankPresetActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.BankPresetActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopNotifyActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopNotifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 <!-- Product -->
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopPreviewActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.ShopIncomeActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopIncomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.PhoneEditActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.PhoneEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.EmailAdd1Activity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.EmailAddBeforeIdentifyingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.store.activity.EmailAdd2Activity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.EmailAddAfterIdentifyingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name="com.hkshopu.hk.ui.main.store.activity.SocialAccountSetActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.SocialAccountSetActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 <!-- Product -->
-        <activity android:name=".ui.main.productSeller.activity.AddMerchanCategoryActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.AddProductCategoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name=".ui.main.productSeller.activity.EditMerchanCategoryActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.EditMerchanCategoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:configChanges="orientation|screenSize"/>
-        <activity android:name="com.hkshopu.hk.ui.main.productSeller.activity.MerchandiseActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.ProductDetailForSalerActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.main.productSeller.activity.AddNewProductActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.AddNewProductActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.main.productSeller.activity.AddProductSpecificationMainActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.AddProductSpecificationMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".ui.main.productSeller.activity.AddInventoryAndPriceActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.AddInventoryAndPriceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
 <!--        <activity android:name=".ui.main.product.activity.AddInventoryAndPriceOldActivity"-->
 <!--            android:screenOrientation="portrait"-->
 <!--            android:windowSoftInputMode="adjustPan"/>-->
-        <activity android:name=".ui.main.productSeller.activity.AddShippingFareActivity"
+        <activity android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.AddShippingFareActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".ui.main.productSeller.activity.EditProductActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.EditProductActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.main.productSeller.activity.EditProductSpecificationMainActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.EditProductSpecificationMainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.main.productSeller.activity.EditInventoryAndPriceActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.EditInventoryAndPriceActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
 <!--        <activity-->
@@ -289,42 +293,48 @@
 <!--            android:screenOrientation="portrait"-->
 <!--            android:windowSoftInputMode="adjustPan" />-->
         <activity
-            android:name=".ui.main.productSeller.activity.EditShippingFareActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.EditShippingFareActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
         <activity
-            android:name=".ui.main.productSeller.activity.MyMerchantsActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask" />
-
-        <activity
-            android:name=".ui.main.store.activity.LogisticListActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productSeller.activity.MyProductManagmentActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name=".ui.main.store.activity.HelpCenterActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.LogisticListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name=".ui.main.store.activity.MySalesActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.HelpCenterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name=".ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shopProfile.activity.MySalesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name=".ui.main.shoppingCart.activity.ShoppingCartActivity"
+            android:name="com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartedEditActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartedConfirmedActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />

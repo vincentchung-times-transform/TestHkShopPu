@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui
+package com.HKSHOPU.hk.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityLaunchBinding
-import com.hkshopu.hk.ui.main.store.activity.OnBoardActivity
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityLaunchBinding
+import com.HKSHOPU.hk.ui.main.shopProfile.activity.OnBoardActivity
 
 
 class LaunchActivity : BaseActivity() {

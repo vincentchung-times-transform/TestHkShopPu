@@ -1,8 +1,8 @@
-package com.hkshopu.hk.ui.main.store.activity
+package com.HKSHOPU.hk.ui.main.shopProfile.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
 class BuyerAddAddressMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

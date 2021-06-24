@@ -1,9 +1,9 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ItemShippingFare_Filtered(
-    var shipment_desc: String, var price : Int = 0, var onoff : String = "off", var shop_id : Int) : Parcelable {
+    var shipment_desc: String, var price : Int = 0, var onoff : String = "off", var shop_id : String) : Parcelable {
 }

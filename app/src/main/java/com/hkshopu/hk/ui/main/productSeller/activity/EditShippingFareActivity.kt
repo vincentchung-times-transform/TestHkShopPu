@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.activity
+package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import MyLinearLayoutManager
 import android.annotation.SuppressLint
@@ -18,15 +18,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventCheckShipmentEnableBtnOrNot
-import com.hkshopu.hk.data.bean.*
-import com.hkshopu.hk.databinding.ActivityShippingFareBinding
-import com.hkshopu.hk.net.GsonProvider
-import com.hkshopu.hk.ui.main.adapter.ShippingFareAdapter
-import com.hkshopu.hk.ui.user.vm.ShopVModel
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckShipmentEnableBtnOrNot
+import com.HKSHOPU.hk.data.bean.*
+import com.HKSHOPU.hk.databinding.ActivityShippingFareBinding
+import com.HKSHOPU.hk.net.GsonProvider
+import com.HKSHOPU.hk.ui.main.adapter.ShippingFareAdapter
+import com.HKSHOPU.hk.ui.user.vm.ShopVModel
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
@@ -43,9 +43,9 @@ class EditShippingFareActivity : AppCompatActivity(){
     var value_txtViewFareRange :String = ""
 
     //資料變數宣告
-    var MMKV_user_id: Int = 0
-    var MMKV_shop_id: Int = 1
-    var MMKV_product_id: Int = 1 //待合併
+    var MMKV_user_id: String = ""
+    var MMKV_shop_id: String = ""
+    var MMKV_product_id: String = ""
     var MMKV_weight: String = ""
     var MMKV_length:String = ""
     var MMKV_width: String = ""
@@ -64,9 +64,9 @@ class EditShippingFareActivity : AppCompatActivity(){
         binding.imgViewLoadingBackgroundShipmentsSetting.visibility = View.VISIBLE
 
 
-        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
-        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
-        MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
+        MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "").toString()
 
         binding.progressBarShipmentsSetting.visibility = View.GONE
         binding.imgViewLoadingBackgroundShipmentsSetting.visibility = View.GONE
@@ -313,7 +313,7 @@ class EditShippingFareActivity : AppCompatActivity(){
 
 
             //sync prodcut fare settings to Shop fare setting
-            MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+            MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
             Log.d("MMKV_shop_id", MMKV_shop_id.toString())
             if(sync_to_shop == true){
 

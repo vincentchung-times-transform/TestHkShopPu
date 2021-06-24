@@ -1,7 +1,8 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
@@ -15,26 +16,23 @@ import android.widget.ImageView
 import android.widget.Toast
 
 import androidx.lifecycle.Observer
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.GraphRequest
+import com.facebook.*
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityBuildacntBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
-import com.hkshopu.hk.ui.user.vm.AuthVModel
-import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityBuildacntBinding
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopmenuActivity
+import com.HKSHOPU.hk.ui.user.vm.AuthVModel
+import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONException
@@ -173,6 +171,7 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
         }
         binding.btnFacebookLogin.setOnClickListener {
 
+
             LoginManager.getInstance().logInWithReadPermissions(
                 this, Arrays.asList("public_profile", "email")
             )
@@ -183,6 +182,33 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                             GraphRequest.newMeRequest(loginResult.accessToken) { `object`, response ->
                                 Log.d("BuildAccountActivity", response.toString())
                                 try {
+
+                                    // method_1.判斷用戶是否登入過
+                                    if (Profile.getCurrentProfile() != null) {
+                                        val profile: Profile = Profile.getCurrentProfile()
+                                        // 取得用戶大頭照
+                                        val userPhoto: Uri = profile.getProfilePictureUri(300, 300)
+                                        val id: String = profile.getId()
+                                        val name: String = profile.getName()
+                                        Log.d("OnBoardActivity", "Facebook userPhoto: $userPhoto")
+                                        Log.d("OnBoardActivity", "Facebook id: $id")
+                                        Log.d("OnBoardActivity", "Facebook name: $name")
+                                    }
+
+                                    // method_2.判斷用戶是否登入過
+                                    /*if (AccessToken.getCurrentAccessToken() != null) {
+                                        Log.d(TAG, "Facebook getApplicationId: " + AccessToken.getCurrentAccessToken().getApplicationId());
+                                        Log.d(TAG, "Facebook getUserId: " + AccessToken.getCurrentAccessToken().getUserId());
+                                        Log.d(TAG, "Facebook getExpires: " + AccessToken.getCurrentAccessToken().getExpires());
+                                        Log.d(TAG, "Facebook getLastRefresh: " + AccessToken.getCurrentAccessToken().getLastRefresh());
+                                        Log.d(TAG, "Facebook getToken: " + AccessToken.getCurrentAccessToken().getToken());
+                                        Log.d(TAG, "Facebook getSource: " + AccessToken.getCurrentAccessToken().getSource());
+                                    }*/
+                                    runOnUiThread {
+                                        binding.progressBarBuildAccount.visibility = View.VISIBLE
+                                        binding.ivLoadingBackgroundBuildAccount.visibility = View.VISIBLE
+                                    }
+
                                     // Application code
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
@@ -263,6 +289,12 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
+
+                runOnUiThread {
+                    binding.progressBarBuildAccount.visibility = View.VISIBLE
+                    binding.ivLoadingBackgroundBuildAccount.visibility = View.VISIBLE
+                }
+
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 val email = account.email.toString()
@@ -271,7 +303,12 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("BuildAccountActivity", "Google sign in failed", e)
-                // ...
+
+                runOnUiThread {
+                    binding.progressBarBuildAccount.visibility = View.GONE
+                    binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                }
+
             }
         }
     }
@@ -308,33 +345,28 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
 
     private fun doSocialLogin(email: String, facebook_account: String, google_account: String, apple_account: String) {
         var url = ApiConstants.API_PATH+"user/socialLoginProcess/"
+        var user_id: String = "0"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
-                var user_id: Int = 0
                 var ret_val: Any = ""
                 var status: Any = 999
                 try {
 
-                    runOnUiThread {
-                        binding.progressBarBuildAccount.visibility = View.VISIBLE
-                        binding.ivLoadingBackgroundBuildAccount.visibility = View.VISIBLE
-                    }
-
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
 
-                    Log.d("OnBoardActivity", "返回資料 resStr：" + resStr)
-                    Log.d("OnBoardActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("doSocialLogin", "返回資料 resStr：" + resStr)
+                    Log.d("doSocialLogin", "返回資料 ret_val：" + json.get("ret_val"))
 
                     ret_val = json.get("ret_val")
                     status = json.get("status")
 
                     if (status != 0) {
-                        user_id= json.getInt("user_id")
+                        user_id= json.getString("user_id")
 
-                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
-                            .putString("Email",email)
+                        Log.d("doSocialLogin", "ret_val: ${ret_val.toString()}")
+                        doBackendUserIDValidation(user_id, email)
 
                         doInsertAuditLog(user_id,
                             "第三方登入/doSocialLogin()",
@@ -345,12 +377,9 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                             json.get("ret_val").toString()
                         )
 
-                        val intent = Intent(this@BuildAccountActivity, ShopmenuActivity::class.java)
-                        startActivity(intent)
-                        finish()
                     } else {
 
-                        var user_id: Int = json.getInt("user_id")
+                        user_id = json.getString("user_id")
 
                         doInsertAuditLog(user_id,
                             "第三方登入/doSocialLogin()",
@@ -362,21 +391,16 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                         )
 
                         runOnUiThread {
-
-                            val intent = Intent(this@BuildAccountActivity, BuildAccountActivity::class.java)
-
-                            startActivity(intent)
-                            finish()
                             Toast.makeText(this@BuildAccountActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
-
+                            Log.d("doSocialLogin", "ret_val: ${ret_val.toString()}")
+                            binding.progressBarBuildAccount.visibility = View.GONE
+                            binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
                         }
 
+                        val intent = Intent(this@BuildAccountActivity, BuildAccountActivity::class.java)
+                        startActivity(intent)
+                        finish()
 
-                    }
-
-                    runOnUiThread {
-                        binding.progressBarBuildAccount.visibility = View.GONE
-                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
                     }
 
                 } catch (e: JSONException) {
@@ -388,8 +412,14 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                                 "facebook_account: ${facebook_account} ; " +
                                 "google_account : ${google_account} ; " +
                                 "apple_account : ${apple_account} ; ",
-                        ret_val.toString()
+                        e.toString()
                     )
+                    runOnUiThread {
+                        Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                        Log.d("doSocialLogin", "JSONException: ${e.toString()}")
+                        binding.progressBarBuildAccount.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                    }
 
 
                 } catch (e: IOException) {
@@ -401,21 +431,119 @@ class BuildAccountActivity : BaseActivity(), TextWatcher {
                                 "facebook_account: ${facebook_account} ; " +
                                 "google_account : ${google_account} ; " +
                                 "apple_account : ${apple_account} ; ",
-                        ret_val.toString()
+                        e.toString()
                     )
+                    runOnUiThread {
+                        Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                        Log.d("doSocialLogin", "IOException: ${e.toString()}")
+                        binding.progressBarBuildAccount.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                    }
 
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                doInsertAuditLog(user_id,
+                    "第三方登入/doSocialLogin()",
+                    "email: ${email.toString()} ; " +
+                            "facebook_account: ${facebook_account} ; " +
+                            "google_account : ${google_account} ; " +
+                            "apple_account : ${apple_account} ; ",
+                    ErrorResponse.toString()
+                )
+                runOnUiThread {
+                    Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                    Log.d("doSocialLogin", "ErrorResponse: ${ErrorResponse.toString()}")
+                    binding.progressBarBuildAccount.visibility = View.GONE
+                    binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                }
             }
         })
         web.Do_SocialLogin(url, email,facebook_account,google_account, apple_account)
     }
 
+    private fun doBackendUserIDValidation(user_id: String, email: String) {
 
-    private fun doInsertAuditLog(user_id: Int,action: String, parameter_in: String, parameter_out: String) {
+        var url = ApiConstants.API_PATH+"user/user_id_validation/"
+
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+
+                    Log.d("doBackendUserIDValidation", "返回資料 resStr：" + resStr)
+//                    Log.d("doInsertAuditLog", "返回資料 ret_val：" + json.get("ret_val"))
+
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+
+                    if (status == 0) {
+
+                        if (ret_val.equals("該使用者存在!")){
+
+                            MMKV.mmkvWithID("http").putString("UserId", user_id)
+                                .putString("Email",email)
+
+                            Log.d("doBackendUserIDValidation", "該使用者存在!")
+                            runOnUiThread {
+                                binding.progressBarBuildAccount.visibility = View.GONE
+                                binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                            }
+
+                            val intent = Intent(this@BuildAccountActivity, ShopmenuActivity::class.java)
+                            startActivity(intent)
+                            finish()
+
+                        }else{
+                            runOnUiThread {
+                                Toast.makeText(this@BuildAccountActivity, "該使用者不存在!", Toast.LENGTH_SHORT).show()
+                                Log.d("doBackendUserIDValidation", "該使用者不存在!")
+                                binding.progressBarBuildAccount.visibility = View.GONE
+                                binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                            }
+
+                        }
+                    }
+
+                } catch (e: JSONException) {
+
+                    runOnUiThread {
+                        Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                        Log.d("doBackendUserIDValidation", "JSONException: ${e.toString()}")
+                        binding.progressBarBuildAccount.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                    }
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+
+                    runOnUiThread {
+                        Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                        Log.d("doBackendUserIDValidation", "IOException: ${e.toString()}")
+                        binding.progressBarBuildAccount.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                    }
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+
+                runOnUiThread {
+                    Toast.makeText(this@BuildAccountActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
+                    Log.d("doBackendUserIDValidation", "ErrorResponse: ${ErrorResponse.toString()}")
+                    binding.progressBarBuildAccount.visibility = View.GONE
+                    binding.ivLoadingBackgroundBuildAccount.visibility = View.GONE
+                }
+            }
+        })
+        web.doBackendUserIDValidation(url, user_id)
+    }
+
+    private fun doInsertAuditLog(user_id: String ,action: String, parameter_in: String, parameter_out: String) {
 
         var url = ApiConstants.API_PATH+"user/${user_id}/auditLog/"
 

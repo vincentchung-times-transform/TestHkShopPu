@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -11,9 +11,9 @@ import android.widget.EditText
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventShopDesUpdated
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventShopDesUpdated
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 
 
 

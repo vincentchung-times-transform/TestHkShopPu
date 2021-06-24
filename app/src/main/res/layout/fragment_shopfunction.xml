@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
-
+            android:id="@+id/layout_list"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -136,13 +136,12 @@
             android:background="@color/colordivideline" />
 
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
-
+                android:id="@+id/layout_bankaccount"
                 android:layout_width="match_parent"
                 android:layout_height="52dp">
 
@@ -216,7 +215,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_delivery"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -265,7 +264,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_storesort"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -299,7 +298,7 @@
                 android:layout_alignStart="@id/tv_storesort"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
                 <TextView
@@ -324,7 +323,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 android:layout_toEndOf="@+id/cardView_storeSort01"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
@@ -351,7 +350,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
-                android:visibility="gone"
+                android:visibility="invisible"
                 android:layout_toEndOf="@+id/cardView_storeSort02"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
@@ -402,7 +401,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_ad"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -452,7 +451,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_shoppreview"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -553,7 +552,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_acntset"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 
@@ -602,7 +601,7 @@
             android:background="@color/colordivideline" />
 
         <RelativeLayout
-
+            android:id="@+id/layout_help"
             android:layout_width="match_parent"
             android:layout_height="52dp">
 

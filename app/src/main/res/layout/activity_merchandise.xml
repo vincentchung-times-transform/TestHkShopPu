@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.productSeller.activity.MerchandiseActivity">
+    tools:context=".ui.main.productSeller.activity.ProductDetailForSalerActivity">
 
 
     <ProgressBar
@@ -31,13 +31,15 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:background="@color/color_shopbg"
-        android:layout_height="50dp">
+        android:layout_marginTop="15dp"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/titleBack_addshop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:padding="8dp"
             android:layout_centerVertical="true"
             android:src="@mipmap/ic_arrow_back" />
         <TextView
@@ -50,8 +52,9 @@
             android:layout_centerInParent="true"/>
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:layout_centerVertical="true"
             android:src="@mipmap/ic_notification"
             android:layout_marginEnd="15dp"
             android:layout_alignParentRight="true" />
@@ -1606,12 +1609,20 @@
                         android:textSize="14sp"
                         android:text="運費："/>
                     <TextView
-                        android:id="@+id/textView_shipping_fare_range"
+                        android:id="@+id/textView_shipping_fare_dollar_sign"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/hkd_dollarSign"/>
+
+                    <TextView
+                        android:id="@+id/textView_shipping_fare_range"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textSize="14sp"
-                        android:text="HKD$ - "/>
+                        android:text=""/>
+
 
                 </LinearLayout>
                 <LinearLayout

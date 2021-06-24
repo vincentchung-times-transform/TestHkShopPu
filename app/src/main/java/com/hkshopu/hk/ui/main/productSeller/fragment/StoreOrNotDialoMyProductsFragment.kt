@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -10,8 +10,8 @@ import android.widget.ImageView
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
 import com.tencent.mmkv.MMKV
 
 class StoreOrNotDialoMyProductsFragment(var activity: BaseActivity): DialogFragment(), View.OnClickListener {

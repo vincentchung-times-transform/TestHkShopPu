@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hkshopu.hk.widget.view;
+package com.HKSHOPU.hk.widget.view;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -30,7 +30,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 
-import com.hkshopu.hk.R;
+import com.HKSHOPU.hk.R;
 
 
 public class KeyboardUtil {
@@ -286,7 +286,7 @@ public class KeyboardUtil {
                 previousDisplayHeight = displayHeight;
 
                 // init the panel height for target.
-                panelHeightTarget.refreshHeight(com.hkshopu.hk.widget.view.KeyboardUtil.getValidPanelHeight(getContext()));
+                panelHeightTarget.refreshHeight(com.HKSHOPU.hk.widget.view.KeyboardUtil.getValidPanelHeight(getContext()));
                 return;
             }
 
@@ -320,9 +320,9 @@ public class KeyboardUtil {
             }
 
             // save the keyboardHeight
-            boolean changed = com.hkshopu.hk.widget.view.KeyboardUtil.saveKeyboardHeight(getContext(), keyboardHeight);
+            boolean changed = com.HKSHOPU.hk.widget.view.KeyboardUtil.saveKeyboardHeight(getContext(), keyboardHeight);
             if (changed) {
-                final int validPanelHeight = com.hkshopu.hk.widget.view.KeyboardUtil.getValidPanelHeight(getContext());
+                final int validPanelHeight = com.HKSHOPU.hk.widget.view.KeyboardUtil.getValidPanelHeight(getContext());
                 if (this.panelHeightTarget.getHeight() != validPanelHeight) {
                     // Step3. refresh the panel's height with valid-panel-height which refer to
                     // the last keyboard height

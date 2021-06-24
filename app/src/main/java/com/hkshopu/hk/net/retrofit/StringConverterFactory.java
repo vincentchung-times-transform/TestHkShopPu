@@ -1,4 +1,4 @@
-package com.hkshopu.hk.net.retrofit;
+package com.HKSHOPU.hk.net.retrofit;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

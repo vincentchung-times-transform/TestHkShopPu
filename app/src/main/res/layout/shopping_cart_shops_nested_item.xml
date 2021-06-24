@@ -67,7 +67,10 @@
                     android:layout_gravity="center_vertical"
                     android:text="shop no name"
                     android:layout_marginLeft="8dp"
+                    android:layout_marginRight="16dp"
                     android:layout_weight="1"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -141,47 +144,55 @@
 
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/description_line" />
-
             <LinearLayout
+                android:id="@+id/layout_price_total_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <TextView
+                android:orientation="vertical">
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="14dp"
-                    android:textColor="@color/black"
-                    android:text="@string/product_price_total"/>
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/description_line" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/hkd_dollarSign"
-                    android:textColor="@color/black"
-                    android:textSize="14dp" />
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView_product_price_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textSize="14dp"
-                    android:textColor="@color/black"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14dp"
+                        android:textColor="@color/black"
+                        android:text="@string/product_price_total"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hkd_dollarSign"
+                        android:textColor="@color/black"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:id="@+id/textView_product_price_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textSize="14dp"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
         <ImageView

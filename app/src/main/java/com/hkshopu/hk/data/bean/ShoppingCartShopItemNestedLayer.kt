@@ -1,7 +1,20 @@
-package com.hkshopu.hk.data.bean
-data class ShoppingCartShopItemNestedLayer(
-    var shop_checked: Boolean,
-    var shop_icon_url: String,
-    var shop_name: String,
-    var mutableList_shoppingCartProductItem : MutableList<ShoppingCartProductItemNestedLayer>
-)
+package com.HKSHOPU.hk.data.bean
+import com.google.gson.annotations.SerializedName
+
+class ShoppingCartShopItemNestedLayer {
+
+    var shop_checked: Boolean = false
+
+    @SerializedName("shop_id")
+    var shop_id: String = ""
+
+    @SerializedName("shop_title")
+    var shop_title: String = ""
+
+    @SerializedName("shop_icon")
+    var shop_icon: String = ""
+
+    @SerializedName("productList")
+    var productList : MutableList<ShoppingCartProductItemNestedLayer> = mutableListOf()
+
+}

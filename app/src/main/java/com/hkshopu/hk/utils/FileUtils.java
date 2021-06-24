@@ -1,10 +1,10 @@
-package com.hkshopu.hk.utils;
+package com.HKSHOPU.hk.utils;
 
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Environment;
 
-import com.hkshopu.hk.application.App;
+import com.HKSHOPU.hk.application.App;
 
 import java.io.BufferedInputStream;
 import java.io.File;

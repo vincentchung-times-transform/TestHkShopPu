@@ -1,10 +1,10 @@
-package com.hkshopu.hk.data.repository;
+package com.HKSHOPU.hk.data.repository;
 
 
-import com.hkshopu.hk.Base.response.function.PageSuccessFunc;
-import com.hkshopu.hk.Base.response.function.SuccessFunc;
-import com.hkshopu.hk.data.bean.BaseResponse;
-import com.hkshopu.hk.data.bean.ListBean;
+import com.HKSHOPU.hk.Base.response.function.PageSuccessFunc;
+import com.HKSHOPU.hk.Base.response.function.SuccessFunc;
+import com.HKSHOPU.hk.data.bean.BaseResponse;
+import com.HKSHOPU.hk.data.bean.ListBean;
 
 import java.util.List;
 

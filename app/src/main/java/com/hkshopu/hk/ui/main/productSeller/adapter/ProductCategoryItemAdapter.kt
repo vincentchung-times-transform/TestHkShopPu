@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.graphics.Color
 import android.util.Log
@@ -9,11 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventProductCatSelected
-import com.hkshopu.hk.data.bean.ProductCategoryBean
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventProductCatSelected
+import com.HKSHOPU.hk.data.bean.ProductCategoryBean
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.squareup.picasso.Picasso
 
 class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapter.mViewHolder>()  {
@@ -22,7 +22,7 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
     var last_position = 0
 
     //categoryItem基本資料變數宣告
-    var id : Int = 0
+    var id : String = ""
     lateinit var c_product_category : String
     lateinit var e_product_category : String
     lateinit var unselected_product_category_icon_image_url : String
@@ -112,10 +112,9 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
             val category_item_selected = product_category_list.get(position)
             var c_product_category_selected = category_item_selected.c_product_category
+            var selected_item_id = category_item_selected.id
 
-
-            var selected_item_id = holder.adapterPosition + 1
-            RxBus.getInstance().post(EventProductCatSelected(selected_item_id, c_product_category_selected))
+            RxBus.getInstance().post(EventProductCatSelected(selected_item_id.toString(), c_product_category_selected))
 
             if(position != last_position) {
 

@@ -1,4 +1,4 @@
-package com.hkshopu.hk.utils;
+package com.HKSHOPU.hk.utils;
 
 
 import android.content.Context;

@@ -1,7 +1,7 @@
-package com.hkshopu.hk.net.net.imageloader
+package com.HKSHOPU.hk.net.net.imageloader
 
-import com.hkshopu.hk.net.imageloader.ImageLoader
-import com.hkshopu.hk.net.net.imageloader.glide.GlideImageLoader
+import com.HKSHOPU.hk.net.imageloader.ImageLoader
+import com.HKSHOPU.hk.net.net.imageloader.glide.GlideImageLoader
 
 
 /**

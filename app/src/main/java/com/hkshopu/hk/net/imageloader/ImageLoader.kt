@@ -1,4 +1,4 @@
-package com.hkshopu.hk.net.imageloader
+package com.HKSHOPU.hk.net.imageloader
 
 import android.graphics.Bitmap
 import android.view.View

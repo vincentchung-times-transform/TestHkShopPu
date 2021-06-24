@@ -1,4 +1,4 @@
-package com.hkshopu.hk.net;
+package com.HKSHOPU.hk.net;
 
 public interface WebRequestListener<T> {
 

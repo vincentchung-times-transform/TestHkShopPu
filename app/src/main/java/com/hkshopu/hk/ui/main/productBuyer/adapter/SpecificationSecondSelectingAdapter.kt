@@ -1,17 +1,16 @@
-package com.hkshopu.hk.ui.main.productBuyer.adapter
+package com.HKSHOPU.hk.ui.main.productBuyer.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.*
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.*
 
-import com.hkshopu.hk.data.bean.ItemSpecificationSeleting
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.data.bean.ItemSpecificationSeleting
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import java.util.*
 
 class SpecificationSecondSelectingAdapter(var clickable: Boolean): RecyclerView.Adapter<SpecificationSecondSelectingAdapter.mViewHolder>(),
@@ -37,7 +36,7 @@ class SpecificationSecondSelectingAdapter(var clickable: Boolean): RecyclerView.
         var ic_detailed_product_spec_selecting_out_of_stock = itemView.findViewById<ImageView>(R.id.ic_detailed_product_spec_selecting_out_of_stock)
         var transparent_space_top = itemView.findViewById<ImageView>(R.id.transparent_space_top)
         var transparent_space_right = itemView.findViewById<ImageView>(R.id.transparent_space_right)
-        var spec_id = 0
+        var spec_id = ""
         var price_range = ""
         var quant_range = ""
         var total_quantity = 0

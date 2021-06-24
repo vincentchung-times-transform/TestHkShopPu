@@ -1,14 +1,11 @@
-package com.hkshopu.hk.ui.user.fragmentdialog
+package com.HKSHOPU.hk.ui.user.fragmentdialog
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.DialogFragmentNotificationBinding
-import com.hkshopu.hk.databinding.FragmentBottomSheetDialogBinding
+import com.HKSHOPU.hk.databinding.FragmentBottomSheetDialogBinding
 
 class BottomSheeFragment : BottomSheetDialogFragment() {
 

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.asdev.PhoneEditText-Android:PhoneEditText-Android:1.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2fad124f6a41ded5916d7ea1da97848f/jetified-PhoneEditText-Android-1.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2fad124f6a41ded5916d7ea1da97848f/jetified-PhoneEditText-Android-1.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2fad124f6a41ded5916d7ea1da97848f/jetified-PhoneEditText-Android-1.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e48c4821925ccf2e74f1bc4c278e6e6/jetified-PhoneEditText-Android-1.1.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e48c4821925ccf2e74f1bc4c278e6e6/jetified-PhoneEditText-Android-1.1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e48c4821925ccf2e74f1bc4c278e6e6/jetified-PhoneEditText-Android-1.1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.asdev.PhoneEditText-Android/PhoneEditText-Android/1.1.1/9713f2cc8d604b2fc19925b9c776e0d5d888ba9d/PhoneEditText-Android-1.1.1-javadoc.jar!/" />

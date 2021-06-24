@@ -1,12 +1,10 @@
-package com.hkshopu.hk.widget.view
+package com.HKSHOPU.hk.widget.view
 
 import android.animation.Animator
 import android.animation.AnimatorInflater
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.content.Context
 import android.database.DataSetObserver
-import android.os.Build
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -15,7 +13,7 @@ import android.widget.LinearLayout
 import androidx.annotation.AnimatorRes
 import androidx.annotation.DrawableRes
 import androidx.viewpager.widget.ViewPager
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
 class CircleIndicator @JvmOverloads constructor(
     context: Context,

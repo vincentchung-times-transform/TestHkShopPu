@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.app.Activity
 import android.graphics.Bitmap
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
-import com.hkshopu.hk.R
+import com.HKSHOPU.hk.R
 
 class ProductsFrameCustomAdapter(private val context: Activity, private val imageIdList:  MutableList<Bitmap>)
     : BaseAdapter() {

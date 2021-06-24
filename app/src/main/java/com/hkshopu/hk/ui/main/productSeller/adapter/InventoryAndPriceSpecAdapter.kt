@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,12 +15,12 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventCheckInvenSpecEnableBtnOrNot
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckInvenSpecEnableBtnOrNot
 
-import com.hkshopu.hk.data.bean.ItemInventory
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.data.bean.ItemInventory
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import org.jetbrains.anko.singleLine
 import java.util.*
 
@@ -81,6 +81,19 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
                         editText_value_price.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
                     }
 
+                    if(editText_value_price.text.toString().length >= 2 && editText_value_price.text.toString().startsWith("0")){
+                        editText_value_price.setText(editText_value_price.text.toString().replace("0", "", false))
+                        editText_value_price.setSelection(editText_value_price.text.toString().length)
+                    }
+
+                    value_name = textView_value_name.text.toString()
+                    value_price = editText_value_price.text.toString()
+                    value_quantity = editText_value_quantity.text.toString()
+
+
+                    onItemUpdate(value_price, value_quantity, adapterPosition)
+
+                    RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
                 }
             }
             val textWatcher_quant = object : TextWatcher {
@@ -90,14 +103,24 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
                 }
                 override fun afterTextChanged(s: Editable?) {
 
-
-
                     if (!s.toString().equals("")){
                         editText_value_quantity.setTextColor(itemView.context.resources.getColor(R.color.black))
                     }else{
                         editText_value_quantity.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
                     }
 
+                    if(editText_value_quantity.text.toString().length >= 2 && editText_value_quantity.text.toString().startsWith("0")){
+                        editText_value_quantity.setText(editText_value_quantity.text.toString().replace("0", "", false))
+                        editText_value_quantity.setSelection(editText_value_quantity.text.toString().length)
+                    }
+
+                    value_name = textView_value_name.text.toString()
+                    value_price = editText_value_price.text.toString()
+                    value_quantity = editText_value_quantity.text.toString()
+
+                    onItemUpdate(value_price, value_quantity, adapterPosition)
+
+                    RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
 
                 }
             }
@@ -109,19 +132,7 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
 
-                        if(editText_value_price.text.toString().length >= 2 && editText_value_price.text.toString().startsWith("0")){
-                            editText_value_price.setText(editText_value_price.text.toString().replace("0", "", false))
-                            editText_value_price.setSelection(editText_value_price.text.toString().length)
-                        }
 
-                        value_name = textView_value_name.text.toString()
-                        value_price = editText_value_price.text.toString()
-                        value_quantity = editText_value_quantity.text.toString()
-
-
-                        onItemUpdate(value_price, value_quantity, adapterPosition)
-
-                        RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
 
                         editText_value_price.hideKeyboard()
                         editText_value_price.clearFocus()
@@ -143,18 +154,6 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
 
-                        if(editText_value_quantity.text.toString().length >= 2 && editText_value_quantity.text.toString().startsWith("0")){
-                            editText_value_quantity.setText(editText_value_quantity.text.toString().replace("0", "", false))
-                            editText_value_quantity.setSelection(editText_value_quantity.text.toString().length)
-                        }
-
-                        value_name = textView_value_name.text.toString()
-                        value_price = editText_value_price.text.toString()
-                        value_quantity = editText_value_quantity.text.toString()
-
-                        onItemUpdate(value_price, value_quantity, adapterPosition)
-
-                        RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
 
                         editText_value_quantity.hideKeyboard()
                         editText_value_quantity.clearFocus()

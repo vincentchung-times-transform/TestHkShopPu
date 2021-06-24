@@ -1,15 +1,13 @@
-package com.hkshopu.hk.utils.extension
+package com.HKSHOPU.hk.utils.extension
 
-import android.content.ClipData
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.drawable.Drawable
-import android.net.Uri
 import android.preference.PreferenceManager
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import android.widget.Toast
-import com.hkshopu.hk.utils.ToastUtil
+import com.HKSHOPU.hk.utils.ToastUtil
 
 
 /**

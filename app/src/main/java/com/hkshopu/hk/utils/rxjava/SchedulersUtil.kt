@@ -1,8 +1,8 @@
-package com.hkshopu.hk.utils.rxjava
+package com.HKSHOPU.hk.utils.rxjava
 
-import com.hkshopu.hk.application.App
-import com.hkshopu.hk.utils.RxUtils
-import com.hkshopu.hk.utils.ToastUtil
+import com.HKSHOPU.hk.application.App
+import com.HKSHOPU.hk.utils.RxUtils
+import com.HKSHOPU.hk.utils.ToastUtil
 import io.reactivex.FlowableTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers

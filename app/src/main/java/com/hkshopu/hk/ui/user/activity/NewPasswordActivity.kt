@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -10,11 +10,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityNewPasswordBinding
-import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
-import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityNewPasswordBinding
+import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopmenuActivity
+import com.HKSHOPU.hk.ui.user.vm.AuthVModel
 import com.tencent.mmkv.MMKV
 
 class NewPasswordActivity : AppCompatActivity() {

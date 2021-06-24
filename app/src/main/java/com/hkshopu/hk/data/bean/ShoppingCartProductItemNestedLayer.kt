@@ -1,14 +1,21 @@
-package com.hkshopu.hk.data.bean
-data class ShoppingCartProductItemNestedLayer(
-    var product_icon_url: String,
-    var product_name: String,
-    var product_fist_spec_name: String,
-    var product_fist_spec_item: String,
-    var product_second_spec_name: String,
-    var product_second_spec_item: String,
-    var product_odered_quauntity: Int,
-    var product_sum_price: Int,
-    var logistcs_list: MutableList<ItemShippingFare_Filtered>,
-    var selected_logistic_name: String,
-    var selected_logistic_price: Int
-)
+package com.HKSHOPU.hk.data.bean
+import com.google.gson.annotations.SerializedName
+
+class ShoppingCartProductItemNestedLayer {
+
+    @SerializedName("product_id")
+    var product_id: String = ""
+
+    @SerializedName("product_title")
+    var product_title: String = ""
+
+    @SerializedName("product_pic")
+    var product_pic: String = ""
+
+    @SerializedName("shipmentList")
+    var shipmentList: MutableList<ShoppingCartProductShipmentItem> = mutableListOf()
+
+    @SerializedName("product_spec")
+    var product_spec: MutableList<ShoppingCartProductItemNestedLayerProductSepcBean> = mutableListOf()
+
+}

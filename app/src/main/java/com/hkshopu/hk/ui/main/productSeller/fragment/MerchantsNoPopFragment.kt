@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.store.fragment
+package com.HKSHOPU.hk.ui.main.shopProfile.fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -6,23 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.*
-import com.hkshopu.hk.data.bean.MyProductBean
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.store.adapter.MyProductsAdapter
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.*
+import com.HKSHOPU.hk.data.bean.MyProductBean
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.MyProductsAdapter
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
@@ -41,7 +38,7 @@ class MerchantsNoPopFragment : Fragment() {
         }
     }
 
-    var shopId: Int = 0
+    var shopId: String = ""
 
     lateinit var recyclerview_myProducts: RecyclerView
 
@@ -60,8 +57,7 @@ class MerchantsNoPopFragment : Fragment() {
 
         initRecyclerView()
 
-        shopId = MMKV.mmkvWithID("http").getInt("ShopId",0)
-        Log.d("mkjgjs", shopId.toString())
+        shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
 
         getMyProductsList(shopId.toString(), "none", "draft", "1")
 

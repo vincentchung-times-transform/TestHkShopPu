@@ -1,4 +1,4 @@
-package com.hkshopu.hk.widget.view;
+package com.HKSHOPU.hk.widget.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -14,7 +14,7 @@ import android.widget.EditText;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.core.content.ContextCompat;
 
-import com.hkshopu.hk.R;
+import com.HKSHOPU.hk.R;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 /**

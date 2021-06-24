@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/layout_bankaccountTitle"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp">
 
         <ImageView
@@ -18,13 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:padding="8dp"
             android:layout_marginStart="18dp"
             android:src="@mipmap/ic_arrow_back" />
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:text="@string/shopaddresspreset"
             android:textColor="@color/dark_gray"

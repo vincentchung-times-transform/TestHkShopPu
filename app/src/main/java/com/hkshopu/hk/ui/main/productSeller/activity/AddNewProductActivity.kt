@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.activity
+package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import MyLinearLayoutManager
 import android.app.Activity
@@ -21,24 +21,25 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventMyStoreFragmentRefresh
-import com.hkshopu.hk.component.EventTransferToFragmentAfterUpdate
-import com.hkshopu.hk.component.EventdeleverFragmentAfterUpdateStatus
-import com.hkshopu.hk.data.bean.*
-import com.hkshopu.hk.databinding.ActivityAddNewProductBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.GsonProvider
-import com.hkshopu.hk.net.GsonProvider.gson
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.productSeller.adapter.PicsAdapter
-import com.hkshopu.hk.ui.main.productSeller.fragment.StoreOrNotDialogStoreProductsFragment
-import com.hkshopu.hk.ui.main.productSeller.adapter.ShippingFareCheckedAdapter
-import com.hkshopu.hk.ui.user.vm.ShopVModel
-import com.hkshopu.hk.utils.rxjava.RxBus
-import com.hkshopu.hk.widget.view.KeyboardUtil
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
+import com.HKSHOPU.hk.component.EventRefreshShopList
+import com.HKSHOPU.hk.component.EventTransferToFragmentAfterUpdate
+import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.HKSHOPU.hk.data.bean.*
+import com.HKSHOPU.hk.databinding.ActivityAddNewProductBinding
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.GsonProvider
+import com.HKSHOPU.hk.net.GsonProvider.gson
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.PicsAdapter
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.ShippingFareCheckedAdapter
+import com.HKSHOPU.hk.ui.main.productSeller.fragment.StoreOrNotDialogStoreProductsFragment
+import com.HKSHOPU.hk.ui.user.vm.ShopVModel
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import okhttp3.Response
@@ -48,13 +49,14 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class AddNewProductActivity : BaseActivity() {
     var activity : BaseActivity  = this
 
     var editMode_or_AddMode = "editMdoe"
+
+    var hkd_dollarSign = ""
 
     private lateinit var binding: ActivityAddNewProductBinding
     private val VM = ShopVModel()
@@ -77,8 +79,8 @@ class AddNewProductActivity : BaseActivity() {
     var MMKV_value_txtViewFareRange :String = ""
     var MMKV_boolean_needMoreTimeToStockUp = "y"
     var MMKV_editMoreTimeInput :String = ""
-    var MMKV_user_id: Int = 0
-    var MMKV_shop_id: Int = 0
+    var MMKV_user_id: String = ""
+    var MMKV_shop_id: String = ""
     var MMKV_proCate_id: String = ""
     var MMKV_proSubCate_id: String = ""
     var MMKV_weight: String = ""
@@ -102,15 +104,14 @@ class AddNewProductActivity : BaseActivity() {
         binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.progressBarNewProduct.visibility = View.VISIBLE
-        binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
+        hkd_dollarSign = getResources().getString(R.string.hkd_dollarSign)
 
-
-
-        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
-        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
         product_add_session =  MMKV.mmkvWithID("addPro").getBoolean("product_add_session", false)
-        binding.progressBarNewProduct.isVisible = false
+
+        binding.progressBarNewProduct.visibility = View.GONE
+        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
         Log.d("product_add_session", product_add_session.toString())
 
@@ -126,10 +127,6 @@ class AddNewProductActivity : BaseActivity() {
         }
 
         initView()
-
-        binding.progressBarNewProduct.visibility = View.GONE
-        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
-
 
     }
 
@@ -299,27 +296,6 @@ class AddNewProductActivity : BaseActivity() {
         }
         binding.editTextEntryProductName.addTextChangedListener(textWatcher_editTextEntryProductName)
 
-//        binding.editTextEntryProductDiscription.singleLine = true
-//        binding.editTextEntryProductDiscription.setOnEditorActionListener() { v, actionId, event ->
-//            when (actionId) {
-//                EditorInfo.IME_ACTION_DONE -> {
-//
-//                    MMKV_editTextEntryProductDiscription =
-//                        binding.editTextEntryProductDiscription.text.toString()
-//                    MMKV.mmkvWithID("addPro").putString(
-//                        "value_editTextEntryProductDiscription",
-//                        MMKV_editTextEntryProductDiscription
-//                    )
-//
-//                    binding.editTextEntryProductDiscription.clearFocus()
-//                    KeyboardUtil.hideKeyboard(binding.editTextEntryProductDiscription)
-//
-//                    true
-//                }
-//
-//                else -> false
-//            }
-//        }
         val textWatcher_editTextEntryProductDiscription = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
@@ -342,33 +318,35 @@ class AddNewProductActivity : BaseActivity() {
 
         binding.editTextMerchanPrice.setOnFocusChangeListener { v, hasFocus ->
             if(hasFocus ){
-                binding.editTextMerchanPrice.setText("${MMKV_editTextMerchanPrice}")
+                binding.editTextMerchanPrice.setText("${MMKV_editTextMerchanPrice.replace(hkd_dollarSign, "")}")
+            }else{
+                if(binding.editTextMerchanPrice.text.isNotEmpty()){
+
+
+                    binding.editTextMerchanPrice.setText("${hkd_dollarSign}${binding.editTextMerchanPrice.text.toString().replace(hkd_dollarSign, "")}")
+                    MMKV_editTextMerchanPrice = binding.editTextMerchanPrice.text.toString().substring(4)
+                    MMKV.mmkvWithID("addPro").putString(
+                        "value_editTextMerchanPrice",
+                        MMKV_editTextMerchanPrice.replace(hkd_dollarSign, "")
+                    )
+
+                }else{
+                    binding.editTextMerchanPrice.setText("")
+                    MMKV_editTextMerchanPrice = binding.editTextMerchanPrice.text.toString()
+                    MMKV.mmkvWithID("addPro").putString(
+                        "value_editTextMerchanPrice",
+                        MMKV_editTextMerchanPrice.replace(hkd_dollarSign, "")
+                    )
+
+                }
+                KeyboardUtil.hideKeyboard(v)
             }
         }
+
         binding.editTextMerchanPrice.singleLine = true
         binding.editTextMerchanPrice.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
-
-                    if(binding.editTextMerchanPrice.text.isNotEmpty()){
-
-                        binding.editTextMerchanPrice.setText("HKD$ ${binding.editTextMerchanPrice.text.toString()}")
-                        MMKV_editTextMerchanPrice = binding.editTextMerchanPrice.text.toString().substring(5)
-                        MMKV.mmkvWithID("addPro").putString(
-                            "value_editTextMerchanPrice",
-                            MMKV_editTextMerchanPrice
-                        )
-
-                    }else{
-                        binding.editTextMerchanPrice.setText("")
-                        MMKV_editTextMerchanPrice = binding.editTextMerchanPrice.text.toString()
-                        MMKV.mmkvWithID("addPro").putString(
-                            "value_editTextMerchanPrice",
-                            MMKV_editTextMerchanPrice
-                        )
-
-                    }
-
 
                     binding.editTextMerchanPrice.clearFocus()
                     KeyboardUtil.hideKeyboard(binding.editTextMerchanPrice)
@@ -389,14 +367,13 @@ class AddNewProductActivity : BaseActivity() {
             override fun afterTextChanged(s: Editable?) {
 
 
-                if(binding.editTextMerchanPrice.text.startsWith("HKD$ ")){
-
+                if(binding.editTextMerchanPrice.text.startsWith("${hkd_dollarSign}")){
 
                     MMKV_editTextMerchanPrice =
-                        binding.editTextMerchanPrice.text.toString().substring(5)
+                        binding.editTextMerchanPrice.text.toString().substring(4)
                     MMKV.mmkvWithID("addPro").putString(
                         "value_editTextMerchanPrice",
-                        MMKV_editTextMerchanPrice
+                        MMKV_editTextMerchanPrice.replace(hkd_dollarSign, "")
                     )
                 }else{
                     if(binding.editTextMerchanPrice.text.toString().length >= 2 && binding.editTextMerchanPrice.text.toString().startsWith("0")){
@@ -501,9 +478,11 @@ class AddNewProductActivity : BaseActivity() {
     fun initClick() {
 
         binding.btnOnShelf.setOnClickListener {
+
+            binding.btnOnShelf.isEnabled = false
+
             binding.progressBarNewProduct.visibility = View.VISIBLE
             binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
-
 
             which_click="launch"
 
@@ -539,8 +518,8 @@ class AddNewProductActivity : BaseActivity() {
 
                                         //quantity and product_price is discarded
                                         doAddProduct( MMKV_shop_id,
-                                            MMKV_proCate_id.toInt(),
-                                            MMKV_proSubCate_id.toInt(),
+                                            MMKV_proCate_id.toString(),
+                                            MMKV_proSubCate_id.toString(),
                                             MMKV_editTextEntryProductName,
                                             MMKV_editTextMerchanQunt.toInt(),
                                             MMKV_editTextEntryProductDiscription,
@@ -551,7 +530,7 @@ class AddNewProductActivity : BaseActivity() {
                                             pic_list.size.toInt(),
                                             pic_list,
                                             inven_switch_off_json,
-                                            MMKV_user_id.toInt(),
+                                            MMKV_user_id.toString(),
                                             MMKV_length.toInt(),
                                             MMKV_width.toInt(),
                                             MMKV_height.toInt(),
@@ -599,8 +578,8 @@ class AddNewProductActivity : BaseActivity() {
 
                                             //quantity and product_price is discarded
                                             doAddProduct( MMKV_shop_id,
-                                                MMKV_proCate_id.toInt(),
-                                                MMKV_proSubCate_id.toInt(),
+                                                MMKV_proCate_id.toString(),
+                                                MMKV_proSubCate_id.toString(),
                                                 MMKV_editTextEntryProductName,
                                                 MMKV_editTextMerchanQunt.toInt(),
                                                 MMKV_editTextEntryProductDiscription,
@@ -611,7 +590,7 @@ class AddNewProductActivity : BaseActivity() {
                                                 pic_list.size.toInt(),
                                                 pic_list,
                                                 "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }",
-                                                MMKV_user_id,
+                                                MMKV_user_id.toString(),
                                                 MMKV_length.toInt(),
                                                 MMKV_width.toInt(),
                                                 MMKV_height.toInt(),
@@ -655,7 +634,6 @@ class AddNewProductActivity : BaseActivity() {
                                 }
                             }else{
 
-                                Log.d("MMKV_shop_id" , "MMKV_shop_id: ${MMKV_shop_id} ; "+"MMKV_proCate_id: ${MMKV_proCate_id} ; "+"MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; "+"value_editTextEntryProductName: ${MMKV_editTextEntryProductName} ; "+"value_editTextMerchanQunt: ${MMKV_editTextMerchanQunt} ; "+"value_editTextEntryProductDiscription: ${MMKV_editTextEntryProductDiscription} ; "+"value_editTextMerchanPrice: ${MMKV_editTextMerchanPrice} ; "+"MMKV_weight: ${MMKV_weight} ; "+"value_checked_brandNew: ${MMKV_checked_brandNew} ; "+"pic_list.size: ${pic_list.size} ; "+"pic_list: ${pic_list} ; "+"${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; "+"MMKV_user_id: ${MMKV_user_id} ; "+"MMKV_length: ${MMKV_length} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_width: ${MMKV_width} ; "+"MMKV_height: ${MMKV_height} ; "+"jsonList_shipment_certained: ${MMKV_jsonList_shipment_certained}")
                                 Toast.makeText(this, "包裹大小尚未輸入完成", Toast.LENGTH_SHORT).show()
                             }
                         }else{
@@ -671,9 +649,6 @@ class AddNewProductActivity : BaseActivity() {
                 Toast.makeText(this, "請選取至少一張照片", Toast.LENGTH_SHORT).show()
             }
 
-
-            binding.progressBarNewProduct.visibility = View.GONE
-            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
         }
 
@@ -698,8 +673,6 @@ class AddNewProductActivity : BaseActivity() {
         binding.btnAddPics.setOnClickListener {
 
             if(mutableList_pics.size<5){
-                binding.progressBarNewProduct.visibility = View.VISIBLE
-                binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
 
                 if (ActivityCompat.checkSelfPermission(
                         this,
@@ -716,9 +689,6 @@ class AddNewProductActivity : BaseActivity() {
                     launchGalleryIntent()
                 }
 
-
-                binding.progressBarNewProduct.visibility = View.GONE
-                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
             }else{
                 runOnUiThread {
                     Toast.makeText(this, "照片總數不可超過5張", Toast.LENGTH_SHORT).show()
@@ -840,12 +810,15 @@ class AddNewProductActivity : BaseActivity() {
         }
 
         binding.categoryContainer.setOnClickListener {
-            val intent = Intent(this, AddMerchanCategoryActivity::class.java)
+            val intent = Intent(this, AddProductCategoryActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         binding.btnStore.setOnClickListener {
+
+            binding.btnStore.isEnabled = false
+
             binding.progressBarNewProduct.visibility = View.VISIBLE
             binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
 
@@ -883,8 +856,8 @@ class AddNewProductActivity : BaseActivity() {
 
                                         //quantity and product_price is discarded
                                         doAddProduct( MMKV_shop_id,
-                                            MMKV_proCate_id.toInt(),
-                                            MMKV_proSubCate_id.toInt(),
+                                            MMKV_proCate_id.toString(),
+                                            MMKV_proSubCate_id.toString(),
                                             MMKV_editTextEntryProductName,
                                             MMKV_editTextMerchanQunt.toInt(),
                                             MMKV_editTextEntryProductDiscription,
@@ -895,7 +868,7 @@ class AddNewProductActivity : BaseActivity() {
                                             pic_list.size.toInt(),
                                             pic_list,
                                             inven_switch_off_json,
-                                            MMKV_user_id,
+                                            MMKV_user_id.toString(),
                                             MMKV_length.toInt(),
                                             MMKV_width.toInt(),
                                             MMKV_height.toInt(),
@@ -945,8 +918,8 @@ class AddNewProductActivity : BaseActivity() {
 
                                             //quantity and product_price is discarded
                                             doAddProduct( MMKV_shop_id,
-                                                MMKV_proCate_id.toInt(),
-                                                MMKV_proSubCate_id.toInt(),
+                                                MMKV_proCate_id.toString(),
+                                                MMKV_proSubCate_id.toString(),
                                                 MMKV_editTextEntryProductName,
                                                 MMKV_editTextMerchanQunt.toInt(),
                                                 MMKV_editTextEntryProductDiscription,
@@ -957,7 +930,8 @@ class AddNewProductActivity : BaseActivity() {
                                                 pic_list.size.toInt(),
                                                 pic_list,
                                                 "{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }",
-                                                MMKV_user_id, MMKV_length.toInt(),
+                                                MMKV_user_id.toString(),
+                                                MMKV_length.toInt(),
                                                 MMKV_width.toInt(),
                                                 MMKV_height.toInt(),
                                                 MMKV_jsonList_shipment_certained,
@@ -1016,9 +990,6 @@ class AddNewProductActivity : BaseActivity() {
             }else{
                 Toast.makeText(this, "請選取至少一張照片", Toast.LENGTH_SHORT).show()
             }
-
-            binding.progressBarNewProduct.visibility = View.GONE
-            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
         }
     }
@@ -1397,7 +1368,8 @@ class AddNewProductActivity : BaseActivity() {
 
         MMKV_inven_price_range = MMKV.mmkvWithID("addPro").getString("inven_price_range", MMKV_inven_price_range).toString()
         MMKV_inven_quant_range = MMKV.mmkvWithID("addPro").getString("inven_quant_range", MMKV_inven_quant_range).toString()
-        MMKV_editTextMerchanPrice = MMKV.mmkvWithID("addPro").getString("value_editTextMerchanPrice", MMKV_editTextMerchanPrice).toString()
+        MMKV_editTextMerchanPrice = MMKV.mmkvWithID("addPro").getString("value_editTextMerchanPrice",MMKV_editTextMerchanPrice.replace(hkd_dollarSign, "")
+        ).toString()
         MMKV_editTextMerchanQunt = MMKV.mmkvWithID("addPro").getString("value_editTextMerchanQunt", MMKV_editTextMerchanQunt).toString()
         binding.editTextMerchanPrice.setText(MMKV_editTextMerchanPrice)
         binding.editTextMerchanQunt.setText(MMKV_editTextMerchanQunt)
@@ -1478,7 +1450,7 @@ class AddNewProductActivity : BaseActivity() {
         return Bitmap.createScaledBitmap(image, width, height, true)
     }
 
-    private fun doAddProduct(shop_id : Int, product_category_id : Int, product_sub_category_id :Int, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list_size :Int ,product_pic_list : ArrayList<File>, product_spec_list : String, user_id: Int,  length : Int, width : Int, height : Int, shipment_method : String, longterm_stock_up : Int, product_status : String, product_spec_on : String) {
+    private fun doAddProduct(shop_id : String, product_category_id : String, product_sub_category_id :String, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list_size :Int ,product_pic_list : ArrayList<File>, product_spec_list : String, user_id: String,  length : Int, width : Int, height : Int, shipment_method : String, longterm_stock_up : Int, product_status : String, product_spec_on : String) {
 
 
         val url = ApiConstants.API_HOST+"/product/save/"
@@ -1486,11 +1458,12 @@ class AddNewProductActivity : BaseActivity() {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
+
                     resStr = response.body()!!.string()
-                    Log.d("AddShopActivity", "返回資料 resStr：" + resStr)
+                    Log.d("doAddProduct", "返回資料 resStr：" + resStr)
                     val json = JSONObject(resStr)
-                    Log.d("AddShopActivity", "返回資料 resStr：" + resStr)
-                    Log.d("AddShopActivity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("doAddProduct", "返回資料 resStr：" + resStr)
+                    Log.d("doAddProduct", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("產品新增成功!")) {
 
@@ -1498,18 +1471,26 @@ class AddNewProductActivity : BaseActivity() {
                             "store"->{
                                 runOnUiThread {
                                     Toast.makeText(this@AddNewProductActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                                    Log.d("doAddProduct", "ret_val: ${ret_val.toString()}")
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                                 }
 
                                 RxBus.getInstance().post(EventTransferToFragmentAfterUpdate(2))
                                 RxBus.getInstance().post(EventMyStoreFragmentRefresh())
+                                RxBus.getInstance().post(EventRefreshShopList())
                             }
                             "launch"->{
                                 runOnUiThread {
                                     Toast.makeText(this@AddNewProductActivity, "產品上架成功!", Toast.LENGTH_SHORT).show()
+                                    Log.d("doAddProduct", "ret_val: ${ret_val.toString()}")
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                                 }
 
                                 RxBus.getInstance().post(EventTransferToFragmentAfterUpdate(0))
                                 RxBus.getInstance().post(EventMyStoreFragmentRefresh())
+                                RxBus.getInstance().post(EventRefreshShopList())
                             }
 
                         }
@@ -1525,30 +1506,48 @@ class AddNewProductActivity : BaseActivity() {
                             "store"->{
                                 runOnUiThread {
                                     Toast.makeText(this@AddNewProductActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                                    Log.d("doAddProduct", "ret_val: ${ret_val.toString()}")
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                                 }
                             }
                             "Launch"->{
                                 runOnUiThread {
                                     Toast.makeText(this@AddNewProductActivity, "產品上架失敗!", Toast.LENGTH_SHORT).show()
+                                    Log.d("doAddProduct", "ret_val: ${ret_val.toString()}")
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                                 }
                             }
-
                         }
 
                     }
-//                        initRecyclerView()
-
 
                 } catch (e: JSONException) {
-                    Log.d("dfsdjfdo", "JSONException: ${e.toString()}")
+                    runOnUiThread {
+                        Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                        Log.d("doAddProduct", "JSONException: ${e.toString()}")
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("dfsdjfdo", "IOException: ${e.toString()}")
+                    runOnUiThread {
+                        Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                        Log.d("doAddProduct", "IOException: ${e.toString()}")
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                runOnUiThread {
+                    Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                    Log.d("doAddProduct", "ErrorResponse: ${ErrorResponse.toString()}")
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                }
             }
         })
         web.Do_ProductAdd(url, shop_id, product_category_id, product_sub_category_id, product_title, quantity, product_description, product_price, shipping_fee, weight, new_secondhand, product_pic_list_size, product_pic_list, product_spec_list, user_id,  length, width, height, shipment_method,  longterm_stock_up, product_status, product_spec_on)
@@ -1556,9 +1555,7 @@ class AddNewProductActivity : BaseActivity() {
 
     }
 
-
     override fun onBackPressed() {
-
         StoreOrNotDialogStoreProductsFragment(activity).show(supportFragmentManager, "MyCustomFragment")
     }
 
@@ -1631,21 +1628,36 @@ class AddNewProductActivity : BaseActivity() {
 
                         mutableList_itemShipingFare_filtered.clear()
 
-
-
-
                         initProFareDatas()
                     }
 
 
                 } catch (e: JSONException) {
 
+                    runOnUiThread {
+                        Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                        Log.d("getShopLogisticsList", "JSONException: ${e.toString()}")
+                    }
+
                 } catch (e: IOException) {
                     e.printStackTrace()
+
+                    runOnUiThread {
+                        Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                        Log.d("getShopLogisticsList", "IOException: ${e.toString()}")
+                    }
+
+
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+
+                runOnUiThread {
+                    Toast.makeText(this@AddNewProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                    Log.d("getShopLogisticsList", "ErrorResponse: ${ErrorResponse.toString()}")
+
+                }
 
             }
         })

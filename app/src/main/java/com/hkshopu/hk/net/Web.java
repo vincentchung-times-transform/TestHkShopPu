@@ -1,8 +1,8 @@
-package com.hkshopu.hk.net;
+package com.HKSHOPU.hk.net;
 
 import android.util.Log;
 
-import com.hkshopu.hk.data.bean.ShopLogisticBean;
+import com.HKSHOPU.hk.data.bean.ShopLogisticBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +72,54 @@ public class Web {
             }
         });
     }
+    public void doBackendUserIDValidation(String url, String user_id) {
 
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("user_id", user_id)
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+    public void doGetLatestAppVersion(String url, String app_type) {
+
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("app_type", app_type)
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
     public void Get_Data(String url) {
 
         Request request = new Request.Builder().url(url).get().build();
@@ -276,20 +323,14 @@ public class Web {
         });
     }
 
-    public void Do_ShopAdd(String url, final String shop_title, String user_id, int shop_category_id1, int shop_category_id2, int shop_category_id3,final String bank_code, String bank_name,final String bank_account_name, String bank_account,final String address_name, String address_country_code,final String address_phone, String address_is_phone_show,final String address_area, String address_district,final String address_road, String address_number,final String address_other, String address_floor , String address_room,File postImg) {
+    public void Do_ShopAdd(String url, final String shop_title, String user_id, List<String> shop_category_id,final String bank_code, String bank_name,final String bank_account_name, String bank_account,final String address_name, String address_country_code,final String address_phone, String address_is_phone_show,final String address_area, String address_district,final String address_road, String address_number,final String address_other, String address_floor , String address_room,File postImg) {
         Log.d(TAG, "Do_ShopAdd Url ＝ " + url);
-//        ArrayList<String> shop_category_id = new ArrayList<>();
-//        shop_category_id.add(shop_category_id1);
-//        shop_category_id.add(shop_category_id2);
-//        shop_category_id.add(shop_category_id3);
+
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), postImg);
-        MultipartBody requestBody = new MultipartBody.Builder()
+        MultipartBody.Builder requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("shop_title", shop_title)
-                .addFormDataPart("user_id", user_id)
-                .addFormDataPart("shop_category_id", String.valueOf(shop_category_id1))
-                .addFormDataPart("shop_category_id", String.valueOf(shop_category_id2))
-                .addFormDataPart("shop_category_id", String.valueOf(shop_category_id3))
+                .addFormDataPart("user_id", String.valueOf(user_id))
                 .addFormDataPart("bank_code", bank_code)
                 .addFormDataPart("bank_name", bank_name)
                 .addFormDataPart("bank_account_name", bank_account_name)
@@ -305,12 +346,18 @@ public class Web {
                 .addFormDataPart("address_other", address_other)
                 .addFormDataPart("address_floor", address_floor)
                 .addFormDataPart("address_room", address_room)
-                .addFormDataPart("shop_icon", postImg.getName(), fileBody)
-                .build();
+                .addFormDataPart("shop_icon", postImg.getName(), fileBody);
+
+        for(int i=0; i< shop_category_id.size(); i++){
+            requestBody.addFormDataPart("shop_category_id", String.valueOf(shop_category_id.get(i)));
+        };
+
+        MultipartBody multipartBody = requestBody.build();
+
 //        RequestBody requestBody = RequestBody.create(jsonObject.toString(),JSON);
         Request request = new Request.Builder()
                 .url(url)
-                .post(requestBody)
+                .post(multipartBody)
                 .build();
 //        Log.d(TAG, "Request ＝ " + requestBody);
 //        Log.d(TAG, "Content ＝ " + bodyToString(request));
@@ -332,11 +379,11 @@ public class Web {
         });
     }
 
-    public void Do_ShopAddressPreset(String url,int shopid,String presetid) {
+    public void Do_ShopAddressPreset(String url,String shopid,String presetid) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("shop_id",String.valueOf(shopid))
-                .add("shop_address_id", presetid)
+                .add("shop_id", String.valueOf(shopid))
+                .add("shop_address_id", String.valueOf(presetid))
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -412,7 +459,7 @@ public class Web {
     public void Do_ShopDesUpdate(String url,String addressid,String description) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("address_id",addressid)
+                .add("address_id", String.valueOf(addressid))
                 .add("long_description", description)
                 .build();
         Request request = new Request.Builder()
@@ -471,7 +518,7 @@ public class Web {
     }
 
 
-    public void Do_ProductAdd(String url, int shop_id, int product_category_id, int product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, int user_id, int length, int width, int height, String shipment_method, int longterm_stock_up, String product_status, String product_spec_on) {
+    public void Do_ProductAdd(String url, String shop_id, String product_category_id, String product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, String user_id, int length, int width, int height, String shipment_method, int longterm_stock_up, String product_status, String product_spec_on) {
         Log.d(TAG, "Do_ProductAdd Url ＝ " + url);
 
         List<MultipartBody.Part> images = new ArrayList<>();
@@ -545,7 +592,7 @@ public class Web {
             }
         });
     }
-    public void Do_ProductUpdate(String url, int product_id, int product_category_id, int product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, int user_id, int length, int width, int height, String shipment_method, int longterm_stock_up, String product_status, String product_spec_on) {
+    public void Do_ProductUpdate(String url, String product_id, String product_category_id, String product_sub_category_id, String product_title, int quantity, String product_description, int product_price, int shipping_fee, int weight, String new_secondhand,int product_pic_list_size ,ArrayList<File> product_pic_list, String product_spec_list, String user_id, int length, int width, int height, String shipment_method, int longterm_stock_up, String product_status, String product_spec_on) {
         Log.d(TAG, "Do_ProductAdd Url ＝ " + url);
 
         List<MultipartBody.Part> images = new ArrayList<>();
@@ -709,7 +756,7 @@ public class Web {
         });
     }
 
-    public void Do_ShopAddresspresetShow(String url,int shop_id,String show_status) {
+    public void Do_ShopAddresspresetShow(String url,String shop_id,String show_status) {
 
         RequestBody formBody = new FormBody.Builder()
                 .add("shop_id",String.valueOf(shop_id))
@@ -743,7 +790,7 @@ public class Web {
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), postImg);
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("address_id",addressid)
+                .addFormDataPart("address_id", String.valueOf(addressid))
                 .addFormDataPart("background_pic", postImg.getName(), fileBody)
                 .build();
         Request request = new Request.Builder()
@@ -795,7 +842,7 @@ public class Web {
     public void Do_ShopEmailUpdate(String url,String addressid,String email,String is_email_show) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("address_id",addressid)
+                .add("address_id", String.valueOf(addressid))
                 .add("shop_email", email)
                 .add("email_on", is_email_show)
                 .build();
@@ -825,7 +872,7 @@ public class Web {
     public void Do_ShopPhoneUpdate(String url,String addressid,String countrycode,String phone,String is_phone_show) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("address_id",addressid)
+                .add("address_id", String.valueOf(addressid))
                 .add("address_country_code", countrycode)
                 .add("shop_phone", phone)
                 .add("shop_is_phone_show", is_phone_show)
@@ -895,7 +942,7 @@ public class Web {
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), postImg);
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("address_id",addressid)
+                .addFormDataPart("address_id", String.valueOf(addressid))
                 .addFormDataPart("shop_icon", postImg.getName(), fileBody)
                 .build();
         Request request = new Request.Builder()
@@ -926,7 +973,7 @@ public class Web {
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), postImg);
         MultipartBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("address_id",addressid)
+                .addFormDataPart("address_id", String.valueOf(addressid))
                 .addFormDataPart("shop_pic", postImg.getName(), fileBody)
                 .build();
         Request request = new Request.Builder()
@@ -954,7 +1001,7 @@ public class Web {
     public void Do_ShopTitleUpdate(String url,String addressid,String shopTitle) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("address_id",addressid)
+                .add("address_id", String.valueOf(addressid))
                 .add("shop_title", shopTitle)
 
                 .build();
@@ -985,7 +1032,7 @@ public class Web {
     public void Do_ShopFaceBookOnOff(String url,String addressid,String facebook_on) {
 
         RequestBody formBody = new FormBody.Builder()
-                .add("address_id",addressid)
+                .add("address_id", String.valueOf(addressid))
                 .add("facebook_on", facebook_on)
                 .build();
         Request request = new Request.Builder()
@@ -1014,7 +1061,7 @@ public class Web {
     public void Do_ShopCategoryUpdate(String url,ArrayList<String> category_id_list) {
         JSONArray jsonArray=new JSONArray();
         for(int i=0; i< category_id_list.size(); i++) {
-            jsonArray.put(Integer.parseInt(category_id_list.get(i)));
+            jsonArray.put(category_id_list.get(i));
 
             Log.d(TAG, "category_id_list ＝ " + category_id_list.get(i));
         }
@@ -1100,7 +1147,7 @@ public class Web {
     }
 
 
-    public void getSimilarProducts(String url, String user_id, int product_id) {
+    public void getSimilarProducts(String url, String user_id, String product_id) {
 
 
         RequestBody formBody = new FormBody.Builder()
@@ -1126,7 +1173,7 @@ public class Web {
         });
     }
 
-    public void doLikeProductForBuyer(String url, int user_id, int product_id, String like) {
+    public void doLikeProductForBuyer(String url, String user_id, String product_id, String like) {
 
 
         RequestBody formBody = new FormBody.Builder()
@@ -1152,12 +1199,64 @@ public class Web {
             }
         });
     }
-    public void doFollowShopForBuyer(String url, int user_id, int shop_id, String follow) {
+
+    public void doFollowShopForBuyer(String url, String user_id, String shop_id, String follow) {
 
         RequestBody formBody = new FormBody.Builder()
                 .add("user_id", String.valueOf(user_id))
                 .add("shop_id", String.valueOf(shop_id))
                 .add("follow", String.valueOf(follow))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+    public void doAddItemsToShoppingCart(String url, String user_id, String product_id, String product_spec_id, int quantity) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("user_id", String.valueOf(user_id))
+                .add("product_id", String.valueOf(product_id))
+                .add("product_spec_id", String.valueOf(product_spec_id))
+                .add("quantity", String.valueOf(quantity))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+    public void doDeleteShoppingCartitems(String url, String shopping_cart_item_id) {
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("shopping_cart_item_id", String.valueOf(shopping_cart_item_id))
                 .build();
         Request request = new Request.Builder().url(url).post(formBody).build();
 

@@ -1,4 +1,4 @@
-package com.hkshopu.hk.data.bean
+package com.HKSHOPU.hk.data.bean
 data class ItemInventory(
     var spec_desc_1: String,
     var spec_desc_2: String,

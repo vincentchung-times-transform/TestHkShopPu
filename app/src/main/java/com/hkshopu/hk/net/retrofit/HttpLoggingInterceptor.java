@@ -1,9 +1,9 @@
-package com.hkshopu.hk.net.retrofit;
+package com.HKSHOPU.hk.net.retrofit;
 
 import android.util.Log;
 
-import com.hkshopu.hk.data.bean.BaseResponse;
-import com.hkshopu.hk.net.GsonProvider;
+import com.HKSHOPU.hk.data.bean.BaseResponse;
+import com.HKSHOPU.hk.net.GsonProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;

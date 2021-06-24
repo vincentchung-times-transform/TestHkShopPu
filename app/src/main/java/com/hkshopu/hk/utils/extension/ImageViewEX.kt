@@ -1,13 +1,11 @@
-package com.hkshopu.hk.utils.extension
+package com.HKSHOPU.hk.utils.extension
 
 import android.graphics.Bitmap
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.net.net.imageloader.ImageLoaderProvider
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.net.net.imageloader.ImageLoaderProvider
 
 
 /**

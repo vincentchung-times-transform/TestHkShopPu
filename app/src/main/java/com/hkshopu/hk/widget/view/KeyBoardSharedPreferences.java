@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hkshopu.hk.widget.view;
+package com.HKSHOPU.hk.widget.view;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -40,7 +40,7 @@ class KeyBoardSharedPreferences {
 
     private static SharedPreferences with(final Context context) {
         if (SP == null) {
-            synchronized (com.hkshopu.hk.widget.view.KeyBoardSharedPreferences.class) {
+            synchronized (com.HKSHOPU.hk.widget.view.KeyBoardSharedPreferences.class) {
                 if (SP == null) {
                     SP = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
                 }

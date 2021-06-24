@@ -1,8 +1,7 @@
-package com.hkshopu.hk.net.imageloader.glide
+package com.HKSHOPU.hk.net.imageloader.glide
 
 import android.util.Base64
-import android.util.Log
-import com.hkshopu.hk.utils.AES
+import com.HKSHOPU.hk.utils.AES
 
 import okhttp3.*
 

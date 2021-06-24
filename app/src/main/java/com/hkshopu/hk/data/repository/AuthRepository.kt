@@ -1,18 +1,13 @@
-package com.hkshopu.hk.data.repository
+package com.HKSHOPU.hk.data.repository
 
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.hkshopu.hk.component.EventLoginSuccess
-import com.hkshopu.hk.data.service.AuthService
-import com.hkshopu.hk.net.retrofit.RetrofitClient
-import com.hkshopu.hk.utils.rxjava.RxBus
-import com.hkshopu.hk.utils.rxjava.SchedulersUtil
+import com.HKSHOPU.hk.component.EventLoginSuccess
+import com.HKSHOPU.hk.data.service.AuthService
+import com.HKSHOPU.hk.net.retrofit.RetrofitClient
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.utils.rxjava.SchedulersUtil
 
 import com.trello.rxlifecycle2.android.lifecycle.kotlin.bindUntilEvent
 import io.reactivex.Observable

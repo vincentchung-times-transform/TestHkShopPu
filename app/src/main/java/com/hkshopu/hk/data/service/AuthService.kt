@@ -1,12 +1,11 @@
-package com.hkshopu.hk.data.service
+package com.HKSHOPU.hk.data.service
 
-import com.hkshopu.hk.data.bean.BaseResponse
-import com.hkshopu.hk.net.ApiConstants
+import com.HKSHOPU.hk.data.bean.BaseResponse
+import com.HKSHOPU.hk.net.ApiConstants
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 interface AuthService{
     @FormUrlEncoded

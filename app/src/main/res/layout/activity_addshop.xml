@@ -3,19 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/color_shopbg"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:id="@+id/titleBack_addshop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:padding="8dp"
             android:layout_marginStart="15dp"
             android:src="@mipmap/ic_arrow_back" />
 
@@ -23,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:text="@string/addshop"
             android:textColor="@color/dark_gray"
             android:textSize="18sp" />
@@ -33,13 +40,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="108dp">
+        android:layout_marginBottom="108dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">>
 
         <LinearLayout
             android:id="@+id/layout_addshop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusableInTouchMode="true">
 
             <RelativeLayout
                 android:id="@+id/layout_addshoppic"
@@ -47,7 +58,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="28dp"
-                android:layout_marginEnd="25dp">
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">>
 
                 <ImageView
                     android:id="@+id/iv_step1"
@@ -76,7 +89,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/iv_step1_check"
+                    android:id="@+id/iv_step_image_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -121,7 +134,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="25dp">
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">>
 
                 <ImageView
                     android:id="@+id/iv_step2"
@@ -150,7 +165,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/iv_step2_check"
+                    android:id="@+id/iv_step_shop_name_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
@@ -179,12 +194,13 @@
                     android:layout_below="@id/tv_step2function"
                     android:layout_marginStart="33dp"
                     android:layout_marginTop="16dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
                     android:imeOptions="actionDone"
                     android:singleLine="true"
                     android:inputType="text"
                     android:importantForAutofill="no"
                     android:background="@drawable/customborder_catelist"
-                    android:paddingLeft="4dp"
                     android:textColor="@color/colorText"
                     android:textSize="18sp"
                     />
@@ -198,7 +214,9 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginBottom="28dp">
+                android:layout_marginBottom="28dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">>
 
                 <ImageView
                     android:id="@+id/iv_step3"
@@ -220,7 +238,7 @@
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/iv_step3_check"
+                    android:id="@+id/iv_step_category_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"

@@ -1,17 +1,15 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.fragment.app.Fragment
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityRetrieveBinding
-import com.hkshopu.hk.databinding.ActivityTermsOfServiceBinding
-import com.hkshopu.hk.ui.user.fragment.*
-import com.hkshopu.hk.ui.user.fragmentdialog.BottomSheeFragment
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityTermsOfServiceBinding
+import com.HKSHOPU.hk.ui.user.fragment.*
+import com.HKSHOPU.hk.ui.user.fragmentdialog.BottomSheeFragment
 
 class TermsOfServiceActivity : AppCompatActivity(),  BottomSheeFragment.OnDialogButtonFragmentListener {
 

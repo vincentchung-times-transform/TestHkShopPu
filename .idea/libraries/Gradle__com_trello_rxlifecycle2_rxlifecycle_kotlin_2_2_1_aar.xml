@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4da42e7eabd4dbdf48042d95106a9c4e/jetified-rxlifecycle-kotlin-2.2.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4da42e7eabd4dbdf48042d95106a9c4e/jetified-rxlifecycle-kotlin-2.2.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4da42e7eabd4dbdf48042d95106a9c4e/jetified-rxlifecycle-kotlin-2.2.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba7b50526e746572a0aaebd6afee3905/jetified-rxlifecycle-kotlin-2.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba7b50526e746572a0aaebd6afee3905/jetified-rxlifecycle-kotlin-2.2.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba7b50526e746572a0aaebd6afee3905/jetified-rxlifecycle-kotlin-2.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trello.rxlifecycle2/rxlifecycle-kotlin/2.2.1/27e29adb056e760542ae2e4c533d9f3b11d3858e/rxlifecycle-kotlin-2.2.1-javadoc.jar!/" />

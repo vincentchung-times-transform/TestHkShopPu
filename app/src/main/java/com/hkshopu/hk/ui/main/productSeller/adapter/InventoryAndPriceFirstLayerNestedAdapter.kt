@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.ItemInvenFirstNestedLayer
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.data.bean.ItemInvenFirstNestedLayer
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
 import java.util.*
 
 class InventoryAndPriceFirstLayerNestedAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() ,

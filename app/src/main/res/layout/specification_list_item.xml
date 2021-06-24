@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/customborder_specification"
         android:gravity="center_vertical"
-        android:paddingLeft="2dp"
+        android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:layout_marginStart="2dp">
 

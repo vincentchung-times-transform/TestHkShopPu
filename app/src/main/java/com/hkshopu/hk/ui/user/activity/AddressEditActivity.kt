@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.user.activity
+package com.HKSHOPU.hk.ui.user.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -6,17 +6,17 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.Base.response.Status
-import com.hkshopu.hk.R
-import com.hkshopu.hk.databinding.ActivityAddresseditBinding
-import com.hkshopu.hk.net.ApiConstants
-import com.hkshopu.hk.net.Web
-import com.hkshopu.hk.net.WebListener
-import com.hkshopu.hk.ui.main.store.activity.ShopmenuActivity
-import com.hkshopu.hk.ui.user.vm.AuthVModel
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.Base.response.Status
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.databinding.ActivityAddresseditBinding
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.user.vm.AuthVModel
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONException
@@ -41,6 +41,9 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
         super.onCreate(savedInstanceState)
         binding = ActivityAddresseditBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
 
         settings = getSharedPreferences("DATA",0)
 
@@ -225,6 +228,11 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.VISIBLE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.VISIBLE
+                    }
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
                     Log.d("AddressEditActivity", "返回資料 resStr：" + resStr)
@@ -232,8 +240,8 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                     val ret_val = json.get("ret_val")
                     val status  = json.get("status")
                     if (status == 0) {
-                        var user_id: Int = json.getInt("user_id")
-                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
+                        var user_id: String= json.getString("user_id")
+                        MMKV.mmkvWithID("http").getString("UserId", user_id)
 
                         doVerifyCode(email)
 
@@ -254,13 +262,29 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
 
                 } catch (e: JSONException) {
 
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                    }
+
                 } catch (e: IOException) {
                     e.printStackTrace()
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                    }
+
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
 
+                runOnUiThread {
+                    binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                    binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                }
             }
         })
         web.Do_Register(url, "",email, password,confirm_password,first_name,last_name,gender,birthday,phone,address,region,district,street_name,street_no,floor,room)
@@ -280,8 +304,6 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                     val ret_val = json.get("ret_val")
                     val status  = json.get("status")
                     if (status == 0) {
-//                        var user_id: Int = json.getInt("user_id")
-//                        MMKV.mmkvWithID("http").putInt("UserId", user_id)
 
                         runOnUiThread {
                             Toast.makeText(this@AddressEditActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
@@ -298,15 +320,35 @@ class AddressEditActivity : BaseActivity(), TextWatcher {
                     }
 //                        initRecyclerView()
 
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                    }
 
                 } catch (e: JSONException) {
 
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                    }
+
                 } catch (e: IOException) {
                     e.printStackTrace()
+
+
+                    runOnUiThread {
+                        binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                        binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+
+                runOnUiThread {
+                    binding.progressBarBuildAccountAddressEditing.visibility = View.GONE
+                    binding.ivLoadingBackgroundBuildAccountAddressEditing.visibility = View.GONE
+                }
 
             }
         })

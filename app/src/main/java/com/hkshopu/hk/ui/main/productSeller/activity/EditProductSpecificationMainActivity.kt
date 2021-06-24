@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.activity
+package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,17 +13,17 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.hkshopu.hk.Base.BaseActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.*
-import com.hkshopu.hk.data.bean.*
-import com.hkshopu.hk.databinding.ActivityAddProductDescriptionMainBinding
-import com.hkshopu.hk.ui.main.productSeller.adapter.SpecificationSecondSpecsAdapter
-import com.hkshopu.hk.ui.main.productSeller.adapter.SpecificationFirstSpecsAdapter
-import com.hkshopu.hk.ui.main.productSeller.fragment.SpecificationInfoDialogFragment
-import com.hkshopu.hk.utils.rxjava.RxBus
-import com.hkshopu.hk.widget.view.disable
-import com.hkshopu.hk.widget.view.enable
+import com.HKSHOPU.hk.Base.BaseActivity
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.*
+import com.HKSHOPU.hk.data.bean.*
+import com.HKSHOPU.hk.databinding.ActivityAddProductDescriptionMainBinding
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.SpecificationSecondSpecsAdapter
+import com.HKSHOPU.hk.ui.main.productSeller.adapter.SpecificationFirstSpecsAdapter
+import com.HKSHOPU.hk.ui.main.productSeller.fragment.SpecificationInfoDialogFragment
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.widget.view.disable
+import com.HKSHOPU.hk.widget.view.enable
 import com.tencent.mmkv.MMKV
 import org.jetbrains.anko.singleLine
 
@@ -39,9 +39,9 @@ class EditProductSpecificationMainActivity : BaseActivity() {
     var EDIT_MODE_SIZE = "0"
 
     //頁面資料變數宣告
-    var MMKV_user_id: Int = 0
-    var MMKV_shop_id: Int = 1
-    var MMKV_product_id: Int = 1
+    var MMKV_user_id: String = ""
+    var MMKV_shop_id: String = ""
+    var MMKV_product_id: String = ""
     var value_editTextProductSpecFirst = ""
     var value_editTextProductSpecSecond = ""
     var value_datas_spec_size = 0
@@ -57,9 +57,9 @@ class EditProductSpecificationMainActivity : BaseActivity() {
         binding.progressBarSpecItemsEditation.visibility =View.VISIBLE
         binding.imgViewLoadingBackgroundSpecItemsEditation.visibility =View.VISIBLE
 
-        MMKV_user_id = MMKV.mmkvWithID("http").getInt("UserId", 0)
-        MMKV_shop_id = MMKV.mmkvWithID("http").getInt("ShopId", 0)
-        MMKV_product_id = MMKV.mmkvWithID("http").getInt("ProductId", 0)
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
+        MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "").toString()
 
         MMKV.mmkvWithID("editPro_temp").putBoolean("rebuild_datas", false)
 

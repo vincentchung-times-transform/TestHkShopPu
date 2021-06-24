@@ -1,4 +1,4 @@
-package com.hkshopu.hk.Base.response
+package com.HKSHOPU.hk.Base.response
 
 /**
  * @Author: YangYang

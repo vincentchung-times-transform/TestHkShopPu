@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.hkshopu.hk.widget.view;
+package com.HKSHOPU.hk.widget.view;
 
 /**
  * Created by Jacksgong on 3/26/16.

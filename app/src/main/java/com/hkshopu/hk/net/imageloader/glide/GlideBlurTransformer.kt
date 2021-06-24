@@ -1,4 +1,4 @@
-package com.hkshopu.hk.net.imageloader.glide
+package com.HKSHOPU.hk.net.imageloader.glide
 
 import android.graphics.Bitmap
 import android.graphics.Canvas

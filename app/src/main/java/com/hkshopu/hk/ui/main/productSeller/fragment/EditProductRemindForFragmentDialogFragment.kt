@@ -1,8 +1,7 @@
-package com.hkshopu.hk.ui.main.productSeller.fragment
+package com.HKSHOPU.hk.ui.main.productSeller.fragment
 
 import android.content.Intent
 import android.graphics.drawable.InsetDrawable
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,14 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.hkshopu.hk.R
-import com.hkshopu.hk.component.EventdeleverFragmentAfterUpdateStatus
-import com.hkshopu.hk.ui.main.productSeller.activity.EditProductActivity
-import com.hkshopu.hk.ui.user.vm.ShopVModel
-import com.hkshopu.hk.utils.rxjava.RxBus
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
+import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.HKSHOPU.hk.ui.main.productSeller.activity.EditProductActivity
+import com.HKSHOPU.hk.ui.user.vm.ShopVModel
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 
-class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var product_id: Int): DialogFragment(), View.OnClickListener {
+class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var product_id: String): DialogFragment(), View.OnClickListener {
 
 
     var signal : Boolean = false
@@ -92,7 +92,9 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
                 var currentActivity : FragmentActivity = fragment.activity!!
 
                 VM.updateProductStatus(fragment, product_id, "draft")
+
                 RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
+                RxBus.getInstance().post(EventMyStoreFragmentRefresh())
 
                 progressBar_edit_product_reminder.visibility = View.GONE
                 iv_loading_background_edit_product_reminder.visibility = View.GONE

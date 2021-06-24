@@ -1,4 +1,4 @@
-package com.hkshopu.hk.ui.main.productSeller.adapter
+package com.HKSHOPU.hk.ui.main.productSeller.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.hkshopu.hk.R
-import com.hkshopu.hk.data.bean.ItemShippingFare_Certained
-import com.hkshopu.hk.ui.main.store.adapter.ITHelperInterface
+import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.data.bean.ItemShippingFare_Certained
+import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
 
 
 class ShippingFareCheckedAdapter: RecyclerView.Adapter<ShippingFareCheckedAdapter.mViewHolder>(),
