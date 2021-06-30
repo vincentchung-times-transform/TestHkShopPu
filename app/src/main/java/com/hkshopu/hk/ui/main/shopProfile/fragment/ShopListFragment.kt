@@ -12,10 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.CommonVariable
-import com.HKSHOPU.hk.component.EventAddShopSuccess
-import com.HKSHOPU.hk.component.EventLogout
-import com.HKSHOPU.hk.component.EventRefreshShopList
+import com.HKSHOPU.hk.component.*
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
 import com.HKSHOPU.hk.data.bean.ShopListBean
 import com.HKSHOPU.hk.databinding.FragmentShoplistBinding
@@ -63,8 +60,7 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
         binding!!.containerLogin.visibility = View.GONE
         binding!!.containerAddNewShop.visibility = View.GONE
 
-        binding!!.progressBarShopList.visibility = View.GONE
-        binding!!.ivLoadingBackgroundShopList.visibility = View.GONE
+        RxBus.getInstance().post(EventFinishLoadingShopmenu())
 
 
         initView()
@@ -87,8 +83,8 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
             binding!!.containerLogin.visibility = View.VISIBLE
             binding!!.layoutShopTitle.visibility = View.INVISIBLE
         } else {
-            binding!!.progressBarShopList.visibility = View.VISIBLE
-            binding!!.ivLoadingBackgroundShopList.visibility = View.VISIBLE
+
+            RxBus.getInstance().post(EventStartLoadingShopmenu())
 
             getShopList(url)
         }
@@ -231,8 +227,7 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
 
                     }
                     activity!!.runOnUiThread {
-                        binding!!.progressBarShopList.visibility = View.GONE
-                        binding!!.ivLoadingBackgroundShopList.visibility = View.GONE
+                        RxBus.getInstance().post(EventFinishLoadingShopmenu())
                     }
 
 //                        initRecyclerView()
@@ -359,4 +354,7 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
         })
         web.Get_Data(url)
     }
+
+
+
 }

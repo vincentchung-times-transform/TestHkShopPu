@@ -44,7 +44,6 @@ class EmailAddAfterIdentifyingActivity : BaseActivity(){
         email_old = intent.getBundleExtra("bundle")!!.getString("email_old","")
         email_on = intent.getBundleExtra("bundle")!!.getString("email_on","")
         initView()
-        initVM()
         initClick()
 
     }
@@ -71,22 +70,7 @@ class EmailAddAfterIdentifyingActivity : BaseActivity(){
 //        binding.switchview.openSwitcher()
 
     }
-    private fun initVM() {
-//        VM.socialloginLiveData.observe(this, Observer {
-//            when (it?.status) {
-//                Status.Success -> {
-//                    if (url.isNotEmpty()) {
-//                        toast("登录成功")
-//
-//                    }
-//
-//                    finish()
-//                }
-//                Status.Start -> showLoading()
-//                Status.Complete -> disLoading()
-//            }
-//        })
-    }
+
 
     private fun initClick() {
         binding.ivBack.setOnClickListener {
@@ -128,8 +112,8 @@ class EmailAddAfterIdentifyingActivity : BaseActivity(){
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("EmailAdd2Activity", "返回資料 resStr：" + resStr)
-                    Log.d("EmailAdd2Activity", "返回資料 ret_val：" + json.get("ret_val"))
+                    Log.d("Do_ShopEmailUpdate", "返回資料 resStr：" + resStr)
+                    Log.d("Do_ShopEmailUpdate", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
                     if (status == 0) {

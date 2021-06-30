@@ -30,7 +30,7 @@ import com.HKSHOPU.hk.component.EventTransferToFragmentAfterUpdate
 import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
 
 import com.HKSHOPU.hk.data.bean.*
-import com.HKSHOPU.hk.databinding.ActivityEditProductBinding
+import com.HKSHOPU.hk.databinding.ActivityAddNewProductBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.GsonProvider
 import com.HKSHOPU.hk.net.GsonProvider.gson
@@ -58,7 +58,7 @@ import kotlin.collections.ArrayList
 
 class EditProductActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityEditProductBinding
+    private lateinit var binding: ActivityAddNewProductBinding
 
     private val VM = ShopVModel()
     val mAdapters_shippingFareChecked = ShippingFareCheckedAdapter()
@@ -112,8 +112,12 @@ class EditProductActivity : BaseActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityEditProductBinding.inflate(layoutInflater)
+        binding = ActivityAddNewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.titleEditProduct.setText(getText(R.string.title_editproduct))
+
+        binding.progressBarNewProduct.visibility = View.GONE
+        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
         hkd_dollarSign = getResources().getString(R.string.hkd_dollarSign)
 
@@ -568,9 +572,12 @@ class EditProductActivity : BaseActivity() {
         binding.btnOnShelf.setOnClickListener {
 
             binding.btnOnShelf.isEnabled = false
+            binding.btnStore.isEnabled = false
 
-            binding.progressBarEditProduct.visibility = View.VISIBLE
-            binding.imgViewLoadingBackgroundEditProduct.visibility = View.VISIBLE
+
+            binding.progressBarNewProduct.visibility = View.VISIBLE
+            binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
+
 
             var pic_list : ArrayList<File> = arrayListOf()
             var file: File? = null
@@ -590,9 +597,9 @@ class EditProductActivity : BaseActivity() {
                     if(MMKV_editTextEntryProductDiscription.isNotEmpty()){
                         if(MMKV_proCate_id.isNotEmpty()||MMKV_proSubCate_id.isNotEmpty()){
                             if(MMKV_weight.isNotEmpty() && MMKV_length.isNotEmpty() && MMKV_width.isNotEmpty() && MMKV_height.isNotEmpty()){
-                                if( !MMKV_editTextMerchanPrice.toString().equals("") && !MMKV_editTextMerchanQunt.equals(
-                                        ""
-                                    ) &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
+                                if( !MMKV_editTextMerchanPrice.toString().equals("") &&
+                                    !MMKV_editTextMerchanQunt.equals("") &&
+                                    binding.iosSwitchSpecification.isOpened().equals(false) ){
                                     if(mutableList_itemShipingFare.size>0){
 
 //                                        var inven_switch_off_json = "{ \"product_spec_list\" : [{\"price\": ${value_editTextMerchanPrice}, \"quantity\": ${value_editTextMerchanQunt}, \"spec_dec_1_items\":\"\",\"spec_dec_2_items\":\"\",\"spec_desc_1\":\"\",\"spec_desc_2\":\"\"}]}"
@@ -642,6 +649,10 @@ class EditProductActivity : BaseActivity() {
 
                                     }else{
                                         Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                        binding.progressBarNewProduct.visibility = View.GONE
+                                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                        binding.btnStore.isEnabled = true
+                                        binding.btnOnShelf.isEnabled = true
                                     }
                                 }else if( binding.iosSwitchSpecification.isOpened()){
                                     if( MMKV_inven_price_range.isNotEmpty() && MMKV_inven_quant_range.isNotEmpty()){
@@ -690,36 +701,63 @@ class EditProductActivity : BaseActivity() {
 
                                         }else{
                                             Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                            binding.progressBarNewProduct.visibility = View.GONE
+                                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                            binding.btnStore.isEnabled = true
+                                            binding.btnOnShelf.isEnabled = true
+
                                         }
                                     }else{
-                                        Log.d(
-                                            "testtestetest",
-                                            MMKV_inven_price_range.toString() + MMKV_inven_quant_range.toString()
-                                        )
+
                                         Toast.makeText(this, "商品庫存尚未設定", Toast.LENGTH_SHORT).show()
+                                        binding.progressBarNewProduct.visibility = View.GONE
+                                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                        binding.btnStore.isEnabled = true
+                                        binding.btnOnShelf.isEnabled = true
+
                                     }
                                 } else{
                                     Toast.makeText(this, "商品價格與數量尚未填寫", Toast.LENGTH_SHORT).show()
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                    binding.btnStore.isEnabled = true
+                                    binding.btnOnShelf.isEnabled = true
                                 }
                             }else{
 
-                                Log.d(
-                                    "MMKV_shop_id",
-                                    "MMKV_shop_id: ${MMKV_shop_id} ; " + "MMKV_proCate_id: ${MMKV_proCate_id} ; " + "MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; " + "value_editTextEntryProductName: ${MMKV_editTextEntryProductName} ; " + "value_editTextMerchanQunt: ${MMKV_editTextMerchanQunt} ; " + "value_editTextEntryProductDiscription: ${MMKV_editTextEntryProductDiscription} ; " + "value_editTextMerchanPrice: ${MMKV_editTextMerchanPrice} ; " + "MMKV_weight: ${MMKV_weight} ; " + "value_checked_brandNew: ${MMKV_checked_brandNew} ; " + "pic_list.size: ${pic_list.size} ; " + "pic_list: ${pic_list} ; " + "${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; " + "MMKV_user_id: ${MMKV_user_id} ; " + "MMKV_length: ${MMKV_length} ; " + "MMKV_width: ${MMKV_width} ; " + "MMKV_width: ${MMKV_width} ; " + "MMKV_height: ${MMKV_height} ; " + "MMKV_jsonList_shipment_certained: ${MMKV_jsonList_shipment_certained}"
-                                )
                                 Toast.makeText(this, "包裹大小尚未輸入完成", Toast.LENGTH_SHORT).show()
+                                binding.progressBarNewProduct.visibility = View.GONE
+                                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                binding.btnStore.isEnabled = true
+                                binding.btnOnShelf.isEnabled = true
                             }
                         }else{
                             Toast.makeText(this, "商品分類尚未選擇", Toast.LENGTH_SHORT).show()
+                            binding.progressBarNewProduct.visibility = View.GONE
+                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                            binding.btnStore.isEnabled = true
+                            binding.btnOnShelf.isEnabled = true
                         }
                     }else{
                         Toast.makeText(this, "請輸入商品描述", Toast.LENGTH_SHORT).show()
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                        binding.btnStore.isEnabled = true
+                        binding.btnOnShelf.isEnabled = true
                     }
                 }else{
                     Toast.makeText(this, "請輸入商品名稱", Toast.LENGTH_SHORT).show()
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                    binding.btnStore.isEnabled = true
+                    binding.btnOnShelf.isEnabled = true
                 }
             }else{
                 Toast.makeText(this, "請選取至少一張照片", Toast.LENGTH_SHORT).show()
+                binding.progressBarNewProduct.visibility = View.GONE
+                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                binding.btnStore.isEnabled = true
+                binding.btnOnShelf.isEnabled = true
             }
 
 
@@ -745,8 +783,8 @@ class EditProductActivity : BaseActivity() {
         binding.btnAddPics.setOnClickListener {
             if (mutableList_pics.size<5){
 
-                binding.progressBarEditProduct.visibility = View.VISIBLE
-                binding.imgViewLoadingBackgroundEditProduct.visibility = View.VISIBLE
+                binding.progressBarNewProduct.visibility = View.VISIBLE
+                binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
 
                 if (ActivityCompat.checkSelfPermission(
                         this,
@@ -763,8 +801,8 @@ class EditProductActivity : BaseActivity() {
                     launchGalleryIntent()
                 }
 
-                binding.progressBarEditProduct.visibility = View.GONE
-                binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                binding.progressBarNewProduct.visibility = View.GONE
+                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
             }else{
                 runOnUiThread {
@@ -772,8 +810,6 @@ class EditProductActivity : BaseActivity() {
                 }
 
             }
-
-
         }
 
         //設置containerSpecification中的iosSwitchSpecification開關功能
@@ -894,8 +930,10 @@ class EditProductActivity : BaseActivity() {
         binding.btnStore.setOnClickListener {
 
             binding.btnStore.isEnabled = false
-            binding.progressBarEditProduct.visibility = View.VISIBLE
-            binding.imgViewLoadingBackgroundEditProduct.visibility = View.VISIBLE
+            binding.btnOnShelf.isEnabled = false
+
+            binding.progressBarNewProduct.visibility = View.VISIBLE
+            binding.ivLoadingBackgroundNewProduct.visibility = View.VISIBLE
 
             var pic_list : ArrayList<File> = arrayListOf()
             var file: File? = null
@@ -915,9 +953,9 @@ class EditProductActivity : BaseActivity() {
                     if(MMKV_editTextEntryProductDiscription.isNotEmpty()){
                         if(MMKV_proCate_id.isNotEmpty()||MMKV_proSubCate_id.isNotEmpty()){
                             if(MMKV_weight.isNotEmpty() && MMKV_length.isNotEmpty() && MMKV_width.isNotEmpty() && MMKV_height.isNotEmpty()){
-                                if( !MMKV_editTextMerchanPrice.toString().equals("") && !MMKV_editTextMerchanQunt.equals(
-                                        ""
-                                    ) &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
+                                if( !MMKV_editTextMerchanPrice.toString().equals("")
+                                    && !MMKV_editTextMerchanQunt.equals("")
+                                    &&  binding.iosSwitchSpecification.isOpened().equals(false) ){
                                     if(mutableList_itemShipingFare.size>0){
 
 //                                        var inven_switch_off_json = "{ \"product_spec_list\" : [{\"price\": ${value_editTextMerchanPrice}, \"quantity\": ${value_editTextMerchanQunt}, \"spec_dec_1_items\":\"\",\"spec_dec_2_items\":\"\",\"spec_desc_1\":\"\",\"spec_desc_2\":\"\"}]}"
@@ -967,6 +1005,10 @@ class EditProductActivity : BaseActivity() {
 
                                     }else{
                                         Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                        binding.progressBarNewProduct.visibility = View.GONE
+                                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                        binding.btnStore.isEnabled = true
+                                        binding.btnOnShelf.isEnabled = true
                                     }
                                 }else if( binding.iosSwitchSpecification.isOpened()){
                                     if( MMKV_inven_price_range.isNotEmpty() && MMKV_inven_quant_range.isNotEmpty()){
@@ -1015,6 +1057,10 @@ class EditProductActivity : BaseActivity() {
 
                                         }else{
                                             Toast.makeText(this, "商品運費尚未設定", Toast.LENGTH_SHORT).show()
+                                            binding.progressBarNewProduct.visibility = View.GONE
+                                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                            binding.btnStore.isEnabled = true
+                                            binding.btnOnShelf.isEnabled = true
                                         }
                                     }else{
                                         Log.d(
@@ -1022,9 +1068,17 @@ class EditProductActivity : BaseActivity() {
                                             MMKV_inven_price_range.toString() + MMKV_inven_quant_range.toString()
                                         )
                                         Toast.makeText(this, "商品庫存尚未設定", Toast.LENGTH_SHORT).show()
+                                        binding.progressBarNewProduct.visibility = View.GONE
+                                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                        binding.btnStore.isEnabled = true
+                                        binding.btnOnShelf.isEnabled = true
                                     }
                                 } else{
                                     Toast.makeText(this, "商品價格與數量尚未填寫", Toast.LENGTH_SHORT).show()
+                                    binding.progressBarNewProduct.visibility = View.GONE
+                                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                    binding.btnStore.isEnabled = true
+                                    binding.btnOnShelf.isEnabled = true
                                 }
                             }else{
 
@@ -1033,20 +1087,39 @@ class EditProductActivity : BaseActivity() {
                                     "MMKV_shop_id: ${MMKV_shop_id} ; " + "MMKV_proCate_id: ${MMKV_proCate_id} ; " + "MMKV_proSubCate_id: ${MMKV_proSubCate_id} ; " + "value_editTextEntryProductName: ${MMKV_editTextEntryProductName} ; " + "value_editTextMerchanQunt: ${MMKV_editTextMerchanQunt} ; " + "value_editTextEntryProductDiscription: ${MMKV_editTextEntryProductDiscription} ; " + "value_editTextMerchanPrice: ${MMKV_editTextMerchanPrice} ; " + "MMKV_weight: ${MMKV_weight} ; " + "value_checked_brandNew: ${MMKV_checked_brandNew} ; " + "pic_list.size: ${pic_list.size} ; " + "pic_list: ${pic_list} ; " + "${"{ \"product_spec_list\" : ${MMKV_jsonTutList_inven} }"} ; " + "MMKV_user_id: ${MMKV_user_id} ; " + "MMKV_length: ${MMKV_length} ; " + "MMKV_width: ${MMKV_width} ; " + "MMKV_width: ${MMKV_width} ; " + "MMKV_height: ${MMKV_height} ; " + "MMKV_jsonList_shipment_certained: ${MMKV_jsonList_shipment_certained}"
                                 )
                                 Toast.makeText(this, "包裹大小尚未輸入完成", Toast.LENGTH_SHORT).show()
+                                binding.progressBarNewProduct.visibility = View.GONE
+                                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                                binding.btnStore.isEnabled = true
+                                binding.btnOnShelf.isEnabled = true
                             }
                         }else{
                             Toast.makeText(this, "商品分類尚未選擇", Toast.LENGTH_SHORT).show()
+                            binding.progressBarNewProduct.visibility = View.GONE
+                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                            binding.btnStore.isEnabled = true
+                            binding.btnOnShelf.isEnabled = true
                         }
                     }else{
                         Toast.makeText(this, "請輸入商品描述", Toast.LENGTH_SHORT).show()
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                        binding.btnStore.isEnabled = true
+                        binding.btnOnShelf.isEnabled = true
                     }
                 }else{
                     Toast.makeText(this, "請輸入商品名稱", Toast.LENGTH_SHORT).show()
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                    binding.btnStore.isEnabled = true
+                    binding.btnOnShelf.isEnabled = true
                 }
             }else{
                 Toast.makeText(this, "請選取至少一張照片", Toast.LENGTH_SHORT).show()
+                binding.progressBarNewProduct.visibility = View.GONE
+                binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                binding.btnStore.isEnabled = true
+                binding.btnOnShelf.isEnabled = true
             }
-
         }
 
     }
@@ -1093,8 +1166,8 @@ class EditProductActivity : BaseActivity() {
             Thread(Runnable {
 
                 runOnUiThread {
-                    binding.progressBarEditProduct.visibility = View.VISIBLE
-                    binding.imgViewLoadingBackgroundEditProduct.visibility = View.VISIBLE
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                 }
 
                 val clipData = data?.clipData
@@ -1249,8 +1322,8 @@ class EditProductActivity : BaseActivity() {
                         LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     binding.rView.adapter = mAdapter
 
-                    binding.progressBarEditProduct.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
 
                 }
 
@@ -1524,67 +1597,6 @@ class EditProductActivity : BaseActivity() {
         }
     }
 
-
-
-
-//    private fun initVM() {
-//
-//        VM.updateProductStatusData.observe(
-//            this,
-//            Observer {
-//                when (it?.status) {
-//                    Status.Success -> {
-//                        if (it.ret_val.toString().equals("上架/下架成功!")) {
-//
-//                            when(MMKV_product_status){
-//                                "active"->{
-//                                    runOnUiThread {
-//                                        Toast.makeText(this, "下架成功", Toast.LENGTH_LONG).show()
-//                                        binding.btnOnShelf.setImageResource(R.mipmap.btn_launch)
-//                                    }
-//
-//                                    RxBus.getInstance().post(EventTransferToFragmentAfterUpdate(2))
-//                                    RxBus.getInstance().post(EventMyStoreFragmentRefresh())
-//                                }
-//                                "draft"->{
-//                                    runOnUiThread {
-//                                        Toast.makeText(this, "上架成功", Toast.LENGTH_LONG).show()
-//                                        MMKV_product_status = "active"
-//                                        binding.btnOnShelf.setImageResource(R.mipmap.btn_draft)
-//                                    }
-//
-//                                    RxBus.getInstance().post(EventTransferToFragmentAfterUpdate(0))
-//                                    RxBus.getInstance().post(EventMyStoreFragmentRefresh())
-//                                }
-//                            }
-//
-//                            RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
-//
-//                            MMKV.mmkvWithID("addPro").clear()
-//                            MMKV.mmkvWithID("editPro").clear()
-//                            finish()
-//
-//                            runOnUiThread {
-//                                binding.progressBarEditProduct.visibility = View.GONE
-//                                binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
-//                            }
-//
-//                        } else {
-//
-//                            Toast.makeText(this, it.ret_val.toString(), Toast.LENGTH_LONG).show()
-//
-//
-//                        }
-//
-//                    }
-////                Status.Start -> showLoading()
-////                Status.Complete -> disLoading()
-//                }
-//            }
-//        )
-//
-//    }
-
     private fun processImage(bitmap: Bitmap, i: Int): File? {
 
         val bmp = bitmap
@@ -1595,7 +1607,7 @@ class EditProductActivity : BaseActivity() {
         try {
             var stream: OutputStream? = null
             stream = FileOutputStream(file)
-            bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 85, stream)
+            bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             stream?.flush()
             stream?.close()
         } catch (e: IOException) // Catch the exception
@@ -1661,8 +1673,10 @@ class EditProductActivity : BaseActivity() {
                         runOnUiThread {
                             Toast.makeText(this@EditProductActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
                             Log.d("doUpdateProduct", "ret_val: ${ret_val.toString()}")
-                            binding.progressBarEditProduct.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                            binding.progressBarNewProduct.visibility = View.GONE
+                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                            binding.btnStore.isEnabled = true
+                            binding.btnOnShelf.isEnabled = true
                         }
 
                         RxBus.getInstance().post(EventTransferToFragmentAfterUpdate(2))
@@ -1678,8 +1692,10 @@ class EditProductActivity : BaseActivity() {
                         runOnUiThread {
                             Toast.makeText(this@EditProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
                             Log.d("doUpdateProduct", "ret_val: ${ret_val.toString()}")
-                            binding.progressBarEditProduct.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                            binding.progressBarNewProduct.visibility = View.GONE
+                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                            binding.btnStore.isEnabled = true
+                            binding.btnOnShelf.isEnabled = true
                         }
                     }
 //                        initRecyclerView()
@@ -1689,16 +1705,20 @@ class EditProductActivity : BaseActivity() {
                     runOnUiThread {
                         Toast.makeText(this@EditProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
                         Log.d("doUpdateProduct", "JSONException: ${e.toString()}")
-                        binding.progressBarEditProduct.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                        binding.btnStore.isEnabled = true
+                        binding.btnOnShelf.isEnabled = true
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     runOnUiThread {
                         Toast.makeText(this@EditProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
                         Log.d("doUpdateProduct", "IOException: ${e.toString()}")
-                        binding.progressBarEditProduct.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                        binding.progressBarNewProduct.visibility = View.GONE
+                        binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                        binding.btnStore.isEnabled = true
+                        binding.btnOnShelf.isEnabled = true
                     }
                 }
             }
@@ -1707,8 +1727,10 @@ class EditProductActivity : BaseActivity() {
                 runOnUiThread {
                     Toast.makeText(this@EditProductActivity, "網路異常", Toast.LENGTH_SHORT).show()
                     Log.d("doUpdateProduct", "ErrorResponse: ${ErrorResponse.toString()}")
-                    binding.progressBarEditProduct.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                    binding.progressBarNewProduct.visibility = View.GONE
+                    binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
+                    binding.btnStore.isEnabled = true
+                    binding.btnOnShelf.isEnabled = true
                 }
             }
         })
@@ -1808,7 +1830,7 @@ class EditProductActivity : BaseActivity() {
                         MMKV.mmkvWithID("editPro").putString("datas_height", productInfoList.height.toString())
                         MMKV.mmkvWithID("editPro").putString("value_editMoreTimeInput", productInfoList.longterm_stock_up.toString())
                         MMKV.mmkvWithID("editPro").putString("inven_price_range", "${hkd_dollarSign}${productInfoList.min_price}-${hkd_dollarSign}${productInfoList.max_price}")
-                        MMKV.mmkvWithID("editPro").putString("inven_quant_range", "${hkd_dollarSign}${productInfoList.min_quantity}-${hkd_dollarSign}${productInfoList.max_quantity}")
+                        MMKV.mmkvWithID("editPro").putString("inven_quant_range", "${productInfoList.min_quantity}-${productInfoList.max_quantity}")
                         MMKV.mmkvWithID("editPro").putString("value_editTextMerchanPrice", productInfoList.product_price.toString())
                         MMKV.mmkvWithID("editPro").putString("value_editTextMerchanQunt", productInfoList.quantity.toString())
                         MMKV.mmkvWithID("editPro").putInt("inven_datas_size", 0)
@@ -2026,8 +2048,8 @@ class EditProductActivity : BaseActivity() {
 
                         runOnUiThread {
                             Log.d("getProductInfo", "ret_val: ${ret_val.toString()}")
-                            binding.progressBarEditProduct.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundEditProduct.visibility = View.GONE
+                            binding.progressBarNewProduct.visibility = View.GONE
+                            binding.ivLoadingBackgroundNewProduct.visibility = View.GONE
                         }
 
                     }else{

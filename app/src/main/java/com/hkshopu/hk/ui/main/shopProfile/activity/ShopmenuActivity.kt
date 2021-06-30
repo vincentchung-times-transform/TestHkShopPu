@@ -4,6 +4,7 @@ package com.HKSHOPU.hk.ui.main.shopProfile.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -39,6 +40,9 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.progressBarShopShopMenu.visibility = View.GONE
+        binding.ivLoadingBackgroundShopMenu.visibility = View.GONE
 
         getShopCategory(url_forShopCategory)
 
@@ -180,6 +184,14 @@ class ShopmenuActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
                         this.finish()
 
+                    }
+                    is EventStartLoadingShopmenu->{
+                        binding.progressBarShopShopMenu.visibility = View.VISIBLE
+                        binding.ivLoadingBackgroundShopMenu.visibility = View.VISIBLE
+                    }
+                    is EventFinishLoadingShopmenu->{
+                        binding.progressBarShopShopMenu.visibility = View.GONE
+                        binding.ivLoadingBackgroundShopMenu.visibility = View.GONE
                     }
                 }
             }, {

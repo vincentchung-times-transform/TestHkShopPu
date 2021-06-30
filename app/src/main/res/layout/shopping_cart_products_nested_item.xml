@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:text="x"
+                        android:text="x0"
                         android:layout_alignParentLeft="true"
                         android:textSize="14sp"
                         android:textColor="@color/bright_gray"

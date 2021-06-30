@@ -108,7 +108,6 @@ class SpecificationSecondSelectingAdapter(var clickable: Boolean): RecyclerView.
                             notifyItemChanged(last_position)
                             last_position = adapterPosition
 
-
                             RxBus.getInstance().post(EventBuyerDetailedProductBtnStatusSecond(true, adapterPosition, spec_id, txtView_specification.text.toString(), price_range, quant_range, total_quantity))
 
                         }

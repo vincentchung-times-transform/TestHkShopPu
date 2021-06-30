@@ -64,26 +64,21 @@ class AddShopAddressAfterBuildedActivity : BaseActivity() {
 
     private fun initView() {
 
-        binding.editShopname.doAfterTextChanged {
-            companyName = binding.editShopname.text.toString()
+        binding.editName.doAfterTextChanged {
+            companyName = binding.editName.text.toString()
 
         }
 
-        binding.editShopphoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
-        binding.editShopphoneNumber.doAfterTextChanged {
-            phone_number = binding.editShopphoneNumber.text.toString()
+        binding.editPhoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
+        binding.editPhoneNumber.doAfterTextChanged {
+            phone_number = binding.editPhoneNumber.text.toString()
             phone_country = binding.tvShopphoneCountry.text.toString()
             phone = phone_country + phone_number
-
         }
-
 
         binding.editCountry.doAfterTextChanged {
-
             country = binding.editCountry.text.toString()
-
         }
-
 
         binding.editAdmin.doAfterTextChanged {
             admin = binding.editAdmin.text.toString()

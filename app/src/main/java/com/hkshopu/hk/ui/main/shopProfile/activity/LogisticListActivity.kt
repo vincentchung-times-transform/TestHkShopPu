@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import com.google.gson.Gson
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckLogisticsEnableBtnOrNot
 import com.HKSHOPU.hk.data.bean.*
 import com.HKSHOPU.hk.databinding.ActivityLogisticlistBinding
 import com.HKSHOPU.hk.net.ApiConstants
@@ -35,6 +36,8 @@ class LogisticListActivity : BaseActivity() {
     var isUpdate:Boolean = false
     var  list: ArrayList<ShopLogisticBean> = ArrayList()
     private var mData: ArrayList<ShopLogisticBean> = ArrayList()
+    var btn_enable = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLogisticlistBinding.inflate(layoutInflater)
@@ -66,8 +69,18 @@ class LogisticListActivity : BaseActivity() {
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
+                    is EventCheckLogisticsEnableBtnOrNot->{
+
+                        var boolean = it.boolean
+
+                        if(boolean){
+                            btn_enable = true
+                        }else{
+                            btn_enable = false
+                        }
 
 
+                    }
                 }
             }, {
                 it.printStackTrace()
@@ -130,8 +143,14 @@ class LogisticListActivity : BaseActivity() {
     private fun initClick() {
 
         binding.tvLogisticSave.setOnClickListener {
-            mData = adapter.get_shipping_method_datas()
-            doShopLogistisSetup(mData)
+
+            if(btn_enable){
+                mData = adapter.get_shipping_method_datas()
+                doShopLogistisSetup(mData)
+            }else{
+                Toast.makeText(this, "請先完成編輯動作", Toast.LENGTH_SHORT).show()
+            }
+
         }
         binding.ivBack.setOnClickListener {
             if(isUpdate) {
@@ -153,14 +172,23 @@ class LogisticListActivity : BaseActivity() {
 
         binding.tvEdit.setOnClickListener {
 
+
+
             if(binding.tvEdit.text.equals("編輯")){
+                btn_enable = false
+
                 binding.tvEdit.text = "完成"
                 binding.tvEdit.textColor = Color.parseColor("#1DBCCF")
                 adapter.updateData(true)
+
             }else{
+                btn_enable = true
+
                 binding.tvEdit.text = "編輯"
                 binding.tvEdit.textColor = Color.parseColor("#8E8E93")
                 adapter.updateData(false)
+
+
             }
         }
 

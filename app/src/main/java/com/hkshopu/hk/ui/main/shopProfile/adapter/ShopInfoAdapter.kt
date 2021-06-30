@@ -1,8 +1,10 @@
 package com.HKSHOPU.hk.ui.main.shopProfile.adapter
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -59,7 +61,9 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
     }
 
     inner class ShopInfoLinearHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val container = itemView.find<RelativeLayout>(R.id.container)
+
+        val container:RelativeLayout = itemView.find<RelativeLayout>(R.id.container_shop_list_item)
+//        val container_params:RelativeLayout.LayoutParams = itemView.find<RelativeLayout>(R.id.container_shop_list_item).layoutParams as RelativeLayout.LayoutParams
         val image = itemView.find<ImageView>(R.id.iv_Icon)
         val title = itemView.find<TextView>(R.id.tv_shopName)
         val ratingBar = itemView.find<NiceRatingBar>(R.id.ratingBar)
@@ -70,9 +74,16 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
         val delete = itemView.find<ImageView>(R.id.iv_cancel)
         val dummy = itemView.find<ImageView>(R.id.iv_dummy)
         fun bindShop(bean : ShopListBean){
+
+//            if(position.equals(mData.size-1)){
+//                setMargin(itemView.context, container, container_params,
+//                    15,0,15,24)
+//            }
+
             container.click {
                 itemClick?.invoke(bean.id)
             }
+
             image.loadNovelCover(bean.shop_icon)
             title.text = bean.shop_title
             merchantNums .text = bean.product_count
@@ -94,6 +105,17 @@ class ShopInfoAdapter : RecyclerView.Adapter<ShopInfoAdapter.ShopInfoLinearHolde
         }
     }
 
-
+//    fun setMargin(con: Context, view: RelativeLayout, params: ViewGroup.LayoutParams,
+//                  dp_l:Int, dp_t: Int, dp_r:Int, dp_b:Int) {
+//        val scale: Float = con.getResources().getDisplayMetrics().density
+//        // convert the DP into pixel
+//        val pixel_l = (dp_l * scale + 0.5f).toInt()
+//        val pixel_t = (dp_t * scale + 0.5f).toInt()
+//        val pixel_r = (dp_r * scale + 0.5f).toInt()
+//        val pixel_b = (dp_b * scale + 0.5f).toInt()
+//        val s = params as ViewGroup.MarginLayoutParams
+//        s.setMargins(pixel_l , pixel_t, pixel_r, pixel_b)
+//        view.setLayoutParams(params)
+//    }
 
 }

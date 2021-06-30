@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -71,7 +72,7 @@ class AddBankAccountBeforeBuildedActivity : BaseActivity(){
             spBank?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
                 override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    Toast.makeText(this@AddBankAccountBeforeBuildedActivity, BankCodeBeanList!![position].bank_code, Toast.LENGTH_SHORT).show()
+                    Log.d("spBankSelectedItem", BankCodeBeanList!![position].bank_code)
                     bankCode = BankCodeBeanList!![position].bank_code
                     bankName = BankCodeBeanList!![position].bank_name
                 }
@@ -141,6 +142,16 @@ class AddBankAccountBeforeBuildedActivity : BaseActivity(){
                 KeyboardUtil.hideKeyboard(v)
             }
         })
+        binding.etBankaccountname.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.etBankaccountname.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
 
         binding.etBankaccountnumber.doAfterTextChanged {
             accountNumber = binding.etBankaccountnumber.text.toString()
@@ -160,6 +171,16 @@ class AddBankAccountBeforeBuildedActivity : BaseActivity(){
                 KeyboardUtil.hideKeyboard(v)
             }
         })
+        binding.etBankaccountnumber.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.etBankaccountnumber.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
 
 
 //        binding.layoutBankaccountEdit.setOnClickListener {

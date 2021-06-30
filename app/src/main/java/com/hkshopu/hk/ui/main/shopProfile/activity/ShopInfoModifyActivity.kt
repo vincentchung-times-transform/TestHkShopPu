@@ -58,28 +58,11 @@ class ShopInfoModifyActivity : BaseActivity() {
         binding = ActivityShopinfomodifyBinding.inflate(layoutInflater)
         setContentView(binding.root)
         getShopInfo(url)
-        initVM()
         initEvent()
         initClick()
 
     }
 
-    private fun initVM() {
-//        VM.socialloginLiveData.observe(this, Observer {
-//            when (it?.status) {
-//                Status.Success -> {
-//                    if (url.isNotEmpty()) {
-//                        toast("登录成功")
-//
-//                    }
-//
-//                    finish()
-//                }
-//                Status.Start -> showLoading()
-//                Status.Complete -> disLoading()
-//            }
-//        })
-    }
 
     @SuppressLint("CheckResult")
     fun initEvent() {

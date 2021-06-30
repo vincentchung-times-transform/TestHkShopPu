@@ -17,4 +17,6 @@ class ShoppingCartShopItemNestedLayer {
     @SerializedName("productList")
     var productList : MutableList<ShoppingCartProductItemNestedLayer> = mutableListOf()
 
+    var selected_addresss: SelectedBuyerAddressBean = SelectedBuyerAddressBean()
+
 }

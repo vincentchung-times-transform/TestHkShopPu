@@ -372,7 +372,7 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                             "返回資料 shop_category_id_list：" + shop_category_id_list.toString()
                         )
 
-                        CommonVariable.shopCategorySelectedList = list[0].shop_category_id
+                        CommonVariable.shopCategorySelectedListForEdit = list[0].shop_category_id
                         RxBus.getInstance().post(EventGetShopCatSuccess(shop_category_id_list))
 
                         activity!!.runOnUiThread {

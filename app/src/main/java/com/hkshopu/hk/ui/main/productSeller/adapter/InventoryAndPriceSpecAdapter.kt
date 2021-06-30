@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,18 +38,18 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
     //把水平rview元件拉進來
     inner class FirstLayerViewHolder(itemView:View)
         :RecyclerView.ViewHolder(itemView){
-        val container_spec_first_layer_title = itemView.findViewById<LinearLayout>(R.id.container_spec_first_layer_title)
-        val container_spec_second_layer_title = itemView.findViewById<LinearLayout>(R.id.container_spec_second_layer_title)
+        var container_spec_first_layer_title = itemView.findViewById<LinearLayout>(R.id.container_spec_first_layer_title)
+        var container_spec_second_layer_title = itemView.findViewById<LinearLayout>(R.id.container_spec_second_layer_title)
 
-        val item_spec_title_name = itemView.findViewById<TextView>(R.id.title_spec)
-        val item_spec_column_name = itemView.findViewById<TextView>(R.id.item_spec_column_name)
+        var item_spec_title_name = itemView.findViewById<TextView>(R.id.title_spec)
+        var item_spec_column_name = itemView.findViewById<TextView>(R.id.item_spec_column_name)
         var item_spec_name = itemView.findViewById<TextView>(R.id.value_spec)
 //        val r_view_inventory_spec = itemView.findViewById<RecyclerView>(R.id.r_view_inventory_item_spec)
 
         //把layout檔的元件們拉進來，指派給當地變數
-        val textView_value_name = itemView.findViewById<TextView>(R.id.second_spec_name)
-        val editText_value_price = itemView.findViewById<EditText>(R.id.value_price)
-        val editText_value_quantity = itemView.findViewById<EditText>(R.id.value_quantity)
+        var textView_value_name = itemView.findViewById<TextView>(R.id.second_spec_name)
+        var editText_value_price = itemView.findViewById<EditText>(R.id.value_price)
+        var editText_value_quantity = itemView.findViewById<EditText>(R.id.value_quantity)
         var textView_Hkdollars =  itemView.findViewById<TextView>(R.id.textView_HKdolors)
 
         //選高資料變數
@@ -88,10 +89,9 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
                     value_name = textView_value_name.text.toString()
                     value_price = editText_value_price.text.toString()
-                    value_quantity = editText_value_quantity.text.toString()
 
 
-                    onItemUpdate(value_price, value_quantity, adapterPosition)
+                    onItemUpdatePrice(value_price, adapterPosition)
 
                     RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
                 }
@@ -115,10 +115,9 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
                     }
 
                     value_name = textView_value_name.text.toString()
-                    value_price = editText_value_price.text.toString()
                     value_quantity = editText_value_quantity.text.toString()
 
-                    onItemUpdate(value_price, value_quantity, adapterPosition)
+                    onItemUpdateQuant(value_quantity, adapterPosition)
 
                     RxBus.getInstance().post(EventCheckInvenSpecEnableBtnOrNot(true))
 
@@ -131,8 +130,6 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
             editText_value_price.setOnEditorActionListener() { v, actionId, event ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE -> {
-
-
 
                         editText_value_price.hideKeyboard()
                         editText_value_price.clearFocus()
@@ -167,24 +164,27 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
         fun bind(item: ItemInventory){
 
-
+            Log.d("dsdsds", "specGroup_only: ${specGroup_only.toString()}" )
 
             if(specGroup_only==true){
+
                 container_spec_first_layer_title.visibility = View.GONE
-                item_spec_column_name.text = item.spec_desc_1
+                item_spec_column_name.setText(item.spec_desc_1.toString())
                 item_spec_name.setText(item.spec_dec_1_items)
                 textView_value_name.setText(item.spec_dec_1_items)
+
+                Log.d("dsdsds", "price: ${item.price.toString()}\n" +
+                        "quantity: ${item.quantity.toString()}")
 
                 editText_value_price.setText(item.price.toString())
                 editText_value_quantity.setText(item.quantity.toString())
 
             }else{
-                item_spec_title_name.isVisible = true
-                item_spec_title_name.text = item.spec_desc_1
-                item_spec_column_name.text = item.spec_desc_2
-                item_spec_name.setText(item.spec_dec_1_items)
-
-                textView_value_name.setText(item.spec_dec_2_items)
+                item_spec_title_name.visibility = View.VISIBLE
+                item_spec_title_name.setText(item.spec_desc_1.toString())
+                item_spec_column_name.setText(item.spec_desc_2.toString())
+                item_spec_name.setText(item.spec_dec_1_items.toString())
+                textView_value_name.setText(item.spec_dec_2_items.toString())
                 editText_value_price.setText(item.price.toString())
                 editText_value_quantity.setText(item.quantity.toString())
             }
@@ -231,7 +231,6 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
             is FirstLayerViewHolder -> {
                 holder.bind(mutableList_InvenSpec[position])
-//                holder.r_view_inventory_spec.setRecycledViewPool(viewPool)
 
                 if(!second_layer_size.equals(0)){
 
@@ -266,12 +265,16 @@ class InventoryAndPriceSpecAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
-    fun onItemUpdate( price: String,  quant:String, position: Int) {
+    fun onItemUpdatePrice( price: String, position: Int) {
 
         mutableList_InvenSpec[position].price = price
+
+//        notifyItemChanged(position)
+    }
+    fun onItemUpdateQuant(quant:String, position: Int) {
+
         mutableList_InvenSpec[position].quantity = quant
 //        notifyItemChanged(position)
-
     }
     //更新資料用
     fun updateList(list_spec: MutableList<ItemInventory>, specGroup_only: Boolean, second_layer_size:Int) {

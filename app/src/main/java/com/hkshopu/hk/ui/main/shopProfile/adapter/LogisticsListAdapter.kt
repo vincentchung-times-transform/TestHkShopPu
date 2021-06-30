@@ -12,9 +12,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckLogisticsEnableBtnOrNot
+import com.HKSHOPU.hk.component.EventCheckShipmentEnableBtnOrNot
 import com.HKSHOPU.hk.data.bean.ItemData
 import com.HKSHOPU.hk.data.bean.ShopLogisticBean
 import com.HKSHOPU.hk.utils.extension.inflate
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
 import com.zilchzz.library.widgets.EasySwitcher
 import org.jetbrains.anko.find
@@ -100,6 +103,20 @@ class LogisticsListAdapter :
             removeItem(viewHolder.adapterPosition)
         }
 //        value_shipping_name = viewHolder.name.text.toString()
+
+        viewHolder.name.setOnFocusChangeListener { v, hasFocus ->
+
+            if(hasFocus ){
+
+                RxBus.getInstance().post(EventCheckLogisticsEnableBtnOrNot(false))
+
+            }else{
+
+                RxBus.getInstance().post(EventCheckLogisticsEnableBtnOrNot(true))
+
+            }
+        }
+
 
         //editText_shipping_name編輯鍵盤監控
         viewHolder.name.singleLine = true

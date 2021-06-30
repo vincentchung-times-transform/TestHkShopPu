@@ -1277,5 +1277,74 @@ public class Web {
         });
     }
 
+    public void doUpdateShoppingCartitems(String url, String shopping_cart_item_id, String new_quantity, String selected_shipment_id, String selected_user_address_id, String selected_payment_id) {
+
+
+        RequestBody formBody = new FormBody.Builder()
+                .add("shopping_cart_item_id", String.valueOf(shopping_cart_item_id))
+                .add("new_quantity", String.valueOf(new_quantity))
+                .add("selected_shipment_id", String.valueOf(selected_shipment_id))
+                .add("selected_user_address_id", String.valueOf(selected_user_address_id))
+                .add("selected_payment_id", String.valueOf(selected_payment_id))
+                .build();
+        Request request = new Request.Builder().url(url).post(formBody).build();
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
+
+    public void Do_BuyerAddAddress(String url, final  String user_id, final String address_name, String address_country_code,final String address_phone,final String address_area, String address_district,final String address_road, String address_number,final String address_other, String address_floor , String address_room) {
+        Log.d(TAG, "Do_BuyerAddAddress Url ＝ " + url);
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("user_id", String.valueOf(user_id))
+                .addFormDataPart("name", String.valueOf(address_name))
+                .addFormDataPart("country_code", String.valueOf(address_country_code))
+                .addFormDataPart("phone", String.valueOf(address_phone))
+                .addFormDataPart("area ", String.valueOf(address_area))
+                .addFormDataPart("district", String.valueOf(address_district))
+                .addFormDataPart("road ", String.valueOf(address_road))
+                .addFormDataPart("number ", String.valueOf(address_number))
+                .addFormDataPart("other", String.valueOf(address_other))
+                .addFormDataPart("floor", String.valueOf(address_floor))
+                .addFormDataPart("room", String.valueOf(address_room))
+                .build();
+//        RequestBody requestBody = RequestBody.create(jsonObject.toString(),JSON);
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+//        Log.d(TAG, "Request ＝ " + requestBody);
+//        Log.d(TAG, "Content ＝ " + bodyToString(request));
+
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                listener.onErrorResponse(e);
+                Log.d(TAG, "Return error ＝ " + e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                listener.onResponse(response);
+                response.close();
+                call.cancel();
+            }
+        });
+    }
 
 }

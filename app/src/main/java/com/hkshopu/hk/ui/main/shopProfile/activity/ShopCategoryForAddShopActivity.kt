@@ -21,7 +21,7 @@ import com.HKSHOPU.hk.utils.rxjava.RxBus
 class ShopCategoryForAddShopActivity : BaseActivity() {
     private lateinit var binding: ActivityShopcategoryBinding
 
-    private val VM = ShopVModel()
+
     private val adapter = CategoryMultiAdapter()
     var toShopFunction: Boolean = false
     val choseListFiltered= ArrayList<ShopCategoryBean>()
@@ -38,15 +38,11 @@ class ShopCategoryForAddShopActivity : BaseActivity() {
 
         initView()
         initRecyclerView()
-        initVM()
         initEditText()
         initClick()
 
     }
 
-    private fun initVM() {
-
-    }
 
     private fun initView() {
 

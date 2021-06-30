@@ -58,8 +58,8 @@ class MerchantsNoPopFragment : Fragment() {
         initRecyclerView()
 
         shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
-
         getMyProductsList(shopId.toString(), "none", "draft", "1")
+
 
         adapter.onOff_editStatus(false)
 

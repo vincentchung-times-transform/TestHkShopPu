@@ -74,7 +74,7 @@ class AddBankAccountAfterBuiledctivity : BaseActivity(){
             spBank?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
                 override fun onItemSelected(adapterView: AdapterView<*>, view: View, position: Int, id: Long) {
-                    Toast.makeText(this@AddBankAccountAfterBuiledctivity, BankCodeBeanList!![position].bank_code, Toast.LENGTH_SHORT).show()
+                    Log.d("spBankSelectedItem", BankCodeBeanList!![position].bank_code)
                     bankCode = BankCodeBeanList!![position].bank_code
                     bankName = BankCodeBeanList!![position].bank_name
                 }

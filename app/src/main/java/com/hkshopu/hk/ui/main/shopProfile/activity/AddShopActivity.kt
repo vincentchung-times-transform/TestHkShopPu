@@ -14,6 +14,7 @@ import android.text.InputFilter
 import android.util.Log
 import android.view.KeyEvent
 import android.view.MotionEvent
+import android.view.MotionEvent.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
@@ -89,6 +90,7 @@ class AddShopActivity : BaseActivity() {
         initVM()
 
     }
+
 
     private suspend fun doOnUiCode() {
         withContext(Dispatchers.Main) {
@@ -177,6 +179,8 @@ class AddShopActivity : BaseActivity() {
             binding.tvForward.setTextColor(getColor(R.color.turquoise))
             binding.tvForward.isClickable = false
         }
+
+
 
     }
 
@@ -295,19 +299,8 @@ class AddShopActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun initClick() {
-        binding.titleBackAddshop.setOnClickListener {
 
-//            AlertDialog.Builder(this@AddShopActivity)
-//                .setTitle("")
-//                .setMessage("您尚未儲存變更，確定要離開 ？")
-//                .setPositiveButton("捨棄"){
-//                    // 此為 Lambda 寫法
-//                        dialog, which ->finish()
-//                }
-//                .setNegativeButton("取消"){ dialog, which -> dialog.cancel()
-//
-//                }
-//                .show()
+        binding.titleBackAddshop.setOnClickListener {
 
             StoreOrNotDialogStoreProductsFragment(this).show(supportFragmentManager, "MyCustomFragment")
 
@@ -365,7 +358,7 @@ class AddShopActivity : BaseActivity() {
                 intent.putExtra("bundle",bundle)
                 startActivity(intent)
             }else{
-                Toast.makeText(this, "請先填寫商店名稱", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "請先填寫並完成商店名稱編輯", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -381,7 +374,7 @@ class AddShopActivity : BaseActivity() {
                 intent.putExtra("bundle",bundle)
                 startActivity(intent)
             }else{
-                Toast.makeText(this, "請先填寫商店名稱", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "請先填寫並完成商店名稱編輯", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -426,16 +419,11 @@ class AddShopActivity : BaseActivity() {
             if (!hasFocus) {
 
                 if(shopName.isNullOrEmpty()){
-
                     Toast.makeText(this, "名稱不能為空值", Toast.LENGTH_SHORT).show()
                     binding.ivStepShopNameCheck.visibility = View.INVISIBLE
-
                 }else{
-
                     VM.shopnamecheck(this@AddShopActivity, shopName)
-
                 }
-
                 hideKeyboard(v)
             }
         })
@@ -452,17 +440,19 @@ class AddShopActivity : BaseActivity() {
             }
         }
 
+        binding.etShopname.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
 
-//        binding.etShopname.setOnKeyListener { v, keyCode, event ->
-//            if (keyCode == KeyEvent.KEYCODE_BACK) {
-//                if(keyCode == KeyEvent.KEYCODE_ENTER ){
-//                    //keyCode == KeyEvent.KEYCODE_ENTER  回车键
-//                    binding.etShopname.clearFocus()
-//                }
-//                true
-//            }
-//            false
-//        }
+                binding.etShopname.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
+
+
 
     }
 
@@ -512,27 +502,9 @@ class AddShopActivity : BaseActivity() {
 
     }
 
-
     override fun onBackPressed() {
 
-
-//        AlertDialog.Builder(this@AddShopActivity)
-//            .setTitle("")
-//            .setMessage("您尚未儲存變更，確定要離開 ？")
-//            .setPositiveButton("捨棄"){
-//                // 此為 Lambda 寫法
-//                    dialog, which ->finish()
-//            }
-//            .setNegativeButton("取消"){ dialog, which -> dialog.cancel()
-//
-//            }
-//            .show()
-
-        if(binding.etShopname.hasFocus()){
-            binding.etShopname.clearFocus()
-        }else{
-            StoreOrNotDialogStoreProductsFragment(this).show(supportFragmentManager, "MyCustomFragment")
-        }
+        StoreOrNotDialogStoreProductsFragment(this).show(supportFragmentManager, "MyCustomFragment")
 
     }
 
@@ -595,4 +567,6 @@ class AddShopActivity : BaseActivity() {
 
         }
     }
+
+
 }

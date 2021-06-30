@@ -3,6 +3,8 @@ import com.google.gson.annotations.SerializedName
 
 class ShoppingCartProductItemNestedLayer {
 
+    var product_checked: Boolean = false
+
     @SerializedName("product_id")
     var product_id: String = ""
 
@@ -15,7 +17,9 @@ class ShoppingCartProductItemNestedLayer {
     @SerializedName("shipmentList")
     var shipmentList: MutableList<ShoppingCartProductShipmentItem> = mutableListOf()
 
+    var shipmentSelected: ShoppingCartProductShipmentItem = ShoppingCartProductShipmentItem()
+
     @SerializedName("product_spec")
-    var product_spec: MutableList<ShoppingCartProductItemNestedLayerProductSepcBean> = mutableListOf()
+    var product_spec: ShoppingCartProductItemNestedLayerProductSepcBean = ShoppingCartProductItemNestedLayerProductSepcBean()
 
 }

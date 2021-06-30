@@ -22,7 +22,8 @@ class CommonVariable private constructor() {
         //Shop Category
         var shopCategoryListForAdd = ArrayList<ShopCategoryBean>()
         var shopCategoryListForEdit = ArrayList<ShopCategoryBean>()
-        var shopCategorySelectedList = ArrayList<String>()
+        var shopCategorySelectedListForEdit = ArrayList<String>()
+        var shopCategorySelectedListForAdd = ArrayList<String>()
 
         //Shop Info
         var ShopCategory = TreeMap<String,ShopCategoryBean>()

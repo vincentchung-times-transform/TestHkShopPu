@@ -36,6 +36,7 @@
                 android:id="@+id/container_first_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
@@ -43,7 +44,6 @@
                     android:id="@+id/checkBox_shopping_cart_shop"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
                     android:layout_alignParentStart="true" />
 
                 <androidx.cardview.widget.CardView
@@ -92,7 +92,6 @@
                 android:clipToPadding="false"
                 android:paddingBottom="8dp"/>
 
-
             <LinearLayout
                 android:id="@+id/btn_shopping_cart_shop_address_spinner"
                 android:layout_width="match_parent"
@@ -134,9 +133,32 @@
                         android:textColor="@color/dark_gray"
                         android:text="no address"/>
 
+                    <LinearLayout
+                        android:id="@+id/layout_alert_no_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="12dp"
+                            android:src="@mipmap/alert_red"/>
+                        <TextView
+                            android:id="@+id/textView_alert_no_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:textSize="14sp"
+                            android:textColor="@color/bright_red"
+                            android:text="@string/no_address"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <ImageView
+                    android:id="@+id/ic_address_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:src="@mipmap/ic_shopping_cart_to_shop_addresss_setting"

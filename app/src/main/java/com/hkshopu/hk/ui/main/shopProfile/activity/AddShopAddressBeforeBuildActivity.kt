@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.InputFilter
 import android.util.Base64
 import android.util.Log
+import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -60,6 +61,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding = ActivityShopaddresseditBinding.inflate(layoutInflater)
         setContentView(binding.root)
         settings = getSharedPreferences("shopdata", 0)
+
         initView()
         initVM()
         initClick()
@@ -75,7 +77,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editShopname.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editShopname.hasFocus()
+                binding.editShopname.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -99,7 +101,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editShopname.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editShopname.clearFocus()
 
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editShopphoneNumber.setFilters(arrayOf<InputFilter>(InputFilter.LengthFilter(8)))
         binding.editShopphoneNumber.doAfterTextChanged {
@@ -110,7 +121,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editShopphoneNumber.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editShopphoneNumber.hasFocus()
+                binding.editShopphoneNumber.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -135,7 +146,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editShopphoneNumber.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editShopphoneNumber.clearFocus()
 
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editCountry.doAfterTextChanged {
             country = binding.editCountry.text.toString()
@@ -143,7 +163,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editCountry.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editCountry.hasFocus()
+                binding.editCountry.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -167,7 +187,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editCountry.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editCountry.clearFocus()
 
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editAdmin.doAfterTextChanged {
             admin = binding.editAdmin.text.toString()
@@ -175,7 +204,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editAdmin.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editAdmin.hasFocus()
+                binding.editAdmin.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -199,6 +228,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editAdmin.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editAdmin.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editthoroughfare.doAfterTextChanged {
             thoroughfare = binding.editthoroughfare.text.toString()
@@ -206,7 +245,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editthoroughfare.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editthoroughfare.hasFocus()
+                binding.editthoroughfare.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -230,7 +269,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editthoroughfare.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editthoroughfare.clearFocus()
 
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editfeature.doAfterTextChanged {
             feature = binding.editfeature.text.toString()
@@ -238,7 +286,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editfeature.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editfeature.hasFocus()
+                binding.editfeature.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -252,7 +300,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 check_value()
             }
         })
-           binding.editfeature.setOnEditorActionListener() { v, actionId, event ->
+        binding.editfeature.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_NEXT -> {
                     binding.editfeature.clearFocus()
@@ -273,13 +321,25 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
             }
         }
 
+        binding.editfeature.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editfeature.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
+
         binding.editsubaddress.doAfterTextChanged {
             subaddress = binding.editsubaddress.text.toString()
         }
+
         binding.editsubaddress.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editsubaddress.hasFocus()
+                binding.editsubaddress.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -293,7 +353,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 check_value()
             }
         })
-         binding.editsubaddress.setOnEditorActionListener() { v, actionId, event ->
+        binding.editsubaddress.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_NEXT -> {
                     binding.editsubaddress.clearFocus()
@@ -303,6 +363,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editsubaddress.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editsubaddress.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editfloor.doAfterTextChanged {
             floor = binding.editfloor.text.toString()
@@ -310,7 +380,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editfloor.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editfloor.hasFocus()
+                binding.editfloor.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -325,7 +395,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
 
             }
         })
-         binding.editfloor.setOnEditorActionListener() { v, actionId, event ->
+        binding.editfloor.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_NEXT -> {
                     binding.editfloor.clearFocus()
@@ -335,6 +405,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editfloor.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editfloor.clearFocus()
+
+                true
+            } else {
+                false
+            }
+        }
 
         binding.editroom.doAfterTextChanged {
             room = binding.editroom.text.toString()
@@ -342,7 +422,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editroom.setOnTouchListener (object : View.OnTouchListener {
             override fun onTouch(v: View, m: MotionEvent): Boolean {
                 // Perform tasks here
-                binding.editroom.hasFocus()
+                binding.editroom.requestFocus()
                 binding.tvCreateshop.setBackgroundResource(R.drawable.customborder_turquise)
                 binding.tvCreateshop.setTextColor(getColor(R.color.turquoise))
                 binding.ivAddbankaddressCheck.visibility = View.GONE
@@ -366,7 +446,16 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 else -> false
             }
         }
+        binding.editroom.setOnKeyListener { v, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                //keyCode == KeyEvent.KEYCODE_ENTER  回車鍵
+                binding.editroom.clearFocus()
 
+                true
+            } else {
+                false
+            }
+        }
 
         binding.layoutShopaddressEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
@@ -404,38 +493,9 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         }
 
         binding.tvCreateshop.setOnClickListener {
-            var sErrorMsg = ""
-            if (companyName.isEmpty()) {
-                sErrorMsg = """
-            $sErrorMsg${getString(R.string.shopname_input)}
-            
-            """.trimMargin()
-            }
-            if (phone_number.isEmpty()) {
-                sErrorMsg = """
-            $sErrorMsg${getString(R.string.shopphone_input)}
-            
-            """.trimIndent()
-            }
-            if (country.isEmpty()) {
-                sErrorMsg = """
-            $sErrorMsg${getString(R.string.region_input)}
-            
-            """.trimIndent()
-            }
-            if (admin.isEmpty()) {
-                sErrorMsg = """
-            $sErrorMsg${getString(R.string.admin_input)}
-            
-            """.trimIndent()
-            }
-            if (thoroughfare.isEmpty()) {
-                sErrorMsg = """
-            $sErrorMsg${getString(R.string.thoroughfare_input)}
-            
-            """.trimMargin()
-            }
-            if (sErrorMsg.isEmpty()) {
+           
+            if (companyName.isNotEmpty() && phone_number.isNotEmpty() && country.isNotEmpty()
+                && admin.isNotEmpty() && thoroughfare.isNotEmpty()) {
                 file = processImage()
                 var shopName = settings.getString("shopname", "")
                 var shop_category_id1 = settings.getString("shop_category_id1", "").toString()
@@ -446,16 +506,14 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 var accountName = settings.getString("accountname", "")
                 var accountNumber = settings.getString("accountnumber", "")
 
-                Log.d("testCategory",
-                    "shop_category_id1 : ${shop_category_id1} ; " +
-                        "shop_category_id2 : ${shop_category_id2} ; " +
-                            "shop_category_id3 : ${shop_category_id3} ; ")
 
-
-                var list_category_id : ArrayList<String> = arrayListOf()
-                for (i in 0 until CommonVariable.shopCategoryListForAdd.size){
-                    if(CommonVariable.shopCategoryListForAdd[i].id.isNotEmpty()){
-                        list_category_id.add(CommonVariable.shopCategoryListForAdd[i].id)
+                if(!shop_category_id1.isNullOrEmpty()){
+                    CommonVariable.shopCategorySelectedListForAdd.add(shop_category_id1.toString())
+                    if (!shop_category_id2.isNullOrEmpty()){
+                        CommonVariable.shopCategorySelectedListForAdd.add(shop_category_id2.toString())
+                        if (!shop_category_id3.isNullOrEmpty()){
+                            CommonVariable.shopCategorySelectedListForAdd.add(shop_category_id3.toString())
+                        }
                     }
                 }
 
@@ -463,7 +521,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 doAddShop(
                     shopName!!,
                     userId.toString(),
-                    list_category_id,
+                    CommonVariable.shopCategorySelectedListForAdd,
                     bankCode!!,
                     bankName!!,
                     accountName!!,
@@ -484,16 +542,6 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
             } else {
 
                 Toast.makeText(this, "尚有欄位未填寫", Toast.LENGTH_SHORT).show()
-
-//                AlertDialog.Builder(this@AddShopAddressActivity)
-//                    .setTitle("")
-//                    .setMessage(sErrorMsg)
-//                    .setPositiveButton("確定") {
-//                        // 此為 Lambda 寫法
-//                            dialog, which ->
-//                        dialog.cancel()
-//                    }
-//                    .show()
 
             }
         }

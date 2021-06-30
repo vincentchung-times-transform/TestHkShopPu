@@ -1,9 +1,11 @@
 package com.HKSHOPU.hk.ui.main.productSeller.activity
 
 import MyLinearLayoutManager
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +15,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.gson.Gson
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.Base.response.Status
 import com.HKSHOPU.hk.R
@@ -28,6 +29,7 @@ import com.HKSHOPU.hk.ui.main.productSeller.adapter.InventoryAndPriceFirstLayerN
 import com.HKSHOPU.hk.ui.main.productSeller.fragment.EditProductRemindDialogFragment
 import com.HKSHOPU.hk.ui.user.vm.ShopVModel
 import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.google.gson.Gson
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
@@ -52,12 +54,15 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
     var MMKV_product_id: String = ""
     var product_status : String = ""
 
+    var hkd_dollarSign = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMerchandiseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        hkd_dollarSign = getResources().getString(R.string.hkd_dollarSign)
 
         MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "").toString()
 
@@ -80,7 +85,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
     fun initClick() {
 
         binding.titleBackAddshop.setOnClickListener {
-
             RxBus.getInstance().post(EventMyStoreFragmentRefresh())
             finish()
         }
@@ -91,8 +95,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
         }
 
         binding.btnLaunch.setOnClickListener {
-
-
 
            when(product_status){
                "active"->{
@@ -105,7 +107,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                }
 
            }
-
         }
     }
 
@@ -123,6 +124,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
     private fun initViewPager() {
 
         runOnUiThread {
+
             binding.productPicsPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -144,6 +146,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
             binding.productPicsPager.adapter = ProductDetailForSalerActivity.ImageAdapter(list)
             binding.productPicsPager.addOnPageChangeListener(this)
+
         }
 
         initPoints()
@@ -187,11 +190,9 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
             imageView.setImageBitmap(ImagesObj.front_pic)
 
             if (position == 0) {
-                imageView.scaleType = ImageView.ScaleType.FIT_XY
-
+                imageView.scaleType = ImageView.ScaleType.FIT_CENTER
             } else {
-                imageView.scaleType = ImageView.ScaleType.FIT_XY
-
+                imageView.scaleType = ImageView.ScaleType.FIT_CENTER
             }
 
             container.addView(view)
@@ -245,7 +246,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
     }
 
-
     private fun getProductInfo(product_id: String) {
 
         val url = ApiConstants.API_HOST+"product/${product_id}/product_info_forAndroid/"
@@ -258,7 +258,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                     runOnUiThread {
                         binding.progressBarMerchandise.visibility = View.VISIBLE
                         binding.imgViewLoadingBackgroundMerchandise.visibility = View.VISIBLE
-
                     }
 
                     resStr = response.body()!!.string()
@@ -309,7 +308,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                         if(productInfoBean.product_spec_on.equals("y")){
 
-
                             if(productInfoBean.sum_quantity.toString().length>=3){
                                 var one_thous = 1000
                                 var float = productInfoBean.sum_quantity.toDouble()/one_thous.toDouble()
@@ -323,7 +321,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                     binding.tvQuantity.text =  "${productInfoBean.sum_quantity.toString()}"
                                 }
                             }
-
 
                         }else{
                             runOnUiThread {
@@ -346,6 +343,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
 
                         if(productInfoBean.sold_quantity.toString().length>=3){
+
                             var one_thous = 1000
                             var float = productInfoBean.sold_quantity.toDouble()/one_thous.toDouble()
                             var bigDecimal = float.toBigDecimal()
@@ -387,10 +385,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                             }
                         }
 
-
-
-
-
                         runOnUiThread {
 
                             when(productInfoBean.product_status){
@@ -399,7 +393,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                     runOnUiThread {
                                         binding.btnLaunch.setImageResource(R.mipmap.btn_draft)
                                     }
-
                                     product_status = productInfoBean.product_status
                                 }
                                 "draft"->{
@@ -407,7 +400,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                     runOnUiThread {
                                         binding.btnLaunch.setImageResource(R.mipmap.btn_launch)
                                     }
-
                                     product_status = productInfoBean.product_status
                                 }
                             }
@@ -415,14 +407,14 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                             if(productInfoBean.product_spec_on.equals("y")){
                                 runOnUiThread {
-                                    binding.textViewProductPriceRange.setText("HKD$${productInfoBean.min_price}-${
+                                    binding.textViewProductPriceRange.setText("${hkd_dollarSign}${productInfoBean.min_price}-${
                                         productInfoBean.max_price
                                     }")
                                 }
 
                             }else{
                                 runOnUiThread {
-                                    binding.textViewProductPriceRange.setText("HKD$${productInfoBean.product_price.toString()}")
+                                    binding.textViewProductPriceRange.setText("${hkd_dollarSign}${productInfoBean.product_price.toString()}")
                                 }
                             }
 
@@ -447,7 +439,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                         productInfoBean.c_sub_product_category
                                     }"
                                 )
-
                             }
 
                             initViewPager()
@@ -557,7 +548,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                                 var mutableList_first_layer = mutableListOf<ItemInvenFirstNestedLayer>()
 
-
                                 if(!datas_spec_title_first.equals("") && datas_spec_title_second.equals("")){
                                     specGroup_only = true
 
@@ -576,7 +566,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                                 }else{
                                     specGroup_only = false
-
 
                                     for(i in 0..datas_spec_size-1){
 
@@ -644,22 +633,17 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                                 }
 
-
                                 binding.rViewInventory.setLayoutManager(MyLinearLayoutManager(this@ProductDetailForSalerActivity,false))
                                 binding.rViewInventory.adapter = mAdapter
 
                                 mAdapter.updateList(mutableList_first_layer, specGroup_only)
 
-
                             }else{
                                 runOnUiThread {
                                     binding.rViewInventory.visibility = View.GONE
                                 }
-
                             }
-
                         }
-
 
                         if (productInfoBean.new_secondhand == "new") {
                             runOnUiThread {
@@ -672,17 +656,12 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                             }
                         }
-
-
                     }
-
 
                     runOnUiThread {
                         binding.progressBarMerchandise.visibility = View.GONE
                         binding.imgViewLoadingBackgroundMerchandise.visibility = View.GONE
-
                     }
-
 
                 } catch (e: JSONException) {
 
@@ -712,19 +691,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
             }
         })
         web.Get_Data(url)
-
-
-
-    }
-
-
-    //計算費用最大最小範圍
-    fun pick_max_and_min_num(): String {
-        //挑出最大與最小的數字
-        var min: Int =  productInfoBean.min_price.toInt()
-        var max: Int =productInfoBean.max_price.toInt()
-
-        return "HKD$${min}-${max}"
     }
 
     fun getBitmapFromURL(src: String): Bitmap? {
@@ -754,11 +720,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                             binding.imgViewLoadingBackgroundMerchandise.visibility = View.VISIBLE
                         }
 
-
-
                         if (it.ret_val.toString().equals("上架/下架成功!")) {
-
-
 
                             when(product_status){
 
@@ -808,7 +770,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
     }
 
     override fun onBackPressed() {
-
         RxBus.getInstance().post(EventMyStoreFragmentRefresh())
         finish()
     }

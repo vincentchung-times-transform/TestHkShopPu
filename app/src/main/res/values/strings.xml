@@ -583,11 +583,15 @@
     <string name="commdity_total">商品總計</string>
     <string name="freight_total">運費總計</string>
     <string name="select_payment_method_first_please">請先選擇付款方式</string>
+    <string name="preset">預設</string>
+    <string name="no_address">未填地址</string>
+    <string name="empty_cart">購物車內沒有商品</string>
 
 <!--    應用程式更新-->
     <string name="upadte_notify">更新通知</string>
     <string name="upadte_notify_content">
         有新的更新項目現在可供使用!\n
         透過行動網路下載可能產生額外費用。</string>
+
 
 </resources>

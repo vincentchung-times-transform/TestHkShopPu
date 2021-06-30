@@ -27,6 +27,9 @@ class EventGetShopCatSuccess(val list: ArrayList<String>)
 //ShopInfoFragment
 class EventRefreshShopInfo()
 
+//ShopmenuActivity
+class EventStartLoadingShopmenu()
+class EventFinishLoadingShopmenu()
 
 //MyStoreFragment
 class EventAddShopBriefSuccess(val description: String)
@@ -45,6 +48,8 @@ class EventProductCatSelected(val selectdId: String = "", var c_product_category
 class EventProductCatLastPostion(val postion: Int = 1)
 //Shipment Setting
 class EventCheckShipmentEnableBtnOrNot(val boolean : Boolean)
+//Logistics Setting
+class EventCheckLogisticsEnableBtnOrNot(val boolean : Boolean)
 //Specification Setting
 class EventCheckFirstSpecEnableBtnOrNot(val boolean : Boolean)
 class EventCheckSecondSpecEnableBtnOrNot(val boolean : Boolean)
@@ -63,6 +68,7 @@ class EventdeleverFragmentAfterUpdateStatus()
 class EventBuyerDetailedProductBtnStatusFirst(
     val boolean: Boolean,
     val position: Int,
+    var spec_id: String,
     var spec_name: String,
     var price_range: String,
     var quant_range: String,
@@ -78,6 +84,13 @@ class EventBuyerDetailedProductBtnStatusSecond(
 
 class EventBuyerDetailedProductNewProDetailedFragment(var id : String)
 class EventBuyerDetailedProductRemoveProDetailedFragment(var fragment: Fragment)
+
+//Shopping Cart
+
+class EventRemoveShoppingCartItem(var id_list: String, var position: Int)
+class EventUpdateShoppingCartItem(var product_checked: Boolean, var shopping_cart_item_id: String, var new_quantity : String, var selected_shipment_id : String, var selected_user_address_id: String, var selected_payment_id : String)
+class EventUpdateShoppingCartItemForConfirmed(var id : String, var buyerName: String, var buyerPhone: String, var buyerAddress: String, var shoppingCartShopId: String, var specId_json:String)
+class EventCheckedShoppingCartItem()
 
 //Other Events (Not Used)
 

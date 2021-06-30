@@ -1,26 +1,48 @@
 package com.HKSHOPU.hk.ui.main.shoppingCart.adapter
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.RecyclerView
+import com.HKSHOPU.hk.Base.BaseActivity
 import com.facebook.FacebookSdk.getApplicationContext
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventCheckedShoppingCartItem
+import com.HKSHOPU.hk.component.EventRemoveShoppingCartItem
+
+import com.HKSHOPU.hk.component.EventUpdateShoppingCartItem
+import com.HKSHOPU.hk.data.bean.ShoppingCartItemIdBean
 import com.HKSHOPU.hk.data.bean.ShoppingCartProductItemNestedLayer
-import com.HKSHOPU.hk.data.bean.ShoppingCartProductShipmentItem
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.shopProfile.adapter.ITHelperInterface
+import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
+import okhttp3.Response
+import org.jetbrains.anko.find
+import org.jetbrains.anko.runOnUiThread
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 import java.util.*
 
 
 class ShoppingCartProductsNestedAdapter(
     var mutableList_shoppingCartProductItem: MutableList<ShoppingCartProductItemNestedLayer>,
-    var shipmentList: MutableList<ShoppingCartProductShipmentItem>,
-    var edit_mode: Boolean
-    ): RecyclerView.Adapter<ShoppingCartProductsNestedAdapter.mViewHolder>(), ITHelperInterface {
+    var edit_mode: Boolean,
+    var activity: BaseActivity,
+    var shop_index: Int
+): RecyclerView.Adapter<ShoppingCartProductsNestedAdapter.mViewHolder>(), ITHelperInterface {
 
     var hkd_dollarSign = ""
 
@@ -28,26 +50,33 @@ class ShoppingCartProductsNestedAdapter(
         View.OnClickListener {
 
         var product_id: String = ""
+        var product_checked = false
         //把layout檔的元件們拉進來，指派給當地變數
         val imgView_product_icon = itemView.findViewById<ImageView>(R.id.imgView_product_icon)
         val textView_product_name = itemView.findViewById<TextView>(R.id.textView_product_name)
-        val textView_product_first_spec_item = itemView.findViewById<TextView>(R.id.textView_product_first_spec_name)
-        var textView_product_first_spec_content =  itemView.findViewById<TextView>(R.id.textView_product_first_spec_item)
+        var shopping_cart_item_id = ""
+        val textView_product_first_spec_name = itemView.findViewById<TextView>(R.id.textView_product_first_spec_name)
+        var textView_product_first_spec_item =  itemView.findViewById<TextView>(R.id.textView_product_first_spec_item)
         val textView_product_second_spec_name = itemView.findViewById<TextView>(R.id.textView_product_second_spec_name)
         var textView_product_second_spec_item =  itemView.findViewById<TextView>(R.id.textView_product_second_spec_item)
+        var textView_product_second_colon = itemView.find<TextView>(R.id.textView_product_second_colon)
         var shopping_cart_ic_math_subtract =  itemView.findViewById<ImageView>(R.id.shopping_cart_ic_math_subtract)
         val shopping_cart_tv_value_quantitiy = itemView.findViewById<TextView>(R.id.shopping_cart_tv_value_quantitiy)
         var shopping_cart_ic_math_add =  itemView.findViewById<ImageView>(R.id.shopping_cart_ic_math_add)
         val textView_price = itemView.findViewById<TextView>(R.id.textView_price)
         var unit_price = 0
-        var total_price = 0
+        var spec_quantity_sum_price = 0
+        var stock_quantity = 0
         var container_logistics_spinner = itemView.findViewById<Spinner>(R.id.container_logistics_spinner)
         var textView_logistics_fare_selecting = itemView.findViewById<TextView>(R.id.textView_logistics_fare_selecting)
+        var textView_logistics_selecting_confirmed = itemView.findViewById<TextView>(R.id.textView_logistics_selecting_confirmed)
+        var textView_logistics_fare_selecting_confirmed = itemView.findViewById<TextView>(R.id.textView_logistics_fare_selecting_confirmed)
         var shopping_cart_tv_value_quantitiy_confirmed = itemView.findViewById<TextView>(R.id.shopping_cart_tv_value_quantitiy_confirmed)
         var layout_quantity_abacus = itemView.findViewById<LinearLayout>(R.id.layout_quantity_abacus)
         var layout_logistics_selecting = itemView.findViewById<LinearLayout>(R.id.layout_logistics_selecting)
         var layout_logistics_selecting_confirmed = itemView.findViewById<LinearLayout>(R.id.layout_logistics_selecting_confirmed)
         var btn_delete_shopping_cart_prodcut = itemView.findViewById<ImageView>(R.id.btn_delete_shopping_cart_prodcut)
+        var item_id_list_json = ""
 
         init {
             hkd_dollarSign = itemView.context.getResources().getString(R.string.hkd_dollarSign)
@@ -56,24 +85,43 @@ class ShoppingCartProductsNestedAdapter(
         fun bind(item: ShoppingCartProductItemNestedLayer){
 
             product_id = item.product_id
+            product_checked = item.product_checked
             Picasso.with(itemView.context).load(item.product_pic).into( imgView_product_icon)
             textView_product_name.setText(item.product_title.toString())
-            textView_product_first_spec_item.setText(item.product_spec.get(0).spec_desc_1.toString())
-            textView_product_first_spec_content.setText(item.product_spec.get(0).spec_desc_2.toString())
-            textView_product_second_spec_name.setText(item.product_spec.get(0).spec_dec_1_items.toString())
-            textView_product_second_spec_item.setText(item.product_spec.get(0).spec_dec_2_items.toString())
-            unit_price = item.product_spec.get(0).spec_price
-            total_price = unit_price*item.product_spec.get(0).shopping_cart_quantity
-            textView_price.setText(total_price.toString())
+            shopping_cart_item_id = item.product_spec.shopping_cart_item_id.toString()
+            textView_product_first_spec_name.setText(item.product_spec.spec_desc_1.toString())
+            textView_product_first_spec_item.setText(item.product_spec.spec_dec_1_items.toString())
+            textView_product_second_spec_name.setText(item.product_spec.spec_desc_2.toString())
+            textView_product_second_spec_item.setText(item.product_spec.spec_dec_2_items.toString())
+            if(item.product_spec.spec_desc_2.isNullOrEmpty() && item.product_spec.spec_dec_2_items.isNullOrEmpty()){
+                textView_product_second_spec_name.visibility = View.GONE
+                textView_product_second_colon.visibility = View.GONE
+                textView_product_second_spec_item.visibility = View.GONE
+            }
+            unit_price = item.product_spec.spec_price
+            stock_quantity = item.product_spec.spec_quantity
+            spec_quantity_sum_price = unit_price*item.product_spec.shopping_cart_quantity
+            textView_price.setText(spec_quantity_sum_price.toString())
             shopping_cart_ic_math_subtract.setOnClickListener(this)
-            shopping_cart_tv_value_quantitiy.setText(item.product_spec.get(0).shopping_cart_quantity.toString())
+            shopping_cart_tv_value_quantitiy.setText(item.product_spec.shopping_cart_quantity.toString())
             shopping_cart_ic_math_add.setOnClickListener(this)
-            textView_logistics_fare_selecting.setText(shipmentList.get(0).shipment_price.toString())
+            textView_logistics_fare_selecting.setText(item.shipmentList.get(0).shipment_price.toString())
+            btn_delete_shopping_cart_prodcut.setOnClickListener(this)
+            shopping_cart_tv_value_quantitiy_confirmed.setText("x${item.product_spec.shopping_cart_quantity.toString()}")
+            textView_logistics_selecting_confirmed.setText(item.shipmentSelected.shipment_desc.toString())
+            textView_logistics_fare_selecting_confirmed.setText(item.shipmentSelected.shipment_price.toString())
+
+            var item_id_list = arrayListOf<String>()
+            item_id_list.add(item.product_spec.shopping_cart_item_id)
+
+            var gson = Gson()
+            item_id_list_json = gson.toJson(ShoppingCartItemIdBean(item_id_list))
+
 
             val logistics_list: MutableList<String> = ArrayList<String>()
 
-            for (i in 0 until shipmentList.size) {
-                logistics_list.add("${shipmentList.get(i).shipment_desc.toString()}${"\r"}${hkd_dollarSign}${shipmentList.get(i).shipment_price.toString()}")
+            for (i in 0 until item.shipmentList.size) {
+                logistics_list.add("${item.shipmentList.get(i).shipment_desc.toString()}${"\r"}${hkd_dollarSign}${item.shipmentList.get(i).shipment_price.toString()}")
             }
 
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
@@ -92,7 +140,13 @@ class ShoppingCartProductsNestedAdapter(
                     position: Int,
                     id: Long,
                 ) {
-                    textView_logistics_fare_selecting.setText(shipmentList.get(position).shipment_price.toString())
+
+                    textView_logistics_fare_selecting.setText(item.shipmentList.get(position).shipment_price.toString())
+                    mutableList_shoppingCartProductItem.get(adapterPosition).shipmentSelected.shipment_id = item.shipmentList.get(position).shipment_id.toString()
+                    mutableList_shoppingCartProductItem.get(adapterPosition).shipmentSelected.shipment_desc = item.shipmentList.get(position).shipment_desc.toString()
+                    mutableList_shoppingCartProductItem.get(adapterPosition).shipmentSelected.shipment_price = item.shipmentList.get(position).shipment_price.toInt()
+                    RxBus.getInstance().post(EventUpdateShoppingCartItem(product_checked, item_id_list_json, item.shipmentList.get(position).shipment_id.toString(), "", "", ""))
+
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -101,7 +155,11 @@ class ShoppingCartProductsNestedAdapter(
 
             }
 
+            mutableList_shoppingCartProductItem.get(adapterPosition).product_spec.spec_quantity_sum_price = spec_quantity_sum_price
+
+
             if(edit_mode){
+
                 btn_delete_shopping_cart_prodcut.visibility = View.VISIBLE
                 shopping_cart_tv_value_quantitiy_confirmed.visibility = View.GONE
                 layout_quantity_abacus.visibility = View.VISIBLE
@@ -109,12 +167,15 @@ class ShoppingCartProductsNestedAdapter(
                 layout_logistics_selecting.visibility = View.VISIBLE
 
             }else{
+
                 btn_delete_shopping_cart_prodcut.visibility = View.GONE
                 shopping_cart_tv_value_quantitiy_confirmed.visibility = View.VISIBLE
                 layout_quantity_abacus.visibility = View.GONE
                 layout_logistics_selecting_confirmed.visibility = View.VISIBLE
                 layout_logistics_selecting.visibility = View.GONE
+
             }
+
 
         }
 
@@ -123,26 +184,102 @@ class ShoppingCartProductsNestedAdapter(
             when(v?.id) {
                 R.id.shopping_cart_ic_math_add ->{
                     var quant =  shopping_cart_tv_value_quantitiy.text.toString().toInt()
-                    quant += 1
-                    shopping_cart_tv_value_quantitiy.setText(quant.toString())
 
-                    total_price+=unit_price
-                    textView_price.setText(total_price.toString())
+                    if(stock_quantity>quant){
+
+                        quant += 1
+                        shopping_cart_tv_value_quantitiy.setText(quant.toString())
+
+                        spec_quantity_sum_price+=unit_price
+                        textView_price.setText(spec_quantity_sum_price.toString())
+
+                        RxBus.getInstance().post(EventUpdateShoppingCartItem(product_checked, item_id_list_json, quant.toString(), "", "", ""))
+
+                        mutableList_shoppingCartProductItem.get(adapterPosition).product_spec.shopping_cart_quantity = quant
+                        mutableList_shoppingCartProductItem.get(adapterPosition).product_spec.spec_quantity_sum_price = spec_quantity_sum_price
+
+                    }
+
                 }
                 R.id.shopping_cart_ic_math_subtract ->{
+
                     var quant =  shopping_cart_tv_value_quantitiy.text.toString().toInt()
 
                     if(quant>0){
                         quant -= 1
-                        total_price-=unit_price
+                        spec_quantity_sum_price-=unit_price
+                        shopping_cart_tv_value_quantitiy.setText(quant.toString())
+                        textView_price.setText(spec_quantity_sum_price.toString())
+
+                        RxBus.getInstance().post(EventUpdateShoppingCartItem(product_checked, item_id_list_json, quant.toString(), "", "", ""))
+
+                        mutableList_shoppingCartProductItem.get(adapterPosition).product_spec.shopping_cart_quantity = quant
+                        mutableList_shoppingCartProductItem.get(adapterPosition).product_spec.spec_quantity_sum_price = spec_quantity_sum_price
                     }
-                    shopping_cart_tv_value_quantitiy.setText(quant.toString())
-                    textView_price.setText(total_price.toString())
+
+                }
+                R.id.btn_delete_shopping_cart_prodcut ->{
+
+                    Log.d("shopping_cart_item_id", shopping_cart_item_id.toString())
+                    doDeleteShoppingCartitems(item_id_list_json)
+
+                }
+            }
+        }
+
+
+        private fun doDeleteShoppingCartitems (shopping_cart_item_id: String) {
+
+            val url = ApiConstants.API_HOST+"shopping_cart/delete/"
+
+            val web = Web(object : WebListener {
+                override fun onResponse(response: Response) {
+                    var resStr: String? = ""
+                    try {
+
+                        resStr = response.body()!!.string()
+                        val json = JSONObject(resStr)
+                        Log.d("doDeleteShoppingCartitems", "返回資料 resStr：" + resStr)
+                        Log.d("doDeleteShoppingCartitems", "返回資料 ret_val：" + json.get("ret_val"))
+                        val ret_val = json.get("ret_val")
+
+                        if (ret_val.equals("刪除成功")) {
+
+                            itemView.context.runOnUiThread {
+                                Toast.makeText(itemView.context, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                                onItemDissmiss(adapterPosition)
+
+                                if(mutableList_shoppingCartProductItem.size==0){
+                                    RxBus.getInstance().post(EventRemoveShoppingCartItem("", shop_index))
+                                }
+                            }
+
+                        }else{
+
+                            itemView.context.runOnUiThread {
+                                Toast.makeText(itemView.context, "網路異常請重新嘗試", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }
+
+                    } catch (e: JSONException) {
+                        Log.d("doDeleteShoppingCartitems", "JSONException：" + e.toString())
+
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Log.d("doDeleteShoppingCartitems", "IOException：" + e.toString())
+
+                    }
                 }
 
-            }
+                override fun onErrorResponse(ErrorResponse: IOException?) {
+                    Log.d("doDeleteShoppingCartitems", "ErrorResponse：" + ErrorResponse.toString())
 
+                }
+            })
+            web.doDeleteShoppingCartitems(url, shopping_cart_item_id)
         }
+
     }
 
     override fun onCreateViewHolder(parent:ViewGroup,viewType: Int): mViewHolder {

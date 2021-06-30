@@ -28,4 +28,6 @@ class ShoppingCartProductItemNestedLayerProductSepcBean {
     @SerializedName("spec_quantity")
     var spec_quantity: Int =0
 
+    var spec_quantity_sum_price: Int =0
+
 }

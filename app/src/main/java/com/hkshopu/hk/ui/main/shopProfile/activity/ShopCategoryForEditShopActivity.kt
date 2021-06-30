@@ -78,9 +78,9 @@ class ShopCategoryForEditShopActivity : BaseActivity() {
 
         //----------------------Default RecylcerView Datas----------------------
 
-        for (i in 0 until CommonVariable.shopCategorySelectedList.size){
+        for (i in 0 until CommonVariable.shopCategorySelectedListForEdit.size){
             for(j in 0 until  CommonVariable.shopCategoryListForEdit.size){
-                if(CommonVariable.shopCategorySelectedList.get(i) == CommonVariable.shopCategoryListForEdit.get(j).id){
+                if(CommonVariable.shopCategorySelectedListForEdit.get(i) == CommonVariable.shopCategoryListForEdit.get(j).id){
                     CommonVariable.shopCategoryListForEdit[j].isSelect = true
                 }else{
                     continue
@@ -314,7 +314,7 @@ class ShopCategoryForEditShopActivity : BaseActivity() {
                             }
                         }
 
-                        CommonVariable.shopCategorySelectedList = shop_category_id_list
+                        CommonVariable.shopCategorySelectedListForEdit = shop_category_id_list
                     }
 
 

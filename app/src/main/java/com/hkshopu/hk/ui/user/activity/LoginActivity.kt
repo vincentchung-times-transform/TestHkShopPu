@@ -121,6 +121,13 @@ class LoginActivity : BaseActivity(), TextWatcher {
                                 .putString("email", email)
                                 .apply()
 
+                            MMKV.mmkvWithID("http").putString("Email", email)
+
+                            val editor : SharedPreferences.Editor = settings_rememberEmail.edit()
+                            editor.apply {
+                                putString("rememberEmail", "true")
+                            }.apply()
+
                             val intent = Intent(this, LoginPasswordActivity::class.java)
                             startActivity(intent)
 
@@ -171,10 +178,6 @@ class LoginActivity : BaseActivity(), TextWatcher {
             binding.ivLoadingBackgroundLoginEmail.visibility = View.VISIBLE
 
             email = binding.editEmail.text.toString()
-            val editor : SharedPreferences.Editor = settings_rememberEmail.edit()
-            editor.apply {
-                putString("rememberEmail", "true")
-            }.apply()
 
             VM.emailCheck(this,email)
 
@@ -249,7 +252,8 @@ class LoginActivity : BaseActivity(), TextWatcher {
                                     // Application code
                                     val id = response.jsonObject.getString("id")
                                     val email = response.jsonObject.getString("email")
-                                    doSocialLogin(email,id,"","")                                              } catch (e: Exception) {
+                                    doSocialLogin(email,id,"","")
+                                } catch (e: Exception) {
                                     e.printStackTrace()
                                 }
                             }
@@ -326,6 +330,13 @@ class LoginActivity : BaseActivity(), TextWatcher {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.d("OnBoardActivity", "Google sign in failed", e)
+
+                doInsertAuditLog(user_id,
+                    "onActivityResult",
+                    "",
+                    "ApiException: ${e.toString()}"
+                )
+
                 runOnUiThread {
                     binding.progressBarLoginEmail.visibility = View.GONE
                     binding.ivLoadingBackgroundLoginEmail.visibility = View.GONE

@@ -56,6 +56,7 @@ class BankListActivity : BaseActivity() {
             }
         }
         adapter.toPresetClick = {
+
             val intent = Intent(this, BankPresetActivity::class.java)
             startActivity(intent)
 

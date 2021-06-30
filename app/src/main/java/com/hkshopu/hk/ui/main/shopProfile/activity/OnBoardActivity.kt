@@ -84,9 +84,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         binding = ActivityOnboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         doGetLatestAppVersion("Android")
-
 
         var height = 0
         var width = getScreenWidth(this)
@@ -304,11 +302,11 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
             var mmkv = MMKV.mmkvWithID("http")
             mmkv.clearAll()
 
-            val intent = Intent(this, ShopmenuActivity::class.java)
-            startActivity(intent)
-
-//            val intent = Intent(this, ProductDetailedPageBuyerViewActivity::class.java)
+//            val intent = Intent(this, ShopmenuActivity::class.java)
 //            startActivity(intent)
+
+            val intent = Intent(this, ProductDetailedPageBuyerViewActivity::class.java)
+            startActivity(intent)
 
 //            val intent = Intent(this, EmailVerifyActivity::class.java)
 //            startActivity(intent)

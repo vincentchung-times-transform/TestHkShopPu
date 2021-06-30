@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,6 @@ import com.HKSHOPU.hk.R
 
 import com.HKSHOPU.hk.component.EventBuyerDetailedProductBtnStatusFirst
 import com.HKSHOPU.hk.component.EventBuyerDetailedProductBtnStatusSecond
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductNewProDetailedFragment
 import com.HKSHOPU.hk.component.EventBuyerDetailedProductRemoveProDetailedFragment
 import com.HKSHOPU.hk.data.bean.*
 import com.HKSHOPU.hk.databinding.FragmentProductDetailedPageBinding
@@ -33,8 +31,7 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.productBuyer.adapter.*
-import com.HKSHOPU.hk.ui.main.productSeller.fragment.StoreOrNotDialogStoreProductsFragment
-import com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartedEditActivity
+import com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartEditActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
@@ -122,10 +119,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
         binding = FragmentProductDetailedPageBinding.bind(view)
         fragmentProductDetailedPageBinding = binding
 
-        Log.d("checkfragmentid", this.toString() )
-        Toast.makeText(activity, this.toString(), Toast.LENGTH_SHORT).show()
-
-        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "e5325328-f033-4b78-bb2f-2fa9d5459b63").toString()
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "25").toString()
         MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "0").toString()
 //        MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "9a139db5-4650-4866-b6f1-c3da85d5519b").toString()
 
@@ -136,11 +130,8 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
         )
         MMKV_product_id= productId
 
-        Log.d("MMKV_product_id_inspect_value", MMKV_user_id.toString())
-
-        Thread(Runnable {
-
-        }).start()
+        Log.d("MMKV_product_id_inspect_value", "MMKV_user_id: ${MMKV_user_id.toString()} ;\n" +
+                "productId : ${productId.toString()} ; ")
 
 
         GetShoppingCartItemCountForBuyer (MMKV_user_id)
@@ -184,14 +175,13 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
         binding!!.icCart.setOnClickListener {
 
-            val intent = Intent(activity, ShoppingCartedEditActivity::class.java)
+            val intent = Intent(activity, ShoppingCartEditActivity::class.java)
             startActivity(intent)
             activity!!.finish()
         }
 
         binding!!.titleBackAddshop.setOnClickListener {
-//            RxBus.getInstance().post(EventBuyerDetailedProductRemoveProDetailedFragment(this))
-            activity!!.finish()
+            RxBus.getInstance().post(EventBuyerDetailedProductRemoveProDetailedFragment(this))
         }
 
         binding!!.btnAddToShoppingCart.setOnClickListener {
@@ -245,7 +235,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                         Selected_product_spec_id,
                         Selected_product_quantity
                     )
-                    val intent = Intent(activity, ShoppingCartedEditActivity::class.java)
+                    val intent = Intent(activity, ShoppingCartEditActivity::class.java)
                     startActivity(intent)
                     activity!!.finish()
                 }
@@ -258,7 +248,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                     "0",
                     Selected_product_quantity
                 )
-                val intent = Intent(activity, ShoppingCartedEditActivity::class.java)
+                val intent = Intent(activity, ShoppingCartEditActivity::class.java)
                 startActivity(intent)
                 activity!!.finish()
             }
@@ -303,8 +293,13 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
             binding!!.textViewProductPriceRange.setText(price_range.toString())
 
-            binding!!.txtViewSpinnerContent.setText("${tvTitleSpecsFirst} : ${first_spec_name}"
-                    + "\n"+ "${tvTitleSpecsSecond} : ${second_spec_name}")
+            if(!tvTitleSpecsFirst.isNullOrEmpty() && !tvTitleSpecsSecond.isNullOrEmpty()){
+                binding!!.txtViewSpinnerContent.setText("${tvTitleSpecsFirst} : ${first_spec_name}"
+                        + "\n"+ "${tvTitleSpecsSecond} : ${second_spec_name}")
+            }else{
+                binding!!.txtViewSpinnerContent.setText("${tvTitleSpecsFirst} : ${first_spec_name}")
+            }
+
 
         }
 
@@ -504,10 +499,8 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
-                val list = ArrayList<ProductInfoBean>()
-//                val product_id_list = ArrayList<String>()
-                try {
 
+                try {
 
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
@@ -890,27 +883,46 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                             }
                         }
 
-                    }
+                    }else{
 
-                    activity!!.runOnUiThread {
-                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        activity!!.runOnUiThread {
+                            Toast.makeText(activity, ret_val.toString(), Toast.LENGTH_SHORT).show()
 
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
                     }
 
                 } catch (e: JSONException) {
                     Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
+
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("getDetailedProductInfo", "JSONException: "+ e.toString())
+                    Log.d("getDetailedProductInfo", "IOException: "+ e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
-
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
+
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
+
             }
         })
         web.Get_Data(url)
@@ -924,7 +936,6 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
-
 
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
@@ -961,44 +972,60 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
                         Log.d("getSimilarProducts", "返回資料 mutablelist_recommendedProduct：" + mutablelist_similarProduct.toString())
 
+                        activity!!.runOnUiThread {
 
-                    }
+                            var mAdapter_likeProduct_forRecommendPro = LikeProductForFragmentAdapter("recommended", activity!!)
+
+                            binding!!.recyclerviewRecommendedProducts.layoutManager =
+                                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+                            binding!!.recyclerviewRecommendedProducts.adapter = mAdapter_likeProduct_forRecommendPro
+
+                            mAdapter_likeProduct_forRecommendPro.setData(mutablelist_similarProduct)
 
 
-                    activity!!.runOnUiThread {
-
-                        var mAdapter_likeProduct_forRecommendPro = LikeProductForFragmentAdapter("recommended", activity!!)
-
-                        binding!!.recyclerviewRecommendedProducts.layoutManager =
-                            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                        binding!!.recyclerviewRecommendedProducts.adapter = mAdapter_likeProduct_forRecommendPro
-
-                        mAdapter_likeProduct_forRecommendPro.setData(mutablelist_similarProduct)
-
-                        mAdapter_likeProduct_forRecommendPro.itemClick = {
-//                            val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
-//                            val newFragment: ProductDetailedPageBuyerViewFragment = ProductDetailedPageBuyerViewFragment.newInstance()
-//                            val args = Bundle()
-//                            args.putString("product_id", it)
-//                            newFragment.arguments = args
-//                            ft.replace(R.id.layout_main_page, newFragment, "ProductDetailedPageBuyerViewFragment")
-//                            ft.commit()
                         }
 
+
+                    }else{
+
+                        activity!!.runOnUiThread {
+                            Toast.makeText(activity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
 
                     }
 
                 } catch (e: JSONException) {
+                    Log.d("getDetailedProductInfo", "JSONException: "+ e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "IOException: "+ e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: "+ ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.getSimilarProducts(url, user_id, product_id)
@@ -1179,6 +1206,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                             }
 
                         }
+
                         activity!!.runOnUiThread {
                             var mAdapter_likeProduct_forOtherShop = LikeProductForFragmentAdapter("otherShop", activity!!)
 
@@ -1190,33 +1218,53 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
                         }
 
+                    }else{
+
+                        activity!!.runOnUiThread {
+                            Toast.makeText(activity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
                     }
 
 
 
                 } catch (e: JSONException) {
+                    Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "IOException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.getSimilarProducts(url, user_id, product_id)
     }
-    //計算費用最大最小範圍
-//    fun pick_max_and_min_num(): String {
-//        //挑出最大與最小的數字
-//        var min: Int =  productInfoList.min_price.toInt()
-//        var max: Int =productInfoList.max_price.toInt()
-//
-//        return "HKD$${min}-${max}"
-//    }
+
+
 
     fun getBitmapFromURL(src: String): Bitmap? {
         return try {
@@ -1240,7 +1288,6 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                 var resStr: String? = ""
                 try {
 
-
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
                     Log.d("doFollowShopForBuyer", "返回資料 resStr：" + resStr)
@@ -1252,16 +1299,17 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                         Log.d("doFollowShopForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
 
 
-                        activity!!. runOnUiThread {
+                        activity!!.runOnUiThread {
                             Toast.makeText(
                                 activity,
                                 ret_val.toString(),
                                 Toast.LENGTH_SHORT).show()
 
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
 
                     }else{
-
 
                         activity!!.runOnUiThread {
                             Toast.makeText(
@@ -1269,6 +1317,8 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                                 ret_val.toString(),
                                 Toast.LENGTH_SHORT).show()
 
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
 
                     }
@@ -1276,16 +1326,34 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
 
                 } catch (e: JSONException) {
+                    Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "IOException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.doFollowShopForBuyer(url, user_id, shop_id, follow)
@@ -1311,28 +1379,26 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                         val jsonArray: JSONArray = json.getJSONArray("data")
                         Log.d("doLikeProductForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
 
-
-
-
-
                         activity!!.runOnUiThread {
                             Toast.makeText(
                                 activity,
                                 ret_val.toString(),
                                 Toast.LENGTH_SHORT).show()
 
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
-
 
                     }else{
 
-
                         activity!!.runOnUiThread {
                             Toast.makeText(
                                 activity,
                                 ret_val.toString(),
                                 Toast.LENGTH_SHORT).show()
 
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
 
                     }
@@ -1340,16 +1406,34 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
 
                 } catch (e: JSONException) {
+                    Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "printStackTrace: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.doLikeProductForBuyer(url, user_id, product_id, like)
@@ -1398,21 +1482,66 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                            total
                         }
 
-                        for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
-                            mutableList_first_specifications.add(
-                                ItemSpecificationSeleting(
-                                    "",
-                                    detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
-                                    pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
-                                    pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
-                                    total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
-                                false
+                        if (detailed_product_specification_bean.spec_dec_1_items.size > 0
+                            && detailed_product_specification_bean.spec_dec_2_items.size==1
+                            &&  detailed_product_specification_bean.spec_dec_2_items.get(0).isNullOrEmpty()) {
 
+                            for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
+                                mutableList_first_specifications.add(
+                                    ItemSpecificationSeleting(
+                                        detailed_product_specification_bean.id.get(i).get(0).toString(),
+                                        detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
+                                        pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
+                                        pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
+                                        total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
+                                        false
+
+                                    )
                                 )
-                            )
+
+                            }
+
+                            for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
+                                mutableList_second_specifications.add(
+                                    ItemSpecificationSeleting(
+                                        detailed_product_specification_bean.id.get(0).get(i).toString(),
+                                        detailed_product_specification_bean.spec_dec_2_items.get(i).toString(),
+                                        detailed_product_specification_bean.price.get(0).get(i).toString(),
+                                        detailed_product_specification_bean.quantity.get(0).get(i).toString(),
+                                        detailed_product_specification_bean.quantity.get(0).get(i),
+                                        false
+                                    )
+                                )
+                            }
+                        }else {
+                            for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size - 1) {
+                                mutableList_first_specifications.add(
+                                    ItemSpecificationSeleting(
+                                        "",
+                                        detailed_product_specification_bean.spec_dec_1_items.get(i)
+                                            .toString(),
+                                        pick_max_and_min_value(
+                                            detailed_product_specification_bean.price.get(
+                                                i
+                                            )
+                                        ),
+                                        pick_max_and_min_value(
+                                            detailed_product_specification_bean.quantity.get(
+                                                i
+                                            )
+                                        ),
+                                        total_quantity(
+                                            i,
+                                            detailed_product_specification_bean.quantity.get(i).size
+                                        ),
+                                        false
+
+                                    )
+                                )
+                            }
                         }
 
-                        for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
+                            for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
                             mutableList_second_specifications.add(
                                 ItemSpecificationSeleting(
                                     detailed_product_specification_bean.id.get(0).get(i).toString(),
@@ -1436,7 +1565,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                             )
                         }
 
-                        if (mutableList_first_specifications.size > 0 && mutableList_second_specifications.size == 0) {
+                        if (mutableList_first_specifications.size > 0 && mutableList_second_specifications.size==1 &&  mutableList_second_specifications.get(0).spec_name.isNullOrEmpty()) {
 
                             activity!!.runOnUiThread {
                                 binding!!.containerSpecsSecondSelectingLayer.visibility = View.GONE
@@ -1454,30 +1583,45 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                         }
 
 
+                    }else{
+
+                       activity!!.runOnUiThread {
+                            Toast.makeText(activity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
                     }
-
-
-                    activity!!.runOnUiThread {
-                        Toast.makeText(
-                            activity,
-                            ret_val.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
 
                 } catch (e: JSONException) {
 
+                    Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "IOException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.Get_Data(url)
@@ -1515,30 +1659,50 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                             ShoppingCartItemCountBean::class.java
                         )
 
+                    }else{
+
+                        activity!!.runOnUiThread {
+                            Toast.makeText(
+                                activity,
+                                ret_val.toString(),
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
                     }
-
-
-                    activity!!.runOnUiThread {
-                        Toast.makeText(
-                            activity,
-                            ret_val.toString(),
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
 
                 } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("GetShoppingCartItemCountForBuyer", "JSONException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("GetShoppingCartItemCountForBuyer", "IOException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("GetShoppingCartItemCountForBuyer", "ErrorResponse: ${ErrorResponse.toString()}")
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.Get_Data(url)
@@ -1564,29 +1728,21 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
     }
 
-
     //計算費用最大最小範圍
     fun pick_max_and_min_value(list:MutableList<Int>): String {
         //挑出最大與最小的數字
 
         if(list.size>0){
             //挑出最大與最小的數字
-            var min: Int =list[0].toInt()
-            var max: Int =list[0].toInt()
+            var min: Int = 0
+            var max: Int = 0
 
-            for (f in 1..list.size-1) {
-                if(list[f].toInt() >= min ){
-                    max = list[f].toInt()
-                }else{
-                    min = list[f].toInt()
-                }
-            }
-
+            min=list.min()!!
+            max=list.max()!!
             return "${min}-${max}"
         }else{
             return ""
         }
-
     }
 
     private fun getProductRatingDetails(product_id: String) {
@@ -1596,7 +1752,6 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
-
 
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
@@ -1631,30 +1786,49 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
                             mAdapter_ProductRatingDetails.setData(mutableList_ProductRatingDetails)
 
-
-                        }
-
-                        activity!!.runOnUiThread {
                             binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
                             binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
 
                         }
 
+                    }else{
+                        activity!!.runOnUiThread {
+                            Toast.makeText(activity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+
+                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
                     }
 
-
-
                 } catch (e: JSONException) {
+                    Log.d("getDetailedProductInfo", "JSONException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getDetailedProductInfo", "IOException: " + e.toString())
+                    activity!!.runOnUiThread {
+                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                        binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getDetailedProductInfo", "ErrorResponse: " + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
 
+                    binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
+                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
             }
         })
         web.Get_Data(url)
@@ -1733,6 +1907,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
                         boolean = it.boolean
                         position = it.position
+                        spec_id = it.spec_id
                         first_spec_name = it.spec_name
                         price_range = it.price_range
                         quant_range = it.quant_range

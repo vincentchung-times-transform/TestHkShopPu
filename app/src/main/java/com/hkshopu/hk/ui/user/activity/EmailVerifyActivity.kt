@@ -16,6 +16,7 @@ import com.HKSHOPU.hk.databinding.ActivityEmailverifyBinding
 import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopmenuActivity
 import com.HKSHOPU.hk.ui.user.vm.AuthVModel
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
+import com.tencent.mmkv.MMKV
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -38,6 +39,7 @@ class EmailVerifyActivity : BaseActivity(), TextWatcher {
         //local資料存取
         settings = this.getSharedPreferences("DATA", 0)
         email = settings.getString("email", "").toString()
+        email = MMKV.mmkvWithID("http").getString("Email", "").toString()
 
         initView()
         initVM()

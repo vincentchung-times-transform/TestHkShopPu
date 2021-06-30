@@ -107,7 +107,7 @@ class SpecificationFirstSelectingAdapter: RecyclerView.Adapter<SpecificationFirs
                         last_position = adapterPosition
 
 
-                        RxBus.getInstance().post(EventBuyerDetailedProductBtnStatusFirst(true, adapterPosition, txtView_specification.text.toString(), price_range, quant_range, total_quantity))
+                        RxBus.getInstance().post(EventBuyerDetailedProductBtnStatusFirst(true, adapterPosition, spec_id, txtView_specification.text.toString(), price_range, quant_range, total_quantity))
 
                     }
 

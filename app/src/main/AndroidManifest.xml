@@ -328,13 +328,25 @@
             android:launchMode="singleTask" />
 
         <activity
-            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartedEditActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartEditActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
         <activity
-            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartedConfirmedActivity"
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartConfirmedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShopAddressListForShoppingCartActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.shoppingCart.activity.AddBuyerAddressForShoppingCartActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />

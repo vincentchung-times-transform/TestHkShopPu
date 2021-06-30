@@ -5,12 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_shopaddressEdit"
     android:background="@color/color_shopbg"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
     android:importantForAutofill="noExcludeDescendants">
 
     <RelativeLayout
         android:id="@+id/layout_shopaddressEditTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:layout_marginTop="15dp">
 
         <ImageView
@@ -28,6 +32,8 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
+            android:clickable="true"
+            android:focusableInTouchMode="true"
             android:textColor="@color/dark_gray"
             android:text="@string/title_addaddress"
             android:textSize="18sp" />
@@ -56,301 +62,342 @@
             android:textSize="10sp"
             android:visibility="invisible" />
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/layout_shopname"
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_below="@id/layout_shopaddressEditTitle"
-        android:orientation="vertical"
-        android:background="@drawable/customborder_onboard_16dp">
-        <TextView
-            android:id="@+id/tv_shopnameHead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/shopname"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-
-        <EditText
-            android:id="@+id/editShopname"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_shopaddressEditTitle">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="12dp"
-            android:hint="@string/shopname_input"
-            android:background="@null"
-            android:textColorHint="@color/colorTextlightGray"
-            android:inputType="text"
-            android:singleLine="true"
-            android:imeOptions="actionDone"
-            android:paddingStart="20dp"
-            android:paddingEnd="0dp"
-            android:textSize="14sp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_shopphone"
-        android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_below="@id/layout_shopname"
-        android:background="@drawable/customborder_onboard_16dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_shopphoneHead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/shopphone"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/customborder_onboard_16dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_Shopphone_country"
-                android:layout_width="96dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:text="@string/hk"
-                android:gravity="center"
-                android:textColor="@color/hkshop_color"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/editShopphone_number"
-                android:layout_width="204dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:paddingStart="24dp"
-                android:paddingEnd="0dp"
-                android:hint="@string/shopphone_input"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:inputType="phone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_shopaddressHead"
-        android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_below="@+id/layout_shopphone"
-        android:orientation="vertical"
-        android:background="@drawable/customborder_onboard_16dp">
-
-        <TextView
-            android:id="@+id/tv_mailaddressHead"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="20dp"
-            android:text="@string/shopaddress_input"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <LinearLayout
-            android:id="@+id/layout_address"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editCountry"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/layout_shopname"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/region"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"
-                />
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:layout_height="72dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical"
+                android:background="@drawable/customborder_onboard_16dp">
+                <TextView
+                    android:id="@+id/tv_shopnameHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="@string/shopname"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-            <EditText
 
-                android:id="@+id/editAdmin"
+                <EditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:hint="@string/shopname_input"
+                    android:background="@null"
+                    android:textColorHint="@color/colorTextlightGray"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:textSize="14sp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_shopphone"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/admin"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:textSize="14sp"/>
-        </LinearLayout>
+                android:layout_height="96dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_below="@id/layout_shopname"
+                android:background="@drawable/customborder_onboard_16dp"
+                android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layout_thoroughfare"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_below="@id/layout_address"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/tv_shopphoneHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/shopphone"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/editthoroughfare"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/customborder_onboard_16dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_Shopphone_country"
+                        android:layout_width="96dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:clickable="true"
+                        android:focusableInTouchMode="true"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:text="@string/hk"
+                        android:gravity="center"
+                        android:textColor="@color/hkshop_color"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/edit_phone_number"
+                        android:layout_width="204dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="8dp"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:paddingStart="24dp"
+                        android:paddingEnd="0dp"
+                        android:hint="@string/shopphone_input"
+                        android:singleLine="true"
+                        android:inputType="phone"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_shopaddressHead"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="5"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/thoroughfare"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"
-                />
+                android:layout_height="256dp"
+                android:elevation="10dp"
+                android:layout_marginBottom="16dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_below="@+id/layout_shopphone"
+                android:orientation="vertical"
+                android:background="@drawable/customborder_onboard_16dp">
 
-            <EditText
-                android:id="@+id/editfeature"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="7"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/feature"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"/>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_mailaddressHead"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/shopaddress_input"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
-        <LinearLayout
-            android:id="@+id/layout_subaddress"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_below="@id/layout_thoroughfare"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <LinearLayout
+                    android:id="@+id/layout_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editsubaddress"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/subaddress"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"
-                />
+                    <EditText
+                        android:id="@+id/editCountry"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/region"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"
+                        />
 
-        </LinearLayout>
+                    <EditText
 
-        <LinearLayout
-            android:id="@+id/layout_building"
-            android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:layout_below="@id/layout_subaddress"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                        android:id="@+id/editAdmin"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_weight="1"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/admin"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:textSize="14sp"/>
+                </LinearLayout>
 
-            <EditText
-                android:id="@+id/editfloor"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/floor"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"
-                />
+                <LinearLayout
+                    android:id="@+id/layout_thoroughfare"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_below="@id/layout_address"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/editroom"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_weight="1"
-                android:layout_marginStart="18dp"
-                android:background="@drawable/bg_edit_shopaddress"
-                android:hint="@string/room"
-                android:singleLine="true"
-                android:imeOptions="actionDone"
-                android:textColorHint="@color/colorTextlightGray"
-                android:inputType="text"
-                android:paddingStart="16dp"
-                android:textSize="14sp"/>
+                    <EditText
+                        android:id="@+id/editthoroughfare"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_weight="5"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/thoroughfare"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"
+                        />
 
-        </LinearLayout>
+                    <EditText
+                        android:id="@+id/editfeature"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_weight="7"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/feature"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"/>
+                </LinearLayout>
 
-    </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/layout_subaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_below="@id/layout_thoroughfare"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editsubaddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:imeOptions="actionNext"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/subaddress"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_building"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:clickable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_below="@id/layout_subaddress"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/editfloor"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:imeOptions="actionNext"
+                        android:layout_weight="1"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/floor"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"
+                        />
+
+                    <EditText
+                        android:id="@+id/editroom"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:imeOptions="actionNext"
+                        android:layout_weight="1"
+                        android:layout_marginStart="18dp"
+                        android:background="@drawable/bg_edit_shopaddress"
+                        android:hint="@string/room"
+                        android:singleLine="true"
+                        android:textColorHint="@color/colorTextlightGray"
+                        android:inputType="text"
+                        android:paddingStart="16dp"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+
 
     <ImageView
         android:id="@+id/iv_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/ic_save_en"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"/>
 

@@ -70,7 +70,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
 
 
     override fun afterTextChanged(s: Editable?) {
-//        val email = binding.editEmail.text.toString()
+
         password = binding.edtPassword.text.toString()
 
         if (password!!.isEmpty()) {
@@ -258,7 +258,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
                 } catch (e: JSONException) {
 
                     runOnUiThread {
-                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                         Log.d("doLogin", "JSONException: ${e.toString()}")
                         binding.progressBarLoginPassword.visibility = View.GONE
                         binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE
@@ -267,7 +267,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
                     e.printStackTrace()
 
                     runOnUiThread {
-                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                         Log.d("doLogin", "IOException: ${e.toString()}")
                         binding.progressBarLoginPassword.visibility = View.GONE
                         binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE
@@ -278,7 +278,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
             override fun onErrorResponse(ErrorResponse: IOException?) {
 
                 runOnUiThread {
-                    Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                     Log.d("doLogin", "ErrorResponse: ${ErrorResponse.toString()}")
                     binding.progressBarLoginPassword.visibility = View.GONE
                     binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE
@@ -355,7 +355,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
 
                     runOnUiThread {
 
-                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                         Log.d("doBackendUserIDValidation", "JSONException: ${e.toString()}")
                         binding.progressBarLoginPassword.visibility = View.GONE
                         binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE
@@ -369,7 +369,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
                     e.printStackTrace()
 
                     runOnUiThread {
-                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                         Log.d("doBackendUserIDValidation", "IOException: ${e.toString()}")
                         binding.progressBarLoginPassword.visibility = View.GONE
                         binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE
@@ -383,7 +383,7 @@ class LoginPasswordActivity : BaseActivity(), TextWatcher {
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 runOnUiThread {
-                    Toast.makeText(this@LoginPasswordActivity, "網路異常請重新嘗試登入", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginPasswordActivity, "網路異常請重新登入", Toast.LENGTH_SHORT).show()
                     Log.d("doBackendUserIDValidation", "ErrorResponse: ${ErrorResponse.toString()}")
                     binding.progressBarLoginPassword.visibility = View.GONE
                     binding.ivLoadingBackgroundLoginPassword.visibility = View.GONE

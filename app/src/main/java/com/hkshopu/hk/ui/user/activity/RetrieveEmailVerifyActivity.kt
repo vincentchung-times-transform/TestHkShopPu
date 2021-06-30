@@ -118,9 +118,6 @@ class RetrieveEmailVerifyActivity : BaseActivity(), TextWatcher {
     private fun initClick() {
         binding.titleBack.setOnClickListener {
 
-            val intent = Intent(this, LoginPasswordActivity::class.java)
-            startActivity(intent)
-
             finish()
         }
 
