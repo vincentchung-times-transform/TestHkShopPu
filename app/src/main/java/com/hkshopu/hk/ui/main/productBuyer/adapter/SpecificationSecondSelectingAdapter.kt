@@ -63,7 +63,7 @@ class SpecificationSecondSelectingAdapter(var clickable: Boolean): RecyclerView.
                 itemView.isEnabled = false
             }else{
                 ic_detailed_product_spec_selecting_out_of_stock.visibility = View.GONE
-                transparent_space_top.visibility = View.GONE
+                transparent_space_top.visibility = View.VISIBLE
                 transparent_space_right.visibility = View.GONE
                 itemView.isEnabled = true
             }

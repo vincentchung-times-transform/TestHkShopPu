@@ -7,15 +7,15 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
 
         applicationId "com.HKSHOPU.hk"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 10
-        versionName "1.0.7"
+        versionCode 11
+        versionName "1.0.9"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         Properties properties = new Properties()
@@ -173,4 +173,17 @@ dependencies {
 
     //Flexible Recyclerview
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
+    //Paypal
+    implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+    implementation 'com.paypal.checkout:android-sdk:0.2.0'
+
+    //Imagepicker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    //RoundedImageView
+    implementation 'com.rishabhharit.roundedimageview:RoundedImageView:0.8.4'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.7'
 }

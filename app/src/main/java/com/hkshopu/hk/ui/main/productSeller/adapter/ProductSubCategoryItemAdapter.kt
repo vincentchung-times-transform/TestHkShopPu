@@ -100,8 +100,8 @@ class ProductSubCategoryItemAdapter(var activity: BaseActivity, var mode: String
 
         //綁定當地變數與dataModel中的每個值
         holder.item_txt.setText(sub_category_item.c_product_sub_category)
-        Picasso.with(holder.itemView.context).load(unselected_product_sub_category_icon_image_url).into(holder.item_unselected_icon)
-        Picasso.with(holder.itemView.context).load(selected_product_sub_category_icon_image_url).into(holder.item_selected_icon)
+        Picasso.get().load(unselected_product_sub_category_icon_image_url).into(holder.item_unselected_icon)
+        Picasso.get().load(selected_product_sub_category_icon_image_url).into(holder.item_selected_icon)
 
 
         holder.itemView.setOnClickListener {

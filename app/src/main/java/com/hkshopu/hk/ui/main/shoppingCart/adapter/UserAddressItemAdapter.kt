@@ -1,21 +1,14 @@
 package com.HKSHOPU.hk.ui.main.shoppingCart.adapter
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductNewProDetailedFragment
 import com.HKSHOPU.hk.component.EventUpdateShoppingCartItemForConfirmed
 
-import com.HKSHOPU.hk.data.bean.ShopAddressListBean
 import com.HKSHOPU.hk.data.bean.UserAddressBean
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.BankPresetActivity
-import com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartConfirmedActivity
 import com.HKSHOPU.hk.utils.extension.inflate
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 
@@ -45,7 +38,7 @@ class UserAddressItemAdapter(var activity: BaseActivity, var shoppingCartShopId:
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressListLinearHolder {
-        val v = parent.context.inflate(R.layout.item_user_address,parent,false)
+        val v = parent.context.inflate(R.layout.item_user_address_for_shoppingcart,parent,false)
 
         return AddressListLinearHolder(v)
     }

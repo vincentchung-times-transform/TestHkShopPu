@@ -87,8 +87,8 @@ class ProductCategoryItemAdapter: RecyclerView.Adapter<ProductCategoryItemAdapte
 
         //綁定當地變數與dataModel中的每個值
         holder.item_txt.setText(category_item.c_product_category)
-        Picasso.with(holder.item_unselected_icon.context).load(unselected_product_category_icon_image_url).into(holder.item_unselected_icon)
-        Picasso.with(holder.item_selected_icon.context).load(selected_product_category_icon_image_url).into(holder.item_selected_icon)
+        Picasso.get().load(unselected_product_category_icon_image_url).into(holder.item_unselected_icon)
+        Picasso.get().load(selected_product_category_icon_image_url).into(holder.item_selected_icon)
 
         //預設第一個項目為selected
         if(position == last_position) {

@@ -39,7 +39,7 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
 
     var itemClick : ((id: String) -> Unit)? = null
 
-    var MMKV_product_id: String = "1"
+    var product_id: String = "1"
     var mutablelist_buyerProductsBean: MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean> = mutableListOf()
 
     fun setData(list : MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean>){
@@ -69,17 +69,10 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
 
         holder.itemView.setOnClickListener{
 
-            MMKV_product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).product_id
-            MMKV.mmkvWithID("http").putString("ProductId", MMKV_product_id)
+            product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).product_id
+            itemClick?.invoke(product_id)
 
-            itemClick?.invoke(MMKV_product_id)
-
-            RxBus.getInstance().post(EventBuyerDetailedProductNewProDetailedFragment(MMKV_product_id))
-
-//            val intent = Intent(holder.itemView.context, ProductDetailedPageBuyerViewActivity::class.java)
-//            activity.finish()
-//
-//            holder.itemView.context?.startActivity(intent)
+            RxBus.getInstance().post(EventBuyerDetailedProductNewProDetailedFragment(product_id))
 
         }
 
@@ -99,7 +92,8 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
 
         fun bindShop(bean : ProductDetailedPageForBuyer_RecommendedProductsBean){
 
-            Picasso.with(itemView.context).load(bean.pic_path).into(img_product)
+            Picasso.get().load(bean.pic_path).into(img_product)
+
             tv_product_name.setText(bean.product_title)
             tv_shop_name.setText(bean.shop_title)
 
@@ -142,10 +136,9 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
                     like = "Y"
                 }
 
-                var MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "")
+                var MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
 
-                doLikeProductForBuyer("25", bean.product_id, like)
-
+                doLikeProductForBuyer(MMKV_user_id, bean.product_id, like)
 
             }
 
@@ -196,16 +189,17 @@ class LikeProductAdapter(var product_type: String, var activity: Activity) : Rec
 
 
                     } catch (e: JSONException) {
+                        Log.d("doLikeProductForBuyer", "JSONException：" + e.toString())
 
 
                     } catch (e: IOException) {
                         e.printStackTrace()
-
+                        Log.d("doLikeProductForBuyer", "IOException：" + e.toString())
                     }
                 }
 
                 override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                    Log.d("doLikeProductForBuyer", "ErrorResponse：" + ErrorResponse.toString())
                 }
             })
             web.doLikeProductForBuyer(url, user_id, product_id, like)

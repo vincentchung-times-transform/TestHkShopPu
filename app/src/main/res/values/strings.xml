@@ -351,7 +351,7 @@
         HKshopu 必須提醒消費者：為保障消費者權益，請消費者於 HKshopu 上完成交易，如有任何疑問，歡迎來信 <font color="#1DBCCF"><b>customer-service@hkshopu.com</b></font>。
     </string>
 
-<!--    帳號設定-->
+    <!--    帳號設定-->
     <string name="account_setup">用戶帳號設定</string>
     <string name="my_account">我的帳戶</string>
     <string name="my_setup">我的設定</string>
@@ -361,12 +361,12 @@
     <string name="setup_lan">語言設定</string>
     <string name="password_change">密碼變更</string>
 
-<!--    社群帳號設定-->
+    <!--    社群帳號設定-->
     <string name="socialaccount_setup">社群帳號設定</string>
     <string name="setup_fb">連結 Facebook 帳號</string>
     <string name="setup_ig">連結 Instagram 帳號</string>
 
-<!--    新增店鋪-->
+    <!--    新增店鋪-->
     <string name="addshop">新增店鋪</string>
     <string name="addshoppic">請選擇店鋪照片</string>
     <string name="addshoppicintro">點選下方店鋪頭貼並至手機相簿選擇喜歡的logo或照片。</string>
@@ -378,7 +378,7 @@
     <string name="shopsortmore">更多</string>
     <string name="addshopconfirm">確認新增店鋪</string>
 
-<!--    店鋪資訊-->
+    <!--    店鋪資訊-->
     <string name="tab1">功能服務</string>
     <string name="tab2">我的賣場</string>
     <string name="income_tab1">完成的訂單</string>
@@ -387,16 +387,16 @@
     <string name="merchants_tab2">已售完</string>
     <string name="merchants_tab3">未上架</string>
 
-<!--    店鋪列表-->
+    <!--    店鋪列表-->
     <string name="loginremind">登入頁面</string>
     <string name="loginremind_title">訪客請先登入以開通買家功能</string>
 
-<!--    編輯店鋪名稱-->
+    <!--    編輯店鋪名稱-->
     <string name="shopname_edit">編輯店鋪名稱</string>
     <string name="shopname_show">顯示在店鋪簡介</string>
     <string name="change_limit">30天內只能更改一次店鋪名稱</string>
 
-<!--    修改店鋪資訊-->
+    <!--    修改店鋪資訊-->
     <string name="shop_name">名稱</string>
     <string name="user_account">使用者帳號</string>
     <string name="save">儲存</string>
@@ -405,38 +405,38 @@
     <string name="social_account">社群帳號設定</string>
     <string name="modify_newbg">修改</string>
 
-<!--    進帳/月-->
+    <!--    進帳/月-->
     <string name="shop_income">進帳/月</string>
 
-<!--    新增店鋪簡介-->
+    <!--    新增店鋪簡介-->
     <string name="contact">聯絡資訊</string>
 
-<!--    密碼-->
+    <!--    密碼-->
     <string name="addemail_remind">為了保護你的帳戶安全。請再次輸入密碼已進行下一步</string>
     <string name="password_now">現在的密碼</string>
     <string name="go_on">繼續</string>
 
-<!--    Email-->
+    <!--    Email-->
     <string name="add_email">新增Email</string>
     <string name="email_input">輸入電子郵件</string>
 
-<!--    我的商品-->
+    <!--    我的商品-->
     <string name="my_merchants">我的商品</string>
     <string name="search_keyword">請輸入商品關鍵字</string>
     <string name="add_newproduct">＋ 新增商品</string>
 
-<!--    電話號碼-->
+    <!--    電話號碼-->
     <string name="phone">電話號碼</string>
 
-<!--    關注-->
+    <!--    關注-->
     <string name="shop_attention">關注</string>
     <string name="edit">編輯</string>
 
-<!--    商店評價-->
+    <!--    商店評價-->
     <string name="shop_evaluation">店鋪評價</string>
 
 
-<!--    新增商品&編輯商品-->
+    <!--    新增商品&編輯商品-->
     <string name="title_addproduct">新增商品</string>
     <string name="title_editproduct">編輯商品</string>
     <string name="txtview_productname">商品名稱<font color='red' size='10'><sub> * </sub></font></string>
@@ -462,7 +462,7 @@
     <string name="txtview_editProductRemind">編輯商品提醒</string>
     <string name="txtview_editProductRemind_content">為保障買賣雙方的權利，HKShopu將在您進行商品編輯時短暫下架此商品，在您完成後再上架 。</string>
 
-<!--    新增&編輯產品規格-->
+    <!--    新增&編輯產品規格-->
     <string name="title_adddescription">新增規格</string>
     <string name="editView_inputproductdescription">請輸入商品規格</string>
     <string name="btn_edit">編輯</string>
@@ -471,7 +471,7 @@
     <string name="textView_needMoreTimeToStockUp">較長時間備貨</string>
     <string name="dialog_spec_info">當您要上架的商品有不同規格（例如：顏色、尺寸）時，則會需要使用商品規格功能，設定詳細商品規格，可以讓買家在購買時更清楚迅速的選擇。</string>
 
-<!--    設定庫存與價格-->
+    <!--    設定庫存與價格-->
     <string name="title_setInventoryAndPrice">設定庫存與價格</string>
     <string name="title_editInventoryAndPrice">編輯庫存與價格</string>
     <string name="textView_setInventorySize">尺寸</string>
@@ -481,7 +481,7 @@
     <string name="textView_title_spec">規格</string>
     <string name="textView_clear_all_inventory"><u>全部清空</u></string>
 
-<!--    運費-->
+        <!--    運費-->
     <string name="title_shippingFare">運費</string>
     <string name="textView_packageWeight">包裹重量(g)<font color='red' size='10'><sub> * </sub></font></string>
     <string name="textView_packageSize">包裹尺寸大小<font color='red' size='10'><sub> * </sub></font></string>
@@ -496,7 +496,7 @@
     <string name="check_box_text_async_fare_setting">同步更改運輸設定</string>
 
 
-<!--    商品-->
+    <!--    商品-->
     <string name="textView_more">更多</string>
     <string name="textView_over599freeshipping">滿$599，免運費</string>
     <string name="textView_merchandiseinfo">商品資訊</string>
@@ -512,7 +512,7 @@
 
 
 
-<!--    買家新增地址-->
+    <!--    買家新增地址-->
     <string name="title_addaddress">新增地址</string>
     <string name="textView_nameAndCompanyName">姓名/公司名稱</string>
     <string name="texHint_InputNameAndCompanyName">輸入姓名或公司名稱</string>
@@ -521,21 +521,21 @@
     <string name="textView_setDefaultAddressr">設為預設地址</string>
     <string name="textView_setExpressAddress">設為快遞取件地址</string>
 
-<!--    商品分類-->
+    <!--    商品分類-->
     <string name="title_category">分類總覽</string>
 
 
-<!--    我的商品-->
+    <!--    我的商品-->
     <string name="hkd_dollarSign">HKD$</string>
 
-<!--    廣告與行銷活動-->
+    <!--    廣告與行銷活動-->
     <string name="ad">廣告與行銷活動</string>
 
-<!--    銀行帳號-->
+    <!--    銀行帳號-->
     <string name="bankaccount_alert">為確保交易安全性，本操作會進行加密處理，店匯不會顯示你的完整卡號資訊。</string>
     <string name="addbankaccount2">+ 新增銀行帳號</string>
 
-<!--    商品功能頁面-->
+    <!--    商品功能頁面-->
     <string name="logistic">運輸設定</string>
     <string name="helpcenter">幫助中心</string>
     <string name="shoppreview">預覽我的店鋪</string>
@@ -565,7 +565,7 @@
     <string name="product_draft_apply">確定要下架商品嗎？</string>
     <string name="product_draft_apply_note">下架商品後仍能在“未上架”中找到儲存的資訊。</string>
 
-<!--    商品(買家)-->
+    <!--    商品(買家)-->
     <string name="products_quantity">商品數量 : </string>
     <string name="days_for_stocking">較長備貨天數 : </string>
     <string name="quantity">數量</string>
@@ -574,7 +574,7 @@
     <string name="logistics_fare">運費 : </string>
     <string name="following_count">人關注</string>
 
-<!--    購物車-->
+    <!--    購物車-->
     <string name="title_shoppingCart">購物車</string>
     <string name="seleting_all">全選</string>
     <string name="sum_price">總金額</string>
@@ -587,11 +587,101 @@
     <string name="no_address">未填地址</string>
     <string name="empty_cart">購物車內沒有商品</string>
 
-<!--    應用程式更新-->
+    <!--    應用程式更新-->
     <string name="upadte_notify">更新通知</string>
     <string name="upadte_notify_content">
         有新的更新項目現在可供使用!\n
         透過行動網路下載可能產生額外費用。</string>
 
+    <!--    版本更新-->
+    <string name="version_update_title">更新通知</string>
+    <string name="version_update_note">有新的更新項目現在可供使用！透過行動網路下載可能產生額外費用。</string>
+
+    <!--    買家資訊-->
+    <string name="buyer_collect">收藏清單</string>
+    <string name="buyer_like">關注店舖</string>
+    <string name="buyer_path">足跡</string>
+    <string name="purchaselist">購買清單</string>
+    <string name="tobedelivered">待發貨</string>
+    <string name="tobereceived">待收貨</string>
+    <string name="evaluate">評價</string>
+    <string name="myaddress">我的地址</string>
+
+    <!--     購物車-->
+    <string name="shopcar">購物車</string>
+
+    <!--     首頁-->
+    <string name="storerecommend">推薦給你的店鋪</string>
+    <string name="hotsale">熱門商品</string>
+
+    <!--     店舖預覽-->
+    <string name="quantities">商品數量</string>
+    <string name="attentions">關注人數</string>
+    <string name="solds">總賣出量</string>
+    <string name="knowmore"><u>了解更多</u></string>
+    <string name="tab_ranking1">綜合排名</string>
+    <string name="tab_ranking2">最新</string>
+    <string name="tab_ranking3">最熱銷</string>
+    <string name="tab_ranking4">價格低</string>
+    <string name="tab_ranking5">價格高</string>
+    <!--     熱門商品-->
+    <string name="topproducts">熱門商品</string>
+    <!--     推薦店鋪-->
+    <string name="storerecommends">推薦店鋪</string>
+    <string name="store_attentions">關注人數:</string>
+
+    <!--    搜尋-->
+    <string name="search_tab1">商品</string>
+    <string name="search_tab2">店舖</string>
+    <string name="search_shop_empty">很抱歉，沒有搜尋到相關店舖。</string>
+    <string name="search_product_empty">很抱歉，沒有搜尋到相關商品。</string>
+    <string name="search_end">您已經看完了所有內容</string>
+
+    <!--    轉數快-->
+    <string name="fpspay_title">請使用支援「轉數快」的支付應用程式進行轉帳</string>
+    <string name="company">公司名稱</string>
+    <string name="company_name">HONG KONG SHOPU COLLECTION NETWORK COMAPNY LIMITED</string>
+    <string name="fpspay_remind">付款完成後回到該頁面輸入轉帳資訊，完成購買流程。</string>
+    <string name="transfer_info">轉帳資訊</string>
+    <string name="fpspay_account">請選擇轉數快帳號</string>
+    <string name="fpspay_phone">轉數快帳號電話號碼：</string>
+    <string name="receipt_date">請輸入預計收貨日期</string>
+    <string name="info_confirm">確認發送資訊</string>
+
+    <!--    我的-->
+    <string name="my_collect">收藏清單</string>
+    <string name="my_favorite">關注店舖</string>
+    <string name="my_path">足跡</string>
+    <string name="shopping_list">購買清單</string>
+
+    <!--    編輯名稱-->
+    <string name="username_edit">編輯名稱</string>
+    <string name="name_limit">上限 10 個字元</string>
+    <string name="name_input">輸入名稱</string>
+
+    <!--   生日-->
+    <string name="birthday">生日</string>
+    <!--   密碼變更-->
+    <string name="pwchange">密碼變更</string>
+    <string name="pwchange_remind">密碼格式必須包括大小階英文、數字及符號</string>
+    <string name="new_password">輸入新密碼</string>
+
+    <!--   修改個人資訊-->
+    <string name="userinfomodify">修改個人資訊</string>
+    <string name="modify_immediately">立刻設定</string>
+
+    <!--   profile(買家)-->
+    <string name="order_total">訂單金額：</string>
+    <string name="buyeraddress_input">請輸入您的郵寄地址</string>
+    <string name="buyeraddress_preset">我的地址</string>
+
+    <!--   用戶帳號設定(買家)-->
+    <string name="buyer_info">個人資訊：</string>
+    <string name="buyer_payway">付款方式</string>
+
+    <!--    我的銷售(賣家)-->
+    <string name="product_kind_total_quant">樣商品</string>
+    <string name="expected">預計於</string>
+    <string name="deliver_goods">發貨</string>
 
 </resources>

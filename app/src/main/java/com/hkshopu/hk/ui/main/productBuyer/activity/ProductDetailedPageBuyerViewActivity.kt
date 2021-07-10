@@ -6,12 +6,15 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
@@ -20,15 +23,13 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductBtnStatusFirst
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductBtnStatusSecond
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductNewProDetailedFragment
-import com.HKSHOPU.hk.component.EventBuyerDetailedProductRemoveProDetailedFragment
+import com.HKSHOPU.hk.component.*
 import com.HKSHOPU.hk.data.bean.*
 import com.HKSHOPU.hk.databinding.ActivityProductDetailedPageBuyerViewBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.net.imageloader.glide.GlideApp.with
 import com.HKSHOPU.hk.ui.main.productBuyer.adapter.LikeProductAdapter
 import com.HKSHOPU.hk.ui.main.productBuyer.adapter.ProductRatingDetailsAdapter
 import com.HKSHOPU.hk.ui.main.productBuyer.adapter.SpecificationFirstSelectingAdapter
@@ -36,10 +37,7 @@ import com.HKSHOPU.hk.ui.main.productBuyer.adapter.SpecificationSecondSelectingA
 import com.HKSHOPU.hk.ui.main.productBuyer.fragment.ProductDetailedPageBuyerViewFragment
 import com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartEditActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
+import com.google.android.flexbox.*
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
@@ -63,8 +61,8 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
     //MMKV
     var MMKV_user_id : String = ""
-    var MMKV_shop_id : String = ""
-    var MMKV_product_id: String = ""
+    var api_shop_id : String = ""
+    var bundle_product_id : String = ""
 
     var product_status : String = ""
     var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
@@ -87,7 +85,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
     var mAdapter_second_specifications = SpecificationSecondSelectingAdapter(false)
 
     var specGroup_count = 0
-    var shop_follow_status = false
     var max_quantity = 0
 
     var first_layer_clicked = false
@@ -113,7 +110,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
     var Selected_product_quantity: Int = 0
 
     var fragmentManager: FragmentManager = supportFragmentManager
-    val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -124,16 +120,24 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
         binding.progressBarDetailedProductForBuyer.visibility = View.VISIBLE
         binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.VISIBLE
 
-        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "25").toString()
-        MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "272").toString()
-        MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "272").toString()
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        var bundle = intent.getBundleExtra("bundle_product_id")
+        bundle_product_id = bundle?.getString("product_id").toString()
 
-        GetShoppingCartItemCountForBuyer(MMKV_user_id)
-        getProductDetailedInfo(MMKV_user_id,MMKV_product_id)
-        getSimilarProducts(MMKV_user_id, MMKV_product_id)
-        getSameShopProducts(MMKV_user_id, MMKV_product_id)
-        GetDetailedProductSpecification(MMKV_product_id)
-        getProductRatingDetails(MMKV_product_id)
+        Log.d("ProductDetailedPageBuyerViewActivity", "MMKV_user_id: ${MMKV_user_id}\n ")
+        Log.d("ProductDetailedPageBuyerViewActivity", "bundle_product_id: ${bundle_product_id}\n ")
+
+
+        if(MMKV_user_id.isNullOrEmpty()){
+            binding.tvCartItemCount.visibility = View.GONE
+        }else{
+            GetShoppingCartItemCountForBuyer(MMKV_user_id)
+        }
+        getProductDetailedInfo(MMKV_user_id,bundle_product_id)
+        getSimilarProducts(MMKV_user_id, bundle_product_id)
+        getSameShopProducts(MMKV_user_id, bundle_product_id)
+        GetDetailedProductSpecification(bundle_product_id)
+        getProductRatingDetails(bundle_product_id)
 
         initView()
     }
@@ -147,9 +151,11 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
         binding.rViewItemSpecSecond.visibility = View.VISIBLE
 
         val layoutManager_forFirst = FlexboxLayoutManager(this)
-        layoutManager_forFirst.flexDirection = FlexDirection.COLUMN
-        layoutManager_forFirst.justifyContent = JustifyContent.FLEX_END
-        layoutManager_forFirst.justifyContent = FlexWrap.WRAP
+        layoutManager_forFirst.flexDirection = FlexDirection.ROW
+        layoutManager_forFirst.flexWrap = FlexWrap.WRAP
+        layoutManager_forFirst.justifyContent = JustifyContent.FLEX_START
+        layoutManager_forFirst.alignItems = AlignItems.FLEX_START
+
         binding.rViewItemSpecFirst.setLayoutManager(layoutManager_forFirst)
 //        binding.rViewItemSpecFirst.layoutManager =
 //            FlexboxLayoutManager(this)
@@ -157,9 +163,11 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
 
         val layoutManager_forSecond = FlexboxLayoutManager(this)
-        layoutManager_forSecond.flexDirection = FlexDirection.COLUMN
-        layoutManager_forSecond.justifyContent = JustifyContent.FLEX_END
-        layoutManager_forSecond.justifyContent = FlexWrap.WRAP
+        layoutManager_forSecond.flexDirection = FlexDirection.ROW
+        layoutManager_forSecond.flexWrap = FlexWrap.WRAP
+        layoutManager_forSecond.justifyContent = JustifyContent.FLEX_START
+        layoutManager_forSecond.alignItems = AlignItems.FLEX_START
+
         binding.rViewItemSpecSecond.setLayoutManager(layoutManager_forSecond)
 //        binding.rViewItemSpecSecond.layoutManager =
 //            FlexboxLayoutManager(this)
@@ -176,8 +184,15 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
         binding.icCart.setOnClickListener {
 
-            val intent = Intent(this, ShoppingCartEditActivity::class.java)
-            startActivity(intent)
+            if(MMKV_user_id.isNullOrEmpty()){
+
+                Log.d("btnAddToShoppingCart", "UserID為空值")
+                Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
+
+            }else{
+                val intent = Intent(this, ShoppingCartEditActivity::class.java)
+                startActivity(intent)
+            }
 
         }
 
@@ -190,35 +205,59 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             Selected_product_quantity = 1
             Selected_product_spec_id = spec_id.toString()
 
-            Log.d("checkValue", "MMKV_user_id: ${MMKV_user_id} \n" +
-                    "MMKV_product_id: ${MMKV_product_id} ; \n" +
+            Log.d("btnAddToShoppingCart", "MMKV_user_id: ${MMKV_user_id} \n" +
+                    "bundle_product_id: ${bundle_product_id} ; \n" +
                     "Selected_product_spec_id: ${Selected_product_spec_id} \n" +
                     "Selected_product_quantity: ${Selected_product_quantity}  "
             )
 
-            if(product_spec_on.equals("y")){
+            if(MMKV_user_id.isNullOrEmpty()){
 
-                if(Selected_product_spec_id.equals("")){
-                    Toast.makeText(this, "請選取產品規格", Toast.LENGTH_SHORT).show()
-                }else{
-
-                    doAddItemsToShoppingCart(
-                        MMKV_user_id,
-                        MMKV_product_id,
-                        Selected_product_spec_id,
-                        Selected_product_quantity
-                    )
-
-                }
+                Log.d("btnAddToShoppingCart", "UserID為空值")
+                Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
 
             }else{
+                if(MMKV_user_id.isNullOrEmpty()){
+                    Log.d("btnAddToShoppingCart", "UserID為空值")
+                    Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
+                }else{
+                    if(product_spec_on.equals("y")){
 
-                doAddItemsToShoppingCart(
-                    MMKV_user_id,
-                    MMKV_product_id,
-                    "0",
-                    Selected_product_quantity
-                )
+                        if(Selected_product_spec_id.equals("")){
+//                            Toast.makeText(this, "請選取產品規格", Toast.LENGTH_SHORT).show()
+
+                            if (  binding.bottomSheetDlgOderInfoSetting.visibility == View.GONE){
+                                binding.bottomSheetDlgOderInfoSetting.visibility = View.VISIBLE
+                                binding.imgViewDialogShowBackground.visibility = View.VISIBLE
+
+                                binding.bottomSheetDlgOderInfoSetting.startAnimation(AnimationUtils.loadAnimation(this, R.anim.tranlate_dialog_in))
+                                binding.imgViewDialogShowBackground.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_alpha_in_slowly))
+
+                            }
+
+                        }else{
+
+                            doAddItemsToShoppingCart(
+                                MMKV_user_id,
+                                bundle_product_id,
+                                Selected_product_spec_id,
+                                Selected_product_quantity,
+                                api_shop_id
+                            )
+
+                        }
+
+                    }else{
+
+                        doAddItemsToShoppingCart(
+                            MMKV_user_id,
+                            bundle_product_id,
+                            "",
+                            Selected_product_quantity,
+                            api_shop_id
+                        )
+                    }
+                }
             }
         }
 
@@ -227,36 +266,56 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             Selected_product_quantity = 1
             Selected_product_spec_id = spec_id.toString()
 
-            if(product_spec_on.equals("y")){
+            if(MMKV_user_id.isNullOrEmpty()){
 
-                if(Selected_product_spec_id.equals("")){
-                    Toast.makeText(this, "請選取產品規格", Toast.LENGTH_SHORT).show()
+                Log.d("btnAddToShoppingCart", "UserID為空值")
+                Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
+
+            }else{
+
+                if(product_spec_on.equals("y")){
+
+                    if(Selected_product_spec_id.equals("")){
+
+//                        Toast.makeText(this, "請選取產品規格", Toast.LENGTH_SHORT).show()
+
+                        if (  binding.bottomSheetDlgOderInfoSetting.visibility == View.GONE){
+                            binding.bottomSheetDlgOderInfoSetting.visibility = View.VISIBLE
+                            binding.imgViewDialogShowBackground.visibility = View.VISIBLE
+
+                            binding.bottomSheetDlgOderInfoSetting.startAnimation(AnimationUtils.loadAnimation(this, R.anim.tranlate_dialog_in))
+                            binding.imgViewDialogShowBackground.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_alpha_in_slowly))
+
+                        }
+
+                    }else{
+
+                        doAddItemsToShoppingCart(
+                            MMKV_user_id,
+                            bundle_product_id,
+                            Selected_product_spec_id,
+                            Selected_product_quantity,
+                            api_shop_id
+                        )
+                        val intent = Intent(this, ShoppingCartEditActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+
                 }else{
 
                     doAddItemsToShoppingCart(
                         MMKV_user_id,
-                        MMKV_product_id,
-                        Selected_product_spec_id,
-                        Selected_product_quantity
+                        bundle_product_id,
+                        "",
+                        Selected_product_quantity,
+                        api_shop_id
                     )
                     val intent = Intent(this, ShoppingCartEditActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
-
-            }else{
-
-                doAddItemsToShoppingCart(
-                    MMKV_user_id,
-                    MMKV_product_id,
-                    "",
-                    Selected_product_quantity
-                )
-                val intent = Intent(this, ShoppingCartEditActivity::class.java)
-                startActivity(intent)
-                finish()
             }
-
         }
 
 
@@ -502,8 +561,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
-                val list = ArrayList<ProductInfoBean>()
-//                val product_id_list = ArrayList<String>()
+
                 try {
 
                     resStr = response.body()!!.string()
@@ -552,6 +610,8 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                         }
 
                         setBoardingData()
+
+                        api_shop_id = ShopDetailedProductForBuyerBean.shop_id.toString()
 
                         binding.txtViewAverageRating.setText(ShopDetailedProductForBuyerBean.average_rating.toString())
                         if(ShopDetailedProductForBuyerBean.average_rating>4.25){
@@ -841,31 +901,22 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                         runOnUiThread {
 
-
-
-                            var like = "N"
-
                             if(ShopDetailedProductForBuyerBean.liked.equals("Y")){
                                 binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorful)
-                                like = "Y"
                             }else{
                                 binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorless)
-                                like = "N"
                             }
 
                             binding.btnDetailedProductForBuyerLike.setOnClickListener {
 
-                                if(like.equals("Y")){
-                                    binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorless)
-                                    like = "N"
+                                binding.progressBarDetailedProductForBuyer.visibility = View.VISIBLE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.VISIBLE
+
+                                if(ShopDetailedProductForBuyerBean.liked.equals("Y")){
+                                    doLikeProductForBuyer(MMKV_user_id, bundle_product_id, "N")
                                 }else{
-                                    binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorful)
-                                    like = "Y"
+                                    doLikeProductForBuyer(MMKV_user_id, bundle_product_id, "Y")
                                 }
-
-                                var MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "")
-
-                                doLikeProductForBuyer("25", "269", like)
 
                             }
                         }
@@ -890,7 +941,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     }
 
                 } catch (e: JSONException) {
-                    Log.d("doFollowShopForBuyer", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "getProductDetailedInfo: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -899,7 +950,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("doFollowShopForBuyer", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "getProductDetailedInfo: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -911,7 +962,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("doFollowShopForBuyer", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "getProductDetailedInfo: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -942,40 +993,45 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                         val jsonArray: JSONArray = json.getJSONArray("data")
                         Log.d("getRecommendedProducts", "返回資料 jsonArray：" + jsonArray.toString())
 
-                        if( jsonArray.length()>2 ){
-                            //只取前三項"推薦"產品
-                            for (i in 0 until 3) {
+                        if( jsonArray.length()>0 ){
+                            if( jsonArray.length()>2 ){
+                                //只取前三項"推薦"產品
+                                for (i in 0 until 3) {
 
-                                val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                mutablelist_similarProduct.add(Gson().fromJson(
-                                    jsonObject.toString(),
-                                    ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
-                                ))
+                                    val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                                    mutablelist_similarProduct.add(Gson().fromJson(
+                                        jsonObject.toString(),
+                                        ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
+                                    ))
+
+                                }
+                            }else{
+                                for (i in 0 until jsonArray.length()) {
+
+                                    val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                                    mutablelist_similarProduct.add(Gson().fromJson(
+                                        jsonObject.toString(),
+                                        ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
+                                    ))
+
+                                }
+                            }
+
+                            Log.d("getRecommendedProducts", "返回資料 mutablelist_recommendedProduct：" + mutablelist_similarProduct.toString())
+
+                            runOnUiThread {
+
+                                binding.recyclerviewRecommendedProducts.layoutManager =
+                                    LinearLayoutManager(this@ProductDetailedPageBuyerViewActivity, LinearLayoutManager.HORIZONTAL, false)
+                                binding.recyclerviewRecommendedProducts.adapter = mAdapter_likeProduct_forRecommendPro
+
+                                mAdapter_likeProduct_forRecommendPro.setData(mutablelist_similarProduct)
 
                             }
                         }else{
-                            for (i in 0 until jsonArray.length()) {
-
-                                val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                mutablelist_similarProduct.add(Gson().fromJson(
-                                    jsonObject.toString(),
-                                    ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
-                                ))
-
-                            }
-                        }
-
-                        Log.d("getRecommendedProducts", "返回資料 mutablelist_recommendedProduct：" + mutablelist_similarProduct.toString())
-
-                        runOnUiThread {
-
-                            binding.recyclerviewRecommendedProducts.layoutManager =
-                                LinearLayoutManager(this@ProductDetailedPageBuyerViewActivity, LinearLayoutManager.HORIZONTAL, false)
-                            binding.recyclerviewRecommendedProducts.adapter = mAdapter_likeProduct_forRecommendPro
-
-                            mAdapter_likeProduct_forRecommendPro.setData(mutablelist_similarProduct)
 
                         }
+
 
                     }else{
 
@@ -988,10 +1044,8 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                     }
 
-
-
                 } catch (e: JSONException) {
-                    Log.d("doFollowShopForBuyer", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "getSimilarProducts: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1001,7 +1055,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("doFollowShopForBuyer", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "getSimilarProducts: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1012,7 +1066,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("doFollowShopForBuyer", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "getSimilarProducts: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1067,7 +1121,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                             runOnUiThread {
 
-                                Picasso.with(this@ProductDetailedPageBuyerViewActivity).load(mutablelist_otherShopProduct.get(0).shop_icon).into( binding.ivSameShopIcon)
+                                Picasso.get().load(mutablelist_otherShopProduct.get(0).shop_icon).into( binding.ivSameShopIcon)
 
                                 binding.tvSameShopTitle.setText(
                                     mutablelist_otherShopProduct.get(0).shop_title
@@ -1167,33 +1221,30 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
 
                             if(mutablelist_otherShopProduct.get(0).followed.equals("Y")){
-                                shop_follow_status = true
                                 runOnUiThread {
                                     binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
 
                                 }
 
                             }else{
-                                shop_follow_status = false
                                 runOnUiThread {
                                     binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
                                 }
                             }
                             binding.btnShopSubscribing.setOnClickListener {
 
-                                if(shop_follow_status){
-                                    doFollowShopForBuyer("25", "127", "N")
-                                    shop_follow_status = false
-                                    runOnUiThread {
-                                        binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
-                                    }
+                                Log.d("doFollowShopForBuyer", "MMKV_user_id: ${MMKV_user_id}\n " +
+                                        "shop_id: ${mutablelist_otherShopProduct.get(0).shop_id}\n " )
+
+                                binding.progressBarDetailedProductForBuyer.visibility = View.VISIBLE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.VISIBLE
+
+
+                                if(mutablelist_otherShopProduct.get(0).followed.equals("Y")){
+                                    doFollowShopForBuyer(MMKV_user_id, mutablelist_otherShopProduct.get(0).shop_id, "N")
 
                                 }else{
-                                    doFollowShopForBuyer("25", "127", "Y")
-                                    shop_follow_status = true
-                                    runOnUiThread {
-                                        binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
-                                    }
+                                    doFollowShopForBuyer(MMKV_user_id, mutablelist_otherShopProduct.get(0).shop_id, "Y")
 
                                 }
 
@@ -1211,19 +1262,19 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                         }else{
 
-                            runOnUiThread {
-                                Toast.makeText(this@ProductDetailedPageBuyerViewActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }else{
+                        runOnUiThread {
+                            Toast.makeText(this@ProductDetailedPageBuyerViewActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
 
-                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                            }
-
+                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
 
 
                 } catch (e: JSONException) {
-                    Log.d("getSameShopProducts", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "getSameShopProducts: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1233,7 +1284,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("getSameShopProducts", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "getSameShopProducts: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1244,7 +1295,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("getSameShopProducts", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "getSameShopProducts: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1273,55 +1324,86 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
     private fun doFollowShopForBuyer (user_id: String , shop_id: String, follow: String) {
 
-        val url = ApiConstants.API_HOST+"user/${user_id}/followShop/${shop_id}/"
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
+        if(user_id.isNullOrEmpty()){
 
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("doFollowShopForBuyer", "返回資料 resStr：" + resStr)
-                    Log.d("doFollowShopForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    if (ret_val.equals("收藏成功")) {
+            Log.d("doFollowShopForBuyer", "UserID為空值")
+            Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
 
-                        val jsonArray: JSONArray = json.getJSONArray("data")
-                        Log.d("doFollowShopForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
+        }else{
+            val url = ApiConstants.API_HOST+"user/${user_id}/followShop/${shop_id}/"
+            val web = Web(object : WebListener {
+                override fun onResponse(response: Response) {
+                    var resStr: String? = ""
+                    try {
 
+                        resStr = response.body()!!.string()
+                        val json = JSONObject(resStr)
+                        Log.d("doFollowShopForBuyer", "返回資料 resStr：" + resStr)
+                        Log.d("doFollowShopForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
+                        val ret_val = json.get("ret_val")
+                        if (ret_val.equals("收藏成功")) {
+
+                            val jsonArray: JSONArray = json.getJSONArray("data")
+                            Log.d("doFollowShopForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
+
+                            mutablelist_otherShopProduct.get(0).followed = "Y"
+                            runOnUiThread {
+                                binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+
+                        }else if(ret_val.equals("取消收藏成功")){
+
+                            mutablelist_otherShopProduct.get(0).followed = "N"
+                            runOnUiThread {
+                                binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+                        }else{
+                            runOnUiThread {
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+                        }
+
+                    } catch (e: JSONException) {
+                        Log.d("errormessage", "doFollowShopForBuyer: JSONException: ${e.toString()}")
                         runOnUiThread {
-                            Toast.makeText(
-                                this@ProductDetailedPageBuyerViewActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
+
                             binding.progressBarDetailedProductForBuyer.visibility = View.GONE
                             binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
-
-                    }else{
-
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Log.d("errormessage", "doFollowShopForBuyer: IOException: ${e.toString()}")
                         runOnUiThread {
-                            Toast.makeText(
-                                this@ProductDetailedPageBuyerViewActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
                             binding.progressBarDetailedProductForBuyer.visibility = View.GONE
                             binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
+                }
 
-                } catch (e: JSONException) {
-                    Log.d("doFollowShopForBuyer", "JSONException: ${e.toString()}")
-                    runOnUiThread {
-                        Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Log.d("doFollowShopForBuyer", "IOException: ${e.toString()}")
+                override fun onErrorResponse(ErrorResponse: IOException?) {
+                    Log.d("errormessage", "doFollowShopForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1329,78 +1411,103 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                         binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
-            }
+            })
+            web.doFollowShopForBuyer(url, user_id, shop_id, follow)
+        }
 
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("getSameShopProducts", "ErrorResponse: ${ErrorResponse.toString()}")
-                runOnUiThread {
-                    Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                }
-            }
-        })
-        web.doFollowShopForBuyer(url, user_id, shop_id, follow)
     }
 
 
     private fun doLikeProductForBuyer (user_id: String , product_id: String, like: String) {
 
-        val url = ApiConstants.API_HOST+"product/like_product/"
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
+        if(user_id.isNullOrEmpty()){
 
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("doLikeProductForBuyer", "返回資料 resStr：" + resStr)
-                    Log.d("doLikeProductForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    if (ret_val.equals("商品收藏成功!")) {
-                        val jsonArray: JSONArray = json.getJSONArray("data")
-                        Log.d("doLikeProductForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
+            Log.d("doLikeProductForBuyer", "UserID為空值")
+            Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
 
-                        Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@ProductDetailedPageBuyerViewActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT).show()
+        }else{
+            val url = ApiConstants.API_HOST+"product/like_product/"
+            val web = Web(object : WebListener {
+                override fun onResponse(response: Response) {
+                    var resStr: String? = ""
+                    try {
+
+                        resStr = response.body()!!.string()
+                        val json = JSONObject(resStr)
+                        Log.d("doLikeProductForBuyer", "返回資料 resStr：" + resStr)
+                        Log.d("doLikeProductForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
+                        val ret_val = json.get("ret_val")
+                        if (ret_val.equals("商品收藏成功!")) {
+                            val jsonArray: JSONArray = json.getJSONArray("data")
+                            Log.d("doLikeProductForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
+                            Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
+
+                            ShopDetailedProductForBuyerBean.liked = "Y"
+                            runOnUiThread {
+                                binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorful)
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+
+
+                        }else if(ret_val.equals("取消收藏成功")){
+                            ShopDetailedProductForBuyerBean.liked = "N"
+                            runOnUiThread {
+                                Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
+                                binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorless)
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+                        }else{
+
+                            runOnUiThread {
+
+                                Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
+                                Toast.makeText(
+                                    this@ProductDetailedPageBuyerViewActivity,
+                                    ret_val.toString(),
+                                    Toast.LENGTH_SHORT).show()
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+
+                            }
                         }
 
-
-                    }else{
-
+                    } catch (e: JSONException) {
+                        Log.d("errormessage", "doLikeProductForBuyer: JSONException: ${e.toString()}")
                         runOnUiThread {
+                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
 
-                            Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
-                            Toast.makeText(
-                                this@ProductDetailedPageBuyerViewActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT).show()
-
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                        Log.d("errormessage", "doLikeProductForBuyer: IOException: ${e.toString()}")
+                        runOnUiThread {
+                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
-
-                } catch (e: JSONException) {
-                    Log.d("doLikeProductForBuyer", "JSONException: ${e.toString()}")
-
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    Log.d("doLikeProductForBuyer", "IOException: ${e.toString()}")
-
                 }
-            }
 
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("doLikeProductForBuyer", "ErrorResponse: ${ErrorResponse.toString()}")
-
-            }
-        })
-        web.doLikeProductForBuyer(url, user_id, product_id, like)
+                override fun onErrorResponse(ErrorResponse: IOException?) {
+                    Log.d("errormessage", "doLikeProductForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
+                    runOnUiThread {
+                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            })
+            web.doLikeProductForBuyer(url, user_id, product_id, like)
+        }
     }
 
     private fun GetDetailedProductSpecification (product_id: String) {
@@ -1546,7 +1653,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     }
 
                 } catch (e: JSONException) {
-                    Log.d("GetDetailedProductSpecification", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "GetDetailedProductSpecification: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1555,7 +1662,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("GetDetailedProductSpecification", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "GetDetailedProductSpecification: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1566,7 +1673,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("GetDetailedProductSpecification", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "GetDetailedProductSpecification: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1609,13 +1716,21 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                         runOnUiThread {
                             binding.tvCartItemCount.setText(shoppingCartItemCount.cartCount.toString())
+
+                            if(shoppingCartItemCount.cartCount > 0){
+                                binding.tvCartItemCount.visibility = View.VISIBLE
+                            }else{
+                                binding.tvCartItemCount.visibility = View.GONE
+                            }
+
+
                         }
 
                     }
 
                 } catch (e: JSONException) {
 
-                    Log.d("GetShoppingCartItemCountForBuyer", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1625,7 +1740,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("GetShoppingCartItemCountForBuyer", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1636,7 +1751,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("GetShoppingCartItemCountForBuyer", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "GetShoppingCartItemCountForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1707,7 +1822,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                         if( jsonArray.length()>0 ){
 
-                            for (i in 0 until 3) {
+                            for (i in 0 until jsonArray.length()) {
 
                                 val jsonObject: JSONObject = jsonArray.getJSONObject(i)
                                 mutableList_ProductRatingDetails.add(Gson().fromJson(
@@ -1744,7 +1859,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
 
                 } catch (e: JSONException) {
-                    Log.d("getProductRatingDetails", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "getProductRatingDetails: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
 
@@ -1754,7 +1869,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("getProductRatingDetails", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "getProductRatingDetails: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
                         binding.progressBarDetailedProductForBuyer.visibility = View.GONE
@@ -1764,7 +1879,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("getProductRatingDetails", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "getProductRatingDetails: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
                     binding.progressBarDetailedProductForBuyer.visibility = View.GONE
@@ -1775,7 +1890,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
         web.Get_Data(url)
     }
 
-    private fun doAddItemsToShoppingCart (user_id: String ,product_id: String, product_spec_id: String, quantity: Int) {
+    private fun doAddItemsToShoppingCart (user_id: String ,product_id: String, product_spec_id: String, quantity: Int, shop_id: String) {
 
         val url = ApiConstants.API_HOST+"shopping_cart/add/"
 
@@ -1802,7 +1917,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                             GetShoppingCartItemCountForBuyer(MMKV_user_id)
                         }
-
+                        RxBus.getInstance().post(EventRefreshShoppingCartItemCount())
                     }else{
 
                         runOnUiThread {
@@ -1817,26 +1932,25 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
 
                 } catch (e: JSONException) {
-                    Log.d("doAddItemsToShoppingCart", "JSONException: ${e.toString()}")
+                    Log.d("errormessage", "doAddItemsToShoppingCart: JSONException: ${e.toString()}")
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("doAddItemsToShoppingCart", "IOException: ${e.toString()}")
+                    Log.d("errormessage", "doAddItemsToShoppingCart: IOException: ${e.toString()}")
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("doAddItemsToShoppingCart", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("errormessage", "doAddItemsToShoppingCart: ErrorResponse: ${ErrorResponse.toString()}")
             }
         })
 
-        web.doAddItemsToShoppingCart(url, user_id , product_id, product_spec_id, quantity)
+        web.doAddItemsToShoppingCart(url, user_id , product_id, product_spec_id, quantity, shop_id)
     }
 
 
 
     @SuppressLint("CheckResult")
     fun initEvent() {
-
 
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
@@ -1983,28 +2097,36 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                     }
                     is EventBuyerDetailedProductNewProDetailedFragment ->{
+
                         var id = it.id
+                        Log.d("product_id_checking", id.toString())
 
                         binding.layoutForFragment.visibility = View.VISIBLE
 
-                        val newFragment: ProductDetailedPageBuyerViewFragment = ProductDetailedPageBuyerViewFragment.newInstance()
-                        val args = Bundle()
+                        var newFragment: ProductDetailedPageBuyerViewFragment = ProductDetailedPageBuyerViewFragment.newInstance()
+                        var args = Bundle()
                         args.putString("product_id", id)
                         newFragment.arguments = args
-                        ft.add(R.id.layout_for_fragment, newFragment, "ProductDetailedPageBuyerViewFragment")
-                        ft.addToBackStack(null)
-                        ft.commit()
-
-                        Log.d("checkCount", fragmentManager.backStackEntryCount.toString())
+                        fragmentManager
+                            .beginTransaction()
+                            .add(R.id.layout_for_fragment, newFragment, "ProductDetailedPageBuyerViewFragment${getFragmentManager().backStackEntryCount}")
+                            .addToBackStack(getFragmentManager().backStackEntryCount.toString())
+                            .commit()
 
                     }
                     is EventBuyerDetailedProductRemoveProDetailedFragment -> {
 
                         if (getFragmentManager().backStackEntryCount > 0) {
                             getFragmentManager().popBackStack()
+                            if(getFragmentManager().backStackEntryCount ==0){
+                                binding.layoutForFragment.visibility = View.GONE
+                            }
                         } else {
                             super.onBackPressed()
                         }
+                    }
+                    is EventRefreshShoppingCartItemCount -> {
+                        GetShoppingCartItemCountForBuyer(MMKV_user_id)
                     }
                 }
             }, {
@@ -2014,11 +2136,21 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
     }
 
     override fun onBackPressed() {
-        if (getFragmentManager().backStackEntryCount > 0) {
-            getFragmentManager().popBackStack()
-        } else {
-            super.onBackPressed()
+
+        if(binding.bottomSheetDlgOderInfoSetting.visibility == View.VISIBLE){
+            binding.bottomSheetDlgOderInfoSetting.startAnimation(AnimationUtils.loadAnimation(this, R.anim.tranlate_dialog_out))
+            binding.imgViewDialogShowBackground.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_alpha_out_slowly))
+
+            binding.bottomSheetDlgOderInfoSetting.visibility = View.GONE
+            binding.imgViewDialogShowBackground.visibility = View.GONE
+        }else{
+            if (getFragmentManager().backStackEntryCount > 0) {
+                getFragmentManager().popBackStack()
+            } else {
+                super.onBackPressed()
+            }
         }
+
     }
 
 }

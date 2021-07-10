@@ -378,6 +378,7 @@
     </ScrollView>
 
     <RelativeLayout
+        android:id="@+id/layout_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="224dp"
         android:clickable="true"

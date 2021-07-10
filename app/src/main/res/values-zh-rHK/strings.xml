@@ -588,5 +588,97 @@
         有新的更新項目現在可供使用!\n
         透過行動網路下載可能產生額外費用。</string>
 
+    <!--    版本更新-->
+    <string name="version_update_title">更新通知</string>
+    <string name="version_update_note">有新的更新項目現在可供使用！透過行動網路下載可能產生額外費用。</string>
+
+    <!--    買家資訊-->
+    <string name="buyer_collect">收藏清單</string>
+    <string name="buyer_like">關注店舖</string>
+    <string name="buyer_path">足跡</string>
+    <string name="purchaselist">購買清單</string>
+    <string name="tobedelivered">待發貨</string>
+    <string name="tobereceived">待收貨</string>
+    <string name="evaluate">評價</string>
+    <string name="myaddress">我的地址</string>
+
+    <!--     購物車-->
+    <string name="shopcar">購物車</string>
+
+    <!--     首頁-->
+    <string name="storerecommend">推薦給你的店鋪</string>
+    <string name="hotsale">熱門商品</string>
+
+    <!--     店舖預覽-->
+    <string name="quantities">商品數量</string>
+    <string name="attentions">關注人數</string>
+    <string name="solds">總賣出量</string>
+    <string name="knowmore"><u>了解更多</u></string>
+    <string name="tab_ranking1">綜合排名</string>
+    <string name="tab_ranking2">最新</string>
+    <string name="tab_ranking3">最熱銷</string>
+    <string name="tab_ranking4">價格低</string>
+    <string name="tab_ranking5">價格高</string>
+
+
+    <!--     熱門商品-->
+    <string name="topproducts">熱門商品</string>
+    <!--     推薦店鋪-->
+    <string name="storerecommends">推薦店鋪</string>
+    <string name="store_attentions">關注人數:</string>
+
+    <!--    搜尋-->
+    <string name="search_tab1">商品</string>
+    <string name="search_tab2">店舖</string>
+    <string name="search_shop_empty">很抱歉，沒有搜尋到相關店舖。</string>
+    <string name="search_product_empty">很抱歉，沒有搜尋到相關商品。</string>
+    <string name="search_end">您已經看完了所有內容</string>
+
+    <!--    轉數快-->
+    <string name="fpspay_title">請使用支援「轉數快」的支付應用程式進行轉帳</string>
+    <string name="company">公司名稱</string>
+    <string name="company_name">HONG KONG SHOPU COLLECTION NETWORK COMAPNY LIMITED</string>
+    <string name="fpspay_remind">付款完成後回到該頁面輸入轉帳資訊，完成購買流程。</string>
+    <string name="transfer_info">轉帳資訊</string>
+    <string name="fpspay_account">請選擇轉數快帳號</string>
+    <string name="fpspay_phone">轉數快帳號電話號碼：</string>
+    <string name="receipt_date">請輸入預計收貨日期</string>
+    <string name="info_confirm">確認發送資訊</string>
+
+    <!--    我的-->
+    <string name="my_collect">收藏清單</string>
+    <string name="my_favorite">關注店舖</string>
+    <string name="my_path">足跡</string>
+    <string name="shopping_list">購買清單</string>
+
+    <!--    編輯名稱-->
+    <string name="username_edit">編輯名稱</string>
+    <string name="name_limit">上限 10 個字元</string>
+    <string name="name_input">輸入名稱</string>
+
+    <!--   生日-->
+    <string name="birthday">生日</string>
+    <!--   密碼變更-->
+    <string name="pwchange">密碼變更</string>
+    <string name="pwchange_remind">密碼格式必須包括大小階英文、數字及符號</string>
+    <string name="new_password">輸入新密碼</string>
+
+    <!--   修改個人資訊-->
+    <string name="userinfomodify">修改個人資訊</string>
+    <string name="modify_immediately">立刻設定</string>
+
+    <!--   profile(買家)-->
+    <string name="order_total">訂單金額：</string>
+    <string name="buyeraddress_input">請輸入您的郵寄地址</string>
+    <string name="buyeraddress_preset">我的地址</string>
+
+    <!--   用戶帳號設定(買家)-->
+    <string name="buyer_info">個人資訊：</string>
+    <string name="buyer_payway">付款方式</string>
+
+    <!--    我的銷售(賣家)-->
+    <string name="product_kind_total_quant">樣商品</string>
+    <string name="expected">預計於</string>
+    <string name="deliver_goods">發貨</string>
 
 </resources>

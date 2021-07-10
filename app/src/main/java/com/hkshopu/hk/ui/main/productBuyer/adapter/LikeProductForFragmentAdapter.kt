@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventBuyerDetailedProductNewProDetailedFragment
 import com.HKSHOPU.hk.data.bean.ProductDetailedPageForBuyer_RecommendedProductsBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
@@ -21,6 +22,7 @@ import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
 
 import com.HKSHOPU.hk.utils.extension.inflate
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.click
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
@@ -38,7 +40,7 @@ class LikeProductForFragmentAdapter(var product_type: String, var activity: Frag
 
     var itemClick : ((id: String) -> Unit)? = null
 
-    var MMKV_product_id: String = "1"
+    var product_id: String = ""
     var mutablelist_buyerProductsBean: MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean> = mutableListOf()
 
     fun setData(list : MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean>){
@@ -68,14 +70,10 @@ class LikeProductForFragmentAdapter(var product_type: String, var activity: Frag
 
         holder.itemView.setOnClickListener{
 
-            MMKV_product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).product_id
-            MMKV.mmkvWithID("http").putString("ProductId", MMKV_product_id)
-            itemClick?.invoke(MMKV_product_id)
+            product_id = mutablelist_buyerProductsBean.get(holder.adapterPosition).product_id
+            itemClick?.invoke(product_id)
 
-            val intent = Intent(holder.itemView.context, ProductDetailedPageBuyerViewActivity::class.java)
-            activity.finish()
-
-            holder.itemView.context?.startActivity(intent)
+            RxBus.getInstance().post(EventBuyerDetailedProductNewProDetailedFragment(product_id))
 
         }
 
@@ -95,7 +93,8 @@ class LikeProductForFragmentAdapter(var product_type: String, var activity: Frag
 
         fun bindShop(bean : ProductDetailedPageForBuyer_RecommendedProductsBean){
 
-            Picasso.with(itemView.context).load(bean.pic_path).into(img_product)
+            Picasso.get().load(bean.pic_path).into(img_product)
+
             tv_product_name.setText(bean.product_title)
             tv_shop_name.setText(bean.shop_title)
 

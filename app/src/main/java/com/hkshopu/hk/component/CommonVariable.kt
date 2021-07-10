@@ -19,7 +19,8 @@ class CommonVariable private constructor() {
 
     companion object {
 
-        //Shop Category
+        //Shop Info
+        val list = ArrayList<ShopCategoryBean>()
         var shopCategoryListForAdd = ArrayList<ShopCategoryBean>()
         var shopCategoryListForEdit = ArrayList<ShopCategoryBean>()
         var shopCategorySelectedListForEdit = ArrayList<String>()

@@ -87,10 +87,27 @@ class EventBuyerDetailedProductRemoveProDetailedFragment(var fragment: Fragment)
 
 //Shopping Cart
 
-class EventRemoveShoppingCartItem(var id_list: String, var position: Int)
-class EventUpdateShoppingCartItem(var product_checked: Boolean, var shopping_cart_item_id: String, var new_quantity : String, var selected_shipment_id : String, var selected_user_address_id: String, var selected_payment_id : String)
+class EventRemoveShoppingCartItem(var shop_id: String, var item_id_list_json: String, var position: Int)
+class EventUpdateShoppingCartItem(var shopping_cart_item_id: String, var new_quantity : String, var selected_shipment_id : String, var selected_user_address_id: String, var selected_payment_id : String)
 class EventUpdateShoppingCartItemForConfirmed(var id : String, var buyerName: String, var buyerPhone: String, var buyerAddress: String, var shoppingCartShopId: String, var specId_json:String)
 class EventCheckedShoppingCartItem()
+class EventRefreshShoppingCartItemCount()
+
+//RefreshUser
+class EventRefreshUserInfo()
+class EventRefreshUserAddressList
+
+//Search
+class EventToUserProfile()
+class EventToShopSearch()
+class EventToProductSearch()
+
+//ProductCatSelectedToSearch
+class EventProductCatSelectedToSearch(val selectrdId: String = "", var c_product_category_selected: String)
+
+
+//ShopPreView
+class EventShopPreViewRankAll(val shopId: String = "")
 
 //Other Events (Not Used)
 

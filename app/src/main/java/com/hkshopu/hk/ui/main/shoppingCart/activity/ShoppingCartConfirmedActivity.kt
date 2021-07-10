@@ -26,6 +26,17 @@ import com.facebook.FacebookSdk
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
+import com.paypal.checkout.approve.OnApprove
+import com.paypal.checkout.cancel.OnCancel
+import com.paypal.checkout.createorder.CreateOrder
+import com.paypal.checkout.createorder.CurrencyCode
+import com.paypal.checkout.createorder.OrderIntent
+import com.paypal.checkout.createorder.UserAction
+import com.paypal.checkout.error.OnError
+import com.paypal.checkout.order.Amount
+import com.paypal.checkout.order.AppContext
+import com.paypal.checkout.order.Order
+import com.paypal.checkout.order.PurchaseUnit
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
@@ -59,10 +70,10 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
         binding = ActivityShoppingCartConfirmedBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        doGetPaymentMethodList("25")
-        doGetUserAddressList("25")
+        MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
 
-
+        doGetPaymentMethodList(MMKV_user_id)
+        doGetUserAddressList(MMKV_user_id)
 
         initMMKV()
         initView()
@@ -85,15 +96,46 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
 
         binding.titleBackAddshop.setOnClickListener {
 
-
             val intent = Intent(this, ShoppingCartEditActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        binding.btnShoppingCartPaypal.setOnClickListener {
+        binding.btnShoppingCartPaypal.setup(
 
-        }
+            createOrder = CreateOrder { createOrderActions ->
+                val order = Order(
+                    intent = OrderIntent.CAPTURE,
+                    appContext = AppContext(
+                        userAction = UserAction.PAY_NOW
+                    ),
+                    purchaseUnitList = listOf(
+                        PurchaseUnit(
+                            amount = Amount(
+                                currencyCode = CurrencyCode.HKD,
+                                value = "10.00"
+//                                value = binding.textViewSumPrice.text.toString()
+                            )
+                        )
+                    )
+                )
+
+                createOrderActions.create(order)
+
+            },
+            onApprove = OnApprove { approval ->
+                approval.orderActions.capture { captureOrderResult ->
+                    Log.d("Papal_CaptureOrder", "CaptureOrderResult: $captureOrderResult")
+                }
+            },
+            onCancel = OnCancel {
+                Log.d("Papal_OnCancel", "Buyer canceled the PayPal experience.")
+            },
+            onError = OnError { errorInfo ->
+                Log.d("Papal_OnError", "Error: $errorInfo")
+            }
+
+        )
 
     }
 
@@ -144,7 +186,7 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                             }
                         }
 
-                        mAdapter_ShoppingCartItems.setDatas(mutableList_shoppingCartShopItems, true, address_less)
+                        mAdapter_ShoppingCartItems.setDatas(mutableList_shoppingCartShopItems, address_less)
 
                         Log.d("check_upadte_buyer_address", "specId_json: ${specId_json.toString()}\n" +
                                 "id:　${id.toString()}")
@@ -370,7 +412,7 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                                 binding.rViewShoppingCartItems.setLayoutManager(MyLinearLayoutManager(this@ShoppingCartConfirmedActivity,false))
                                 binding.rViewShoppingCartItems.adapter = mAdapter_ShoppingCartItems
 
-                                mAdapter_ShoppingCartItems.setDatas(mutableList_shoppingCartShopItems, false , address_less)
+                                mAdapter_ShoppingCartItems.setDatas(mutableList_shoppingCartShopItems , address_less)
                                 mAdapter_ShoppingCartItems.set_edit_mode(false)
 
                                 var final_total_prodcut_price = 0
@@ -388,7 +430,7 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                                 for(i in 0 until mutableList_shoppingCartShopItems.size){
                                     if(mutableList_shoppingCartShopItems.get(i).shop_checked){
                                         for(j in 0 until mutableList_shoppingCartShopItems.get(i).productList.size ){
-                                            final_total_shipent_price += mutableList_shoppingCartShopItems.get(i).productList.get(j).shipmentSelected.shipment_price.toInt()
+                                            final_total_shipent_price += mutableList_shoppingCartShopItems.get(i).productList.get(j).selected_shipment.shipment_price.toInt()
                                         }
                                     }
                                 }

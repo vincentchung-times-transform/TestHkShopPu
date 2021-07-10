@@ -27,7 +27,6 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
 
 
     var edit_status = true
-    var checked_all = false
     var address_less = false
 
     var mutableList_shoppingCartShopItems = mutableListOf<ShoppingCartShopItemNestedLayer>()
@@ -40,6 +39,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
     //把水平rview元件拉進來
     inner class FirstLayerViewHolder(itemView:View)
         :RecyclerView.ViewHolder(itemView), View.OnClickListener{
+        var mAdapter = ShoppingCartProductsNestedAdapter(mutableListOf(), edit_status, activity, adapterPosition)
         var shop_id: String= ""
         val checkBox_shopping_cart_shop = itemView.findViewById<CheckBox>(R.id.checkBox_shopping_cart_shop)
         val imgView_shop_icon = itemView.findViewById<ImageView>(R.id.imgView_shop_icon)
@@ -83,7 +83,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
 
             shop_id=item.shop_id
             txtView_shop_name.setText(item.shop_title)
-            Picasso.with(itemView.context).load(item.shop_icon).into( imgView_shop_icon)
+            Picasso.get().load(item.shop_icon).into(imgView_shop_icon)
 
             if(edit_status){
                 
@@ -93,7 +93,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
                 btn_shopping_cart_shop_address_spinner.visibility = View.GONE
                 layout_price_total_price.visibility = View.GONE
 
-                val mAdapter = ShoppingCartProductsNestedAdapter(item.productList, edit_status, activity, adapterPosition)
+                mAdapter = ShoppingCartProductsNestedAdapter(item.productList, edit_status, activity, adapterPosition)
                 r_view_shopping_cart_products.layoutManager =
                     LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
                 r_view_shopping_cart_products.adapter = mAdapter
@@ -106,7 +106,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
                 btn_shopping_cart_shop_address_spinner.visibility = View.VISIBLE
                 layout_price_total_price.visibility = View.VISIBLE
 
-                val mAdapter = ShoppingCartProductsNestedAdapter(item.productList, edit_status, activity, adapterPosition)
+                mAdapter = ShoppingCartProductsNestedAdapter(item.productList, edit_status, activity, adapterPosition)
                 r_view_shopping_cart_products.layoutManager =
                     LinearLayoutManager(itemView.context, LinearLayoutManager.VERTICAL, false)
                 r_view_shopping_cart_products.adapter = mAdapter
@@ -120,22 +120,13 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
                 if(isChecked){
 
                     mutableList_shoppingCartShopItems.get(adapterPosition).shop_checked = true
+//                    for(i in 0 until mutableList_shoppingCartShopItems.get(adapterPosition).productList.size){
+//                        mutableList_shoppingCartShopItems.get(adapterPosition).productList.get(i).product_checked = true
+//                    }
                     for(i in 0 until mutableList_shoppingCartShopItems.get(adapterPosition).productList.size){
                         mutableList_shoppingCartShopItems.get(adapterPosition).productList.get(i).product_checked = true
                     }
-
-//                    try{
-//                        Thread.sleep(300)
-//                    } catch (e: InterruptedException) {
-//                        e.printStackTrace()
-//                    }
-
-                    if(checked_all){
-                        checked_all = false
-                    }else{
-                        notifyDataSetChanged()
-                    }
-
+                    mAdapter.setDatas(mutableList_shoppingCartShopItems.get(adapterPosition).productList)
 
                     RxBus.getInstance().post(EventCheckedShoppingCartItem())
 
@@ -146,17 +137,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
                         mutableList_shoppingCartShopItems.get(adapterPosition).productList.get(i).product_checked = false
                     }
 
-//                    try{
-//                        Thread.sleep(300)
-//                    } catch (e: InterruptedException) {
-//                        e.printStackTrace()
-//                    }
-
-                    if(checked_all){
-                        checked_all = false
-                    }else{
-                        notifyDataSetChanged()
-                    }
+                    mAdapter.setDatas(mutableList_shoppingCartShopItems.get(adapterPosition).productList )
 
                     RxBus.getInstance().post(EventCheckedShoppingCartItem())
 
@@ -205,7 +186,7 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
             }
 
             for(i in 0 until item.productList.size){
-                product_price_total += item.productList.get(i).product_spec.spec_quantity_sum_price.toInt() + item.productList.get(i).shipmentSelected.shipment_price.toInt()
+                product_price_total += item.productList.get(i).product_spec.spec_quantity_sum_price.toInt() + item.productList.get(i).selected_shipment.shipment_price.toInt()
             }
 
             textView_product_price_total.setText(product_price_total.toString())
@@ -237,7 +218,8 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
             when (v?.id) {
                 R.id.btn_delete_shopping_cart_shop -> {
                     Log.d( "check_id_list", item_id_list_json.toString() )
-                    RxBus.getInstance().post(EventRemoveShoppingCartItem(item_id_list_json, adapterPosition))
+//                    RxBus.getInstance().post(EventRemoveShoppingCartItem(item_id_list_json, adapterPosition))
+                    RxBus.getInstance().post(EventRemoveShoppingCartItem(shop_id, "", adapterPosition))
                 }
             }
 
@@ -270,9 +252,8 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
     }
 
 
-    fun setDatas(list: MutableList<ShoppingCartShopItemNestedLayer>, checked_all: Boolean, address_less: Boolean) {
+    fun setDatas(list: MutableList<ShoppingCartShopItemNestedLayer>, address_less: Boolean) {
         mutableList_shoppingCartShopItems = list
-        this.checked_all = checked_all
         this.address_less = address_less
         notifyDataSetChanged()
     }

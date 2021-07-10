@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+
     <RelativeLayout
-        android:id="@+id/layout_shopTitle"
+        android:id="@+id/layout_shopPreviewTitle"
         android:layout_width="match_parent"
-        android:layout_height="306dp"
-        android:background="@mipmap/bg_preview" >
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_shopbackgnd"
+            android:layout_width="match_parent"
+            android:layout_height="328dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_preview" />
 
         <ImageView
             android:id="@+id/iv_back"
@@ -21,399 +28,353 @@
             android:src="@mipmap/ic_back_notrans" />
 
         <ImageView
-            android:id="@+id/iv_notify"
+            android:id="@+id/iv_back_click"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="42dp"
             android:layout_marginEnd="16dp"
-            android:src="@mipmap/ic_previewur" />
+            android:background="@mipmap/bg_shoppreviewupright">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            <ImageView
+                android:id="@+id/iv_shopcar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@mipmap/ic_shopcar" />
+
+            <ImageView
+                android:id="@+id/iv_shopcar_click"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="12dp" />
+
+            <ImageView
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@id/iv_shopcar"
+                android:src="@mipmap/ic_notification" />
+
+            <TextView
+                android:id="@+id/tv_notifycount"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toEndOf="@id/iv_shopcar"
+                android:background="@drawable/customborder_round_turquise"
+                android:gravity="center"
+                android:text="99"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/iv_notify_click"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="24dp"
+                android:layout_toEndOf="@id/iv_shopcar"/>
+
+
+        </RelativeLayout>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="56dp"
-            android:layout_marginEnd="16dp"
-            android:src="@mipmap/ic_dummy" />
+            app:cardBackgroundColor="@color/colordivideline"
+            app:cardCornerRadius="50dp">
 
-    </RelativeLayout>
+            <ImageView
+                android:id="@+id/iv_shopImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_no_image" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="272dp"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_dummy2" />
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layout_shopTitle"
-        android:scrollbars="none"
-        android:visibility="gone">
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/container"
+            android:id="@+id/container_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_back"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/customborder_shop"
+            android:orientation="vertical"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:visibility="visible">
 
+            <TextView
+                android:id="@+id/tv_shoptitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="我的店舖"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="4dp">
 
+                <LinearLayout
+                    android:id="@+id/layout_Shop_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="4dp"
+                    android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:id="@+id/layout_shopImg"
-                    android:layout_width="match_parent"
-                    android:layout_height="235dp">
+                    <com.kaelli.niceratingbar.NiceRatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        app:nrb_rating="0"
+                        app:nrb_ratingStatus="Disable"
+                        app:nrb_starEmptyResource="@mipmap/ic_star"
+                        app:nrb_starFullResource="@mipmap/ic_star_fill"
+                        app:nrb_starHalfResource="@mipmap/ic_star_half"
+                        app:nrb_starImageHeight="16dp"
+                        app:nrb_starImagePadding="4dp"
+                        app:nrb_starImageWidth="16dp"
+                        app:nrb_starTotal="5" />
 
-                    <ImageView
-                        android:id="@+id/iv_shoppic_b"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:background="@color/colordivideline" />
-
-                    <com.makeramen.roundedimageview.RoundedImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        android:id="@+id/iv_shopImg"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_no_image"
-                        app:riv_border_color="@color/white"
-                        app:riv_border_width="2dp"
-                        app:riv_corner_radius="30dp"
-                        app:riv_oval="true"/>
-
-                    <ImageView
-                        android:id="@+id/iv_shopImg_edit"
-                        android:layout_width="92dp"
-                        android:layout_height="92dp"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_edit_mask" />
+                    <TextView
+                        android:id="@+id/tv_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="0.0"
+                        android:textColor="@color/black"
+                        android:textSize="12sp" />
 
 
                     <TextView
-                        android:id="@+id/tv_shoppic_b_add"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_ratings"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
-                        android:background="@color/black_hint_80"
-                        android:text="@string/add_newbg"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        android:gravity="center_horizontal"/>
-                </RelativeLayout>
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:text="(100)"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+
+
+                </LinearLayout>
 
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/layout_shopmodify_content"
+                android:id="@+id/layout_shopdetail"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
-                android:orientation="vertical">
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-
+                <LinearLayout
+                    android:id="@+id/layout_merchants"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:background="@drawable/customborder_onboard_8dp">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/myProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/shop_name" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_shop_name"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
+                        android:layout_gravity="center_horizontal"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/tv_shop_name"
+                        android:id="@+id/tv_myProduct"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="35dp"
-                        android:layout_toLeftOf="@id/iv_chevron_shop_name"
-                        android:text="" />
-                </RelativeLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/quantities"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-                <RelativeLayout
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/dark_gray" />
 
+                <LinearLayout
+                    android:id="@+id/layout_likes"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/myLikes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/user_account" />
-
+                        android:layout_gravity="center_horizontal"
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/tv_user_account"
+                        android:id="@+id/tv_myLikes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:text="" />
-                </RelativeLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:text="@string/attentions"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
-                <RelativeLayout
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:background="@color/dark_gray" />
 
+                <LinearLayout
+                    android:id="@+id/layout_income"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/mySold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/brief" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_shop_brief"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
+                        android:text="-"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
                     <TextView
-                        android:id="@+id/tv_shop_brief"
+                        android:id="@+id/tv_mySold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:singleLine="true"
-                        android:ellipsize="end"
-                        android:layout_marginEnd="35dp"
-                        android:layout_toLeftOf="@id/iv_chevron_shop_brief"
-                        android:text="" />
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/mobile" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_shop_phone"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
-
-                    <TextView
-                        android:id="@+id/tv_shop_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="35dp"
-                        android:layout_toLeftOf="@id/iv_chevron_shop_phone"
-                        android:text="" />
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/email" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_user_email"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
-
-                    <TextView
-                        android:id="@+id/tv_user_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="35dp"
-                        android:layout_toLeftOf="@id/iv_chevron_user_email"
-                        android:text="" />
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/social_account" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_user_socialaccount"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/customborder_onboard_8dp"
-                    android:visibility="invisible">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
-                        android:text="@string/password_change" />
-
-                    <ImageView
-                        android:id="@+id/iv_chevron_pwchange"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:src="@mipmap/ic_chevron" />
-
-                </RelativeLayout>
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center_vertical"
+                        android:text="@string/solds"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
 
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_save"
+            <ImageView
+                android:id="@+id/iv_payattention"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="25dp"
-                android:background="@drawable/customborder_onboard_turquise_40p"
-                android:gravity="center"
-                android:text="@string/save"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="invisible"/>
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_payattention" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/bg_learn_more"/>
-    <LinearLayout
-        android:layout_width="346dp"
-        android:layout_height="251dp"
-        android:layout_margin="10dp"
-        android:gravity="center_horizontal"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        android:background="@drawable/notification_background_radius">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:layout_marginTop="24dp"
-            android:text="COMING SOON"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:gravity="center_horizontal"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="24dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginRight="36dp"
-            android:text="由於還在草創階段，店匯正在籌備買賣等功能以及累積店鋪商品數量。版本2.0即將開通進階功能，敬請期待！"
-            android:textColor="@color/dark_gray"
-            android:gravity="center_horizontal"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/btn_know_more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:src="@mipmap/ic_kowmore"
-                android:layout_weight="1"/>
-
-            <ImageView
-                android:id="@+id/btn_return"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
-                android:src="@mipmap/ic_return"
-                android:layout_weight="1"/>
         </LinearLayout>
 
-    </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/container_1"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_onboard_f6_32dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/layout_store_brief"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/customborder_onboard_8dp"
+                    android:gravity="center_vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tv_shop_brief"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="16dp"
+                        android:ellipsize="end"
+                        android:text=""
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_shop_brief_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_shop_brief"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/knowmore"
+                        android:textColor="@color/turquoise"
+                        android:textSize="14sp" />
+
+                </RelativeLayout>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/turquoise"
+                    app:tabMaxWidth="0dp"
+                    app:tabMode="fixed"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextAppearance="@style/CustomTabText2"
+                    app:tabTextColor="@color/bright_gray" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/mviewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color" />
+            </LinearLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+
 </RelativeLayout>

@@ -89,6 +89,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editShopname.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editShopname.setOnEditorActionListener() { v, actionId, event ->
@@ -133,7 +134,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editShopphoneNumber.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
-
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editShopphoneNumber.setOnEditorActionListener() { v, actionId, event ->
@@ -175,6 +176,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editCountry.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editCountry.setOnEditorActionListener() { v, actionId, event ->
@@ -216,6 +218,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editAdmin.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editAdmin.setOnEditorActionListener() { v, actionId, event ->
@@ -257,6 +260,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editthoroughfare.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
        binding.editthoroughfare.setOnEditorActionListener() { v, actionId, event ->
@@ -298,6 +302,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editfeature.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editfeature.setOnEditorActionListener() { v, actionId, event ->
@@ -351,6 +356,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editsubaddress.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editsubaddress.setOnEditorActionListener() { v, actionId, event ->
@@ -392,6 +398,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editfloor.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
 
             }
         })
@@ -434,6 +441,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         binding.editroom.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
                 check_value()
+                KeyboardUtil.hideKeyboard(v)
             }
         })
         binding.editroom.setOnEditorActionListener() { v, actionId, event ->
@@ -457,10 +465,22 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
             }
         }
 
+        binding.layoutShopname.setOnClickListener {
+            KeyboardUtil.hideKeyboard(it)
+        }
         binding.layoutShopaddressEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
         }
-
+        binding.layoutShopphone.setOnClickListener {
+            KeyboardUtil.hideKeyboard(it)
+        }
+        binding.layoutShopaddressHead.setOnClickListener {
+            KeyboardUtil.hideKeyboard(it)
+        }
+        binding.layoutBottomSheet.setOnClickListener {
+            KeyboardUtil.hideKeyboard(it)
+        }
+       
     }
 
     private fun initVM() {
@@ -507,6 +527,8 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 var accountNumber = settings.getString("accountnumber", "")
 
 
+                CommonVariable.shopCategorySelectedListForAdd.clear()
+
                 if(!shop_category_id1.isNullOrEmpty()){
                     CommonVariable.shopCategorySelectedListForAdd.add(shop_category_id1.toString())
                     if (!shop_category_id2.isNullOrEmpty()){
@@ -517,7 +539,25 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                     }
                 }
 
-
+                Log.d("check_value",  "shopName: ${shopName} \n" +
+                        "userId: ${userId} \n" +
+                        "shopCategorySelectedListForAdd: ${CommonVariable.shopCategorySelectedListForAdd} \n" +
+                        "bankCode: ${bankCode} \n" +
+                        "bankName: ${bankName} \n" +
+                        "accountName: ${accountName} \n" +
+                        "accountNumber: ${accountNumber} \n" +
+                        "companyName: ${companyName} \n" +
+                        "phone_country: ${phone_country} \n" +
+                        "phone_number: ${phone_number} \n" +
+                        "country: ${country} \n" +
+                        "admin: ${admin} \n" +
+                        "thoroughfare: ${thoroughfare} \n" +
+                        "feature: ${feature} \n" +
+                        "subaddress: ${subaddress} \n" +
+                        "floor: ${floor} \n" +
+                        "room: ${room} \n" +
+                        "file: ${file} \n")
+                
                 doAddShop(
                     shopName!!,
                     userId.toString(),
@@ -539,6 +579,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                     room,
                     file!!
                 )
+
             } else {
 
                 Toast.makeText(this, "尚有欄位未填寫", Toast.LENGTH_SHORT).show()
@@ -587,6 +628,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         address_room: String,
         postImg: File
     ) {
+
         val url = ApiConstants.API_HOST + "/shop/save/"
         val editor = settings.edit()
         editor.clear()
@@ -595,8 +637,9 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
                 var resStr: String? = ""
                 try {
                     resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
                     Log.d("AddShopAddressActivity", "返回資料 resStr：" + resStr)
+                    val json = JSONObject(resStr)
+
                     Log.d("AddShopAddressActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
@@ -632,13 +675,18 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
 
 
                 } catch (e: JSONException) {
+                    Log.d("AddShopAddressActivity", "JSONException：" + e.toString())
+
 
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("AddShopAddressActivity", "IOException：" + e.toString())
+
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("AddShopAddressActivity", "onErrorResponse：" + ErrorResponse.toString())
 
             }
         })
@@ -665,6 +713,7 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
             postImg
         )
     }
+    
 
     fun check_value() {
         if(companyName.isNotEmpty() && phone_country.isNotEmpty() && phone_number.isNotEmpty() && phone.isNotEmpty()

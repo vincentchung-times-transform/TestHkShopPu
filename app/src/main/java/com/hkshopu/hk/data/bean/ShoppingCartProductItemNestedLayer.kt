@@ -14,10 +14,10 @@ class ShoppingCartProductItemNestedLayer {
     @SerializedName("product_pic")
     var product_pic: String = ""
 
-    @SerializedName("shipmentList")
     var shipmentList: MutableList<ShoppingCartProductShipmentItem> = mutableListOf()
 
-    var shipmentSelected: ShoppingCartProductShipmentItem = ShoppingCartProductShipmentItem()
+    @SerializedName("selected_shipment")
+    var selected_shipment: ShoppingCartProductShipmentItem = ShoppingCartProductShipmentItem()
 
     @SerializedName("product_spec")
     var product_spec: ShoppingCartProductItemNestedLayerProductSepcBean = ShoppingCartProductItemNestedLayerProductSepcBean()

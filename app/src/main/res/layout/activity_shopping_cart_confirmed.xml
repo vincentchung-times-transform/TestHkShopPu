@@ -285,11 +285,17 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.paypal.checkout.paymentbutton.PayPalButton
                 android:id="@+id/btn_shopping_cart_paypal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/btn_shopping_cart_paypal"/>
+                android:src="@mipmap/btn_shopping_cart_paypal" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/btn_shopping_cart_paypal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:src="@mipmap/btn_shopping_cart_paypal"/>-->
 
         </LinearLayout>
 
