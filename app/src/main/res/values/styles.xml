@@ -121,5 +121,6 @@
         <item name="android:windowExitAnimation">@anim/tranlate_dialog_out</item>
     </style>
 
+    <style name="CustomTabText2" parent="TextAppearance.Design.Tab">18sp</style>
 
 </resources>

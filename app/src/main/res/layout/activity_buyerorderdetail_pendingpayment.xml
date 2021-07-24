@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_orderdetail"
+    android:background="@color/color_shopbg">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+    <RelativeLayout
+        android:id="@+id/layout_shopTitle"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/orderdetail"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/ic_notification"
+            android:visibility="visible"/>
+
+        <TextView
+            android:id="@+id/tv_notifycount"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/customborder_round_turquise"
+            android:gravity="center"
+            android:text="99"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_shopTitle"
+        android:layout_above="@id/bottom"
+        android:layout_marginTop="24dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_turquise_16dp">
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_receive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_below="@id/tv_status"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_shipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <ImageView
+                    android:id="@+id/iv_logistic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="14dp"
+                    android:src="@mipmap/ic_express" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_logistic"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/logistic_info"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_status2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/tobepaid"
+                    android:textColor="@color/turquoise"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_logistic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/iv_logistic"
+                    android:text=""
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <ImageView
+                    android:id="@+id/iv_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@mipmap/ic_location_green" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_location"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/deliver_address"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_buyername"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_below="@id/iv_location"
+                    android:text=""
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/tv_buyerphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_below="@id/tv_buyername"
+                    android:text=""
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tv_buyeraddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_below="@id/tv_buyerphone"
+                    android:text=""
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/iv_storeIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="20dp"
+                    app:cardBackgroundColor="@color/colordivideline"
+                    app:cardCornerRadius="45dp">
+
+                    <ImageView
+                        android:id="@+id/iv_store"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+                <TextView
+                    android:id="@+id/tv_store_name"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toEndOf="@id/iv_storeIcon"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text=""
+                    android:textSize="14dp"
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:id="@+id/iv_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="24dp"
+                    android:src="@mipmap/ic_contact3"
+                    android:contentDescription="@string/empty"/>
+
+                <View
+                    android:id="@+id/v_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/iv_storeIcon"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/colordivideline" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/v_divider"
+                    android:layout_marginTop="12dp"
+                    tools:listitem="@layout/item_order_detail" />
+
+                <View
+                    android:id="@+id/v_divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/recyclerview"
+                    android:background="@color/colordivideline" />
+
+
+                <TextView
+                    android:id="@+id/tv_product_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recyclerview"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/product_amount"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_somegray"/>
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/recyclerview"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/color_somegray"/>
+
+                <TextView
+                    android:id="@+id/tv_product_shipping_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_product_amount"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/title_shippingFare"
+                    android:textSize="14sp"
+                    android:textColor="@color/color_somegray"/>
+
+                <TextView
+                    android:id="@+id/tv_shipping_fee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_amount"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/color_somegray"/>
+
+                <TextView
+                    android:id="@+id/tv_product_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_product_shipping_fee"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/product_subtotal"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_shipping_fee"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text=""
+                    android:textSize="14sp"
+                    android:textColor="@color/turquoise"/>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:elevation="10dp"
+                android:layout_gravity="center_vertical"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/order_number"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:id="@+id/tv_ordernumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentEnd="true"
+                    android:text=""
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp"/>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder_addproduct"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/select_payment_method_first_please"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/customview_specification_spinner"
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/container_payment_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:outlineSpotShadowColor="@color/bg_detailbottom"
+        android:background="@color/color_shopbg">
+
+        <ImageView
+            android:id="@+id/btn_fps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/btn_fps"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.mallotec.reb:plugin-locale:1.0.12@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3722a1a61d52b58c7c7ffc27723868a/jetified-plugin-locale-1.0.12/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3722a1a61d52b58c7c7ffc27723868a/jetified-plugin-locale-1.0.12/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3722a1a61d52b58c7c7ffc27723868a/jetified-plugin-locale-1.0.12/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5beca861622441017b57ee6c97b8302d/jetified-plugin-locale-1.0.12/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5beca861622441017b57ee6c97b8302d/jetified-plugin-locale-1.0.12/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5beca861622441017b57ee6c97b8302d/jetified-plugin-locale-1.0.12/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

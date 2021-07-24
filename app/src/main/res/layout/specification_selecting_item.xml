@@ -4,30 +4,30 @@
     android:id="@+id/container_specification_item"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp">
+    android:layout_margin="4dp">
 
     <ImageView
         android:id="@+id/ic_detailed_product_spec_selecting_out_of_stock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignRight="@id/layout_body"
         android:src="@mipmap/ic_detailed_product_spec_selecting_out_of_stock"
-        android:elevation="10dp"
-        android:layout_alignParentRight="true"/>
+        android:elevation="10dp" />
 
     <RelativeLayout
+        android:id="@+id/layout_body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginStart="2dp">
+        android:gravity="center_vertical">
         <ImageView
             android:id="@+id/transparent_space_top"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="8dp"
             android:src="@drawable/custom_unit_transparent" />
         <ImageView
             android:id="@+id/transparent_space_right"
             android:layout_width="10dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/txtView_specification"
             android:src="@drawable/custom_unit_transparent" />
 

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_shopInfo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <RelativeLayout
+        android:id="@+id/layout_payaccount"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back" />
+        <ImageView
+            android:id="@+id/iv_back_click"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/transfer_info"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_payaccount"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/container_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/fpspay_account"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color">
+
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:id="@+id/smartSpinner_bankAccount"
+                        android:spinnerMode="dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="8dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:elevation="10dp"
+                        android:outlineSpotShadowColor="@color/hkshop_color"
+                        android:textColor="@color/dark_gray"
+                        app:smsp_enableFloatingLabel = "false"
+                        app:smsp_alwaysShowFloatingLabel="false"
+                        app:smsp_floatingLabelColor="@color/dark_gray"
+                        app:smsp_floatingLabelText=""
+                        app:smsp_floatingLabelSize="14sp"
+                        app:smsp_enableSearchHeader="true"
+                        app:smsp_searchHeaderText=""
+                        app:smsp_searchHeaderTextColor="@color/white"
+                        app:smsp_searchHeaderBackgroundColor="@color/hkshop_color"
+                        app:smsp_hint=""
+                        app:smsp_hintSize="14sp"
+                        app:smsp_hintColor="@color/black"
+                        app:smsp_itemSize="14sp"
+                        app:smsp_itemColor="@color/dark_gray"
+                        app:smsp_itemListColor="@color/dark_gray"
+                        app:smsp_itemListHintBackgroundColor="#808080"
+                        app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_multilineError="false"
+                        app:smsp_selectedItemListColor="@color/black"
+                        app:smsp_isSearchable="false"
+                        app:smsp_searchHint="請搜選銀行名稱或銀行代碼"
+                        app:smsp_searchHintColor="@color/bright_gray"
+                        app:smsp_searchTextColor="@color/black"
+                        app:smsp_enableErrorLabel="false"
+                        app:smsp_underlineSize="0dp"
+                        app:smsp_underlineColor="@color/white"/>
+
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="52dp"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_title_contactMethod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fpspay_phone"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_phone_or_mail_transfer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/transfer_date"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color">
+
+                    <EditText
+                        android:id="@+id/et_transferdate"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/dark_gray"
+                        android:hint="DD/MM/YYYY "
+                        android:paddingLeft="18dp"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:textColorHint="@color/material_grey_700"
+                        android:textSize="14sp" />
+                    <ImageView
+                        android:id="@+id/show_date_btn"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:onClick="ShowDatePick"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_date" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layout_transfertime"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/bg_edit_login"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color">
+
+                    <TextView
+                        android:id="@+id/tv_transfertime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:text=""
+                        android:textColor="@color/dark_gray"
+                        android:paddingLeft="18dp"
+                        android:textColorHint="@color/material_grey_700"
+                        android:singleLine="true"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:clickable="false"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_clock" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_send_transferinfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="192dp"
+                    android:layout_marginEnd="36dp"
+                    android:background="@drawable/customborder_gray_40dp"
+                    android:gravity="center"
+                    android:text="@string/info_confirm"
+                    android:textColor="@color/color_somegray"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

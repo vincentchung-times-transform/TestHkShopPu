@@ -13,6 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="20dp"
+        android:visibility="gone"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
     <ImageView
@@ -21,6 +22,7 @@
         android:layout_height="match_parent"
         android:elevation="18dp"
         android:clickable="true"
+        android:visibility="gone"
         android:src="@drawable/customview_loading_background" />
 
     <com.HKSHOPU.hk.widget.view.CustomViewPager

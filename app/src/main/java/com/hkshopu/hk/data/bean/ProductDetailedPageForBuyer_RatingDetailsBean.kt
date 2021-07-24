@@ -5,10 +5,10 @@ import com.google.gson.annotations.SerializedName
 class ProductDetailedPageForBuyer_RatingDetailsBean {
 
     @SerializedName("user_name")
-    var user_name: Int = 0
+    var user_name: String = ""
 
     @SerializedName("rating")
-    var rating: Int = 0
+    var rating: Double = 0.0
 
     @SerializedName("comment")
     var comment: String= ""

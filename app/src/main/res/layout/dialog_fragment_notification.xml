@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.fragmentdialog.NotificationDialogFragmen">
+    tools:context=".ui.login.fragmentdialog.NotificationDialogFragmen">
 
     <LinearLayout
         android:layout_width="match_parent"

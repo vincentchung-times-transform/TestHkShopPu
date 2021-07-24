@@ -10,6 +10,9 @@ class ShopDetailedProductForBuyerBean {
     @SerializedName("new_secondhand")
     var new_secondhand: String= ""
 
+    @SerializedName("shop_id")
+    var shop_id: String= ""
+
     @SerializedName("product_description")
     var product_description: String= ""
 

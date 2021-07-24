@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <RelativeLayout
+        android:id="@+id/layout_auditTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_back_click"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_notify_click"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:visibility="visible"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_auditTitle"
+        >
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:text="@string/audit_title"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_1"
+            android:text="@string/audit_notice"
+            android:textColor="@color/colorTextlightGray"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/bg_fpsaudit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_2"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_fpsaudit"
+            android:contentDescription="@string/empty" />
+
+        <ImageView
+            android:id="@+id/iv_gopurchaselist"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/bg_fpsaudit"
+            android:layout_marginTop="48dp"
+            android:src="@mipmap/ic_purchaselist"
+            android:contentDescription="@string/empty"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:id="@+id/iv_gohomepage"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv_gopurchaselist"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_tohomepage"
+            android:contentDescription="@string/empty"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="92dp"
+        android:layout_below="@id/layout_auditTitle"
+        android:scrollbars="none"
+        android:visibility="gone">
+
+            <RelativeLayout
+                android:id="@+id/container_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    tools:listitem="@layout/item_shopmanage"
+                    />
+
+            </RelativeLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

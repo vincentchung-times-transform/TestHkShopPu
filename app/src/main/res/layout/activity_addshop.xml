@@ -8,6 +8,22 @@
     android:background="@color/color_shopbg"
     android:orientation="vertical">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/iv_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:src="@drawable/customview_loading_background" />
+
     <RelativeLayout
         android:id="@+id/titleBar"
         android:layout_width="match_parent"

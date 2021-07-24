@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.product.fragment.StoreOrNotDialogStoreProductsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_fragment_background">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginTop="30dp"
+            android:text="@string/shipping_notification_confirm_to_send_the_following_notice"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/shipping_notification_shipment_number"
+                android:textColor="@color/dark_gray" />
+            <TextView
+                android:id="@+id/tv_shipment_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text=""
+                android:textColor="@color/dark_gray" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/shipping_notification_delivery_date"
+                android:textColor="@color/dark_gray" />
+            <TextView
+                android:id="@+id/tv_delivery_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text=""
+                android:textColor="@color/dark_gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_attachment_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/shipping_notification_attachment_document"
+                android:textColor="@color/dark_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_attachment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text=""
+                    android:textColor="@color/hkshop_color" />
+
+<!--                <com.otaliastudios.zoom.ZoomImageView-->
+<!--                    android:id="@+id/iv_attachment"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:scrollbars="vertical|horizontal"-->
+<!--                    app:transformation="centerInside"-->
+<!--                    app:transformationGravity="auto"-->
+<!--                    app:alignment="center"-->
+<!--                    app:overScrollHorizontal="true"-->
+<!--                    app:overScrollVertical="true"-->
+<!--                    app:overPinchable="true"-->
+<!--                    app:horizontalPanEnabled="true"-->
+<!--                    app:verticalPanEnabled="true"-->
+<!--                    app:zoomEnabled="true"-->
+<!--                    app:flingEnabled="true"-->
+<!--                    app:scrollEnabled="true"-->
+<!--                    app:oneFingerScrollEnabled="true"-->
+<!--                    app:twoFingersScrollEnabled="true"-->
+<!--                    app:threeFingersScrollEnabled="true"-->
+<!--                    app:minZoom="0.7"-->
+<!--                    app:minZoomType="zoom"-->
+<!--                    app:maxZoom="2.5"-->
+<!--                    app:maxZoomType="zoom"-->
+<!--                    app:animationDuration="280"/>-->
+
+<!--                <com.otaliastudios.zoom.ZoomLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scrollbars="vertical|horizontal"-->
+<!--                    app:transformation="centerInside"-->
+<!--                    app:transformationGravity="auto"-->
+<!--                    app:alignment="center"-->
+<!--                    app:overScrollHorizontal="true"-->
+<!--                    app:overScrollVertical="true"-->
+<!--                    app:overPinchable="true"-->
+<!--                    app:horizontalPanEnabled="true"-->
+<!--                    app:verticalPanEnabled="true"-->
+<!--                    app:zoomEnabled="true"-->
+<!--                    app:flingEnabled="true"-->
+<!--                    app:scrollEnabled="true"-->
+<!--                    app:oneFingerScrollEnabled="true"-->
+<!--                    app:twoFingersScrollEnabled="true"-->
+<!--                    app:threeFingersScrollEnabled="true"-->
+<!--                    app:minZoom="0.7"-->
+<!--                    app:minZoomType="zoom"-->
+<!--                    app:maxZoom="2.5"-->
+<!--                    app:maxZoomType="zoom"-->
+<!--                    app:animationDuration="280"-->
+<!--                    app:hasClickableChildren="false">-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/iv_attachment"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content" />-->
+
+<!--                </com.otaliastudios.zoom.ZoomLayout>-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:weightSum="2"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/ic_backward"/>
+            <ImageView
+                android:id="@+id/btn_forward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:src="@mipmap/ic_confirm3"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

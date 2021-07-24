@@ -77,15 +77,17 @@
                 android:id="@+id/layout_shopmodify_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="15dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/layout_shop_info"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -110,6 +112,10 @@
                     android:id="@+id/layout_shop_address"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/customborder_onboard_8dp">
 
@@ -135,6 +141,10 @@
                     android:id="@+id/layout_shop_bankaccount"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/customborder_onboard_8dp">
 
@@ -190,7 +200,6 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
@@ -220,6 +229,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp"
                     android:visibility="visible">
 

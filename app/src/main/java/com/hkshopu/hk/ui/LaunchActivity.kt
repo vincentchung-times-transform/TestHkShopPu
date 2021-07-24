@@ -9,7 +9,7 @@ import android.widget.ImageView
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.databinding.ActivityLaunchBinding
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.OnBoardActivity
+import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 
 
 class LaunchActivity : BaseActivity() {
@@ -22,7 +22,6 @@ class LaunchActivity : BaseActivity() {
         nextPage()
         initVM()
         initClick()
-
     }
 
     private fun nextPage() {
@@ -38,12 +37,8 @@ class LaunchActivity : BaseActivity() {
            finish()
         }, 3000)
     }
-
     private fun initVM() {
-
     }
-
     private fun initClick() {
-
     }
 }

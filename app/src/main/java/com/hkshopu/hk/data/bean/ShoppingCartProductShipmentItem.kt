@@ -3,8 +3,8 @@ import com.google.gson.annotations.SerializedName
 
 class ShoppingCartProductShipmentItem {
 
-    @SerializedName("shipment_id")
-    var shipment_id: String=""
+    @SerializedName("product_shipment_id")
+    var product_shipment_id: String=""
 
     @SerializedName("shipment_desc")
     var shipment_desc: String=""

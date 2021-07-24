@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <RelativeLayout
+        android:id="@+id/layout_pwchange1Title"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/pwchange"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/ic_notification"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_notifycount"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/customborder_round_turquise"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/layout_pwchange"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_pwchange1Title"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_remind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/addemail_remind"
+            android:textSize="12sp"
+            android:textColor="@color/dark_gray"/>
+
+        <RelativeLayout
+            android:id="@+id/layout_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/tv_remind"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color">
+
+            <EditText
+
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:background="@drawable/customborder_onboard_8dp"
+                android:hint="@string/password_now"
+                android:textSize="14sp"
+                android:inputType="textPassword"
+                android:paddingLeft="20dp"
+                android:textColorHint="@color/color_somegray"/>
+
+            <ImageView
+                android:id="@+id/show_pass_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="5dp"
+                android:onClick="ShowHidePass"
+                android:padding="5dp"
+                android:src="@mipmap/ic_eyeoff" />
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_goOn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="80dp"
+            android:background="@drawable/customborder_onboard_turquise_40p"
+            android:gravity="center"
+            android:text="@string/go_on"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/goRetrieve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
+            android:padding="10dp"
+            android:textSize="14sp"
+            android:text="@string/forgetpassword_ch"
+            android:textColor="@color/turquoise" />
+    </RelativeLayout>
+
+</RelativeLayout>
