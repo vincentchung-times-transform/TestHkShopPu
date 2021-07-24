@@ -10,23 +10,22 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.HKSHOPU.hk.R
-
 import com.HKSHOPU.hk.data.bean.ProductShopPreviewBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
 import org.json.JSONArray
@@ -53,8 +52,8 @@ class RankingTopSaleFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = ProductShopPreviewAdapter(currency)
-
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "")
+    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -84,9 +83,7 @@ class RankingTopSaleFragment : Fragment() {
     }
 
     private fun initView(){
-
     }
-
     @SuppressLint("CheckResult")
     fun initEvent() {
         RxBus.getInstance().toMainThreadObservable(requireActivity(), Lifecycle.Event.ON_DESTROY)
@@ -99,16 +96,7 @@ class RankingTopSaleFragment : Fragment() {
 
             })
     }
-
-
-
-
-
-
-
     private fun initRecyclerView(){
-
-
         val layoutManager = GridLayoutManager(requireActivity(),2)
         topProduct.layoutManager = layoutManager
 
@@ -120,11 +108,9 @@ class RankingTopSaleFragment : Fragment() {
 //            intent.putExtra("bundle_product_id", bundle)
 //            requireActivity().startActivity(intent)
 //        }
-
     }
 
     private fun getProductOverAll(url: String,userId:String) {
-
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -201,6 +187,4 @@ class RankingTopSaleFragment : Fragment() {
         })
         web.Do_GetShopProduct(url,userId)
     }
-
-
 }

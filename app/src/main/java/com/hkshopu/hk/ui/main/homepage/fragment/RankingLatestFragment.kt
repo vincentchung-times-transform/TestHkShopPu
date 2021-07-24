@@ -23,10 +23,11 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
 import org.json.JSONArray
@@ -53,7 +54,8 @@ class RankingLatestFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = ProductShopPreviewAdapter(currency)
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "")
+    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
 
 
     override fun onCreateView(
@@ -84,31 +86,18 @@ class RankingLatestFragment : Fragment() {
     }
 
     private fun initView(){
-
     }
-
     @SuppressLint("CheckResult")
     fun initEvent() {
         RxBus.getInstance().toMainThreadObservable(requireActivity(), Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
 //                    is EventAddShopBriefSuccess -> {
-//
 //                    }
                 }
-
             })
     }
-
-
-
-
-
-
-
     private fun initRecyclerView(){
-
-
         val layoutManager = GridLayoutManager(requireActivity(),2)
         latestProduct.layoutManager = layoutManager
 
@@ -120,7 +109,6 @@ class RankingLatestFragment : Fragment() {
 //            intent.putExtra("bundle_product_id", bundle)
 //            requireActivity().startActivity(intent)
 //        }
-
     }
 
     private fun getProductOverAll(url: String,userId:String) {
@@ -136,7 +124,6 @@ class RankingLatestFragment : Fragment() {
                     Log.d("RankingLatestFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     if (ret_val.equals("已取得商品清單!")) {
-
                         val jsonArray: JSONArray = json.getJSONArray("data")
                         Log.d("RankingLatestFragment", "返回資料 jsonArray：" + jsonArray.toString())
 
@@ -146,7 +133,6 @@ class RankingLatestFragment : Fragment() {
                                 Gson().fromJson(jsonObject.toString(), ProductShopPreviewBean::class.java)
                             list.add(productShopPreviewBean)
                         }
-
                     }
 
                     Log.d("RankingLatestFragment", "返回資料 list：" + list.toString())

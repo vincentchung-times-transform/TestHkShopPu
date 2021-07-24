@@ -24,7 +24,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -48,12 +48,11 @@ class StoreRankingTopFragment : Fragment() {
     }
 
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
-
     lateinit var refreshLayout: SmartRefreshLayout
     lateinit var layout_empty_result: LinearLayout
     lateinit var topStore :RecyclerView
     lateinit var progressBar: ProgressBar
-    private val adapter = StoreRecommendAdapter()
+    private val adapter = StoreRecommendAdapter(userId)
     var max_seq = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
@@ -19,9 +20,10 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.TopProductAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
 import org.json.JSONArray
@@ -48,9 +50,10 @@ class RankingAllTopFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = TopProductAdapter(currency)
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+    private val adapter = TopProductAdapter(currency, userId)
     var max_seq = 0
-    var userId = ""
+//    var userId = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -86,7 +89,6 @@ class RankingAllTopFragment : Fragment() {
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {
-
             val mode = "overall"
             var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages/"
             max_seq ++
@@ -122,7 +124,6 @@ class RankingAllTopFragment : Fragment() {
                     val json = JSONObject(resStr)
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
-
                     Log.d("getProductOverAll", "返回資料 resStr：${resStr.toString()}")
                     Log.d("getProductOverAll", "返回資料 ret_val：${ret_val.toString()}")
 
@@ -148,14 +149,12 @@ class RankingAllTopFragment : Fragment() {
                             adapter.setData(list)
                             initRecyclerView()
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.GONE
                             refreshLayout.visibility = View.VISIBLE
                         }
                     }else{
                         activity!!.runOnUiThread {
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.VISIBLE
                             refreshLayout.visibility = View.GONE
                         }
@@ -165,7 +164,6 @@ class RankingAllTopFragment : Fragment() {
                     Log.d("errormessage", "getProductOverAll: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
                         layout_empty_result.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
@@ -174,7 +172,6 @@ class RankingAllTopFragment : Fragment() {
                     Log.d("errormessage", "getProductOverAll: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
                         layout_empty_result.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
@@ -185,7 +182,6 @@ class RankingAllTopFragment : Fragment() {
                 Log.d("errormessage", "getProductOverAll: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
-
                     layout_empty_result.visibility = View.VISIBLE
                     refreshLayout.visibility = View.GONE
                 }

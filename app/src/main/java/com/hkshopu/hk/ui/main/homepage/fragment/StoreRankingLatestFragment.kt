@@ -24,8 +24,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -53,7 +52,7 @@ class StoreRankingLatestFragment : Fragment() {
     lateinit var layout_empty_result: LinearLayout
     lateinit var latestStore :RecyclerView
     lateinit var progressBar: ProgressBar
-    private val adapter = StoreRecommendAdapter()
+    private val adapter = StoreRecommendAdapter(userId)
     var max_seq = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,7 +66,7 @@ class StoreRankingLatestFragment : Fragment() {
         var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
         latestStore = v.find<RecyclerView>(R.id.recyclerview_latest_store)
 
-        progressBar = v.find<ProgressBar>(R.id.progressBar_all_store)
+        progressBar = v.find<ProgressBar>(R.id.progressBar_latest_store)
         progressBar.visibility = View.VISIBLE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE

@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
@@ -24,7 +25,7 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductSearchAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -51,16 +52,19 @@ class RankingExpensiveSearchFragment : Fragment() {
 
     lateinit var refreshLayout: SmartRefreshLayout
     lateinit var layout_empty_result: LinearLayout
+    lateinit var layout_refresh_request: LinearLayout
+    lateinit var btn_refresh: ImageView
     lateinit var expensiveProduct :RecyclerView
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = ProductSearchAdapter(currency)
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+    private val adapter = ProductSearchAdapter(currency, userId)
     var keyword = ""
     var categoryId = ""
     var sub_categoryId = ""
     var max_seq = 0
-    var userId= ""
+//    var userId= ""
     var mode = "higher_price"
 
     override fun onCreateView(
@@ -76,8 +80,9 @@ class RankingExpensiveSearchFragment : Fragment() {
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
-
-
+        layout_refresh_request = v.find(R.id.layout_refresh_request)
+        layout_refresh_request.visibility = View.GONE
+        btn_refresh =  v.find<ImageView>(R.id.btn_refresh)
 
         expensiveProduct = v.find<RecyclerView>(R.id.recyclerview_expensive)
 
@@ -97,8 +102,10 @@ class RankingExpensiveSearchFragment : Fragment() {
 
         initRecyclerView()
 
-        val url = ApiConstants.API_HOST+"/product/"+mode +"/product_analytics_pages_keyword/"
-        getSearchProductOverAll(url, userId.toString(), categoryId.toString(), sub_categoryId.toString(), max_seq.toString(), keyword!!)
+        getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), max_seq.toString(), keyword!!)
+        btn_refresh.setOnClickListener {
+            getSearchProductOverAll(userId, "", "".toString(), "0", keyword!!)
+        }
     }
 
     private fun initRefresh() {
@@ -137,8 +144,7 @@ class RankingExpensiveSearchFragment : Fragment() {
                         categoryId = MMKV.mmkvWithID("http").getString("sub_product_category_id","").toString()
                         Log.d("RankingAllSearch", "資料 categoryId：" + categoryId.toString() + " ; sub_categoryId : ${sub_categoryId.toString()}")
 
-                        val url = ApiConstants.API_HOST+"/product/"+mode +"/product_analytics_pages_keyword/"
-                        getSearchProductOverAll(url, userId.toString(), categoryId.toString(), categoryId.toString(), max_seq.toString(), keyword!!)
+                        getSearchProductOverAll(userId.toString(), categoryId.toString(), categoryId.toString(), max_seq.toString(), keyword!!)
                     }
                 }
 
@@ -162,8 +168,9 @@ class RankingExpensiveSearchFragment : Fragment() {
 
     }
 
-    private fun getSearchProductOverAll(url: String, user_id:String, category_id:String, sub_category_id:String, max_seq:String, keyword:String) {
+    private fun getSearchProductOverAll(user_id:String, category_id:String, sub_category_id:String, max_seq:String, keyword:String) {
 
+        val url = ApiConstants.API_HOST+"/product/"+mode +"/product_analytics_pages_keyword/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -200,8 +207,8 @@ class RankingExpensiveSearchFragment : Fragment() {
                         activity!!.runOnUiThread {
                             adapter.setData(list)
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.GONE
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.visibility = View.VISIBLE
                         }
 
@@ -209,8 +216,8 @@ class RankingExpensiveSearchFragment : Fragment() {
                         activity!!.runOnUiThread {
                             adapter.clear()
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.VISIBLE
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.visibility = View.GONE
                         }
                     }
@@ -220,8 +227,8 @@ class RankingExpensiveSearchFragment : Fragment() {
                     Log.d("errormessage", "getSearchProductOverAll: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
-                        layout_empty_result.visibility = View.VISIBLE
+                        layout_empty_result.visibility = View.GONE
+                        layout_refresh_request.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
                 } catch (e: IOException) {
@@ -229,8 +236,8 @@ class RankingExpensiveSearchFragment : Fragment() {
                     Log.d("errormessage", "getSearchProductOverAll: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
-                        layout_empty_result.visibility = View.VISIBLE
+                        layout_empty_result.visibility = View.GONE
+                        layout_refresh_request.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
                 }
@@ -239,8 +246,8 @@ class RankingExpensiveSearchFragment : Fragment() {
                 Log.d("errormessage", "getSearchProductOverAll: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
-
-                    layout_empty_result.visibility = View.VISIBLE
+                    layout_empty_result.visibility = View.GONE
+                    layout_refresh_request.visibility = View.VISIBLE
                     refreshLayout.visibility = View.GONE
                 }
             }

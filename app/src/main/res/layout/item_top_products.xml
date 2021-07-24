@@ -20,32 +20,33 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colordivideline">
-
             <ImageView
                 android:id="@+id/iv_product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:src="@mipmap/ic_no_image" />
-
-
-
             <ImageView
                 android:id="@+id/iv_product_like"
-                android:layout_width="20dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:clickable="true"
                 android:layout_alignParentEnd="true"
-                android:scaleType="centerCrop"
+                android:layout_alignParentBottom="true"
+                android:scaleType="centerInside"
                 android:src="@mipmap/ic_heart_white" />
-
-            <ImageView
-                android:id="@+id/iv_product_like_click"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_alignParentEnd="true"
-                android:scaleType="centerCrop" />
+<!--            <ImageView-->
+<!--                android:id="@+id/iv_product_like_click"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:padding="16dp"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:scaleType="centerInside"-->
+<!--                android:clickable="true"-->
+<!--                android:visibility="gone"-->
+<!--                android:src="@mipmap/ic_heart_red" />-->
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

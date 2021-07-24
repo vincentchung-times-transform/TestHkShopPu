@@ -104,42 +104,38 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+                android:id="@+id/layout_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_gravity="center_horizontal">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:outlineSpotShadowColor="@color/hkshop_color"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:elevation="10dp"
+                    android:layout_height="345dp"
                     app:cardCornerRadius="12dp">
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/product_pics_pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/colordivideline"
                         android:layout_centerHorizontal="true" />
 
                 </androidx.cardview.widget.CardView>
 
-
                 <LinearLayout
                     android:id="@+id/product_pics_indicator"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:elevation="2dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:orientation="horizontal" />
+                    android:elevation="10dp"
+                    android:orientation="horizontal"/>
 
             </RelativeLayout>
 

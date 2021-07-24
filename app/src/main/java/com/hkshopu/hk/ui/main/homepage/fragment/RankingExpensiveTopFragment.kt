@@ -23,10 +23,11 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.TopProductAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
 import org.json.JSONArray
@@ -52,10 +53,11 @@ class RankingExpensiveTopFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = TopProductAdapter(currency)
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+    private val adapter = TopProductAdapter(currency, userId)
 
     var max_seq = 0
-    var userId = ""
+//    var userId = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

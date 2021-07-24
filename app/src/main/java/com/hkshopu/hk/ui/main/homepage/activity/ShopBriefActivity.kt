@@ -19,7 +19,7 @@ import com.HKSHOPU.hk.databinding.ActivityShopbriefUserBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopNotifyActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.extension.load
 
 
@@ -33,7 +33,7 @@ import java.io.IOException
 class ShopBriefActivity : BaseActivity() {
     private lateinit var binding: ActivityShopbriefUserBinding
 
-    var shopId: Int = 0
+    var shopId: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,16 +42,14 @@ class ShopBriefActivity : BaseActivity() {
         initView()
         initVM()
         initClick()
-        shopId = intent.getBundleExtra("bundle")!!.getInt("shopId", 0)
+        shopId = intent.getBundleExtra("bundle")!!.getString("shopId").toString()
+
         var url =
             ApiConstants.API_HOST + "shop/" + shopId + "/get_simple_info_of_specific_shop_for_buyer/"
         getShopBrief(url)
-
-
     }
 
     private fun initView() {
-        binding.progressBarShopBrief.isVisible = true
 
     }
 
@@ -73,35 +71,32 @@ class ShopBriefActivity : BaseActivity() {
     }
 
     private fun initClick() {
-
         binding.titleBackShopbrief.setOnClickListener {
-
             finish()
         }
-
         binding.ivNotifyClick.setOnClickListener {
             val intent = Intent(this@ShopBriefActivity, ShopNotifyActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     private fun getShopBrief(url: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        binding.ivLoadingBackground.visibility = View.VISIBLE
 
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
-
                     val infolist = ArrayList<ShopBriefUserBean>()
                     infolist.clear()
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("ShopBriefActivity", "返回資料 resStr：" + resStr)
-                    Log.d("ShopBriefActivity", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
+                    Log.d("getShopBrief", "返回資料 resStr：" + resStr)
+                    Log.d("getShopBrief", "返回資料 ret_val：" + json.get("ret_val"))
+
                     if (status == 0) {
                         val jsonObject: JSONObject = json.getJSONObject("data")
                         val shopBriefUserBean: ShopBriefUserBean =
@@ -121,9 +116,7 @@ class ShopBriefActivity : BaseActivity() {
                                 binding.tvShopbriefEmail.text = infolist[0].shop_email
                             }
 
-
                             if (infolist[0].address_phone.length > 0) {
-
                                 binding.tvShopbriefContact.visibility = View.VISIBLE
                                 binding.ivShopbriefContact1.visibility = View.VISIBLE
                                 binding.tvShopbriefPhone.text = infolist[0].address_phone
@@ -146,35 +139,47 @@ class ShopBriefActivity : BaseActivity() {
                                 binding.ivShopbriefAddress.visibility = View.VISIBLE
                                 binding.tvShopbriefAddress.visibility = View.VISIBLE
                                 binding.tvShopbriefAddress.text = address_brief
-
                             }
 
-
                             binding.tvShopbriefContact.visibility = View.VISIBLE
-                            binding.progressBarShopBrief.isVisible = false
+
+                            binding.progressBar.visibility = View.GONE
+                            binding.ivLoadingBackground.visibility = View.GONE
                         }
                     } else {
-
                         runOnUiThread {
-
                             Toast.makeText(
                                 this@ShopBriefActivity,
                                 ret_val.toString(),
                                 Toast.LENGTH_SHORT
                             ).show()
+                            binding.progressBar.visibility = View.GONE
+                            binding.ivLoadingBackground.visibility = View.GONE
                         }
                     }
 
-
                 } catch (e: JSONException) {
-
+                    Log.d("getShopBrief_errorMessage", "JSONException: ${e.toString()}")
+                    runOnUiThread {
+                        binding.progressBar.visibility = View.GONE
+                        binding.ivLoadingBackground.visibility = View.GONE
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getShopBrief_errorMessage", "IOException: ${e.toString()}")
+                    runOnUiThread {
+                        binding.progressBar.visibility = View.GONE
+                        binding.ivLoadingBackground.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                Log.d("getShopBrief_errorMessage", "ErrorResponse: ${ErrorResponse.toString()}")
+                runOnUiThread {
+                    binding.progressBar.visibility = View.GONE
+                    binding.ivLoadingBackground.visibility = View.GONE
+                }
             }
         })
         web.Get_Data(url)

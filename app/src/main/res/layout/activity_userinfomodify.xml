@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+    <ProgressBar
+        android:id="@+id/progressBar_userInfoModify"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="10dp" />
+    <ImageView
+        android:id="@+id/imgView_loading_background_userInfoModify"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
     <RelativeLayout
         android:id="@+id/layout_shopTitle"
         android:layout_width="match_parent"
@@ -98,7 +115,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
                             android:layout_marginStart="3dp"
-                            android:layout_marginBottom="-12dp"
+                            android:layout_marginBottom="-14dp"
                             android:src="@mipmap/ic_edit_mask" />
                     </androidx.cardview.widget.CardView>
 
@@ -111,15 +128,18 @@
                 android:id="@+id/layout_userinfomodify"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginTop="4dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/layout_namemodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -153,7 +173,11 @@
                     android:id="@+id/layout_gendermodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -186,7 +210,11 @@
                     android:id="@+id/layout_birthdaymodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -221,7 +249,11 @@
                     android:id="@+id/layout_phonemodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -250,45 +282,55 @@
                         android:text="" />
                 </RelativeLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/layout_emailmodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
+                    android:elevation="10dp"
+                    android:orientation="horizontal"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:text="@string/email" />
+
+                    <TextView
+                        android:id="@+id/tv_user_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:text="" />
 
                     <ImageView
                         android:id="@+id/iv_chevron_user_email"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
                         android:layout_marginEnd="20dp"
                         android:src="@mipmap/ic_chevron" />
 
-                    <TextView
-                        android:id="@+id/tv_user_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:text="" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/layout_socialacntmodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
-                    android:visibility="visible"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
+                    android:visibility="gone"
                     android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
@@ -313,7 +355,12 @@
                     android:id="@+id/layout_passwordmodify"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="24dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp"
                     android:visibility="visible">
 

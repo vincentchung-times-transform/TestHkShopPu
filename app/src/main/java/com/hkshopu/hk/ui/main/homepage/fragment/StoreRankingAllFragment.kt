@@ -10,22 +10,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.HKSHOPU.hk.R
-
 import com.HKSHOPU.hk.data.bean.ShopRecommendBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
-
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -52,8 +49,8 @@ class StoreRankingAllFragment : Fragment() {
     lateinit var layout_empty_result: LinearLayout
     lateinit var allStore :RecyclerView
     lateinit var progressBar:ProgressBar
-    private val adapter = StoreRecommendAdapter()
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+    private val adapter = StoreRecommendAdapter(userId.toString())
     var max_seq = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

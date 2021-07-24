@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <ProgressBar
+        android:id="@+id/progressBar_buyerAddFpsAccount"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background_buyerAddFpsAccount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+    <RelativeLayout
+        android:id="@+id/layout_fpsaccount"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/add_fpsaccount"
+            android:textSize="18sp"
+            android:textColor="@color/dark_gray"/>
+
+
+        <ImageView
+            android:id="@+id/iv_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/ic_notification"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_notifycount"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/customborder_round_turquise"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_bankaccountEdit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_fpsaccount"
+        android:layout_marginTop="12dp">
+
+        <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+            android:id="@+id/smartSpinner_bankAccount"
+            android:spinnerMode="dropdown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:background="@drawable/customborder_onboard_8dp"
+            app:smsp_enableFloatingLabel = "false"
+            app:smsp_alwaysShowFloatingLabel="false"
+            app:smsp_floatingLabelColor="@color/dark_gray"
+            app:smsp_floatingLabelText="請選擇銀行"
+            app:smsp_floatingLabelSize="14sp"
+            app:smsp_enableSearchHeader="true"
+            app:smsp_searchHeaderText="請選擇銀行"
+            app:smsp_searchHeaderTextColor="@color/white"
+            app:smsp_searchHeaderBackgroundColor="@color/hkshop_color"
+            app:smsp_hint="請選擇銀行"
+            app:smsp_hintSize="14sp"
+            app:smsp_hintColor="@color/black"
+            app:smsp_itemSize="14sp"
+            app:smsp_itemColor="@color/dark_gray"
+            app:smsp_itemListColor="@color/dark_gray"
+            app:smsp_itemListHintBackgroundColor="#808080"
+            app:smsp_itemListHintColor="#FFFFFF"
+            app:smsp_multilineError="false"
+            app:smsp_selectedItemListColor="@color/black"
+            app:smsp_isSearchable="true"
+            app:smsp_searchHint="請搜選銀行名稱或銀行代碼"
+            app:smsp_searchHintColor="@color/bright_gray"
+            app:smsp_searchTextColor="@color/black"
+            app:smsp_enableErrorLabel="false"
+            app:smsp_underlineSize="0dp"
+            app:smsp_underlineColor="@color/white"/>
+
+        <EditText
+            android:id="@+id/et_bankaccountname"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_below="@id/smartSpinner_bankAccount"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:background="@drawable/customborder_onboard_8dp"
+            android:gravity="center_vertical"
+            android:hint="@string/bankaccoountname_input"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:textColorHint="@color/color_somegray"
+            android:textSize="14sp"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
+
+        <LinearLayout
+            android:id="@+id/layout_contactmethod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@id/et_bankaccountname"
+            android:background="@drawable/bg_edit_login"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/fps_phone"
+                android:textColor="@color/turquoise"
+                android:background="@drawable/customborder_onboard_8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginStart="4dp"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="@string/fps_email"
+                android:textColor="@color/dark_gray"
+                android:background="@drawable/bg_edit_login"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginEnd="4dp"
+                android:paddingStart="28dp"
+                android:paddingEnd="28dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/layout_contactmethod"
+            android:layout_marginEnd="16dp"
+            android:text="@string/add_fpsaccount_remind"
+            android:textColor="@color/bright_red"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tv_phone_country"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_below="@id/layout_contactmethod"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:background="@drawable/customborder_onboard_8dp"
+            android:gravity="center_vertical"
+            android:text="+852"
+            android:paddingStart="20dp"
+            android:paddingEnd="60dp"
+            android:textColor="@color/turquoise"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/layout_contactmethod"
+            android:layout_toEndOf="@id/tv_phone_country"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/customborder_onboard_8dp"
+            android:gravity="center_vertical"
+            android:hint="@string/phone_input"
+            android:inputType="phone"
+            android:paddingStart="20dp"
+            android:textColorHint="@color/color_somegray"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_below="@id/layout_contactmethod"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:elevation="10dp"
+            android:outlineSpotShadowColor="@color/hkshop_color"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/customborder_onboard_8dp"
+            android:gravity="center_vertical"
+            android:hint="@string/email_input_fps"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:textColorHint="@color/color_somegray"
+            android:textSize="14sp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_next"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/nextstep"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:clickable="false"
+            android:background="@drawable/customborder_onboard_darkgray"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="24dp"
+            android:textSize="18sp"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+</RelativeLayout>

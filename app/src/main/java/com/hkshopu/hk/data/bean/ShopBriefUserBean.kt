@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 class ShopBriefUserBean {
     @SerializedName("shop_id")
-    var shop_id: Int = 0
+    var shop_id: String = ""
 
     @SerializedName("shop_icon")
     var shop_icon: String= ""

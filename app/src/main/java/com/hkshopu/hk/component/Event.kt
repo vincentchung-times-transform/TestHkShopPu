@@ -2,8 +2,11 @@ package com.HKSHOPU.hk.component
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import com.HKSHOPU.hk.data.bean.DetailedProductSpecificationBean
+import com.HKSHOPU.hk.data.bean.ItemSpecificationSeleting
 import com.HKSHOPU.hk.data.bean.ShopBankAccountBean
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
+import com.facebook.internal.Mutable
 
 /**
  * Created by Administrator on 2018/4/20 0020.
@@ -26,6 +29,7 @@ class EventGetShopCatSuccess(val list: ArrayList<String>)
 
 //ShopInfoFragment
 class EventRefreshShopInfo()
+class EventRefreshShopFucition()
 
 //ShopmenuActivity
 class EventStartLoadingShopmenu()
@@ -65,6 +69,19 @@ class EventdeleverFragmentAfterUpdateStatus()
 
 
 //Detailed Products Info For Buyer
+class EventBuyerDetailedProductBottomSheetShowHide(
+    var mode:String,
+    var product_id:String,
+    var product_name:String,
+    var stock_up_days:Int,
+    var other_detailed_product_specification_bean: DetailedProductSpecificationBean
+)
+class EventBuyerDetailedProductBottomSheetConfirmToOtherProduct(
+    var spec_spinner_content_value:String,
+    var price_range: String,
+    var spec_id: String
+)
+
 class EventBuyerDetailedProductBtnStatusFirst(
     val boolean: Boolean,
     val position: Int,
@@ -89,9 +106,10 @@ class EventBuyerDetailedProductRemoveProDetailedFragment(var fragment: Fragment)
 
 class EventRemoveShoppingCartItem(var shop_id: String, var item_id_list_json: String, var position: Int)
 class EventUpdateShoppingCartItem(var shopping_cart_item_id: String, var new_quantity : String, var selected_shipment_id : String, var selected_user_address_id: String, var selected_payment_id : String)
-class EventUpdateShoppingCartItemForConfirmed(var id : String, var buyerName: String, var buyerPhone: String, var buyerAddress: String, var shoppingCartShopId: String, var specId_json:String)
+class EventUpdateShoppingCartItemForConfirmed(var id : String, var buyerName: String, var buyerPhone: String, var buyerAddress: String, var shoppingCartShopId: String, var specId_json:String, var address_updateMode:String)
 class EventCheckedShoppingCartItem()
 class EventRefreshShoppingCartItemCount()
+class EventRefreshShoppingCartBuyerAddressList()
 
 //RefreshUser
 class EventRefreshUserInfo()
@@ -105,9 +123,19 @@ class EventToProductSearch()
 //ProductCatSelectedToSearch
 class EventProductCatSelectedToSearch(val selectrdId: String = "", var c_product_category_selected: String)
 
-
 //ShopPreView
 class EventShopPreViewRankAll(val shopId: String = "")
+
+//Shopmenu
+class EventShopmenuToSpecificPage(var index: Int = 0)
+
+//PurchaseList
+class EventPurchaseListToSpecificPage(var index: Int = 0)
+//SaleList
+class EventSaleListToSpecificPage(var index: Int = 0)
+
+//Order
+class EventGenerateOeder()
 
 //Other Events (Not Used)
 
@@ -136,3 +164,6 @@ class EventEmailShow(val show:Boolean,val email: String? = null)
 class EventSyncBank
 
 class EventAutoSwitch
+
+//fps
+class EventRefreshFpsAccountList

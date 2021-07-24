@@ -53,8 +53,11 @@
     <color name="light_gray_F6F6F6">#F6F6F6</color>
     <color name="light_gray_E5E5EA">#E5E5EA</color>
 
-
     <!--首頁-->
     <color name="bg_backtotop">#66AEEEE0</color>
+
+    <!--購買清單-->
+    <color name="bg_detailbottom">#1A000000</color>
+
 
 </resources>

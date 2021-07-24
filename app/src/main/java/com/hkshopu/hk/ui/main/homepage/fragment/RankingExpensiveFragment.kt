@@ -23,10 +23,11 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
 import org.json.JSONArray
@@ -52,7 +53,8 @@ class RankingExpensiveFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter = ProductShopPreviewAdapter(currency)
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "")
+    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
 
 
     override fun onCreateView(
@@ -83,34 +85,20 @@ class RankingExpensiveFragment : Fragment() {
     }
 
     private fun initView(){
-
     }
-
     @SuppressLint("CheckResult")
     fun initEvent() {
         RxBus.getInstance().toMainThreadObservable(requireActivity(), Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
 //                    is EventAddShopBriefSuccess -> {
-//
 //                    }
                 }
-
             })
     }
-
-
-
-
-
-
-
     private fun initRecyclerView(){
-
-
         val layoutManager = GridLayoutManager(requireActivity(),2)
         expensiveProduct.layoutManager = layoutManager
-
         expensiveProduct.adapter = adapter
 //        adapter.itemClick = {
 //            val intent = Intent(requireActivity(), ProductDetailedPageBuyerViewActivity::class.java)
@@ -119,7 +107,6 @@ class RankingExpensiveFragment : Fragment() {
 //            intent.putExtra("bundle_product_id", bundle)
 //            requireActivity().startActivity(intent)
 //        }
-
     }
 
     private fun getProductOverAll(url: String,userId:String) {
@@ -131,13 +118,13 @@ class RankingExpensiveFragment : Fragment() {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("RankingExpensiveFragment", "返回資料 resStr：" + resStr)
-                    Log.d("RankingExpensiveFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
-                    if (ret_val.equals("已取得商品清單!")) {
+                    Log.d("getProductOverAll", "返回資料 resStr：" + resStr)
+                    Log.d("getProductOverAll", "返回資料 ret_val：" + json.get("ret_val"))
 
+                    if (ret_val.equals("已取得商品清單!")) {
                         val jsonArray: JSONArray = json.getJSONArray("data")
-                        Log.d("RankingExpensiveFragment", "返回資料 jsonArray：" + jsonArray.toString())
+                        Log.d("getProductOverAll", "返回資料 jsonArray：" + jsonArray.toString())
 
                         for (i in 0 until jsonArray.length()) {
                             val jsonObject: JSONObject = jsonArray.getJSONObject(i)
@@ -145,10 +132,9 @@ class RankingExpensiveFragment : Fragment() {
                                 Gson().fromJson(jsonObject.toString(), ProductShopPreviewBean::class.java)
                             list.add(productShopPreviewBean)
                         }
-
                     }
 
-                    Log.d("RankingExpensiveFragment", "返回資料 list：" + list.toString())
+                    Log.d("getProductOverAll", "返回資料 list：" + list.toString())
 
                     if(list.size > 0){
                         adapter.setData(list)
@@ -167,9 +153,8 @@ class RankingExpensiveFragment : Fragment() {
                             refreshLayout.visibility = View.GONE
                         }
                     }
-
                 } catch (e: JSONException) {
-                    Log.d("errormessage", "getStoreOverAll: JSONException：" + e.toString())
+                    Log.d("getProductOverAll_errorMessage", "getStoreOverAll: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
 
@@ -178,7 +163,7 @@ class RankingExpensiveFragment : Fragment() {
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("errormessage", "getStoreOverAll: IOException：" + e.toString())
+                    Log.d("getProductOverAll_errorMessage", "getStoreOverAll: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
 
@@ -189,7 +174,7 @@ class RankingExpensiveFragment : Fragment() {
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("errormessage", "getStoreOverAll: ErrorResponse：" + ErrorResponse.toString())
+                Log.d("getProductOverAll_errorMessage", "getStoreOverAll: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
 
@@ -200,5 +185,4 @@ class RankingExpensiveFragment : Fragment() {
         })
         web.Do_GetShopProduct(url,userId)
     }
-
 }

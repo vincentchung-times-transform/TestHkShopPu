@@ -27,7 +27,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.SearchActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -49,16 +49,15 @@ class StoreSearchAllFragment : Fragment() {
             return fragment
         }
     }
-
+    var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     lateinit var refreshLayout: SmartRefreshLayout
     lateinit var layout_empty_result: LinearLayout
     lateinit var allStore :RecyclerView
     lateinit var progressBar:ProgressBar
-    private val adapter = StoreRecommendAdapter()
+    private val adapter = StoreRecommendAdapter(userId)
     var keyword = ""
     var categoryId = ""
     var sub_categoryId = ""
-    var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     var max_seq = 0
     var mode = "overall"
     override fun onCreateView(
@@ -265,10 +264,11 @@ class StoreSearchAllFragment : Fragment() {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("StoreSearchAllFragment", "返回資料 resStr：" + resStr)
-                    Log.d("StoreSearchAllFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
+                    Log.d("StoreSearchAllFragment", "返回資料 resStr：" + resStr)
+                    Log.d("StoreSearchAllFragment", "返回資料 ret_val：" + ret_val)
+
                     if (status == 0) {
 
                         val jsonObject: JSONObject = json.getJSONObject("data")
@@ -306,7 +306,6 @@ class StoreSearchAllFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAllMore: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
                         layout_empty_result.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
@@ -315,7 +314,6 @@ class StoreSearchAllFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAllMore: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
                         layout_empty_result.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }

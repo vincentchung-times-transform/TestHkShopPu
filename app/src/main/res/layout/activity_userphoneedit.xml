@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+    <ProgressBar
+        android:id="@+id/progressBar_userPhoneEdit"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background_userPhoneEdit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+
     <RelativeLayout
         android:id="@+id/layout_phoneEditTitle"
         android:layout_width="match_parent"
@@ -65,16 +85,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_phone_country"
                     android:layout_width="96dp"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="12dp"
                     android:background="@drawable/customborder_onboard_8dp"
                     android:text="@string/hk"
                     android:paddingStart="16dp"
@@ -89,8 +108,10 @@
                     android:id="@+id/etPhone_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/customborder_onboard_8dp"
                     android:paddingStart="24dp"
                     android:paddingEnd="0dp"

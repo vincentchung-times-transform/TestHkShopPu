@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.user.fragment.DisclaimerFragment">
+    tools:context=".ui.onboard.registeration.fragment.DisclaimerFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -5,10 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.productSeller.activity.AddInventoryAndPriceActivity">
+    tools:context=".ui.main.seller.product.activity.AddInventoryAndPriceActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone" />
 
-<!--    <ImageView-->
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+    <!--    <ImageView-->
 <!--        android:id="@+id/imgView_dialog_show_background"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="match_parent"-->
@@ -98,7 +116,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/customborder_addproduct"
-                    android:layout_marginTop="8dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:elevation="10dp"
@@ -283,19 +300,21 @@
             android:paddingBottom="16dp"
             android:visibility="visible"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <com.paypal.checkout.paymentbutton.PayPalButton
-                android:id="@+id/btn_shopping_cart_paypal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/btn_shopping_cart_paypal" />
-
-<!--            <ImageView-->
+<!--            <com.paypal.checkout.paymentbutton.PayPalButton-->
 <!--                android:id="@+id/btn_shopping_cart_paypal"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"-->
-<!--                android:src="@mipmap/btn_shopping_cart_paypal"/>-->
+<!--                android:visibility="visible"-->
+<!--                android:src="@mipmap/btn_shopping_cart_paypal" />-->
+
+            <ImageView
+                android:id="@+id/btn_shopping_cart_generateOder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:src="@mipmap/btn_fps"/>
 
         </LinearLayout>
 

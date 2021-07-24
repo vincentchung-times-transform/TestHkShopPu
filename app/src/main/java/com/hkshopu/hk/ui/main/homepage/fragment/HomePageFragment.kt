@@ -37,16 +37,16 @@ import com.HKSHOPU.hk.ui.main.homepage.activity.*
 import com.HKSHOPU.hk.ui.main.homepage.adapter.CategorySingleAdapter
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendHomeAdapter
-import com.HKSHOPU.hk.ui.main.productBuyer.activity.ProductDetailedPageBuyerViewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.OnBoardActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopNotifyActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopPreviewActivity
-import com.HKSHOPU.hk.ui.main.shopProfile.adapter.HomeAdAdapter
-import com.HKSHOPU.hk.ui.main.shoppingCart.activity.ShoppingCartEditActivity
-import com.HKSHOPU.hk.ui.user.vm.ShopVModel
+import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
+import com.HKSHOPU.hk.ui.login.vm.ShopVModel
+import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerInfoModifyActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.adapter.HomeAdAdapter
+import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
+import com.HKSHOPU.hk.utils.extension.load
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
-import com.google.gson.JsonObject
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
@@ -68,33 +68,30 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         }
     }
 
-
-
-    private val VM = ShopVModel()
+//    private val VM = ShopVModel()
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     private val adapter_HomeAd = HomeAdAdapter()
     private val adapter_ProductCategory = CategorySingleAdapter()
-    private val adapter_ShopRecommend = StoreRecommendHomeAdapter()
+    private val adapter_ShopRecommend = StoreRecommendHomeAdapter(userId)
     val REQUEST_CODE_SPEECH_INPUT = 1000
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter_TopProduct = ProductShopPreviewAdapter(currency)
+    private val adapter_TopProduct = ProductShopPreviewAdapter(currency, userId)
     private var binding: FragmentHomepageBinding? = null
     private var fragmentHomepageBinding: FragmentHomepageBinding? = null
     var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
 
     var keyWord = ""
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomepageBinding.bind(view)
         fragmentHomepageBinding = binding
 
-        binding!!.progressBarHomepage.isVisible = true
+        binding!!.progressBar.visibility = View.VISIBLE
+        binding!!.imgViewLoadingBackground.visibility = View.VISIBLE
 
-
-        GetShoppingCartItemCountForBuyer(userId.toString())
+        getShoppingCartItemCountForBuyer(userId.toString())
         var url_homeAd = ApiConstants.API_HOST + "shop/advertisement/"
         getHomeAd(url_homeAd)
         var url = ApiConstants.API_HOST + "shop_category/index/"
@@ -102,9 +99,12 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         getRecommendedStores(userId.toString())
 
         if (userId!!.isEmpty()) {
+            binding!!.tvUsername.setText(R.string.hello_guest)
             var url_topproduct = ApiConstants.API_HOST + "product/" + "null" + "/product_analytics/"
             getTopProduct(url_topproduct)
         } else {
+            var url_UserPeofile = ApiConstants.API_HOST + "user_detail/"+userId+"/profile/"
+            getUserProfile(url_UserPeofile)
             var url_topproduct = ApiConstants.API_HOST + "product/" + userId + "/product_analytics/"
             getTopProduct(url_topproduct)
         }
@@ -128,10 +128,8 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                                 dialog, which ->
 
                             requireActivity().finishAffinity()
-
                         }
                         .setNegativeButton("取消"){ dialog, which -> dialog.cancel()
-
                         }
                         .show()
                     return@OnKeyListener true
@@ -139,9 +137,7 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
             }
             false
         })
-
         initEvent()
-
 //        checkPermission()
 //        VM.getTopProduct(requireActivity(),userId)
     }
@@ -161,47 +157,37 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         }
     }
 
-    private fun initVM() {
-
-
-    }
-
     private fun initView() {
         binding!!.ivUserPicClick.setOnClickListener {
-            RxBus.getInstance().post(EventToUserProfile())
+            val intent = Intent(activity, BuyerInfoModifyActivity::class.java)
+            startActivity(intent)
+//            RxBus.getInstance().post(EventShopmenuToSpecificPage(1))
         }
         binding!!.tvUsername.setOnClickListener {
-            RxBus.getInstance().post(EventToUserProfile())
+            val intent = Intent(activity, BuyerInfoModifyActivity::class.java)
+            startActivity(intent)
+//            RxBus.getInstance().post(EventShopmenuToSpecificPage(1))
         }
-
         binding!!.ivShopcarClick.setOnClickListener {
-
             if(userId.isNullOrEmpty()){
-
                 Log.d("btnAddToShoppingCart", "UserID為空值")
                 Toast.makeText(requireActivity(), "請先登入", Toast.LENGTH_SHORT).show()
-
+                val intent = Intent(activity, OnBoardActivity::class.java)
+                startActivity(intent)
             }else{
-
                 val intent = Intent(activity, ShoppingCartEditActivity::class.java)
                 startActivity(intent)
-
             }
-
 //            var bundle = Bundle()
 //            bundle.putBoolean("toShopFunction", false)
 //            val intent = Intent(requireActivity(), GoShopActivity::class.java)
 //            requireActivity().startActivity(intent)
         }
-
         binding!!.ivNotifyClick.setOnClickListener {
-
             val intent = Intent(requireActivity(), ShopNotifyActivity::class.java)
             requireActivity().startActivity(intent)
         }
-
         binding!!.tvMoreProductcategory.setOnClickListener {
-
             val intent = Intent(requireActivity(), MerchanCategorySearchActivity::class.java)
             requireActivity().startActivity(intent)
         }
@@ -212,7 +198,6 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
             intent.putExtra("bundle", bundle)
             requireActivity().startActivity(intent)
         }
-
         binding!!.tvMoreHotsale.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("userId", userId)
@@ -220,11 +205,9 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
             intent.putExtra("bundle", bundle)
             requireActivity().startActivity(intent)
         }
-
         binding!!.etSearchKeyword.doAfterTextChanged {
             keyWord = binding!!.etSearchKeyword.text.toString()
         }
-
         binding!!.etSearchKeyword.setOnEditorActionListener() { v, actionId, event ->
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
@@ -239,18 +222,14 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
 
                     true
                 }
-
                 else -> false
             }
         }
-
         binding!!.ivMic.setOnClickListener {
             speak()
         }
     }
-
     private fun initRecyclerView() {
-
         val layoutManager = LinearLayoutManager(requireActivity())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding!!.recyclerviewAd.layoutManager = layoutManager
@@ -268,41 +247,36 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         binding!!.recyclerviewStorerecommend.adapter = adapter_ShopRecommend
 
         adapter_ShopRecommend.itemClick = {
-
             val bundle = Bundle()
             bundle.putString("shopId", it)
             bundle.putString("userId", userId)
             val intent = Intent(requireActivity(), ShopPreviewActivity::class.java)
             intent.putExtra("bundle", bundle)
             requireActivity().startActivity(intent)
-
         }
-
-        adapter_ShopRecommend.followClick = { id, follow ->
-            if (userId!!.isEmpty()) {
-                val intent = Intent(requireActivity(), OnBoardActivity::class.java)
-                requireActivity().startActivity(intent)
-            } else {
-                val url_follow =
-                    ApiConstants.API_HOST + "user/" + userId + "/followShop/" + id + "/"
-                doStoreFollow(url_follow, follow)
-
-            }
-
-        }
+//        adapter_ShopRecommend.followClick = { id, follow ->
+//            if (userId!!.isEmpty()) {
+//                val intent = Intent(requireActivity(), OnBoardActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            } else {
+//                val url_follow =
+//                    ApiConstants.API_HOST + "user/" + userId + "/followShop/" + id + "/"
+//                doStoreFollow(url_follow, follow)
+//            }
+//        }
 
         val layoutManager3 = GridLayoutManager(requireActivity(), 2)
         binding!!.recyclerviewHotsale.layoutManager = layoutManager3
         binding!!.recyclerviewHotsale.adapter = adapter_TopProduct
-        adapter_TopProduct.likeClick = { id, like ->
-            if (userId!!.isEmpty()) {
-
-            } else {
-                val url_productLike = ApiConstants.API_HOST + "product/like_product/"
-                doProductLike(url_productLike, id.toString(), userId.toString(), like)
-            }
-
-        }
+//        adapter_TopProduct.likeClick = { id, like ->
+//            if (userId!!.isEmpty()) {
+//                val intent = Intent(requireActivity(), OnBoardActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            } else {
+//                val url_productLike = ApiConstants.API_HOST + "product/like_product/"
+//                doProductLike(url_productLike, id.toString(), userId.toString(), like)
+//            }
+//        }
 //        adapter_TopProduct.itemClick = {
 //
 //            val intent = Intent(requireActivity(), ProductDetailedPageBuyerViewActivity::class.java)
@@ -336,7 +310,6 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
             Toast.makeText(requireActivity(), "" + e.message, Toast.LENGTH_SHORT).show()
         }
     }
-
     private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(
@@ -368,45 +341,39 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
-                    Log.d("HomePageFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
-                    if (status == 0) {
+                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
+                    Log.d("HomePageFragment", "返回資料 ret_val：" + ret_val)
 
+                    if (status == 0) {
                         val translations: JSONArray = json.getJSONArray("data")
-                        Log.d("HomePageFragment", "返回資料 List：" + translations.toString())
+                        Log.d("getHomeAd", "返回資料 List：" + translations.toString())
                         for (i in 0 until translations.length()) {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
                             val homeAdBean: HomeAdBean =
                                 Gson().fromJson(jsonObject.toString(), HomeAdBean::class.java)
-
                             list.add(homeAdBean)
                         }
-
                         requireActivity().runOnUiThread {
                             adapter_HomeAd.setData(list)
                             initRecyclerView()
-
                         }
-
                     }
                 } catch (e: JSONException) {
-
+                    Log.d("getHomeAd_errorMessage", "JSONException：" + e.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getHomeAd_errorMessage", "IOException：" + e.toString())
                 }
             }
-
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                Log.d("getHomeAd_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
             }
         })
         web.Get_Data(url)
     }
-
     private fun getShopCategory(url: String) {
-
         CommonVariable.list.clear()
         CommonVariable.ShopCategory.clear()
         val web = Web(object : WebListener {
@@ -415,47 +382,42 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
-                    Log.d("HomePageFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
-                    if (ret_val.equals("已取得商店清單!")) {
+                    Log.d("getShopCategory", "返回資料 resStr：" + resStr)
+                    Log.d("getShopCategory", "返回資料 ret_val：" + ret_val)
 
+                    if (ret_val.equals("已取得商店清單!")) {
                         val translations: JSONArray = json.getJSONArray("shop_category_list")
-                        Log.d("HomePageFragment", "返回資料 List：" + translations.toString())
+                        Log.d("getShopCategory", "返回資料 List：" + translations.toString())
                         for (i in 0 until translations.length()) {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
                             val shopCategoryBean: ShopCategoryBean =
                                 Gson().fromJson(jsonObject.toString(), ShopCategoryBean::class.java)
-
                             CommonVariable.list.add(shopCategoryBean)
                             CommonVariable.ShopCategory.put(
                                 shopCategoryBean.id.toString(),
                                 shopCategoryBean
                             )
-
                         }
 
                         requireActivity().runOnUiThread {
                             adapter_ProductCategory.setData(CommonVariable.list)
                             initRecyclerView()
-
                         }
-
                     }
                 } catch (e: JSONException) {
-
+                    Log.d("getShopCategory_errorMessage", "JSONException：" + e.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getShopCategory_errorMessage", "IOException：" + e.toString())
                 }
             }
-
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                Log.d("getShopCategory_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
             }
         })
         web.Get_Data(url)
     }
-
     private fun getRecommendedStores(userId: String) {
         val url = ApiConstants.API_HOST + "shop/get_recommended_shops/"
         val list = ArrayList<ShopRecommendHomeBean>()
@@ -466,12 +428,12 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("getRecommendedStores", "返回資料 resStr：" + resStr)
-                    Log.d("getRecommendedStores", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
-                    if (status == 0) {
+                    Log.d("getRecommendedStores", "返回資料 resStr：" + resStr)
+                    Log.d("getRecommendedStores", "返回資料 ret_val：" + ret_val)
 
+                    if (status == 0) {
                         val translations: JSONArray = json.getJSONArray("data")
                         Log.d("getRecommendedStores", "返回資料 List：" + resStr)
                         for (i in 0 until translations.length()) {
@@ -487,25 +449,21 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                         requireActivity().runOnUiThread {
                             adapter_ShopRecommend.setData(list)
                             initRecyclerView()
-
                         }
-
                     }
                 } catch (e: JSONException) {
-                    Log.d("errormessage", "JSONException: ${e.toString()}")
+                    Log.d("getRecommendedStores_errorMessage", "JSONException: ${e.toString()}")
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("errormessage", "IOException: ${e.toString()}")
+                    Log.d("getRecommendedStores_errorMessage", "IOException: ${e.toString()}")
                 }
             }
-
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("errormessage", "ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("getRecommendedStores_errorMessage", "ErrorResponse: ${ErrorResponse.toString()}")
             }
         })
         web.Do_GetRecommendedShops(url, userId)
     }
-
     private fun getTopProduct(url: String) {
         val list = ArrayList<ProductShopPreviewBean>()
         list.clear()
@@ -515,14 +473,14 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
-                    Log.d("HomePageFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
-                    if (status == 0) {
+                    Log.d("getTopProduct", "返回資料 resStr：" + resStr)
+                    Log.d("getTopProduct", "返回資料 ret_val：" + ret_val)
 
+                    if (status == 0) {
                         val translations: JSONArray = json.getJSONArray("data")
-                        Log.d("HomePageFragment", "返回資料 List：" + resStr)
+                        Log.d("getTopProduct", "返回資料 List：" + resStr)
                         for (i in 0 until translations.length()) {
                             val jsonObject: JSONObject = translations.getJSONObject(i)
                             val productShopPreviewBean: ProductShopPreviewBean =
@@ -536,107 +494,63 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                         requireActivity().runOnUiThread {
                             adapter_TopProduct.setData(list)
                             initRecyclerView()
-                            binding!!.progressBarHomepage.isVisible = false
+                            binding!!.progressBar.visibility = View.GONE
+                            binding!!.imgViewLoadingBackground.visibility = View.GONE
                         }
-
                     }
                 } catch (e: JSONException) {
-
+                    Log.d("getTopProduct_errorMessage", "JSONException：" + e.toString())
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("getTopProduct_errorMessage", "IOException：" + e.toString())
                 }
             }
-
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                Log.d("getTopProduct_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
             }
         })
         web.Get_Data(url)
     }
-
-    private fun doStoreFollow(url: String, follow: String) {
-
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
-                    Log.d("HomePageFragment", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    val status = json.get("status")
-                    if (status == 0) {
-
-                        requireActivity().runOnUiThread {
-                            if (follow.equals("Y")) {
-                                adapter_ShopRecommend.updateData("Y")
-                            } else {
-                                adapter_ShopRecommend.updateData("N")
-                            }
-                        }
-
-                    } else {
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(
-                                requireActivity(), ret_val.toString(), Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                } catch (e: JSONException) {
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-
-            }
-        })
-        web.Store_Follow(url, follow)
-    }
-
-    private fun doProductLike(url: String, productId: String, userId: String, like: String) {
-
-        val web = Web(object : WebListener {
-            override fun onResponse(response: Response) {
-                var resStr: String? = ""
-                try {
-                    resStr = response.body()!!.string()
-                    val json = JSONObject(resStr)
-                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
-                    Log.d("HomePageFragment", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
-                    val status = json.get("status")
-                    if (ret_val.equals("商品收藏成功!")) {
-
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(
-                                requireActivity(), ret_val.toString(), Toast.LENGTH_SHORT
-                            ).show()
-                        }
-
-                    } else {
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(
-                                requireActivity(), ret_val.toString(), Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                } catch (e: JSONException) {
-
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-
-            override fun onErrorResponse(ErrorResponse: IOException?) {
-
-            }
-        })
-        web.Product_Like(url, productId, userId, like)
-    }
+//    private fun doStoreFollow(url: String, follow: String) {
+//        val web = Web(object : WebListener {
+//            override fun onResponse(response: Response) {
+//                var resStr: String? = ""
+//                try {
+//                    resStr = response.body()!!.string()
+//                    val json = JSONObject(resStr)
+//                    val ret_val = json.get("ret_val")
+//                    val status = json.get("status")
+//                    Log.d("doStoreFollow", "返回資料 resStr：" + resStr)
+//                    Log.d("doStoreFollow", "返回資料 ret_val：" + ret_val)
+//
+//                    if (status == 0) {
+//                        requireActivity().runOnUiThread {
+//                            if (follow.equals("Y")) {
+//                                adapter_ShopRecommend.updateData("Y")
+//                            } else {
+//                                adapter_ShopRecommend.updateData("N")
+//                            }
+//                        }
+//                    } else {
+//                        requireActivity().runOnUiThread {
+//                            Toast.makeText(
+//                                requireActivity(), ret_val.toString(), Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
+//                    }
+//                } catch (e: JSONException) {
+//                    Log.d("doStoreFollow_errorMessage", "JSONException：" + e.toString())
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                    Log.d("doStoreFollow_errorMessage", "IOException：" + e.toString())
+//                }
+//            }
+//            override fun onErrorResponse(ErrorResponse: IOException?) {
+//                Log.d("doStoreFollow_errorMessage", "onErrorResponse：" + ErrorResponse.toString())
+//            }
+//        })
+//        web.Store_Follow(url, follow)
+//    }
 
     override fun onActivityResult(
         requestCode: Int,
@@ -649,7 +563,6 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 if (requestCode != RESULT_OK && null != data) {
                     // get the text array from voice intent
                     val result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-
                     // set the voice view
                     binding!!.etSearchKeyword.setText(result!![0])
                 }
@@ -657,107 +570,114 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         }
     }
 
-    private fun  GetShoppingCartItemCountForBuyer (user_id: String) {
-
+    private fun  getShoppingCartItemCountForBuyer (user_id: String) {
         val url = ApiConstants.API_HOST+"shopping_cart/${user_id}/count/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
                 try {
-
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("GetShoppingCartItemCountForBuyer", "返回資料 resStr：" + resStr)
-                    Log.d("GetShoppingCartItemCountForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
+                    Log.d("getShoppingCartItemCountForBuyer", "返回資料 resStr：" + resStr)
+                    Log.d("getShoppingCartItemCountForBuyer", "返回資料 ret_val：" + ret_val)
                     if (ret_val.equals( "已取得商品清單!")) {
-
                         val jsonObject: JSONObject = json.getJSONObject("data")
                         Log.d(
-                            "GetShoppingCartItemCountForBuyer",
+                            "getShoppingCartItemCountForBuyer",
                             "返回資料 jsonObject：" + jsonObject.toString()
                         )
-
                         shoppingCartItemCount = Gson().fromJson(
                             jsonObject.toString(),
                             ShoppingCartItemCountBean::class.java
                         )
-
                         requireActivity().runOnUiThread {
                             binding!!.tvCartItemCount.setText(shoppingCartItemCount.cartCount.toString())
-
                             if(shoppingCartItemCount.cartCount > 0){
                                 binding!!.tvCartItemCount.visibility = View.VISIBLE
                             }else{
                                 binding!!.tvCartItemCount.visibility = View.GONE
                             }
-
                         }
-
                     }else{
-
                         activity!!.runOnUiThread {
-//                            Toast.makeText(
-//                                activity,
-//                                ret_val.toString(),
-//                                Toast.LENGTH_SHORT
-//                            ).show()
-
-                            binding!!.progressBarHomepage.visibility = View.GONE
 //                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
-
                 } catch (e: JSONException) {
                     e.printStackTrace()
-                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: JSONException: ${e.toString()}")
+                    Log.d("getShoppingCartItemCountForBuyer_errormessage", "GetShoppingCartItemCountForBuyer: JSONException: ${e.toString()}")
                     activity!!.runOnUiThread {
-                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding!!.progressBarHomepage.visibility = View.GONE
 //                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
-
                 } catch (e: IOException) {
                     e.printStackTrace()
-                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: IOException: ${e.toString()}")
+                    Log.d("getShoppingCartItemCountForBuyer_errormessage", "GetShoppingCartItemCountForBuyer: IOException: ${e.toString()}")
                     activity!!.runOnUiThread {
-                        Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding!!.progressBarHomepage.visibility = View.GONE
 //                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
-
             override fun onErrorResponse(ErrorResponse: IOException?) {
-                Log.d("errormessage", "GetShoppingCartItemCountForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
+                Log.d("getShoppingCartItemCountForBuyer_errormessage", "GetShoppingCartItemCountForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
                 activity!!.runOnUiThread {
-                    Toast.makeText(activity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                    binding!!.progressBarHomepage.visibility = View.GONE
 //                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })
         web.Get_Data(url)
     }
+    private fun getUserProfile(url: String) {
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                val list = ArrayList<BuyerProfileBean>()
+                list.clear()
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getUserProfile", "返回資料 resStr：" + resStr)
+                    Log.d("getUserProfile", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonObject: JSONObject = json.getJSONObject("data")
+                        val buyerProfileBean: BuyerProfileBean =
+                            Gson().fromJson(jsonObject.toString(), BuyerProfileBean::class.java)
+
+                        list.add(buyerProfileBean)
+                        requireActivity().runOnUiThread {
+                            binding!!.ivUserPic.load(list[0].pic)
+                            binding!!.tvUsername.text ="你好," + list[0].name
+                        }
+                    }
+                } catch (e: JSONException) {
+                    Log.d("getUserProfile_errorMessage", "JSONException：" + e.toString())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getUserProfile_errorMessage", "IOException：" + e.toString())
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getUserProfile_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
+            }
+        })
+        web.Get_Data(url)
+    }
+
     @SuppressLint("CheckResult")
     fun initEvent() {
-
-
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
             .subscribe({
                 when (it) {
                     is EventRefreshShoppingCartItemCount -> {
-                        GetShoppingCartItemCountForBuyer(userId)
+                        getShoppingCartItemCountForBuyer(userId)
                     }
-
                 }
             }, {
                 it.printStackTrace()
             })
-
     }
+
 
 }

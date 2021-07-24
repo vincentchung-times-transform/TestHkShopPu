@@ -104,7 +104,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@+id/iv_company_icon"
                     android:layout_below="@id/tv_companyname"
-                    android:text="@string/company_name"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/black"/>
 
@@ -157,7 +157,7 @@
                     android:paddingBottom="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="54dp"
-                    android:text="+852"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/turquoise"
                     android:background="@drawable/customborder_onboard_f6_8dp"
@@ -177,7 +177,7 @@
                     android:paddingBottom="12dp"
                     android:paddingStart="16dp"
                     android:paddingEnd="108dp"
-                    android:text="69923830"
+                    android:text=""
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:background="@drawable/customborder_onboard_f6_8dp"

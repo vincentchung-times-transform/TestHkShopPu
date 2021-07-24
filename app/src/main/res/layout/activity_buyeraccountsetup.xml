@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+    <ProgressBar
+        android:id="@+id/progressBar_birthdayChange"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background_birthdayChange"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
     <RelativeLayout
         android:id="@+id/layout_shopTitle"
         android:layout_width="match_parent"
@@ -74,15 +93,15 @@
                 android:id="@+id/layout_shopmodify_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="15dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
-
+                    android:id="@+id/layout_personalInfo"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:elevation="10dp"
                     android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
@@ -106,10 +125,12 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-
+                    android:id="@+id/layout_payment"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:elevation="10dp"
                     android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
@@ -138,13 +159,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:text="@string/my_setup" />
 
                 <RelativeLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:visibility="gone"
                     android:elevation="10dp"
                     android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp">
@@ -169,14 +193,15 @@
 
 
                 <RelativeLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:elevation="10dp"
+                    android:visibility="gone"
                     android:outlineSpotShadowColor="@color/hkshop_color"
-                    android:background="@drawable/customborder_onboard_8dp"
-                    android:visibility="visible">
+                    android:background="@drawable/customborder_onboard_8dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -201,6 +226,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:elevation="10dp"
                     android:outlineSpotShadowColor="@color/hkshop_color"
                     android:background="@drawable/customborder_onboard_8dp"

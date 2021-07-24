@@ -1,8 +1,8 @@
 package com.HKSHOPU.hk.data.bean
 
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.ui.main.shopProfile.fragment.OrderDoneFragment
-import com.HKSHOPU.hk.ui.main.shopProfile.fragment.OrderOngoingFragment
+import com.HKSHOPU.hk.ui.main.seller.shop.fragment.OrderDoneFragment
+import com.HKSHOPU.hk.ui.main.seller.shop.fragment.OrderOngoingFragment
 
 interface ResourceIncome {
     companion object {

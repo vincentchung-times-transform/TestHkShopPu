@@ -23,14 +23,18 @@ class App : Application(), LifecycleOwner {
         super.onCreate()
         instance = this
         LocalePlugin.init(this, LocaleConstant.RECREATE_CURRENT_ACTIVITY)
-        FacebookSdk.sdkInitialize(this);
-        AppEventsLogger.activateApp(this);
+        FacebookSdk.sdkInitialize(this)
+        AppEventsLogger.activateApp(this)
         initMMKV()
         val config = CheckoutConfig(
             application = this,
-            clientId = "AdBCLHocOrbf94O5WAIkLVi3OAjuwWseJfwNtX6uHSm96tV5gqB_e1g4uBvfvS6TlQeAs9mjT90b-Ok3",
-            environment = Environment.SANDBOX,
-            returnUrl = "${BuildConfig.APPLICATION_ID}://paypalpay",
+//            clientId = "AdBCLHocOrbf94O5WAIkLVi3OAjuwWseJfwNtX6uHSm96tV5gqB_e1g4uBvfvS6TlQeAs9mjT90b-Ok3", //Sandbox
+            clientId = "ATQnt-r5Gm45zeZaEkjaDG9qG3jpM2IDrzNqhXUzNJc1-0USna3hg5gt6lm73M5wyvbTQCG_1iD1KoZv", //Live
+            environment = Environment.LIVE,
+//            environment = Environment.LIVE,
+//            returnUrl = "${BuildConfig.APPLICATION_ID}://paypalpay",
+//            returnUrl = "com.hkshopu.paypaltest://paypalpay",
+            returnUrl = "com.hkshopu.hk://paypalpay",
             currencyCode = CurrencyCode.HKD,
             userAction = UserAction.PAY_NOW,
             settingsConfig = SettingsConfig(

@@ -5,16 +5,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_shopaddressEdit"
     android:background="@color/color_shopbg"
-    android:clickable="true"
-    android:focusableInTouchMode="true"
     android:importantForAutofill="noExcludeDescendants">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
 
     <RelativeLayout
         android:id="@+id/layout_shopaddressEditTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:focusableInTouchMode="true"
         android:layout_marginTop="15dp">
 
         <ImageView
@@ -32,8 +47,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:clickable="true"
-            android:focusableInTouchMode="true"
             android:textColor="@color/dark_gray"
             android:text="@string/title_addaddress"
             android:textSize="18sp" />
@@ -74,8 +87,6 @@
             <LinearLayout
                 android:id="@+id/layout_shopname"
                 android:layout_width="match_parent"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
                 android:layout_height="72dp"
@@ -90,8 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="20dp"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
                     android:text="@string/shopname"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
@@ -122,8 +131,6 @@
                 android:layout_height="96dp"
                 android:elevation="10dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -135,8 +142,6 @@
                     android:id="@+id/tv_shopphoneHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
                     android:text="@string/shopphone"
@@ -157,8 +162,6 @@
                         android:layout_width="96dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="4dp"
-                        android:clickable="true"
-                        android:focusableInTouchMode="true"
                         android:background="@drawable/bg_edit_shopaddress"
                         android:text="@string/hk"
                         android:gravity="center"
@@ -192,8 +195,6 @@
                 android:elevation="10dp"
                 android:layout_marginBottom="16dp"
                 android:outlineSpotShadowColor="@color/hkshop_color"
-                android:clickable="true"
-                android:focusableInTouchMode="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
@@ -205,8 +206,6 @@
                     android:id="@+id/tv_mailaddressHead"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_marginTop="12dp"
                     android:layout_marginStart="20dp"
                     android:text="@string/shopaddress_input"
@@ -217,8 +216,6 @@
                     android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
@@ -264,8 +261,6 @@
                     android:id="@+id/layout_thoroughfare"
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:clickable="true"
-                    android:focusableInTouchMode="true"
                     android:layout_below="@id/layout_address"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="20dp"
@@ -342,8 +337,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:clickable="true"
-                    android:focusableInTouchMode="true"
-                    android:layout_below="@id/layout_subaddress"
                     android:layout_marginTop="8dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"

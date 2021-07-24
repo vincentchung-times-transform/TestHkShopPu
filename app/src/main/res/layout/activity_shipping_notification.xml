@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true"
+    android:background="@color/color_shopbg"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/progressBar_shipping_notification"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/iv_loading_background_shipping_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+
+    <RelativeLayout
+        android:id="@+id/titleBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/titleBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:layout_marginStart="15dp"
+            android:src="@mipmap/ic_arrow_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:text="@string/shipping_notification"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="108dp"
+        android:clickable="true"
+        android:focusableInTouchMode="true">>
+
+        <LinearLayout
+            android:id="@+id/layout_addshop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusableInTouchMode="true">
+
+            <RelativeLayout
+                android:id="@+id/layout_addshoppic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:id="@+id/layout_titile_first"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_step1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:src="@mipmap/ic_shippingnoti_dot" />
+                    <TextView
+                        android:id="@+id/tv_step1title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:text="@string/please_enter_the_shipping_number_required"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_titile_first"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@mipmap/ic_shippingnoti_line" />
+
+                <EditText
+                    android:id="@+id/et_enter_shipping_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_below="@id/layout_titile_first"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:importantForAutofill="no"
+                    android:background="@drawable/bg_edit_login"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:hint="@string/please_enter_the_shipping_number"
+                    android:textColorHint="@color/bright_gray"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_addshopname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="25dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:id="@+id/layout_title_second"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/iv_step2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:src="@mipmap/ic_shippingnoti_dot" />
+
+                    <TextView
+                        android:id="@+id/tv_step2title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:text="@string/please_enter_the_estimated_date_of_receipt_required"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_title_second"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@mipmap/ic_shippingnoti_line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_below="@id/layout_title_second"
+                    android:background="@drawable/bg_edit_login">
+
+                    <EditText
+                        android:id="@+id/et_enter_shipping_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="#00000000"
+                        android:gravity="center_vertical"
+                        android:hint="@string/dd_mm_yy"
+                        android:textColorHint="@color/bright_gray"
+                        android:paddingLeft="18dp"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:textSize="18sp" />
+                    <ImageView
+                        android:id="@+id/show_date_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="5dp"
+                        android:onClick="ShowDatePick"
+                        android:padding="5dp"
+                        android:src="@mipmap/ic_date" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_addshopsort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginBottom="28dp"
+                android:clickable="true"
+                android:focusableInTouchMode="true">
+
+                <LinearLayout
+                    android:id="@+id/layout_third_layer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_step3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:src="@mipmap/ic_shippingnoti_dot" />
+
+                    <TextView
+                        android:id="@+id/tv_step3title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_toRightOf="@id/iv_step3"
+                        android:text="@string/attachment_information_can_be_attached"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_third_layer"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="invisible"
+                    android:background="@mipmap/ic_shippingnoti_line" />
+
+                <TextView
+                    android:id="@+id/tv_step3function"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_third_layer"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:letterSpacing="0.07"
+                    android:textStyle="bold"
+                    android:text="@string/attachment_information_can_be_attached_content"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_attatchment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerInside"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@id/tv_step3function">
+                    <ImageView
+                        android:id="@+id/btn_delete_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/cardView"
+                        android:elevation="10dp"
+                        android:visibility="gone"
+                        android:src="@mipmap/btn_delete_pics" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="88dp"
+                        android:layout_height="88dp"
+                        app:cardBackgroundColor="@color/colordivideline"
+                        app:cardCornerRadius="8dp">
+                        <ImageView
+                            android:id="@+id/btn_add_pics"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@mipmap/btn_add_pics" />
+
+                    </androidx.cardview.widget.CardView>
+
+
+                </RelativeLayout>
+
+
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/iv_forward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginBottom="24dp"
+        android:src="@mipmap/btn_confirm_to_send_notification"
+        android:gravity="center"
+        android:visibility="visible"/>
+
+</RelativeLayout>

@@ -5,8 +5,7 @@ import android.os.Bundle
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.ui.main.homepage.fragment.*
-import com.HKSHOPU.hk.ui.main.shopProfile.activity.ShopNotifyActivity
-
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 
 //import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,17 +21,12 @@ class GoShopActivity : BaseActivity() {
         initClick()
 
     }
-
     private fun initVM() {
-
     }
-
     private fun initClick() {
-
         binding.ivBackClick.setOnClickListener {
             finish()
         }
-
         binding.ivNotifyClick.setOnClickListener {
 //            val intent = Intent(this@GoShopActivity, FpsPayActivity::class.java)
             val intent = Intent(this@GoShopActivity, ShopNotifyActivity::class.java)
@@ -40,15 +34,11 @@ class GoShopActivity : BaseActivity() {
             startActivity(intent)
             finish()
         }
-
         binding.ivGoShop.setOnClickListener {
 //            val intent = Intent(this@GoShopActivity, ShopmenuActivity::class.java)
 //            startActivity(intent)
 //            Log.d("GoShopActivity", "ivGoShop Clicked")
             finish()
         }
-
     }
-
-
 }

@@ -5,8 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_shopbg"
-    tools:context=".ui.main.productSeller.activity.AddInventoryAndPriceActivity">
+    tools:context=".ui.main.seller.product.activity.AddInventoryAndPriceActivity">
 
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imgView_dialog_show_background"-->
@@ -156,7 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginLeft="8dp"
-                android:text="$999"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="14sp"/>
             <ImageView

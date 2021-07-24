@@ -32,4 +32,7 @@ class ShopPreviewBean {
     @SerializedName("sum_of_sales")
     var sum_of_sales: Int = 0
 
+    @SerializedName("followed")
+    var followed: String = "N"
+
 }

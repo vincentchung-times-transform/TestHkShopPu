@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ProgressBar
+        android:id="@+id/progressBar_userInfo"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/iv_loading_background_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="18dp"
+        android:clickable="true"
+        android:src="@drawable/customview_loading_background" />
+
+
     <RelativeLayout
         android:id="@+id/titleBar_userInfo"
         android:layout_width="match_parent"
@@ -173,7 +191,7 @@
                     android:layout_height="60dp"
                     android:background="#00000000"
                     android:gravity="center_vertical"
-                    android:hint="YYYY - MM - DD "
+                    android:hint="DD/MM/YYYY"
                     android:paddingLeft="18dp"
                     android:singleLine="true"
                     android:imeOptions="actionDone"

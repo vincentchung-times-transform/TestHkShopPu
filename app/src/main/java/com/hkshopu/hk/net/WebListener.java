@@ -9,5 +9,4 @@ public interface WebListener {
         void onResponse(Response response);
         void onErrorResponse(IOException ErrorResponse);
 
-
 }
