@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:gravity="center_vertical"
                 android:src="@mipmap/ic_share" />
         </RelativeLayout>
@@ -1656,6 +1657,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -1669,7 +1671,7 @@
                         android:textColor="@color/hkshop_color"
                         android:textStyle="bold"
                         android:textSize="14sp"
-                        android:text="@string/textView_over599freeshipping"/>
+                        android:text=""/>
                     <LinearLayout
                         android:id="@+id/container_shipping_more"
                         android:layout_width="wrap_content"
@@ -1750,6 +1752,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_same_shop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -1764,12 +1767,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="20dp"
                     android:orientation="horizontal">
                     <androidx.cardview.widget.CardView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginBottom="8dp"
                         app:cardCornerRadius="25dp">
                         <ImageView
                             android:id="@+id/iv_same_shop_icon"
@@ -1797,7 +1802,7 @@
                                 android:ellipsize="end"
                                 android:layout_marginStart="16dp"
                                 android:textColor="@color/black"
-                                android:text="上下游市集"/>
+                                android:text=""/>
                             <LinearLayout
                                 android:id="@+id/container_other_shop_products_more"
                                 android:layout_width="wrap_content"
@@ -1831,7 +1836,7 @@
                                 android:textSize="12sp"
                                 android:layout_marginStart="16dp"
                                 android:textColor="@color/bright_gray"
-                                android:text="0"/>
+                                android:text=""/>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -1900,7 +1905,6 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:gravity="center_horizontal"
@@ -1910,6 +1914,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
+                        android:visibility="invisible"
                         android:scaleType="centerInside"
                         android:background="@mipmap/btn_shop_contacting"/>
                     <ImageView
@@ -2064,7 +2069,7 @@
             <LinearLayout
                 android:id="@+id/category_container"
                 android:layout_width="match_parent"
-                android:layout_height="41dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginStart="16dp"

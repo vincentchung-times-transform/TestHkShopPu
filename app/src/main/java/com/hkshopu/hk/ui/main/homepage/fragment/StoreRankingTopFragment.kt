@@ -54,6 +54,9 @@ class StoreRankingTopFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     private val adapter = StoreRecommendAdapter(userId)
     var max_seq = 0
+
+    val mode = "top_sale"
+    var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -62,23 +65,24 @@ class StoreRankingTopFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_ranking_hotsales_store, container, false)
         val activity: StoreRecommendActivity? = activity as StoreRecommendActivity?
 
-        val mode = "top_sale"
-        var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
         topStore = v.find<RecyclerView>(R.id.recyclerview_hotsales_store)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_top_sales)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
 
-        getStoreOverAll(url,userId!!,mode,max_seq)
-
         initView()
         initEvent()
         initRefresh()
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getStoreOverAll(url,userId!!,mode,0)
     }
 
     private fun initView(){
@@ -118,10 +122,6 @@ class StoreRankingTopFragment : Fragment() {
 
 
 
-
-
-
-
     private fun initRecyclerView(){
 
         val layoutManager = LinearLayoutManager(requireActivity())
@@ -141,6 +141,7 @@ class StoreRankingTopFragment : Fragment() {
 
     private fun getStoreOverAll(url: String,userId:String,mode:String,max_seq:Int) {
         Log.d("StoreRankingAll", "資料 url：" + url)
+        progressBar.visibility = View.VISIBLE
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""

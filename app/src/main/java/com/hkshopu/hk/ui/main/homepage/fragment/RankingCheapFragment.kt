@@ -1,16 +1,13 @@
 package com.HKSHOPU.hk.ui.main.homepage.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -23,8 +20,7 @@ import com.HKSHOPU.hk.data.bean.ProductShopPreviewBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.homepage.adapter.PopularProductAdapter
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -56,7 +52,8 @@ class RankingCheapFragment : Fragment() {
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "");
-    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
+    var shopId: String =""
+    private val adapter = PopularProductAdapter(currency, userId!!)
 
 
     override fun onCreateView(
@@ -66,8 +63,8 @@ class RankingCheapFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_ranking_cheap, container, false)
         val activity: ShopPreviewActivity? = activity as ShopPreviewActivity?
-        val shopId: String? = activity!!.getShopId()
-        val userId: String? = activity!!.getUserId()
+        shopId = activity!!.getShopId()
+//        val userId: String? = activity!!.getUserId()
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_cheap)
         progressBar.visibility = View.GONE
@@ -76,12 +73,17 @@ class RankingCheapFragment : Fragment() {
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         cheapProduct = v.find<RecyclerView>(R.id.recyclerview_cheap)
-        getProductOverAll(userId!!, shopId!!)
 
         initView()
         initEvent()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductOverAll(userId!!, shopId!!)
+
     }
 
     private fun initView(){
@@ -102,8 +104,6 @@ class RankingCheapFragment : Fragment() {
     }
 
     private fun initRecyclerView(){
-
-
         val layoutManager = GridLayoutManager(requireActivity(),2)
         cheapProduct.layoutManager = layoutManager
 
@@ -119,6 +119,8 @@ class RankingCheapFragment : Fragment() {
     }
 
     private fun getProductOverAll(userId:String,shop_id:String) {
+        progressBar.visibility = View.VISIBLE
+
         var url = ApiConstants.API_HOST+"/product/"+shop_id+"/"+"lower_price"+"/shop_product_analytics/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {

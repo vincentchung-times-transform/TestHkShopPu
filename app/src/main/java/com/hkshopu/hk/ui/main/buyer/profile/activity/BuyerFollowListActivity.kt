@@ -1,11 +1,11 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.HKSHOPU.hk.Base.BaseActivity
@@ -15,7 +15,7 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.StoreFollowAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerProfile_StoreFollowAdapter
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.google.gson.Gson
@@ -33,7 +33,7 @@ class BuyerFollowListActivity : BaseActivity() {
     private lateinit var binding: ActivityBuyerFollowedBinding
     val keyword = ""
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
-    private val adapter = StoreFollowAdapter(userId)
+    private val adapter = BuyerProfile_StoreFollowAdapter(userId)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class BuyerFollowListActivity : BaseActivity() {
 
         initView()
         initClick()
-        doGetFollewList(keyword)
+//        doGetFollewList(keyword)
     }
 
     private fun initView() {
@@ -69,6 +69,15 @@ class BuyerFollowListActivity : BaseActivity() {
         binding.ivBack.setOnClickListener {
             finish()
         }
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
     }
     private fun initRecyclerView(){
         val layoutManager = LinearLayoutManager(this)
@@ -84,8 +93,8 @@ class BuyerFollowListActivity : BaseActivity() {
         }
     }
     private fun doGetFollewList(keyword: String) {
-        binding.progressBarBuyerFollowed.visibility = View.VISIBLE
-        binding.imgViewLoadingBackgroundBuyerFollowed.visibility = View.VISIBLE
+        binding.progressBarBuyerFollowed.visibility = View.GONE
+        binding.imgViewLoadingBackgroundBuyerFollowed.visibility = View.GONE
 
         var url = ApiConstants.API_HOST + "user_detail/user_followed/"
 

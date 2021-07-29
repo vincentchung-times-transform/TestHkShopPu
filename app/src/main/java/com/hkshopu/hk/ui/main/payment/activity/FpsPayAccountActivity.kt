@@ -114,11 +114,14 @@ class FpsPayAccountActivity : BaseActivity() {
 
     }
     fun ShowDatePick(view: View) {
+
         if (view.getId() === R.id.show_date_btn) {
             var calendar = Calendar.getInstance()
             var mYear = calendar[Calendar.YEAR]
             var mMonth = calendar[Calendar.MONTH]
             var mDay = calendar[Calendar.DAY_OF_MONTH]
+            calendar.add(Calendar.MONTH,1)
+            var afterTwoMonthsinMilli=calendar.getTimeInMillis()
 
             var dialog = DatePickerDialog(
                 this, R.style.DateTimeDialogTheme,
@@ -128,7 +131,7 @@ class FpsPayAccountActivity : BaseActivity() {
                     binding.etTransferdate.setText(changeDateFormat_forApp("$day/$month_actual/$year").toString())
                 }, mYear, mMonth, mDay
             )
-            dialog.getDatePicker().setMaxDate(java.lang.System.currentTimeMillis())
+            dialog.getDatePicker().setMaxDate(afterTwoMonthsinMilli)
             dialog.show()
         }
     }

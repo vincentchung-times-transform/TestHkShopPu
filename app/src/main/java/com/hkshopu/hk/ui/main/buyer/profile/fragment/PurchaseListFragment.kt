@@ -102,7 +102,9 @@ class PurchaseListFragment : Fragment(R.layout.fragment_purchaselist) {
                         var index = it.index
                         binding!!.mviewPager.setCurrentItem(index, false)
                     }
-
+                    is EventOrderCompelete ->{
+                        binding!!.mviewPager.setCurrentItem(3, false)
+                    }
                 }
             }, {
                 it.printStackTrace()

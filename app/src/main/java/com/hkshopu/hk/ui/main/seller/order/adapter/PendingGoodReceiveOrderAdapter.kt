@@ -90,16 +90,18 @@ class PendingGoodReceiveOrderAdapter(): RecyclerView.Adapter<PendingGoodReceiveO
         val btn_reviews_viewing = itemView.find<ImageView>(R.id.btn_reviews_viewing)
 
         fun bindShop(salerSaleListBean : SalerSaleListBean){
-            tv_order_status.setText(itemView.context.getText(R.string.tobereceived))
-
             iv_product_icon.loadNovelCover(salerSaleListBean.product_pic)
             iv_oderer_icon.loadNovelCover(salerSaleListBean.buyer_pic)
+            tv_order_status.setText(itemView.context.getText(R.string.tobereceived))
+            tv_orderer_name.setText(salerSaleListBean.buyer_name)
+            tv_product_kind_quant.setText(salerSaleListBean.count)
+            tv_priceRange.setText(salerSaleListBean.sub_total)
 
             layout_order_unfinished.visibility = View.VISIBLE
             layout_order_finished.visibility = View.GONE
             layout_order_cancelled.visibility = View.GONE
             btn_shipping_notifying.visibility = View.GONE
-            btn_buyer_contacting_for_order_small.visibility = View.VISIBLE
+            btn_buyer_contacting_for_order_small.visibility = View.INVISIBLE
 
 
             itemView.setOnClickListener {

@@ -114,6 +114,8 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             var quant_item = MMKV.mmkvWithID("editPro").getString("spec_quantity${i}", "0").toString().toInt()
             mutableList_quant.add(quant_item)
         }
+        Log.d("mutableList_price", "mutableList_price: ${mutableList_price}")
+        Log.d("mutableList_quant", "mutableList_quant: ${mutableList_quant}")
 
         var rebuild_datas = MMKV.mmkvWithID("editPro_temp").getBoolean("rebuild_datas", false)
 
@@ -258,9 +260,9 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             val gsonPretty = GsonBuilder().setPrettyPrinting().create()
 
             val jsonTutList_inven: String = gson.toJson(mutableList_InvenDatas)
-            Log.d("AddNewProductActivity", jsonTutList_inven.toString())
+            Log.d("jsonTutList_inven", jsonTutList_inven.toString())
             val jsonTutListPretty_inven: String = gsonPretty.toJson(mutableList_InvenDatas)
-            Log.d("AddNewProductActivity", jsonTutListPretty_inven.toString())
+            Log.d("jsonTutListPretty_inven", jsonTutListPretty_inven.toString())
 
             MMKV.mmkvWithID("editPro").putString("jsonTutList_inven", jsonTutList_inven)
 

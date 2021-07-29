@@ -93,11 +93,9 @@ class CompletedOrderAdapter (): RecyclerView.Adapter<CompletedOrderAdapter.TopPr
         val btn_reviews_viewing = itemView.find<ImageView>(R.id.btn_reviews_viewing)
 
         fun bindShop(salerSaleListBean : SalerSaleListBean){
-            tv_order_status.setText(itemView.context.getText(R.string.sales_completed))
-
             iv_product_icon.loadNovelCover(salerSaleListBean.product_pic)
             iv_oderer_icon.loadNovelCover(salerSaleListBean.buyer_pic)
-
+            tv_order_status.setText(itemView.context.getText(R.string.sales_completed))
             layout_order_unfinished.visibility = View.GONE
             layout_order_finished.visibility = View.VISIBLE
             layout_order_cancelled.visibility = View.GONE

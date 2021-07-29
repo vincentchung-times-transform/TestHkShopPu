@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +16,7 @@ import com.HKSHOPU.hk.data.bean.BuyerOrderDetailBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPendingPaymentAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderList_PendingPaymentAdapter
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
@@ -41,7 +40,11 @@ class BuyerPendingPaymentFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     lateinit var loadingBackground: ImageView
 
-    private val adapter = BuyerPendingPaymentAdapter()
+    private val adapter = BuyerOrderList_PendingPaymentAdapter()
+
+    val userId= MMKV.mmkvWithID("http").getString("UserId", "");
+    val url = ApiConstants.API_HOST+"user_detail/shopping_list/"
+    val status = "Pending Payment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,17 +55,18 @@ class BuyerPendingPaymentFragment : Fragment() {
 
         allProduct = v.find<RecyclerView>(R.id.recyclerview)
         progressBar = v.find<ProgressBar>(R.id.progressBar_pendingPaymentBuyer)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         loadingBackground = v.find<ImageView>(R.id.imgView_loading_background_pendingPaymentBuyer)
-        loadingBackground.visibility = View.VISIBLE
+        loadingBackground.visibility = View.GONE
 
-        val userId= MMKV.mmkvWithID("http").getString("UserId", "");
-        val url = ApiConstants.API_HOST+"user_detail/shopping_list/"
-        val status = "Pending Payment"
-        getProduct(url,userId!!,status)
         initView()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProduct(url,userId!!,status)
     }
 
     private fun initView(){
@@ -74,13 +78,12 @@ class BuyerPendingPaymentFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireActivity())
         allProduct.layoutManager = layoutManager
         allProduct.adapter = adapter
-//        adapter.intentClick = {
-//        }
 
     }
 
     private fun getProduct(url: String,userId:String,status:String) {
-
+        progressBar.visibility = View.VISIBLE
+        loadingBackground.visibility = View.VISIBLE
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -105,23 +108,20 @@ class BuyerPendingPaymentFragment : Fragment() {
                             list.add(buyerOrderDetailBean)
                         }
 
-                    }
+                        Log.d("BuyerPendingPaymentFragment", "返回資料 list：" + list.toString())
 
-                    Log.d("BuyerPendingPaymentFragment", "返回資料 list：" + list.toString())
 
-                    if(list.size > 0){
-                        adapter.setData(list)
                         activity!!.runOnUiThread {
+                            adapter.setData(list)
                             initRecyclerView()
                             progressBar.visibility = View.GONE
                             loadingBackground.visibility = View.GONE
                         }
-                    }else{
-                        activity!!.runOnUiThread {
-                            progressBar.visibility = View.GONE
-                            loadingBackground.visibility = View.GONE
-                        }
+
+
                     }
+
+
 
                 } catch (e: JSONException) {
                     Log.d("BuyerPendingPaymentFragment_errorMessage", "JSONException：" + e.toString())

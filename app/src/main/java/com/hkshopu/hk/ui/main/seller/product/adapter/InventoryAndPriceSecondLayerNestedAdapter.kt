@@ -26,7 +26,6 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
         val textView_value_name = itemView.findViewById<TextView>(R.id.second_spec_name)
         val textView_value_price = itemView.findViewById<TextView>(R.id.value_price)
         val textView_value_quantity = itemView.findViewById<TextView>(R.id.value_quantity)
-        var textView_Hkdollars =  itemView.findViewById<TextView>(R.id.textView_HKdolors)
         var unAssignList : MutableList<ItemInvenSecondNestedLayer> = mutableListOf()
 
         //選高資料變數
@@ -38,17 +37,16 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
         }
 
         fun bind(item: ItemInvenSecondNestedLayer){
-
+            var hk_dollarSign = itemView.resources.getText(R.string.hkd_dollarSign).toString()
             //綁定當地變數與dataModel中的每個值
             textView_value_name.setText(item.spec_dec_2_items)
-            textView_value_price.setText(item.price.toString())
+            textView_value_price.setText("${hk_dollarSign}${item.price.toString()}")
             textView_value_quantity.setText(item.quantity.toString())
 
             if (!item.price.equals("")){
-                textView_Hkdollars.setTextColor(itemView.context.resources.getColor(R.color.black))
                 textView_value_price.setTextColor(itemView.context.resources.getColor(R.color.black))
             }else{
-                textView_Hkdollars.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
+
                 textView_value_price.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
             }
 

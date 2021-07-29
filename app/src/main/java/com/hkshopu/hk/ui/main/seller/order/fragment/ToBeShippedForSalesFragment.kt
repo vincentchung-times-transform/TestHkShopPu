@@ -1,6 +1,5 @@
 package com.HKSHOPU.hk.ui.main.seller.order.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,9 +16,7 @@ import com.HKSHOPU.hk.data.bean.SalerSaleListBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerPurchaseList_deliverActivity
 import com.HKSHOPU.hk.ui.main.seller.order.adapter.PendingDeliveryOrderAdapter
-import com.HKSHOPU.hk.ui.main.seller.order.adapter.PendingGoodReceiveOrderAdapter
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find

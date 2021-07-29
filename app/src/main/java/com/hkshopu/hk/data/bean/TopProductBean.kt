@@ -32,6 +32,12 @@ class TopProductBean {
     @SerializedName("price")
     var price: Int = 0
 
+    @SerializedName("min_price")
+    var min_price: Int = 0
+
+    @SerializedName("max_price")
+    var max_price: Int = 0
+
     @SerializedName("liked")
     var liked: String = ""
 

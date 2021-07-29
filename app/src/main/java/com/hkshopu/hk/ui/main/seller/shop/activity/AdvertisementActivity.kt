@@ -55,6 +55,12 @@ class AdvertisementActivity : BaseActivity() {
             i.data = Uri.parse(url)
             startActivity(i)
         }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
 
     }
 

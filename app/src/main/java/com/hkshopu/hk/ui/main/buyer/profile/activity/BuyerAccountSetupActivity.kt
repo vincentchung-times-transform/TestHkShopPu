@@ -7,6 +7,7 @@ import android.os.Bundle
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.component.EventLogout
 import com.HKSHOPU.hk.databinding.*
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -83,6 +84,10 @@ class BuyerAccountSetupActivity : BaseActivity() {
 
         binding.ivBack.setOnClickListener {
             finish()
+        }
+        binding.ivNotify.setOnClickListener {
+            val intent = Intent(this, ShopNotifyActivity::class.java)
+            startActivity(intent)
         }
 
         binding.ivChevronSetupNotify.setOnClickListener {

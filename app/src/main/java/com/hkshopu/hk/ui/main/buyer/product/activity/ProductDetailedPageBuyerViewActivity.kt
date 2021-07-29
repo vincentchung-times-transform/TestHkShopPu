@@ -36,6 +36,10 @@ import com.HKSHOPU.hk.ui.main.buyer.product.adapter.SpecificationFirstSelectingA
 import com.HKSHOPU.hk.ui.main.buyer.product.adapter.SpecificationSecondSelectingAdapter
 import com.HKSHOPU.hk.ui.main.buyer.product.fragment.ProductDetailedPageBuyerViewFragment
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.TopProductsActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopEvaluationActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.android.flexbox.*
@@ -74,6 +78,8 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
     var ShopDetailedProductForBuyerBean : ShopDetailedProductForBuyerBean = ShopDetailedProductForBuyerBean()
     var mutableList_pics = mutableListOf<ItemPics>()
 
+
+    var productDetailedPagerForBuyer_RecommendedShopInfoBean = ProductDetailedPagerForBuyer_RecommendedShopInfoBean()
     var mutablelist_similarProduct : MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean> = mutableListOf()
     var mutablelist_otherShopProduct: MutableList<ProductDetailedPageForBuyer_RecommendedProductsBean> = mutableListOf()
     var mAdapter_likeProduct_forOtherShop = LikeProductAdapter("otherShop", this)
@@ -132,18 +138,16 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
         Log.d("ProductDetailedPageBuyerViewActivity", "MMKV_user_id: ${MMKV_user_id}\n ")
         Log.d("ProductDetailedPageBuyerViewActivity", "bundle_product_id: ${bundle_product_id}\n ")
 
-
-        if(MMKV_user_id.isNullOrEmpty()){
-            binding.tvCartItemCount.visibility = View.GONE
-        }else{
-            getProductDetailedInfo(MMKV_user_id,bundle_product_id)
+        if(!MMKV_user_id.isNullOrEmpty()){
+            GetShoppingCartItemCountForBuyer(MMKV_user_id)
         }
+        binding.tvCartItemCount.visibility = View.GONE
+        getProductDetailedInfo(MMKV_user_id,bundle_product_id)
 
         initView()
     }
 
     fun initView() {
-
         binding.bottomSheetDlgOderInfoSetting.visibility = View.GONE
         binding.imgViewDialogShowBackground.visibility = View.GONE
 
@@ -173,54 +177,62 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 //            FlexboxLayoutManager(this)
         binding.rViewItemSpecSecond.adapter = mAdapter_second_specifications
 
-
-
         initEvent()
         initClick()
 
     }
 
     fun initClick() {
-
+        binding.containerOtherShopProductsMore.setOnClickListener {
+            val intent = Intent(this, StoreRecommendActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("userId", MMKV_user_id)
+            intent.putExtra("bundle", bundle)
+            startActivity(intent)
+        }
+        binding.containerProductRecommendedMore.setOnClickListener {
+            val intent = Intent(this, TopProductsActivity::class.java)
+            val bundle = Bundle()
+            bundle.putString("userId", MMKV_user_id)
+            intent.putExtra("bundle", bundle)
+            startActivity(intent)
+        }
+        binding.containerDetailedProductsEvaluationMore.setOnClickListener {
+            val intent = Intent(this, ShopEvaluationActivity::class.java)
+            startActivity(intent)
+        }
+        binding.icNotification.setOnClickListener {
+            val intent = Intent(this, ShopNotifyActivity::class.java)
+            startActivity(intent)
+        }
         binding.icCart.setOnClickListener {
-
             if(MMKV_user_id.isNullOrEmpty()){
-
                 Log.d("btnAddToShoppingCart", "UserID為空值")
                 Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, OnBoardActivity::class.java)
                 startActivity(intent)
                 finish()
-
             }else{
                 val intent = Intent(this, ShoppingCartEditActivity::class.java)
                 startActivity(intent)
             }
-
         }
-
         binding.titleBackAddshop.setOnClickListener {
            this.finish()
         }
-
         binding.btnAddToShoppingCart.setOnClickListener {
-
             Selected_product_quantity = 1
-
             Log.d("btnAddToShoppingCart", "MMKV_user_id: ${MMKV_user_id} \n" +
                     "bundle_product_id: ${bundle_product_id} ; \n" +
                     "Selected_product_spec_id: ${Selected_product_spec_id} \n" +
                     "Selected_product_quantity: ${Selected_product_quantity}  "
             )
-
             if(MMKV_user_id.isNullOrEmpty()){
-
                 Log.d("btnAddToShoppingCart", "UserID為空值")
                 Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, OnBoardActivity::class.java)
                 startActivity(intent)
                 finish()
-
             }else{
                 if(MMKV_user_id.isNullOrEmpty()){
                     Log.d("btnAddToShoppingCart", "UserID為空值")
@@ -332,126 +344,133 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
         //ButtomSheetDialog Settings
         binding.btnProductSpecsSelecting.setOnClickListener {
-            other_product = false
+            if(MMKV_user_id.isNullOrEmpty()){
 
-            binding.bottomSheetTextViewProductName.setText(product_name.toString())
-            binding.tvValueTimeForStocking.setText(timeForStocking.toString())
-            
-            runOnUiThread {
-                binding.tvTitleSpecsFirst.setText(detailed_product_specification_bean.spec_desc_1.toString())
-                binding.tvTitleSpecsSecond.setText(detailed_product_specification_bean.spec_desc_2.toString())
-            }
+                Log.d("btnAddToShoppingCart", "UserID為空值")
+                Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, OnBoardActivity::class.java)
+                startActivity(intent)
+                finish()
 
-
-            var total_quantity = {first_position:Int,second_layer_size:Int->
-                var total:Int = 0
-
-                for(i in 0 until second_layer_size){
-                    total+=detailed_product_specification_bean.quantity.get(first_position).get(i)
-                }
-
-                total
-            }
-
-
-            if (detailed_product_specification_bean.spec_dec_1_items.size > 0
-                && detailed_product_specification_bean.spec_dec_2_items.size==1
-                &&  detailed_product_specification_bean.spec_dec_2_items.get(0).isNullOrEmpty()) {
-
-                mutableList_first_specifications.clear()
-                for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
-                    mutableList_first_specifications.add(
-                        ItemSpecificationSeleting(
-                            detailed_product_specification_bean.id.get(i).get(0).toString(),
-                            detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
-                            pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
-                            pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
-                            total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
-                            false
-
-                        )
-                    )
-
-                }
-                mutableList_second_specifications.clear()
-                for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
-                    mutableList_second_specifications.add(
-                        ItemSpecificationSeleting(
-                            detailed_product_specification_bean.id.get(0).get(i).toString(),
-                            detailed_product_specification_bean.spec_dec_2_items.get(i).toString(),
-                            detailed_product_specification_bean.price.get(0).get(i).toString(),
-                            detailed_product_specification_bean.quantity.get(0).get(i).toString(),
-                            detailed_product_specification_bean.quantity.get(0).get(i),
-                            false
-                        )
-                    )
-                }
             }else{
-                for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
+                other_product = false
+
+                binding.bottomSheetTextViewProductName.setText(product_name.toString())
+                binding.tvValueTimeForStocking.setText(timeForStocking.toString())
+
+                runOnUiThread {
+                    binding.tvTitleSpecsFirst.setText(detailed_product_specification_bean.spec_desc_1.toString())
+                    binding.tvTitleSpecsSecond.setText(detailed_product_specification_bean.spec_desc_2.toString())
+                }
+
+
+                var total_quantity = {first_position:Int,second_layer_size:Int->
+                    var total:Int = 0
+
+                    for(i in 0 until second_layer_size){
+                        total+=detailed_product_specification_bean.quantity.get(first_position).get(i)
+                    }
+
+                    total
+                }
+
+
+                if (detailed_product_specification_bean.spec_dec_1_items.size > 0
+                    && detailed_product_specification_bean.spec_dec_2_items.size==1
+                    &&  detailed_product_specification_bean.spec_dec_2_items.get(0).isNullOrEmpty()) {
 
                     mutableList_first_specifications.clear()
-                    mutableList_first_specifications.add(
-                        ItemSpecificationSeleting(
-                            "",
-                            detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
-                            pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
-                            pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
-                            total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
-                            false
+                    for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
+                        mutableList_first_specifications.add(
+                            ItemSpecificationSeleting(
+                                detailed_product_specification_bean.id.get(i).get(0).toString(),
+                                detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
+                                pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
+                                pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
+                                total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
+                                false
 
+                            )
                         )
+
+                    }
+                    mutableList_second_specifications.clear()
+                    for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
+                        mutableList_second_specifications.add(
+                            ItemSpecificationSeleting(
+                                detailed_product_specification_bean.id.get(0).get(i).toString(),
+                                detailed_product_specification_bean.spec_dec_2_items.get(i).toString(),
+                                detailed_product_specification_bean.price.get(0).get(i).toString(),
+                                detailed_product_specification_bean.quantity.get(0).get(i).toString(),
+                                detailed_product_specification_bean.quantity.get(0).get(i),
+                                false
+                            )
+                        )
+                    }
+                }else{
+                    mutableList_first_specifications.clear()
+                    for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
+                        mutableList_first_specifications.add(
+                            ItemSpecificationSeleting(
+                                "",
+                                detailed_product_specification_bean.spec_dec_1_items.get(i).toString(),
+                                pick_max_and_min_value(detailed_product_specification_bean.price.get(i)),
+                                pick_max_and_min_value(detailed_product_specification_bean.quantity.get(i)),
+                                total_quantity(i, detailed_product_specification_bean.quantity.get(i).size),
+                                false
+                            )
+                        )
+                    }
+
+                    mutableList_second_specifications.clear()
+                    for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
+                        mutableList_second_specifications.add(
+                            ItemSpecificationSeleting(
+                                detailed_product_specification_bean.id.get(0).get(i).toString(),
+                                detailed_product_specification_bean.spec_dec_2_items.get(i).toString(),
+                                detailed_product_specification_bean.price.get(0).get(i).toString(),
+                                detailed_product_specification_bean.quantity.get(0).get(i).toString(),
+                                detailed_product_specification_bean.quantity.get(0).get(i),
+                                false
+                            )
+                        )
+                    }
+                }
+
+                runOnUiThread {
+                    mAdapter_first_specifications.setDatas(
+                        mutableList_first_specifications
+                    )
+                    mAdapter_second_specifications.setDatas(
+                        mutableList_second_specifications
                     )
                 }
 
-                mutableList_second_specifications.clear()
-                for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
-                    mutableList_second_specifications.add(
-                        ItemSpecificationSeleting(
-                            detailed_product_specification_bean.id.get(0).get(i).toString(),
-                            detailed_product_specification_bean.spec_dec_2_items.get(i).toString(),
-                            detailed_product_specification_bean.price.get(0).get(i).toString(),
-                            detailed_product_specification_bean.quantity.get(0).get(i).toString(),
-                            detailed_product_specification_bean.quantity.get(0).get(i),
-                            false
-                        )
-                    )
-                }
-            }
+                if (mutableList_first_specifications.size > 0 && mutableList_second_specifications.size==1 &&  mutableList_second_specifications.get(0).spec_name.isNullOrEmpty()) {
 
-            runOnUiThread {
-                mAdapter_first_specifications.setDatas(
-                    mutableList_first_specifications
-                )
-                mAdapter_second_specifications.setDatas(
-                    mutableList_second_specifications
-                )
-            }
+                    runOnUiThread {
+                        binding.containerSpecsSecondSelectingLayer.visibility = View.GONE
+                    }
 
-            if (mutableList_first_specifications.size > 0 && mutableList_second_specifications.size==1 &&  mutableList_second_specifications.get(0).spec_name.isNullOrEmpty()) {
+                    specGroup_count = 1
 
-                runOnUiThread {
-                    binding.containerSpecsSecondSelectingLayer.visibility = View.GONE
+                } else {
+                    runOnUiThread {
+                        binding.containerSpecsSecondSelectingLayer.visibility = View.VISIBLE
+                    }
+
+                    specGroup_count = 2
                 }
 
-                specGroup_count = 1
+                if (  binding.bottomSheetDlgOderInfoSetting.visibility == View.GONE){
+                    binding.bottomSheetDlgOderInfoSetting.visibility = View.VISIBLE
+                    binding.imgViewDialogShowBackground.visibility = View.VISIBLE
 
-            } else {
-                runOnUiThread {
-                    binding.containerSpecsSecondSelectingLayer.visibility = View.VISIBLE
+                    binding.bottomSheetDlgOderInfoSetting.startAnimation(AnimationUtils.loadAnimation(this, R.anim.tranlate_dialog_in))
+                    binding.imgViewDialogShowBackground.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_alpha_in_slowly))
+
                 }
-
-                specGroup_count = 2
             }
-            
-            if (  binding.bottomSheetDlgOderInfoSetting.visibility == View.GONE){
-                binding.bottomSheetDlgOderInfoSetting.visibility = View.VISIBLE
-                binding.imgViewDialogShowBackground.visibility = View.VISIBLE
-
-                binding.bottomSheetDlgOderInfoSetting.startAnimation(AnimationUtils.loadAnimation(this, R.anim.tranlate_dialog_in))
-                binding.imgViewDialogShowBackground.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_alpha_in_slowly))
-
-            }
-
         }
         binding.btnCancelDialog.setOnClickListener {
             if(binding.bottomSheetDlgOderInfoSetting.visibility == View.VISIBLE){
@@ -510,6 +529,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     binding.txtViewSpinnerContent.setText("${tvTitleSpecsFirst} : ${first_spec_name}")
                 }
             }
+
 
 
 
@@ -1097,31 +1117,22 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                             }
                         }
 
-                        GetShoppingCartItemCountForBuyer(MMKV_user_id)
+                        getSimilarProducts(MMKV_user_id, bundle_product_id)
 
                     }else{
-                        runOnUiThread {
-                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                        }
+
                     }
 
                 } catch (e: JSONException) {
                     Log.d("errormessage", "getProductDetailedInfo: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getProductDetailedInfo: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
 
@@ -1131,9 +1142,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "getProductDetailedInfo: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })
@@ -1193,17 +1201,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                             getSameShopProducts(MMKV_user_id, bundle_product_id)
 
-                        }else{
-                            runOnUiThread {
-                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                            }
-                        }
-
-                    }else{
-                        runOnUiThread {
-                            binding!!.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
 
@@ -1211,9 +1208,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     Log.d("errormessage", "getSimilarProducts: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
 
                 } catch (e: IOException) {
@@ -1221,9 +1215,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     Log.d("errormessage", "getSimilarProducts: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
@@ -1232,9 +1223,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "getSimilarProducts: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })
@@ -1242,6 +1230,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
     }
 
     private fun getSameShopProducts(user_id: String, product_id: String) {
+        Log.d("getSameShopProducts", "user_id: ${user_id} ; product_id: ${product_id}")
 
         val url = ApiConstants.API_HOST+"product/same_shop_product/"
         val web = Web(object : WebListener {
@@ -1252,201 +1241,220 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
                     val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    val jsonArray_product: JSONArray = json.getJSONArray("data")
                     Log.d("getSameShopProducts", "返回資料 resStr：" + resStr)
                     Log.d("getSameShopProducts", "返回資料 ret_val：" + json.get("ret_val"))
 
-                    if (ret_val.equals("已取得商品清單!")) {
-                        val jsonArray: JSONArray = json.getJSONArray("data")
-                        Log.d("getSameShopProducts", "返回資料 jsonArray：" + jsonArray.toString())
-                        if(jsonArray.length()>0){
-                            if( jsonArray.length()>2 ){
-                                //只取前三項"推薦"產品
-                                for (i in 0 until 3) {
+                    if (status == 0) {
+                        for (i in 0 until jsonArray_product.length()) {
+                            val jsonObject: JSONObject = jsonArray_product.getJSONObject(i)
+                            productDetailedPagerForBuyer_RecommendedShopInfoBean =
+                                Gson().fromJson(
+                                    jsonObject.toString(),
+                                    ProductDetailedPagerForBuyer_RecommendedShopInfoBean::class.java
+                                )
+                        }
 
-                                    val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                    mutablelist_otherShopProduct.add(Gson().fromJson(
-                                        jsonObject.toString(),
-                                        ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
-                                    ))
-
-                                }
-                            }else{
-                                for (i in 0 until jsonArray.length()) {
-
-                                    val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                    mutablelist_otherShopProduct.add(Gson().fromJson(
-                                        jsonObject.toString(),
-                                        ProductDetailedPageForBuyer_RecommendedProductsBean::class.java
-                                    ))
-
-                                }
-                            }
-
-                            runOnUiThread {
-
-                                Picasso.get().load(mutablelist_otherShopProduct.get(0).shop_icon).into( binding.ivSameShopIcon)
+                        runOnUiThread {
+                            if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_title.isNotEmpty()) {
+                                Picasso.get()
+                                    .load(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_icon)
+                                    .into(binding.ivSameShopIcon)
 
                                 binding.tvSameShopTitle.setText(
-                                    mutablelist_otherShopProduct.get(0).shop_title
+                                    productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_title
                                 )
                                 binding.tvSameShopRating.setText(
-                                    mutablelist_otherShopProduct.get(0).shop_rating.toString()
+                                    productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating.toString()
                                 )
                                 binding.tvSameShopFollowCount.setText(
-                                    mutablelist_otherShopProduct.get(0).follow_count.toString()
+                                    productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.follow_count.toString()
                                 )
 
                             }
+                        }
 
-                            if(mutablelist_otherShopProduct.get(0).shop_rating>4.25){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star_half)
-                                }
-                            }else if (mutablelist_otherShopProduct.get(0).shop_rating>3.75){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>3.25){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_half)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>2.75){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>2.25){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_half)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>1.75){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>1.25){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_half)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>0.75){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else if(mutablelist_otherShopProduct.get(0).shop_rating>0.25){
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_half)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }else{
-                                runOnUiThread {
-                                    binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
-                                    binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
-                                }
-                            }
-
-                            Log.d("getSameShopProducts", "返回資料 ：" + mutablelist_otherShopProduct.toString())
-                            Log.d("getSameShopProducts", "followed ：" +mutablelist_otherShopProduct.get(0).followed)
-
-                            if(mutablelist_otherShopProduct.get(0).followed.equals("Y")){
-                                runOnUiThread {
-                                    binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
-                                }
-
-                            }else{
-                                runOnUiThread {
-                                    binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
-                                }
-                            }
+                        if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 4.25) {
                             runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star_half)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 3.75) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 3.25) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star_half)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 2.75) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 2.25) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star_half)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 1.75) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 1.25) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star_half)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 0.75) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_fill)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_rating > 0.25) {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star_half)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        } else {
+                            runOnUiThread {
+                                binding.ivSameShopRating01.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating02.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating03.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating04.setImageResource(R.mipmap.ic_star)
+                                binding.ivSameShopRating05.setImageResource(R.mipmap.ic_star)
+                            }
+                        }
 
-                                binding.btnShopSubscribing.setOnClickListener {
 
-                                    Log.d("doFollowShopForBuyer", "MMKV_user_id: ${MMKV_user_id}\n " +
-                                            "shop_id: ${mutablelist_otherShopProduct.get(0).shop_id}\n " )
 
-                                    if(mutablelist_otherShopProduct.get(0).followed.equals("Y")){
-                                        doFollowShopForBuyer(MMKV_user_id, mutablelist_otherShopProduct.get(0).shop_id, "N")
-                                    }else{
-                                        doFollowShopForBuyer(MMKV_user_id, mutablelist_otherShopProduct.get(0).shop_id, "Y")
-                                    }
+                        if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.followed.equals(
+                                "Y"
+                            )
+                        ) {
+                            runOnUiThread {
+                                binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
+                            }
 
+                        } else {
+                            runOnUiThread {
+                                binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
+                            }
+                        }
+                        runOnUiThread {
+
+                            binding.btnShopSubscribing.setOnClickListener {
+
+                                Log.d(
+                                    "doFollowShopForBuyer", "MMKV_user_id: ${MMKV_user_id}\n " +
+                                            "shop_id: ${productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_id}\n "
+                                )
+
+                                if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.followed.equals(
+                                        "Y"
+                                    )
+                                ) {
+                                    doFollowShopForBuyer(
+                                        MMKV_user_id,
+                                        productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_id,
+                                        "N"
+                                    )
+                                } else {
+                                    doFollowShopForBuyer(
+                                        MMKV_user_id,
+                                        productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_id,
+                                        "Y"
+                                    )
                                 }
 
+                            }
+
+                        }
+
+
+                        if (productDetailedPagerForBuyer_RecommendedShopInfoBean.products.size > 0) {
+                            if (productDetailedPagerForBuyer_RecommendedShopInfoBean.products.size > 2) {
+                                //只取前三項"推薦"產品
+                                for (i in 0 until 3) {
+                                    mutablelist_otherShopProduct.add(
+                                        productDetailedPagerForBuyer_RecommendedShopInfoBean.products.get(
+                                            i
+                                        )
+                                    )
+                                }
+                            } else {
+                                for (i in 0 until productDetailedPagerForBuyer_RecommendedShopInfoBean.products.size) {
+                                    mutablelist_otherShopProduct.add(
+                                        productDetailedPagerForBuyer_RecommendedShopInfoBean.products.get(
+                                            i
+                                        )
+                                    )
+                                }
                             }
                             runOnUiThread {
                                 binding.recyclerviewOhtersShopProducts.layoutManager =
-                                    LinearLayoutManager(this@ProductDetailedPageBuyerViewActivity, LinearLayoutManager.HORIZONTAL, false)
-                                binding.recyclerviewOhtersShopProducts.adapter = mAdapter_likeProduct_forOtherShop
-                                mAdapter_likeProduct_forOtherShop.setData(mutablelist_otherShopProduct)
+                                    LinearLayoutManager(
+                                        this@ProductDetailedPageBuyerViewActivity,
+                                        LinearLayoutManager.HORIZONTAL,
+                                        false
+                                    )
+                                binding.recyclerviewOhtersShopProducts.adapter =
+                                    mAdapter_likeProduct_forOtherShop
+                                mAdapter_likeProduct_forOtherShop.setData(
+                                    mutablelist_otherShopProduct
+                                )
 
                                 binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility =
+                                    View.GONE
                             }
+                        }
 
-                            GetDetailedProductSpecification(bundle_product_id)
-                        }else{
-                            runOnUiThread {
-                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                            }
-                        }
-                    }else{
-                        runOnUiThread {
-                            Toast.makeText(this@ProductDetailedPageBuyerViewActivity, ret_val.toString(), Toast.LENGTH_SHORT).show()
-                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                        }
+
+                        GetDetailedProductSpecification(bundle_product_id)
                     }
+
                 } catch (e: JSONException) {
                     Log.d("errormessage", "getSameShopProducts: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getSameShopProducts: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
@@ -1455,8 +1463,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "getSameShopProducts: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })
@@ -1511,7 +1517,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                             val jsonArray: JSONArray = json.getJSONArray("data")
                             Log.d("doFollowShopForBuyer", "返回資料 jsonArray：" + jsonArray.toString())
 
-                            mutablelist_otherShopProduct.get(0).followed = "Y"
+                            productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.followed = "Y"
                             runOnUiThread {
                                 binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribed)
                                 Toast.makeText(
@@ -1524,7 +1530,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
                         }else if(ret_val.equals("取消收藏成功")){
 
-                            mutablelist_otherShopProduct.get(0).followed = "N"
+                            productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.followed = "N"
                             runOnUiThread {
                                 binding.btnShopSubscribing.setImageResource(R.mipmap.btn_shop_subscribing)
                                 Toast.makeText(
@@ -1616,6 +1622,10 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                             ShopDetailedProductForBuyerBean.liked = "Y"
                             runOnUiThread {
                                 binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorful)
+
+                                var update_likeCout = binding.textViewLike.text.toString().toInt()+1
+                                binding.textViewLike.setText(update_likeCout.toString())
+
                                 Toast.makeText(
                                     this@ProductDetailedPageBuyerViewActivity,
                                     ret_val.toString(),
@@ -1630,6 +1640,10 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                             runOnUiThread {
                                 Log.d("doLikeProductForBuyer", "ret_val: ${ret_val.toString()}")
                                 binding.btnDetailedProductForBuyerLike.setImageResource(R.mipmap.btn_detailed_product_for_buyer_like_colorless)
+
+                                var update_likeCout = binding.textViewLike.text.toString().toInt()-1
+                                binding.textViewLike.setText(update_likeCout.toString())
+
                                 Toast.makeText(
                                     this@ProductDetailedPageBuyerViewActivity,
                                     ret_val.toString(),
@@ -1757,6 +1771,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                                 )
                             }
                         }else{
+
                             for (i in 0..detailed_product_specification_bean.spec_dec_1_items.size-1){
                                 mutableList_first_specifications.add(
                                     ItemSpecificationSeleting(
@@ -1770,6 +1785,7 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                                 )
                             }
 
+                            Log.d("ProductDetailedPageBuyerViewActivity", "mutableList_first_specifications Size: ${mutableList_first_specifications.size}\n ")
                             for (i in 0..detailed_product_specification_bean.spec_dec_2_items.size-1){
                                 mutableList_second_specifications.add(
                                     ItemSpecificationSeleting(
@@ -1804,35 +1820,19 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                             }
                             specGroup_count = 2
                         }
-
                         getProductRatingDetails(bundle_product_id)
-                    }else{
-
-                        runOnUiThread {
-                            Toast.makeText(
-                                this@ProductDetailedPageBuyerViewActivity,
-                                ret_val.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
-                        }
                     }
 
                 } catch (e: JSONException) {
                     Log.d("errormessage", "GetDetailedProductSpecification: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "GetDetailedProductSpecification: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
@@ -1841,8 +1841,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "GetDetailedProductSpecification: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
 
             }
@@ -1889,15 +1887,12 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                         }
                     }
 
-                    getSimilarProducts(MMKV_user_id, bundle_product_id)
 
                 } catch (e: JSONException) {
 
                     Log.d("errormessage", "GetShoppingCartItemCountForBuyer: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
 
                 } catch (e: IOException) {
@@ -1905,8 +1900,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     Log.d("errormessage", "GetShoppingCartItemCountForBuyer: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
@@ -1915,8 +1908,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "GetShoppingCartItemCountForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })
@@ -1990,26 +1981,25 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                                     jsonObject.toString(),
                                     ProductDetailedPageForBuyer_RatingDetailsBean::class.java
                                 ))
-
                             }
-                        }
-                        Log.d("getProductRatingDetails", "返回資料 mutablelist_recommendedProduct：" + mutablelist_similarProduct.toString())
+                            Log.d("getProductRatingDetails", "返回資料 mutablelist_recommendedProduct：" + mutablelist_similarProduct.toString())
 
-                        runOnUiThread {
-                            binding.rViewComments.layoutManager =
-                                LinearLayoutManager(this@ProductDetailedPageBuyerViewActivity, LinearLayoutManager.VERTICAL, false)
-                            binding.rViewComments.adapter = mAdapter_ProductRatingDetails
-                            mAdapter_ProductRatingDetails.setData(mutableList_ProductRatingDetails)
+                            runOnUiThread {
+                                binding.rViewComments.layoutManager =
+                                    LinearLayoutManager(this@ProductDetailedPageBuyerViewActivity, LinearLayoutManager.VERTICAL, false)
+                                binding.rViewComments.adapter = mAdapter_ProductRatingDetails
+                                mAdapter_ProductRatingDetails.setData(mutableList_ProductRatingDetails)
 
-                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                                binding.progressBarDetailedProductForBuyer.visibility = View.GONE
+                                binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                            }
+
                         }
+
 
                     }else{
                         runOnUiThread {
                             Toast.makeText(this@ProductDetailedPageBuyerViewActivity, resStr.toString(), Toast.LENGTH_SHORT).show()
-                            binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                            binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                         }
                     }
 
@@ -2017,8 +2007,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     Log.d("errormessage", "getProductRatingDetails: JSONException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
 
                 } catch (e: IOException) {
@@ -2026,8 +2014,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     Log.d("errormessage", "getProductRatingDetails: IOException: ${e.toString()}")
                     runOnUiThread {
                         Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                        binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                        binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                     }
                 }
             }
@@ -2036,8 +2022,6 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                 Log.d("errormessage", "getProductRatingDetails: ErrorResponse: ${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ProductDetailedPageBuyerViewActivity, "網路異常", Toast.LENGTH_SHORT).show()
-                    binding.progressBarDetailedProductForBuyer.visibility = View.GONE
-                    binding.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })

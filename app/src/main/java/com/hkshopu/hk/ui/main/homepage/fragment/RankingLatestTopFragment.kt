@@ -58,6 +58,9 @@ class RankingLatestTopFragment : Fragment() {
     private val adapter = TopProductAdapter(currency, userId)
     var max_seq = 0
 //    var userId = ""
+    val mode = "new"
+    var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,21 +69,23 @@ class RankingLatestTopFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_ranking_latest, container, false)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_new)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
 
-        val mode = "new"
-        var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
         latestProduct = v.find<RecyclerView>(R.id.recyclerview_ranklatest)
-        getProductOverAll(url,userId,max_seq)
 
         initView()
         initEvent()
         initRefresh()
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductOverAll(url,userId,max_seq)
     }
 
     private fun initView(){
@@ -141,6 +146,7 @@ class RankingLatestTopFragment : Fragment() {
     }
 
     private fun getProductOverAll(url: String,user_id:String,max_seq:Int) {
+        progressBar.visibility = View.VISIBLE
 
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {

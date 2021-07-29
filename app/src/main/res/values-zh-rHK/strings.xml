@@ -636,6 +636,7 @@
     <string name="search_product_empty">很抱歉，沒有搜尋到相關商品。</string>
     <string name="search_end">您已經看完了所有內容</string>
     <string name="please_refresh">請刷新一下</string>
+    <string name="no_more_content">您已經看完了所有內容</string>
 
     <!--    轉數快-->
     <string name="fpspay_title">請使用支援「轉數快」的支付應用程式進行轉帳</string>
@@ -787,7 +788,6 @@
     <string name="notification_sent">已發送通知</string>
 
     <!--   訂單詳情-->
-
     <string name="hello">你好,</string>
     <string name="product_confirm">確認商品到貨</string>
     <string name="ordernumber_confirm">請確認訂單編號</string>
@@ -795,8 +795,10 @@
     <string name="ordernumber_compelete">按下“完成訂單”確認收貨後及撥款給店家。</string>
     <string name="thanks">謝謝您支持使用HKSHOPU。</string>
     <string name="compelete">已完成</string>
-
     <string name="delivery_time_eta">預計到貨時間</string>
     <string name="compelete_time">完成時間</string>
+
+    <!--  通知-->
+    <string name="notification">通知</string>
 
 </resources>

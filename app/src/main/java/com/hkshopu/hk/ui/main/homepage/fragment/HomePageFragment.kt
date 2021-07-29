@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -35,10 +34,9 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.*
 import com.HKSHOPU.hk.ui.main.homepage.adapter.CategorySingleAdapter
-import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
+import com.HKSHOPU.hk.ui.main.homepage.adapter.PopularProductAdapter
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendHomeAdapter
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
-import com.HKSHOPU.hk.ui.login.vm.ShopVModel
 import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerInfoModifyActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
@@ -76,13 +74,13 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
     val REQUEST_CODE_SPEECH_INPUT = 1000
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
-    private val adapter_TopProduct = ProductShopPreviewAdapter(currency, userId)
+    private val adapter_TopProduct = PopularProductAdapter(currency, userId)
     private var binding: FragmentHomepageBinding? = null
     private var fragmentHomepageBinding: FragmentHomepageBinding? = null
     var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
 
     var keyWord = ""
-
+    var firstInit = true
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomepageBinding.bind(view)
@@ -90,25 +88,24 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
 
         binding!!.progressBar.visibility = View.VISIBLE
         binding!!.imgViewLoadingBackground.visibility = View.VISIBLE
+        if(firstInit) {
+            getShoppingCartItemCountForBuyer(userId.toString())
+            getHomeAd()
 
-        getShoppingCartItemCountForBuyer(userId.toString())
-        var url_homeAd = ApiConstants.API_HOST + "shop/advertisement/"
-        getHomeAd(url_homeAd)
-        var url = ApiConstants.API_HOST + "shop_category/index/"
-        getShopCategory(url)
-        getRecommendedStores(userId.toString())
-
-        if (userId!!.isEmpty()) {
-            binding!!.tvUsername.setText(R.string.hello_guest)
-            var url_topproduct = ApiConstants.API_HOST + "product/" + "null" + "/product_analytics/"
-            getTopProduct(url_topproduct)
-        } else {
-            var url_UserPeofile = ApiConstants.API_HOST + "user_detail/"+userId+"/profile/"
-            getUserProfile(url_UserPeofile)
-            var url_topproduct = ApiConstants.API_HOST + "product/" + userId + "/product_analytics/"
-            getTopProduct(url_topproduct)
+            if (userId!!.isEmpty()) {
+                binding!!.tvUsername.setText(R.string.hello_guest)
+                var url_topproduct =
+                    ApiConstants.API_HOST + "product/" + "null" + "/product_analytics/"
+                getTopProduct(url_topproduct)
+            } else {
+                var url_UserProfile = ApiConstants.API_HOST + "user_detail/" + userId + "/profile/"
+                getUserProfile(url_UserProfile)
+                var url_topproduct =
+                    ApiConstants.API_HOST + "product/" + userId + "/product_analytics/"
+                getTopProduct(url_topproduct)
+            }
+            firstInit = false
         }
-
         initRefresh()
 //        initVM()
         initView()
@@ -140,6 +137,27 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         initEvent()
 //        checkPermission()
 //        VM.getTopProduct(requireActivity(),userId)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(!firstInit) {
+            getShoppingCartItemCountForBuyer(userId.toString())
+            getHomeAd_noshopcatogory()
+
+            if (userId!!.isEmpty()) {
+                binding!!.tvUsername.setText(R.string.hello_guest)
+                var url_topproduct =
+                    ApiConstants.API_HOST + "product/" + "null" + "/product_analytics/"
+                getTopProduct(url_topproduct)
+            } else {
+                var url_UserProfile = ApiConstants.API_HOST + "user_detail/" + userId + "/profile/"
+                getUserProfile(url_UserProfile)
+                var url_topproduct =
+                    ApiConstants.API_HOST + "product/" + userId + "/product_analytics/"
+                getTopProduct(url_topproduct)
+            }
+        }
     }
 
     private fun initRefresh() {
@@ -192,16 +210,16 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
             requireActivity().startActivity(intent)
         }
         binding!!.tvMoreStorerecommend.setOnClickListener {
+            val intent = Intent(requireActivity(), StoreRecommendActivity::class.java)
             val bundle = Bundle()
             bundle.putString("userId", userId)
-            val intent = Intent(requireActivity(), StoreRecommendActivity::class.java)
             intent.putExtra("bundle", bundle)
             requireActivity().startActivity(intent)
         }
         binding!!.tvMoreHotsale.setOnClickListener {
+            val intent = Intent(requireActivity(), TopProductsActivity::class.java)
             val bundle = Bundle()
             bundle.putString("userId", userId)
-            val intent = Intent(requireActivity(), TopProductsActivity::class.java)
             intent.putExtra("bundle", bundle)
             requireActivity().startActivity(intent)
         }
@@ -332,7 +350,53 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         }
     }
 
-    private fun getHomeAd(url: String) {
+    private fun getHomeAd() {
+        var url = ApiConstants.API_HOST + "shop/advertisement/"
+        val list = ArrayList<HomeAdBean>()
+        list.clear()
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("HomePageFragment", "返回資料 resStr：" + resStr)
+                    Log.d("HomePageFragment", "返回資料 ret_val：" + ret_val)
+
+                    if (status == 0) {
+                        val translations: JSONArray = json.getJSONArray("data")
+                        Log.d("getHomeAd", "返回資料 List：" + translations.toString())
+                        for (i in 0 until translations.length()) {
+                            val jsonObject: JSONObject = translations.getJSONObject(i)
+                            val homeAdBean: HomeAdBean =
+                                Gson().fromJson(jsonObject.toString(), HomeAdBean::class.java)
+                            list.add(homeAdBean)
+                        }
+                        requireActivity().runOnUiThread {
+                            adapter_HomeAd.setData(list)
+                            initRecyclerView()
+                        }
+
+                        getShopCategory()
+                    }
+                } catch (e: JSONException) {
+                    Log.d("getHomeAd_errorMessage", "JSONException：" + e.toString())
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getHomeAd_errorMessage", "IOException：" + e.toString())
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getHomeAd_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
+            }
+        })
+        web.Get_Data(url)
+    }
+
+    private fun getHomeAd_noshopcatogory() {
+        var url = ApiConstants.API_HOST + "shop/advertisement/"
         val list = ArrayList<HomeAdBean>()
         list.clear()
         val web = Web(object : WebListener {
@@ -373,7 +437,8 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
         })
         web.Get_Data(url)
     }
-    private fun getShopCategory(url: String) {
+    private fun getShopCategory() {
+        var url = ApiConstants.API_HOST + "shop_category/index/"
         CommonVariable.list.clear()
         CommonVariable.ShopCategory.clear()
         val web = Web(object : WebListener {
@@ -404,6 +469,8 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                             adapter_ProductCategory.setData(CommonVariable.list)
                             initRecyclerView()
                         }
+
+                        getRecommendedStores(userId.toString())
                     }
                 } catch (e: JSONException) {
                     Log.d("getShopCategory_errorMessage", "JSONException：" + e.toString())
@@ -672,6 +739,10 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
                 when (it) {
                     is EventRefreshShoppingCartItemCount -> {
                         getShoppingCartItemCountForBuyer(userId)
+                    }
+                    is EventRefreshHomepage -> {
+                        var url_topproduct = ApiConstants.API_HOST + "product/" + userId + "/product_analytics/"
+                        getTopProduct(url_topproduct)
                     }
                 }
             }, {

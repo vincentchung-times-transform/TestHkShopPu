@@ -1,10 +1,11 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.HKSHOPU.hk.Base.BaseActivity
@@ -14,7 +15,7 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.ProductBrowseAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerProfile_BrowsedAdapter
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.google.gson.Gson
 import com.tencent.mmkv.MMKV
@@ -34,7 +35,7 @@ class BuyerBrowsedListActivity : BaseActivity() {
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
-    private val adapter = ProductBrowseAdapter(currency, userId)
+    private val adapter = BuyerProfile_BrowsedAdapter(currency, userId)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +44,7 @@ class BuyerBrowsedListActivity : BaseActivity() {
 
         initView()
         initClick()
-        doGetBrowsedList(keyword)
+//        doGetBrowsedList(keyword)
     }
 
     private fun initView() {
@@ -72,6 +73,15 @@ class BuyerBrowsedListActivity : BaseActivity() {
         binding.ivBack.setOnClickListener {
             finish()
         }
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
     }
     private fun initRecyclerView(){
         val layoutManager = GridLayoutManager(this@BuyerBrowsedListActivity,2)
@@ -84,8 +94,8 @@ class BuyerBrowsedListActivity : BaseActivity() {
 
     private fun doGetBrowsedList(keyword: String) {
 
-        binding.progressBarBuyerBrowse.visibility = View.VISIBLE
-        binding.imgViewLoadingBackgroundBuyerBrowse.visibility = View.VISIBLE
+        binding.progressBarBuyerBrowse.visibility = View.GONE
+        binding.imgViewLoadingBackgroundBuyerBrowse.visibility = View.GONE
 
         var url = ApiConstants.API_HOST + "user_detail/user_browsed/"
         val web = Web(object : WebListener {

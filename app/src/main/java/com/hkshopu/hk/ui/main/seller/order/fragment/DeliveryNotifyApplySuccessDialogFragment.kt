@@ -50,7 +50,7 @@ class DeliveryNotifyApplySuccessDialogFragment(): DialogFragment(), View.OnClick
         val inset = InsetDrawable(
             ContextCompat.getDrawable(
                 requireActivity(),
-                R.drawable.dialog_fragment_background
+                R.drawable.custom_unit_transparent
             ), 0
         )
         dialog!!.window!!.setBackgroundDrawable(inset)

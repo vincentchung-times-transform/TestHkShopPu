@@ -64,9 +64,9 @@ class ShoppingCartShopsNestedAdapter(var activity: BaseActivity): RecyclerView.A
 
         fun bind(item: ShoppingCartShopItemNestedLayer){
 
-            if(item.productList.size == 0){
-                onItemDissmiss(adapterPosition)
-            }
+//            if(item.productList.size == 0){
+//                onItemDissmiss(adapterPosition)
+//            }
 
             var item_id_list = arrayListOf<String>()
             for(i in 0..item.productList.size-1){

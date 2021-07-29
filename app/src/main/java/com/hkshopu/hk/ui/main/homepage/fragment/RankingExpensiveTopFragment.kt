@@ -55,9 +55,11 @@ class RankingExpensiveTopFragment : Fragment() {
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     private val adapter = TopProductAdapter(currency, userId)
-
     var max_seq = 0
 //    var userId = ""
+    val mode = "higher_price"
+    var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages/"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,22 +68,23 @@ class RankingExpensiveTopFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_ranking_expansive, container, false)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_expensive)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
 
-
-        val mode = "higher_price"
-        var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages/"
         expensiveProduct = v.find<RecyclerView>(R.id.recyclerview_expensive)
-        getProductOverAll(url,userId,max_seq)
 
         initView()
         initEvent()
         initRefresh()
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductOverAll(url,userId,max_seq)
     }
 
     private fun initView(){
@@ -135,6 +138,7 @@ class RankingExpensiveTopFragment : Fragment() {
     }
 
     private fun getProductOverAll(url: String,user_id:String,max_seq:Int) {
+        progressBar.visibility = View.VISIBLE
 
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {

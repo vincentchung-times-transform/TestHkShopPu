@@ -3,8 +3,12 @@ package com.HKSHOPU.hk.data.bean
 import com.google.gson.annotations.SerializedName
 
 class MyOrderBean {
+
     @SerializedName("status")
     var status: String = ""
+
+    @SerializedName("waybill_number")
+    var waybill_number: String = ""
 
     @SerializedName("shipment_info")
     var shipment_info: String = ""
@@ -45,8 +49,8 @@ class MyOrderBean {
     @SerializedName("payment_at")
     var payment_at: String = " - "
 
-    @SerializedName("actual_deliver_at")
-    var actual_deliver_at: String = " - "
+    @SerializedName("actual_post_at")
+    var actual_post_at: String = " - "
 
     @SerializedName("estimated_deliver_at")
     var estimated_deliver_at: String = " - "

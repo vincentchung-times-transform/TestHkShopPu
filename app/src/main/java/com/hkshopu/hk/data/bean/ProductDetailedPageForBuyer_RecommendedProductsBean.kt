@@ -56,26 +56,5 @@ class ProductDetailedPageForBuyer_RecommendedProductsBean {
     @SerializedName("sum_quantity")
     var sum_quantity: Int = 0
 
-    //  Same Shop Products Columns
-
-    @SerializedName("shop_icon")
-    var shop_icon: String = ""
-
-    @SerializedName("liked")
-    var liked: String = ""
-
-    @SerializedName("rating")
-    var rating: Double = 0.0
-
-    @SerializedName("follow_count")
-    var follow_count: Int = 0
-
-    @SerializedName("shop_rating")
-    var shop_rating: Double = 0.0
-
-    @SerializedName("followed")
-    var followed: String = ""
-
-
 
 }

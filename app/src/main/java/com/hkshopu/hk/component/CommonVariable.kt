@@ -1,5 +1,6 @@
 package com.HKSHOPU.hk.component
 
+import android.graphics.Bitmap
 import com.HKSHOPU.hk.data.bean.ShopAddressBean
 import com.HKSHOPU.hk.data.bean.ShopBankAccountBean
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
@@ -18,6 +19,9 @@ import kotlin.collections.ArrayList
 class CommonVariable private constructor() {
 
     companion object {
+
+        //Add && Edit Product
+        var arrayList_Pics = ArrayList<Bitmap>()
 
         //Shop Info
         val list = ArrayList<ShopCategoryBean>()

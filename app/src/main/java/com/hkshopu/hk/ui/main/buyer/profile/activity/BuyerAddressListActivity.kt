@@ -18,7 +18,7 @@ import com.HKSHOPU.hk.databinding.ActivityUseraddresslistBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerAddressListAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerAddressList_Adapter
 
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
@@ -33,7 +33,7 @@ import java.io.IOException
 class BuyerAddressListActivity : BaseActivity() {
     private lateinit var binding: ActivityUseraddresslistBinding
 
-    private val adapter = BuyerAddressListAdapter()
+    private val adapter = BuyerAddressList_Adapter()
     var userId = MMKV.mmkvWithID("http").getString("UserId", "");
     var url = ApiConstants.API_HOST + "shopping_cart/"+userId+"/buyer_address/"
 

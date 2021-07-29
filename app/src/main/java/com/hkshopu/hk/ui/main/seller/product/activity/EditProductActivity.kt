@@ -23,6 +23,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.CommonVariable
 import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
 import com.HKSHOPU.hk.component.EventTransferToFragmentAfterUpdate
 import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
@@ -130,13 +131,11 @@ class EditProductActivity : BaseActivity() {
             Thread(Runnable {
                 initMMKV_and_initViewValue()
             }).start()
-
         }else{
             product_edit_session = true
             MMKV.mmkvWithID("editPro").putBoolean("product_edit_session", product_edit_session)
             getProductInfo(MMKV_product_id)
         }
-
 
 //        try{
 //            Thread.sleep(5000)
@@ -144,12 +143,10 @@ class EditProductActivity : BaseActivity() {
 //            e.printStackTrace()
 //        }
 
-
 //        initVM()
         initView()
 
     }
-
 
     @RequiresApi(Build.VERSION_CODES.P)
     fun initMMKV_and_initViewValue() {
@@ -165,29 +162,29 @@ class EditProductActivity : BaseActivity() {
         //商品圖片
         var pics_list_size = MMKV.mmkvWithID("editPro").getInt("value_pics_size", 0)
 
-
         //從API以載入過一次，所以重新仔入必須清除，才不會重複
         mutableList_pics.clear()
 
         for (i in 0..pics_list_size - 1) {
 
-            var previouslyEncodedImage: String? =
-                MMKV.mmkvWithID("editPro").getString("value_pic${i}", "")
+//            var previouslyEncodedImage: String? =
+//                MMKV.mmkvWithID("editPro").getString("value_pic${i}", "")
+            var previouslyEncodedImage = CommonVariable.arrayList_Pics.get(i)
 
             if (i == 0) {
 
                 if (!previouslyEncodedImage.equals("")) {
-                    val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
-                    val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
-                    mutableList_pics.add(ItemPics(bitmap, R.mipmap.cover_pic))
+//                    val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
+//                    val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
+                    mutableList_pics.add(ItemPics(previouslyEncodedImage, R.mipmap.cover_pic))
                 }
 
             } else {
 
                 if (!previouslyEncodedImage.equals("")) {
-                    val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
-                    val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
-                    mutableList_pics.add(ItemPics(bitmap, R.drawable.custom_unit_transparent))
+//                    val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
+//                    val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
+                    mutableList_pics.add(ItemPics(previouslyEncodedImage, R.drawable.custom_unit_transparent))
                 }
 
             }
@@ -215,7 +212,6 @@ class EditProductActivity : BaseActivity() {
         ).toString()
         runOnUiThread {
             binding.editTextEntryProductName.setText(MMKV_editTextEntryProductName)
-
         }
 
         //商品描述
@@ -225,7 +221,6 @@ class EditProductActivity : BaseActivity() {
         ).toString()
         runOnUiThread {
             binding.editTextEntryProductDiscription.setText(MMKV_editTextEntryProductDiscription)
-
         }
 
         //商品分類
@@ -234,7 +229,6 @@ class EditProductActivity : BaseActivity() {
         initInvenDatas()
         //商品運費
         initProFareDatas()
-
 
         //商品保存狀況
         MMKV_checked_brandNew = MMKV.mmkvWithID("editPro").getString(
@@ -247,7 +241,6 @@ class EditProductActivity : BaseActivity() {
             var elevation = 10
             val e = (elevation * scale + 0.5f).toInt() //to dp
             var e_zero = 0
-
 
             runOnUiThread {
                 binding.tvBrandnew.setElevation(e.toFloat())
@@ -273,7 +266,6 @@ class EditProductActivity : BaseActivity() {
 
         }
 
-
         //需要較長時間備貨嗎?
         runOnUiThread {
             binding.needMoreTimeToStockUp.text = getString(R.string.textView_more_time_to_stock)
@@ -282,7 +274,6 @@ class EditProductActivity : BaseActivity() {
             "boolean_needMoreTimeToStockUp",
             "n"
         ).toString()
-
 
         if(MMKV_boolean_needMoreTimeToStockUp=="n"){
             runOnUiThread {
@@ -329,7 +320,6 @@ class EditProductActivity : BaseActivity() {
 
     @RequiresApi(Build.VERSION_CODES.P)
     fun initView() {
-
 
         initEditText()
         initClick()
@@ -1252,13 +1242,15 @@ class EditProductActivity : BaseActivity() {
                             mutableList_pics.size.toInt()
                         )
 
+                        CommonVariable.arrayList_Pics.clear()
                         for (i in 0..mutableList_pics.size - 1) {
                             //transfer to Base64
-                            val baos = ByteArrayOutputStream()
-                            mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                            val b = baos.toByteArray()
-                            val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-                            MMKV.mmkvWithID("editPro").putString("value_pic${i}", encodedImage)
+//                            val baos = ByteArrayOutputStream()
+//                            mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                            val b = baos.toByteArray()
+//                            val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
+//                            MMKV.mmkvWithID("editPro").putString("value_pic${i}", encodedImage)
+                            CommonVariable.arrayList_Pics.add(mutableList_pics[i].bitmap)
                         }
 
                     }else{
@@ -1299,13 +1291,15 @@ class EditProductActivity : BaseActivity() {
 
                             MMKV.mmkvWithID("editPro").putInt("value_pics_size", mutableList_pics.size)
 
+                            CommonVariable.arrayList_Pics.clear()
                             for (i in 0..mutableList_pics.size - 1) {
                                 //transfer to Base64
-                                val baos = ByteArrayOutputStream()
-                                mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                                val b = baos.toByteArray()
-                                val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-                                MMKV.mmkvWithID("editPro").putString("value_pic${i}", encodedImage)
+//                                val baos = ByteArrayOutputStream()
+//                                mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                                val b = baos.toByteArray()
+//                                val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
+//                                MMKV.mmkvWithID("editPro").putString("value_pic${i}", encodedImage)
+                                CommonVariable.arrayList_Pics.add(mutableList_pics[i].bitmap)
                             }
 
                         }else{
@@ -1315,11 +1309,9 @@ class EditProductActivity : BaseActivity() {
 
                         }
 
-
                     } catch (e: FileNotFoundException) {
                         e.printStackTrace()
                     }
-
 
                 }
 
@@ -1371,7 +1363,6 @@ class EditProductActivity : BaseActivity() {
         runOnUiThread {
             binding.textViewSeletedCategory.setText(MMKV_textViewSeletedCategory)
 //        binding.textViewSeletedCategory.setText("${MMKV_c_product_category} > ${MMKV_c_product_sub_category}")
-
         }
 
         Log.d(
@@ -1623,16 +1614,15 @@ class EditProductActivity : BaseActivity() {
     }
 
     private fun processImage(bitmap: Bitmap, i: Int): File? {
-
-        val bmp = bitmap
-        val bmpCompress = getResizedBitmap(bmp, 200)
+//        val bmp = bitmap
+//        val bmpCompress = getResizedBitmap(bmp, 200)
         val file: File
         val path = getExternalFilesDir(null).toString()
         file = File(path, "image" + i + ".jpg")
         try {
             var stream: OutputStream? = null
             stream = FileOutputStream(file)
-            bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
             stream?.flush()
             stream?.close()
         } catch (e: IOException) // Catch the exception
@@ -1642,21 +1632,19 @@ class EditProductActivity : BaseActivity() {
         return file
     }
 
-    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
-        var width = image.width
-        var height = image.height
-        val bitmapRatio = width.toFloat() / height.toFloat()
-        width = maxSize
-        height = (width / bitmapRatio).toInt()
-        return Bitmap.createScaledBitmap(image, width, height, true)
-    }
+//    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
+//        var width = image.width
+//        var height = image.height
+//        val bitmapRatio = width.toFloat() / height.toFloat()
+//        width = maxSize
+//        height = (width / bitmapRatio).toInt()
+//        return Bitmap.createScaledBitmap(image, width, height, true)
+//    }
 
 
     override fun onBackPressed() {
         StoreOrNotDialogStoreProductsFragment(this).show(supportFragmentManager, "MyCustomFragment")
     }
-
-
 
     private fun doUpdateProduct(
         product_id: String,
@@ -1710,7 +1698,7 @@ class EditProductActivity : BaseActivity() {
 
                         MMKV.mmkvWithID("addPro").clear()
                         MMKV.mmkvWithID("editPro").clear()
-
+                        CommonVariable.arrayList_Pics.clear()
                         finish()
 
                     }else{
@@ -1824,15 +1812,16 @@ class EditProductActivity : BaseActivity() {
                             mutableList_pics.add(ItemPics(getBitmapFromURL(productInfoList.pic_path.get(i))!!, R.drawable.custom_unit_transparent))
                         }
 
-
                         for (i in 0..productInfoList.pic_path.size - 1) {
                             //transfer to Base64
                             val baos = ByteArrayOutputStream()
                             mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
                             val b = baos.toByteArray()
                             val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-
                             MMKV.mmkvWithID("editPro").putString("value_pic${i}", encodedImage)
+
+                            //New Method
+                            CommonVariable.arrayList_Pics.add(mutableList_pics[i].bitmap)
                         }
 
                         //Others
@@ -1951,57 +1940,52 @@ class EditProductActivity : BaseActivity() {
                             //EditProductSpecificationMainActivity
                             MMKV.mmkvWithID("editPro").putString(
                                 "value_editTextProductSpecFirst",
-                                productInfoList.spec_desc_1.get(0)
+                                productInfoList.spec_desc_1
                             )
                             MMKV.mmkvWithID("editPro").putString(
                                 "value_editTextProductSpecSecond",
-                                productInfoList.spec_desc_2.get(0)
+                                productInfoList.spec_desc_2
                             )
 
-                            var mutableSet_spec_dec_1_items: MutableSet<String> =
-                                productInfoList.spec_dec_1_items.toMutableSet()
-                            var mutableSet_spec_dec_2_items: MutableSet<String> =
-                                productInfoList.spec_dec_2_items.toMutableSet()
                             var mutableList_spec_dec_1_items: MutableList<String> =
-                                mutableSet_spec_dec_1_items.toMutableList()
+                                productInfoList.spec_dec_1_items
                             var mutableList_spec_dec_2_items: MutableList<String> =
-                                mutableSet_spec_dec_2_items.toMutableList()
+                                productInfoList.spec_dec_2_items
 
                             MMKV.mmkvWithID("editPro").putString(
                                 "datas_spec_size",
-                                mutableSet_spec_dec_1_items.size.toString()
+                                productInfoList.spec_dec_1_items.size.toString()
                             )
 
-                            for (i in 0..mutableSet_spec_dec_1_items.size - 1) {
+                            for (i in 0..mutableList_spec_dec_1_items.size - 1) {
                                 MMKV.mmkvWithID("editPro").putString(
                                     "datas_spec_item${i}",
                                     mutableList_spec_dec_1_items.get(i)
                                 )
                             }
 
-                            if(productInfoList.spec_desc_2.get(0).isNullOrEmpty()){
+                            if(productInfoList.spec_desc_2.isNullOrEmpty()){
 
                                 MMKV.mmkvWithID("editPro").putString(
                                     "datas_size_size",
                                     "0"
                                 )
 
-                                for (i in 0..mutableSet_spec_dec_2_items.size - 1) {
+                                for (i in 0..mutableList_spec_dec_2_items.size - 1) {
                                     MMKV.mmkvWithID("editPro").putString(
                                         "datas_size_item${i}",
                                         mutableList_spec_dec_2_items.get(i)
                                     )
                                 }
-
 
                             }else{
 
                                 MMKV.mmkvWithID("editPro").putString(
                                     "datas_size_size",
-                                    mutableSet_spec_dec_2_items.size.toString()
+                                    mutableList_spec_dec_2_items.size.toString()
                                 )
 
-                                for (i in 0..mutableSet_spec_dec_2_items.size - 1) {
+                                for (i in 0..mutableList_spec_dec_2_items.size - 1) {
                                     MMKV.mmkvWithID("editPro").putString(
                                         "datas_size_item${i}",
                                         mutableList_spec_dec_2_items.get(i)
@@ -2010,47 +1994,62 @@ class EditProductActivity : BaseActivity() {
 
                             }
 
+                            var datas_price_size = 0
+                            var datas_quant_size = 0
+                            for(i in 0..productInfoList.price.size-1){
+                                for(j in 0..productInfoList.price.get(i).size-1){
+                                    datas_price_size  = datas_price_size+1
+                                }
+                            }
+                            for(i in 0..productInfoList.spec_quantity.size-1){
+                                for(j in 0..productInfoList.spec_quantity.get(i).size-1){
+                                    datas_quant_size  = datas_quant_size+1
+                                }
+                            }
 
                             MMKV.mmkvWithID("editPro").putString(
                                 "datas_price_size",
-                                productInfoList.price.size.toString()
+                                datas_price_size.toString()
                             )
 
                             MMKV.mmkvWithID("editPro").putString(
                                 "datas_quant_size",
-                                productInfoList.spec_quantity.size.toString()
+                                datas_quant_size.toString()
                             )
 
 
                             for (i in 0..productInfoList.price.size - 1) {
-
-                                MMKV.mmkvWithID("editPro").putString(
-                                    "spec_price${i}",
-                                    productInfoList.price.get(i).toString()
-                                )
+                                for(j in 0..productInfoList.price.get(i).size -1){
+                                    MMKV.mmkvWithID("editPro").putString(
+                                        "spec_price${i*productInfoList.price.get(i).size+j}",
+                                        productInfoList.price.get(i).get(j).toString()
+                                    )
+                                }
                             }
 
                             for (i in 0..productInfoList.spec_quantity.size - 1) {
-                                MMKV.mmkvWithID("editPro").putString(
-                                    "spec_quantity${i}",
-                                    productInfoList.spec_quantity.get(i).toString()
-                                )
+                                for(j in 0..productInfoList.spec_quantity.get(i).size - 1){
+                                    MMKV.mmkvWithID("editPro").putString(
+                                        "spec_quantity${i*productInfoList.price.get(i).size+j}",
+                                        productInfoList.spec_quantity.get(i).get(j).toString()
+                                    )
+                                }
                             }
 
 
 
-                            for (i in 0.. productInfoList.spec_desc_1.size-1){
-
-                                mutableList_InvenDatas.add(
-                                    InventoryItemDatas(
-                                        productInfoList.spec_desc_1.get(i),
-                                        productInfoList.spec_desc_2.get(i),
-                                        productInfoList.spec_dec_1_items.get(i),
-                                        productInfoList.spec_dec_2_items.get(i),
-                                        productInfoList.price.get(i),
-                                        productInfoList.spec_quantity.get(i))
-                                )
-
+                            for (i in 0.. productInfoList.price.size-1){
+                                for(j in 0.. productInfoList.price.get(i).size-1){
+                                    mutableList_InvenDatas.add(
+                                        InventoryItemDatas(
+                                            productInfoList.spec_desc_1,
+                                            productInfoList.spec_desc_2,
+                                            productInfoList.spec_dec_1_items.get(i),
+                                            productInfoList.spec_dec_2_items.get(j),
+                                            productInfoList.price.get(i).get(j),
+                                            productInfoList.spec_quantity.get(i).get(j))
+                                    )
+                                }
                             }
 
 
@@ -2058,9 +2057,9 @@ class EditProductActivity : BaseActivity() {
                             val gsonPretty = GsonBuilder().setPrettyPrinting().create()
 
                             val jsonTutList_inven: String = gson.toJson(mutableList_InvenDatas)
-                            Log.d("AddNewProductActivity", jsonTutList_inven.toString())
+                            Log.d("jsonTutList_inven", jsonTutList_inven.toString())
                             val jsonTutListPretty_inven: String = gsonPretty.toJson(mutableList_InvenDatas)
-                            Log.d("AddNewProductActivity", jsonTutListPretty_inven.toString())
+                            Log.d("jsonTutListPretty_inven", jsonTutListPretty_inven.toString())
 
                             MMKV.mmkvWithID("editPro").putString("jsonTutList_inven", jsonTutList_inven)
 

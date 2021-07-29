@@ -1,16 +1,22 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.maps.android:maps-ktx:2.4.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3c91d7464be62eafff78aa14d7acfb89/jetified-maps-ktx-2.4.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8580d5c3a8ede2b301af381ccfab2cc6/jetified-maps-ktx-2.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6ce737735c25d60d7adea04603d409a9/jetified-maps-ktx-2.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/18102aa01ca0e164c876123b60a9ccc3/jetified-maps-ktx-2.4.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ec3bcb61eafb06d7e777ee628bb6cbbc/jetified-maps-ktx-2.4.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/res" />
+      <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/res" />
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/dab0538c1270e0a08bf68f56cadd3164fa20cfda/maps-ktx-2.4.0-javadoc.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/dab0538c1270e0a08bf68f56cadd3164fa20cfda/maps-ktx-2.4.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/982cd470077559100e0528e4091d0ae38c3d2261/maps-ktx-2.4.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/982cd470077559100e0528e4091d0ae38c3d2261/maps-ktx-2.4.0-sources.jar!/" />
     </SOURCES>
   </library>

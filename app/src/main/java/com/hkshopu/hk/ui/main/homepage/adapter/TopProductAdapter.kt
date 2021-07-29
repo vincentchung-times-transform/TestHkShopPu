@@ -41,6 +41,8 @@ class TopProductAdapter (var currency: Currency, var user_id: String): RecyclerV
 //    var itemClick : ((id: String) -> Unit)? = null
 //    var likeClick : ((id: String,like:String) -> Unit)? = null
     private var like_inner = ""
+
+
     fun setData(list : ArrayList<TopProductBean>){
         list?:return
         mData.clear()
@@ -90,6 +92,8 @@ class TopProductAdapter (var currency: Currency, var user_id: String): RecyclerV
         val shopname = itemView.find<TextView>(R.id.tv_shopname)
         val price = itemView.find<TextView>(R.id.tv_price)
         var liked_status = "N"
+        var hkd_dollarSign = itemView.context.getString(R.string.hkd_dollarSign)
+
 
         fun bindShop(topProductBean : TopProductBean){
 
@@ -107,7 +111,12 @@ class TopProductAdapter (var currency: Currency, var user_id: String): RecyclerV
             title .text = topProductBean.product_title
             shopname.text = topProductBean.shop_title
 
-            price.text = currency.toString()+ topProductBean.price.toString()
+            if(topProductBean.price.toString().equals("-1")){
+                price.text = hkd_dollarSign.toString() + topProductBean.min_price.toString() + "-" +  topProductBean.max_price.toString()
+            }else{
+                price.text = hkd_dollarSign.toString() + topProductBean.price.toString()
+            }
+
             if(liked_status.equals("Y")){
                 like.setImageResource(R.mipmap.ic_heart_red)
             }else{

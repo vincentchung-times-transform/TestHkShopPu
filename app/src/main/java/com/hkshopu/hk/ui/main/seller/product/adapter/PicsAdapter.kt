@@ -1,13 +1,16 @@
 package com.HKSHOPU.hk.ui.main.seller.product.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.CommonVariable
 import com.HKSHOPU.hk.data.bean.ItemPics
 import com.HKSHOPU.hk.ui.main.seller.shop.adapter.ITHelperInterface
+import com.tencent.mmkv.MMKV
 import java.util.*
 
 class PicsAdapter: RecyclerView.Adapter<PicsAdapter.mViewHolder>(), ITHelperInterface {
@@ -35,6 +38,8 @@ class PicsAdapter: RecyclerView.Adapter<PicsAdapter.mViewHolder>(), ITHelperInte
             when(v?.id) {
                 R.id.btn_deletePics ->{
                     onItemDissmiss(adapterPosition)
+
+//                    CommonVariable.arrayList_Pics.removeAt(adapterPosition)
                     //如果unAssignList內有資料，則能刪除照片並讓第一張為封面
                     if (unAssignList.size > 0) {
                         unAssignList[0].cover_pic = R.mipmap.cover_pic
@@ -73,6 +78,9 @@ class PicsAdapter: RecyclerView.Adapter<PicsAdapter.mViewHolder>(), ITHelperInte
     override fun onItemDissmiss(position: Int) {
         unAssignList.removeAt(position)
         notifyItemRemoved(position)
+        CommonVariable.arrayList_Pics.removeAt(position)
+        MMKV.mmkvWithID("addPro").putInt("value_pics_size", CommonVariable.arrayList_Pics.size)
+        MMKV.mmkvWithID("editPro").putInt("value_pics_size", CommonVariable.arrayList_Pics.size)
     }
 
     override fun onItemMove(fromPosition: Int, toPosition: Int) {

@@ -1,6 +1,5 @@
 package com.HKSHOPU.hk.ui.main.seller.order.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -18,9 +16,7 @@ import com.HKSHOPU.hk.data.bean.SalerSaleListBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerPurchaseList_deliverActivity
 import com.HKSHOPU.hk.ui.main.seller.order.adapter.CanceledOrderAdapter
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
@@ -66,8 +62,8 @@ class OderCanceledForSalesFragment : Fragment() {
 //        訂單已完成 - Completed
 //        已取消 - Cancelled
 //        退貨/退款 - Refunded
-//        getSellerSaleList(shopId!!, status)
-        getSellerSaleList("131", status)
+        getSellerSaleList(shopId!!, status)
+//        getSellerSaleList("131", status)
 
         initView()
 

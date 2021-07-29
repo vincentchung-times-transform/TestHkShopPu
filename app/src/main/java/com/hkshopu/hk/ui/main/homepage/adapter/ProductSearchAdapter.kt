@@ -97,6 +97,7 @@ class ProductSearchAdapter (var currency: Currency, var user_id: String): Recycl
         val shopname = itemView.find<TextView>(R.id.tv_shopname)
         val price = itemView.find<TextView>(R.id.tv_price)
         var liked_status = "N"
+        var hkd_dollarSign = itemView.context.getString(R.string.hkd_dollarSign)
 
         fun bindShop(productSearchBean : ProductSearchBean){
 
@@ -106,13 +107,17 @@ class ProductSearchAdapter (var currency: Currency, var user_id: String): Recycl
                 bundle.putString("product_id", productSearchBean.product_id)
                 intent.putExtra("bundle_product_id", bundle)
                 itemView.context.startActivity(intent)
-
             }
 
             image.loadNovelCover(productSearchBean.pic_path)
             title .text = productSearchBean.product_title
             shopname.text = productSearchBean.shop_title
-            price.text = currency.toString()+ productSearchBean.min_price.toString() + "-"+productSearchBean.max_price.toString()
+
+            if(productSearchBean.min_price.toString() == productSearchBean.max_price.toString()){
+                price.text = hkd_dollarSign.toString() + productSearchBean.min_price.toString()
+            }else{
+                price.text = hkd_dollarSign.toString() + productSearchBean.min_price.toString() + "-" + productSearchBean.max_price.toString()
+            }
 
             liked_status = productSearchBean.liked
 

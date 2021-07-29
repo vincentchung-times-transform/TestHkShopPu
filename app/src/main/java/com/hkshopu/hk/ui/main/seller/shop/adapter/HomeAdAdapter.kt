@@ -23,7 +23,7 @@ class HomeAdAdapter : RecyclerView.Adapter<HomeAdAdapter.ShopInfoLinearHolder>()
     fun setData(list : ArrayList<HomeAdBean>){
         list?:return
         this.mData = list
-//        notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopInfoLinearHolder {

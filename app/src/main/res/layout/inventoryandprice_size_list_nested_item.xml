@@ -14,13 +14,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -30,15 +30,8 @@
                 android:textColor="@color/black"
                 android:layout_weight="1"
                 android:textSize="14sp"
-                android:text="項目"/>
+                android:text=""/>
 
-            <TextView
-                android:id="@+id/textView_HKdolors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HKD$"
-                android:textColor="@color/black"
-                android:textSize="14sp"/>
             <TextView
                 android:id="@+id/value_price"
                 android:layout_width="match_parent"
@@ -46,6 +39,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:text="0"
+                android:textAlignment="center"
                 android:textSize="14sp" />
 
 

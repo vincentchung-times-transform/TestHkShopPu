@@ -307,6 +307,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
+                    android:visibility="invisible"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="24dp"
                     android:src="@mipmap/ic_contact3"
@@ -502,7 +503,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@id/tv_ordernumber"
-                    android:text=""
+                    android:text="-"
                     android:textColor="@color/colorTextlightGray"
                     android:textSize="14sp"/>
 
@@ -513,7 +514,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="12dp"
                     android:layout_below="@id/tv_paidtime"
-                    android:text="@string/paid_time"
+                    android:text="@string/delivery_time"
                     android:textColor="@color/colorTextlightGray"/>
 
                 <TextView
@@ -522,10 +523,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="12dp"
-                    android:layout_marginBottom="12dp"
                     android:layout_alignParentEnd="true"
                     android:layout_below="@id/tv_paytime"
-                    android:text=""
+                    android:text="-"
+                    android:textColor="@color/colorTextlightGray"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tv_delivery_time_est"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/tv_delivery_time"
+                    android:text="@string/expected_arrival_time"
+                    android:textColor="@color/colorTextlightGray"/>
+
+                <TextView
+                    android:id="@+id/tv_delivery_time_value_est"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/tv_delivery_time_value"
+                    android:text="-"
                     android:textColor="@color/colorTextlightGray"
                     android:textSize="14sp"/>
             </RelativeLayout>
@@ -550,7 +572,8 @@
             android:src="@mipmap/ic_refund"
             android:layout_centerVertical="true"
             android:layout_marginStart="36dp"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:visibility="visible"/>
 
         <ImageView
             android:id="@+id/iv_orderdone"

@@ -1,6 +1,5 @@
 package com.HKSHOPU.hk.ui.main.homepage.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,8 +17,7 @@ import com.HKSHOPU.hk.data.bean.ProductShopPreviewBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.homepage.adapter.PopularProductAdapter
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
@@ -53,7 +50,8 @@ class RankingAllFragment : Fragment() {
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "")
-    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
+    var shopId: String = ""
+    private val adapter = PopularProductAdapter(currency, userId!!)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,13 +60,13 @@ class RankingAllFragment : Fragment() {
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_ranking_all, container, false)
         val activity: ShopPreviewActivity? = activity as ShopPreviewActivity?
-        val shopId: String? = activity!!.getShopId()
-        val userId: String? = activity!!.getUserId()
+        shopId = activity!!.getShopId()
+//        val userId: String? = activity!!.getUserId()
         Log.d("RankingAllFragment", "返回資料 shopId：" + shopId)
 
         allProduct = v.find<RecyclerView>(R.id.recyclerview_rankall)
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_all)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
         layout_refresh_request = v.find(R.id.layout_refresh_request)
@@ -79,11 +77,21 @@ class RankingAllFragment : Fragment() {
         btn_refresh.setOnClickListener {
             getProductOverAll(userId!!, shopId!!)
         }
-
-        getProductOverAll(userId!!, shopId!!)
         initView()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductOverAll(userId!!, shopId!!)
+    }
+
+    override fun onDestroyView() {
+        // Consider not storing the binding instance in a field, if not needed.
+        fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
+            .commitAllowingStateLoss()
+        super.onDestroyView()
     }
 
     private fun initView(){
@@ -106,7 +114,9 @@ class RankingAllFragment : Fragment() {
     }
 
     private fun getProductOverAll(userId:String, shopId:String) {
-        val url = ApiConstants.API_HOST+"/product/"+shopId+"/"+"overall"+"/shop_product_analytics/"
+        progressBar.visibility = View.VISIBLE
+
+        val url = ApiConstants.API_HOST+"product/"+shopId+"/"+"overall"+"/shop_product_analytics/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""

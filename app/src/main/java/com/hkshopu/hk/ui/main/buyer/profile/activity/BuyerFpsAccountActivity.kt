@@ -16,7 +16,7 @@ import com.HKSHOPU.hk.databinding.ActivityBuyerfpsaccountlistBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerBankAccountListAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerBankAccount_ListAdapter
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.gson.Gson
 import com.tencent.mmkv.MMKV
@@ -32,7 +32,7 @@ import java.util.ArrayList
 
 class BuyerFpsAccountActivity : BaseActivity() {
     private lateinit var binding: ActivityBuyerfpsaccountlistBinding
-    private val adapter = BuyerBankAccountListAdapter()
+    private val adapter = BuyerBankAccount_ListAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBuyerfpsaccountlistBinding.inflate(layoutInflater)

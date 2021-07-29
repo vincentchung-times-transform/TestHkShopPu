@@ -13,13 +13,16 @@ import com.HKSHOPU.hk.component.EventShopPreViewRankAll
 import com.HKSHOPU.hk.component.EventShopmenuToSpecificPage
 import com.HKSHOPU.hk.component.EventSyncBank
 import com.HKSHOPU.hk.data.bean.ResourceProductRanking
+import com.HKSHOPU.hk.data.bean.ShoppingCartItemCountBean
 import com.HKSHOPU.hk.databinding.ActivityShoppreviewBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerFollowListActivity
+import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
 import com.HKSHOPU.hk.ui.main.homepage.activity.GoShopActivity
 import com.HKSHOPU.hk.ui.main.homepage.activity.ShopBriefActivity
+import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.extension.loadNovelCover
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.android.material.tabs.TabLayoutMediator
@@ -37,6 +40,8 @@ class ShopPreviewActivity : BaseActivity() {
     private lateinit var binding: ActivityShoppreviewBinding
     var shopId: String = ""
     var userId: String = ""
+    var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
+    lateinit var shopPreviewBean: ShopPreviewBean
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +52,11 @@ class ShopPreviewActivity : BaseActivity() {
         Log.d("ShopPreviewActivity_value", "shopId: ${shopId.toString()}")
         Log.d("ShopPreviewActivity_value", "userId: ${userId.toString()}")
 
-        val url = ApiConstants.API_HOST+"/shop/"+shopId+"/get_specific_recommended_shop/"
+        val url = ApiConstants.API_HOST+"shop/"+shopId+"/get_specific_recommended_shop/"
         do_ShopPreviewData(url, userId.toString())
+        if (!userId.isNullOrEmpty()){
+            GetShoppingCartItemCountForBuyer(userId.toString())
+        }
         initVM()
         initFragment()
         initClick()
@@ -85,11 +93,23 @@ class ShopPreviewActivity : BaseActivity() {
             intent.putExtra("bundle",bundle)
             startActivity(intent)
         }
-        binding.ivShopcarClick.setOnClickListener {
-            val intent = Intent(this@ShopPreviewActivity, GoShopActivity::class.java)
-            startActivity(intent)
+        binding.layoutIcCart.setOnClickListener {
+//            val intent = Intent(this@ShopPreviewActivity, GoShopActivity::class.java)
+//            startActivity(intent)
+            if(userId.isNullOrEmpty()){
+
+                Log.d("btnAddToShoppingCart", "UserID為空值")
+                Toast.makeText(this, "請先登入", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, OnBoardActivity::class.java)
+                startActivity(intent)
+                finish()
+
+            }else{
+                val intent = Intent(this, ShoppingCartEditActivity::class.java)
+                startActivity(intent)
+            }
         }
-        binding.ivNotifyClick.setOnClickListener {
+        binding.ivNotify.setOnClickListener {
             val intent = Intent(this@ShopPreviewActivity, ShopNotifyActivity::class.java)
             startActivity(intent)
         }
@@ -113,17 +133,19 @@ class ShopPreviewActivity : BaseActivity() {
 
                     if (status == 0) {
                         val jsonObject: JSONObject = json.getJSONObject("data")
-                        var shopPreviewBean: ShopPreviewBean=
+                        shopPreviewBean=
                             Gson().fromJson(jsonObject.toString(), ShopPreviewBean::class.java)
 
                         runOnUiThread {
                             binding.ivShopImg.loadNovelCover(shopPreviewBean.shop_icon)
+                            binding.tvShoptitle.setText(shopPreviewBean.shop_title.toString())
                             binding.ivShopbackgnd.loadNovelCover(shopPreviewBean.background_pic)
                             binding.myProduct.text = shopPreviewBean.product_nums_of_shop.toString()
                             binding.myLikes.text = shopPreviewBean.follower_nums_of_shop.toString()
                             binding.mySold.text = shopPreviewBean.sum_of_sales.toString()
                             binding.tvRating.text = shopPreviewBean.average_of_shop_ratings.toString()
                             binding.ratingBar.setRating(shopPreviewBean.average_of_shop_ratings.toFloat())
+                            binding.tvRatings.setText(shopPreviewBean.shop_rating_nums.toString())
                             if(shopPreviewBean.long_description.isNullOrEmpty()){
                                 binding.tvShopBrief.text = ""
                             }else{
@@ -138,11 +160,21 @@ class ShopPreviewActivity : BaseActivity() {
                             }
 
                             binding.ivPayAttention.setOnClickListener {
-                                Log.d("do_ShopPreviewData", "shopPreviewBean_followed: ${shopPreviewBean.followed}")
-                                if(shopPreviewBean.followed.equals("Y")){
-                                    doStoreFollow(userId, shopId, "N")
+
+                                if(userId.isNullOrEmpty()){
+                                    Log.d("btnAddToShoppingCart", "UserID為空值")
+                                    Toast.makeText(this@ShopPreviewActivity, "請先登入", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@ShopPreviewActivity, OnBoardActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+
                                 }else{
-                                    doStoreFollow(userId, shopId, "Y")
+                                    Log.d("do_ShopPreviewData", "shopPreviewBean_followed: ${shopPreviewBean.followed}")
+                                    if(shopPreviewBean.followed.equals("Y")){
+                                        doStoreFollow(userId, shopId, "N")
+                                    }else{
+                                        doStoreFollow(userId, shopId, "Y")
+                                    }
                                 }
                             }
 
@@ -194,6 +226,72 @@ class ShopPreviewActivity : BaseActivity() {
         return userId
     }
 
+    private fun  GetShoppingCartItemCountForBuyer (user_id: String) {
+
+        val url = ApiConstants.API_HOST+"shopping_cart/${user_id}/count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                try {
+
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    Log.d("GetShoppingCartItemCountForBuyer", "返回資料 resStr：" + resStr)
+                    Log.d("GetShoppingCartItemCountForBuyer", "返回資料 ret_val：" + json.get("ret_val"))
+                    val ret_val = json.get("ret_val")
+                    if (ret_val.equals( "已取得商品清單!")) {
+
+                        val jsonObject: JSONObject = json.getJSONObject("data")
+
+                        Log.d(
+                            "GetShoppingCartItemCountForBuyer",
+                            "返回資料 jsonObject：" + jsonObject.toString()
+                        )
+
+                        shoppingCartItemCount = Gson().fromJson(
+                            jsonObject.toString(),
+                            ShoppingCartItemCountBean::class.java
+                        )
+
+                        runOnUiThread {
+                            binding.tvCartItemCount.setText(shoppingCartItemCount.cartCount.toString())
+
+                            if(shoppingCartItemCount.cartCount > 0){
+                                binding.tvCartItemCount.visibility = View.VISIBLE
+                            }else{
+                                binding.tvCartItemCount.visibility = View.GONE
+                            }
+                        }
+                    }
+
+
+                } catch (e: JSONException) {
+
+                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: JSONException: ${e.toString()}")
+                    runOnUiThread {
+                        Toast.makeText(this@ShopPreviewActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                    }
+
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("errormessage", "GetShoppingCartItemCountForBuyer: IOException: ${e.toString()}")
+                    runOnUiThread {
+                        Toast.makeText(this@ShopPreviewActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("errormessage", "GetShoppingCartItemCountForBuyer: ErrorResponse: ${ErrorResponse.toString()}")
+                runOnUiThread {
+                    Toast.makeText(this@ShopPreviewActivity, "網路異常", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
+
+
     private fun doStoreFollow(userId: String, shop_id: String, follow: String) {
         Log.d("doStoreFollow", "userId: ${userId} \n " +
                 "shop_id: ${shop_id} \n " +
@@ -219,13 +317,21 @@ class ShopPreviewActivity : BaseActivity() {
                             ).show()
                             if (follow.equals("Y")) {
                                 binding.ivPayAttention.setImageResource(R.mipmap.btn_shop_followed_long)
-                                val intent = Intent(this@ShopPreviewActivity, BuyerFollowListActivity::class.java)
-                                startActivity(intent)
+
+                                var update_likeCout = binding!!.myLikes.text.toString().toInt()+1
+                                binding!!.myLikes.setText(update_likeCout.toString())
+                                shopPreviewBean.followed =  "Y"
+//                                val intent = Intent(this@ShopPreviewActivity, BuyerFollowListActivity::class.java)
+//                                startActivity(intent)
 //                                RxBus.getInstance().post(EventShopmenuToSpecificPage(1))
                             } else {
                                 binding.ivPayAttention.setImageResource(R.mipmap.ic_payattention)
-                                val intent = Intent(this@ShopPreviewActivity, BuyerFollowListActivity::class.java)
-                                startActivity(intent)
+
+                                var update_likeCout = binding!!.myLikes.text.toString().toInt()-1
+                                binding!!.myLikes.setText(update_likeCout.toString())
+                                shopPreviewBean.followed =  "N"
+//                                val intent = Intent(this@ShopPreviewActivity, BuyerFollowListActivity::class.java)
+//                                startActivity(intent)
 //                                RxBus.getInstance().post(EventShopmenuToSpecificPage(1))
                             }
                             binding.progressBar.visibility = View.GONE

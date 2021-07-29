@@ -36,7 +36,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:layout_toStartOf="@id/iv_shopcar"
+            android:layout_toStartOf="@id/layout_ic_cart"
             android:layout_toEndOf="@id/iv_back"
             android:background="@drawable/bg_edit_login"
             android:gravity="center_vertical">
@@ -67,15 +67,33 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/iv_shopcar"
+
+        <RelativeLayout
+            android:id="@+id/layout_ic_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp"
-            android:src="@mipmap/ic_shopcar"
-            android:visibility="visible" />
+            android:layout_marginEnd="12dp">
+            <ImageView
+                android:id="@+id/ic_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@mipmap/ic_cart" />
+            <TextView
+                android:id="@+id/tv_cartItemCount"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="24dp"
+                android:background="@drawable/customborder_round_turquise"
+                android:text=""
+                android:textAlignment="center"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
 
     </RelativeLayout>
 

@@ -17,7 +17,6 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
-import com.paypal.android.sdk.payments.*
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONException

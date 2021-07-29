@@ -215,7 +215,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="48dp"
         android:layout_below="@id/layout_store_brief"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_products" />
 

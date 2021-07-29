@@ -1,5 +1,7 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +13,8 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPendingDeliver_OrderDatailAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderDetail_Adapter
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.extension.load
 import com.google.gson.Gson
 import okhttp3.Response
@@ -19,7 +22,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,7 +31,7 @@ class BuyerPurchaseListCompeleteActivity : BaseActivity() {
     private lateinit var binding: ActivityBuyerorderdetailCompeleteBinding
 
 
-    private val adapter = BuyerPendingDeliver_OrderDatailAdapter()
+    private val adapter = BuyerOrderDetail_Adapter()
     var orderNumber =""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +50,19 @@ class BuyerPurchaseListCompeleteActivity : BaseActivity() {
 
 
     private fun initClick() {
+        binding!!.ivNotify.setOnClickListener {
+            val intent = Intent(this, ShopNotifyActivity::class.java)
+            startActivity(intent)
+        }
         binding.ivBack.setOnClickListener {
             finish()
         }
 
         binding.ivPostevaluate.setOnClickListener {
-
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            intent.data = Uri.parse("https://www.hkshopu.com/")
+            startActivity(intent)
         }
 
     }
@@ -105,7 +115,7 @@ class BuyerPurchaseListCompeleteActivity : BaseActivity() {
                                 binding.tvReceive.setText(myOrderBean.buyer_message_content)
 
                                 binding.tvLogistic.text = myOrderBean.shipment_info
-                                binding.tvNumber.setText("")
+                                binding.tvNumber.setText(myOrderBean.waybill_number)
 
                                 binding.tvBuyername.text = myOrderBean.name_in_address
                                 binding.tvBuyerphone.text = myOrderBean.phone
@@ -120,10 +130,38 @@ class BuyerPurchaseListCompeleteActivity : BaseActivity() {
 
                                 binding.tvOrdernumber.text = myOrderBean.order_number
                                 orderNumber = myOrderBean.order_number
-                                binding.tvPaytime.text = myOrderBean.payment_at
-                                binding.tvDeliverytime.setText(myOrderBean.actual_deliver_at)
-                                binding.tvDeliverytimeEta.setText(myOrderBean.estimated_deliver_at)
-                                binding.tvCompeletedtime.setText(myOrderBean.actual_finished_at)
+
+                                try {
+                                    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                    if(myOrderBean.payment_at.isNotEmpty()){
+                                        val payment_at: Date = format.parse(myOrderBean.payment_at)
+                                        var payment_at_result = SimpleDateFormat("MM/dd/yyyy HH:mm").format(payment_at)
+                                        binding.tvPaytime.text = payment_at_result.toString()
+                                    }
+
+                                    if(myOrderBean.actual_post_at.isNotEmpty()){
+                                        val actual_post_at: Date = format.parse(myOrderBean.actual_post_at)
+                                        var actual_post_at_result = SimpleDateFormat("MM/dd/yyyy HH:mm").format(actual_post_at)
+                                        binding.tvDeliverytime.text = actual_post_at_result.toString()
+                                    }
+
+                                    if(myOrderBean.estimated_deliver_at.isNotEmpty()){
+                                        val estimated_deliver_at: Date = format.parse(myOrderBean.estimated_deliver_at)
+                                        var estimated_deliver_at_result = SimpleDateFormat("MM/dd/yyyy HH:mm").format(estimated_deliver_at)
+                                        binding.tvDeliverytimeEta.setText(estimated_deliver_at_result.toString())
+                                    }
+
+                                    if(myOrderBean.actual_finished_at.isNotEmpty()){
+                                        val actual_finished_at: Date = format.parse(myOrderBean.actual_finished_at)
+                                        var actual_finished_at_result =  SimpleDateFormat("MM/dd/yyyy HH:mm").format(actual_finished_at)
+                                        binding.tvCompeletedtime.setText(actual_finished_at_result.toString())
+                                    }
+
+                                } catch (e: ParseException) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace()
+                                    Log.d("ParseException", "ParseException: ${e}")
+                                }
 
                                 initRecyclerView()
                             }

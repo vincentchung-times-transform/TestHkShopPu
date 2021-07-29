@@ -145,6 +145,7 @@
         android:layout_marginBottom="12dp"
         android:layout_below="@id/container"
         android:layout_alignParentEnd="true"
+        android:visibility="invisible"
         android:src="@mipmap/ic_contactseller" />
 
 

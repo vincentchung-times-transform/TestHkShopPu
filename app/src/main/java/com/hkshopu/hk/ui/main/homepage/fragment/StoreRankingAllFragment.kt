@@ -52,6 +52,9 @@ class StoreRankingAllFragment : Fragment() {
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     private val adapter = StoreRecommendAdapter(userId.toString())
     var max_seq = 0
+
+    val mode = "overall"
+    var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,25 +63,24 @@ class StoreRankingAllFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_ranking_all_store, container, false)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_all_store)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
 
-
         val activity: StoreRecommendActivity? = activity as StoreRecommendActivity?
-
-        val mode = "overall"
-        var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
         allStore = v.find<RecyclerView>(R.id.recyclerview_rankall_store)
-
-        getStoreOverAll(url,userId!!,mode,max_seq)
 
         initView()
         initEvent()
         initRefresh()
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getStoreOverAll(url,userId!!,mode,0)
     }
 
     private fun initView(){
@@ -136,6 +138,7 @@ class StoreRankingAllFragment : Fragment() {
 
     private fun getStoreOverAll(url: String,userId:String,mode:String,max_seq:Int) {
         Log.d("StoreRankingAll", "資料 url：" + url)
+        progressBar.visibility = View.VISIBLE
 
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
@@ -250,6 +253,13 @@ class StoreRankingAllFragment : Fragment() {
 
                         activity!!.runOnUiThread {
                             adapter.add(list)
+                        }
+                    }else{
+                        activity!!.runOnUiThread {
+                            progressBar.visibility = View.GONE
+
+                            layout_empty_result.visibility = View.VISIBLE
+                            refreshLayout.visibility = View.GONE
                         }
                     }
 

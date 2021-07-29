@@ -259,12 +259,14 @@ class ShoppingCartEditActivity : BaseActivity(), TextWatcher{
                             for (i in 0 until jsonArray.length()) {
 
                                 val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                mutableList_shoppingCartShopItems.add(
-                                    Gson().fromJson(
+                                var shoppingCartShopItemNestedLayer:ShoppingCartShopItemNestedLayer = Gson().fromJson(
                                     jsonObject.toString(),
-                                        ShoppingCartShopItemNestedLayer::class.java
-                                ))
-                                
+                                    ShoppingCartShopItemNestedLayer::class.java)
+                                if(shoppingCartShopItemNestedLayer.productList.size > 0) {
+                                    mutableList_shoppingCartShopItems.add(
+                                        shoppingCartShopItemNestedLayer
+                                    )
+                                }
                             }
 
                             Log.d("getShoppingCartItems", "返回資料 mutableList_shoppingCartShopItems：" + mutableList_shoppingCartShopItems.toString())

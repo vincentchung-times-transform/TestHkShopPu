@@ -86,8 +86,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_logistic"
-                    />
+                    tools:listitem="@layout/item_logistic" />
 
             </RelativeLayout>
     </ScrollView>

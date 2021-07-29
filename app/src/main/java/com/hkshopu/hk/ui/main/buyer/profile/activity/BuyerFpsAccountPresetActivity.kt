@@ -18,7 +18,7 @@ import com.HKSHOPU.hk.databinding.ActivityBuyerfpsaccountpresetBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPaymentPresetAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPayment_PresetAdapter
 
 
 import com.HKSHOPU.hk.utils.rxjava.RxBus
@@ -35,7 +35,7 @@ import kotlin.collections.ArrayList
 class BuyerFpsAccountPresetActivity : BaseActivity() {
     private lateinit var binding: ActivityBuyerfpsaccountpresetBinding
 
-    private val adapter = BuyerPaymentPresetAdapter()
+    private val adapter = BuyerPayment_PresetAdapter()
     val userId = MMKV.mmkvWithID("http").getString("UserId", "");
     var url = ApiConstants.API_HOST + "user/"+userId+"/paymentAccount/"
     var presetid:String= ""

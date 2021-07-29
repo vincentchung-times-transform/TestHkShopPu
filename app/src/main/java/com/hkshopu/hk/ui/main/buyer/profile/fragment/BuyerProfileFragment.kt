@@ -24,10 +24,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.profile.activity.*
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.HelpCenterActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewCommingSoonActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopmenuActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.*
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.extension.load
 import com.HKSHOPU.hk.utils.rxjava.RxBus
@@ -213,44 +210,51 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
             }
         }
         binding!!.layoutEvaluate.setOnClickListener {
-            val intent = Intent(activity, ShopPreviewCommingSoonActivity::class.java)
+            val intent = Intent(activity,BuyerEvaluationActivity::class.java)
             activity!!.startActivity(intent)
         }
         binding!!.layoutCollects.setOnClickListener {
-            if(userId.isNullOrEmpty()){
-                Log.d("btnAddToShoppingCart", "UserID為空值")
-                LoginFirstDialogFragment().show(
-                    requireActivity().getSupportFragmentManager(),
-                    "MyCustomFragment"
-                )
-            }else{
-                val intent = Intent(requireActivity(), BuyerLikedListActivity::class.java)
-                requireActivity().startActivity(intent)
-            }
+            val intent = Intent(requireActivity(), BuyerLikedListActivity::class.java)
+            requireActivity().startActivity(intent)
+//            if(userId.isNullOrEmpty()){
+//                Log.d("btnAddToShoppingCart", "UserID為空值")
+//                LoginFirstDialogFragment().show(
+//                    requireActivity().getSupportFragmentManager(),
+//                    "MyCustomFragment"
+//                )
+//            }else{
+//                val intent = Intent(requireActivity(), BuyerLikedListActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            }
         }
         binding!!.layoutFavorites.setOnClickListener {
-            if(userId.isNullOrEmpty()){
-                Log.d("btnAddToShoppingCart", "UserID為空值")
-                LoginFirstDialogFragment().show(
-                    requireActivity().getSupportFragmentManager(),
-                    "MyCustomFragment"
-                )
-            }else{
-                val intent = Intent(requireActivity(), BuyerFollowListActivity::class.java)
-                requireActivity().startActivity(intent)
-            }
+            val intent = Intent(requireActivity(), BuyerFollowListActivity::class.java)
+            requireActivity().startActivity(intent)
+//            if(userId.isNullOrEmpty()){
+//                Log.d("btnAddToShoppingCart", "UserID為空值")
+//                LoginFirstDialogFragment().show(
+//                    requireActivity().getSupportFragmentManager(),
+//                    "MyCustomFragment"
+//                )
+//            }else{
+//                val intent = Intent(requireActivity(), BuyerFollowListActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            }
         }
         binding!!.layoutPath.setOnClickListener {
-            if(userId.isNullOrEmpty()){
-                Log.d("btnAddToShoppingCart", "UserID為空值")
-                LoginFirstDialogFragment().show(
-                    requireActivity().getSupportFragmentManager(),
-                    "MyCustomFragment"
-                )
-            }else{
-                val intent = Intent(requireActivity(), BuyerBrowsedListActivity::class.java)
-                requireActivity().startActivity(intent)
-            }
+            val intent = Intent(requireActivity(), BuyerBrowsedListActivity::class.java)
+            requireActivity().startActivity(intent)
+//            if(userId.isNullOrEmpty()){
+//                Log.d("btnAddToShoppingCart", "UserID為空值")
+//                LoginFirstDialogFragment().show(
+//                    requireActivity().getSupportFragmentManager(),
+//                    "MyCustomFragment"
+//                )
+//            }else{
+//                val intent = Intent(requireActivity(), BuyerBrowsedListActivity::class.java)
+//                requireActivity().startActivity(intent)
+//            }
+
         }
         binding!!.layoutMyaddress.setOnClickListener {
             if(userId.isNullOrEmpty()){
@@ -379,7 +383,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
                     if (status == 0) {
                         val likedCount = json.get("data")
                         requireActivity().runOnUiThread {
-                            binding!!.myCollect.text = likedCount.toString()
+//                            binding!!.myCollect.text = likedCount.toString()
                             var url_UserFollwedCount = ApiConstants.API_HOST + "user_detail/"+userId+"/followed_count/"
                             getUserFollwedCount(url_UserFollwedCount)
                         }
@@ -433,7 +437,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
                         val followCount = json.get("data")
 
                         requireActivity().runOnUiThread {
-                            binding!!.myFavorites.text = followCount.toString()
+//                            binding!!.myFavorites.text = followCount.toString()
                             var url_UserBrowseCount = ApiConstants.API_HOST + "user_detail/"+userId+"/browsed_count/"
                             getUserBrowseCount(url_UserBrowseCount)
                         }
@@ -487,7 +491,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
                         val browseCount = json.get("data")
 
                         requireActivity().runOnUiThread {
-                            binding!!.myPath.text = browseCount.toString()
+//                            binding!!.myPath.text = browseCount.toString()
                             binding!!.progressBarBuyerProfile.visibility = View.GONE
                             binding!!.imgViewLoadingBackgroundBuyerProfile.visibility = View.GONE
                         }

@@ -41,21 +41,19 @@
     <color name="hkshop_color_bg">#1A1DBCCF</color>
     <color name="customborder_gray">#E9E9EB</color>
     <color name="loginpage_white">#E5E5E5</color>
-<!--修改店鋪資訊-->
+    <!--修改店鋪資訊-->
     <color name="black_hint_80">#CC48484A</color>
-<!--我的商品-->
+    <!--我的商品-->
     <color name="colorGray_60">#993C3C43</color>
-<!--商品-->
+    <!--商品-->
     <color name="unselected_points_products">#D8D8D8</color>
     <color name="selected_points_products">#8E8E93</color>
-<!--    商品(買家)-->
+    <!--商品(買家)-->
     <color name="bright_red">#FC4D3F</color>
     <color name="light_gray_F6F6F6">#F6F6F6</color>
     <color name="light_gray_E5E5EA">#E5E5EA</color>
-
     <!--首頁-->
     <color name="bg_backtotop">#66AEEEE0</color>
-
     <!--購買清單-->
     <color name="bg_detailbottom">#1A000000</color>
 

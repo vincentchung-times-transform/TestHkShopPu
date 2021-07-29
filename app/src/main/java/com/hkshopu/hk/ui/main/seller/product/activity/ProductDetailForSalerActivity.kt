@@ -269,12 +269,11 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                     resStr = response.body()!!.string()
 
                     val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
                     Log.d("getProductInfo", "返回資料 resStr：" + resStr)
                     Log.d("getProductInfo", "返回資料 ret_val：" + json.get("ret_val"))
-                    val ret_val = json.get("ret_val")
 
                     if (ret_val.equals("已取得商品資訊!")) {
-
 
                         val jsonArray: JSONArray = json.getJSONArray("data")
                         Log.d("getProductInfo", "返回資料 jsonArray：" + jsonArray.toString())
@@ -377,19 +376,11 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                             }
                         }
 
-                        if(productInfoBean.longterm_stock_up.toString().length>=3){
-                            var one_thous = 1000
-                            var float = productInfoBean.longterm_stock_up.toDouble()/one_thous.toDouble()
-                            var bigDecimal = float.toBigDecimal()
-                            runOnUiThread {
-                                binding.tvLongestStockUpDays.text = "${bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP).toString()}k"
-                            }
 
-                        }else{
-                            runOnUiThread {
-                                binding.tvLongestStockUpDays.text =  "${productInfoBean.longterm_stock_up.toString()}"
-                            }
+                        runOnUiThread {
+                            binding.tvLongestStockUpDays.text =  "${productInfoBean.longterm_stock_up.toString()}"
                         }
+
 
                         runOnUiThread {
 
@@ -455,183 +446,67 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                     binding.rViewInventory.visibility = View.VISIBLE
                                 }
 
-                                var mutableList_Inventory = mutableListOf<ItemInventory>()
-//                                val mAdapter = InventoryAndPriceSpecAdapter()
                                 val mAdapter = InventoryAndPriceFirstLayerNestedAdapter()
-                                var mutableList_spec = mutableListOf<ItemSpecification>()
-                                var mutableList_size = mutableListOf<ItemSpecification>()
-                                var mutableList_price = mutableListOf<Int>()
-                                var mutableList_quant = mutableListOf<Int>()
-                                var datas_price_size: Int = 0
-                                var datas_quant_size: Int = 0
+                                var mutableList_spec = productInfoBean.spec_dec_1_items
+                                var mutableList_size = productInfoBean.spec_dec_2_items
+
                                 var specGroup_only:Boolean = false
+                                var datas_spec_title_first = productInfoBean.spec_desc_1
+                                var datas_spec_title_second = productInfoBean.spec_desc_2
+                                var datas_spec_size = productInfoBean.spec_dec_1_items.size
+                                var datas_size_size = productInfoBean.spec_dec_2_items.size
+                                var mutableList_price = productInfoBean.price
+                                var mutableList_quant = productInfoBean.spec_quantity
+                                var datas_price_size = 0
+                                var datas_quant_size = 0
 
-                                var datas_spec_title_first = productInfoBean.spec_desc_1.get(0)
-                                var datas_spec_title_second = productInfoBean.spec_desc_2.get(0)
-
-
-                                var mutableSet_spec_dec_1_items: MutableSet<String> =
-                                    productInfoBean.spec_dec_1_items.toMutableSet()
-                                var mutableSet_spec_dec_2_items: MutableSet<String> =
-                                    productInfoBean.spec_dec_2_items.toMutableSet()
-                                var mutableList_spec_dec_1_items: MutableList<String> =
-                                    mutableSet_spec_dec_1_items.toMutableList()
-                                var mutableList_spec_dec_2_items: MutableList<String> =
-                                    mutableSet_spec_dec_2_items.toMutableList()
-
-                                var datas_spec_size = mutableList_spec_dec_1_items.size
-                                var datas_size_size = mutableList_spec_dec_2_items.size
-
-                                for(i in 0..datas_spec_size-1){
-                                    var item_name = mutableList_spec_dec_1_items.get(i)
-                                    mutableList_spec.add(ItemSpecification(item_name.toString()))
+                                for(i in 0..productInfoBean.price.size-1){
+                                    for(j in 0..productInfoBean.price.get(i).size-1){
+                                        datas_price_size  = datas_price_size+1
+                                    }
                                 }
-
-                                for(i in 0..datas_size_size-1){
-                                    var item_name = mutableList_spec_dec_2_items.get(i)
-                                    mutableList_size.add(ItemSpecification(item_name.toString()))
+                                for(i in 0..productInfoBean.spec_quantity.size-1){
+                                    for(j in 0..productInfoBean.spec_quantity.get(i).size-1){
+                                        datas_quant_size  = datas_quant_size+1
+                                    }
                                 }
-
-                                datas_price_size = productInfoBean.price.size.toString().toInt()
-                                datas_quant_size = productInfoBean.spec_quantity.size.toString().toInt()
-
-                                for (i in 0..datas_price_size - 1) {
-                                    var price_item =   productInfoBean.price.get(i)
-                                    mutableList_price.add(price_item)
-                                }
-
-                                for (i in 0..datas_quant_size - 1) {
-                                    var quant_item =  productInfoBean.spec_quantity.get(i)
-                                    mutableList_quant.add(quant_item)
-                                }
-
-//
-//                                if(!datas_spec_title_first.equals("") && datas_spec_title_second.equals("") ){
-//
-//                                    specGroup_only = true
-//
-//
-//                                    for(i in 0..datas_spec_size-1){
-//                                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", ""))
-//
-//                                    }
-//
-//
-//                                    for(i in 0..datas_spec_size-1){
-//                                        mutableList_Inventory.get(i).price = mutableList_price.get(i).toString()
-//                                        mutableList_Inventory.get(i).quantity = mutableList_quant.get(i).toString()
-//                                    }
-//
-//
-//                                }else{
-//                                    specGroup_only = false
-//
-//
-//                                    for(i in 0..datas_spec_size-1){
-//
-//                                        for(j in 0..datas_size_size-1){
-//
-//                                            mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", ""))
-//
-//                                        }
-//                                    }
-//
-//                                    for(i in 0..datas_spec_size*datas_size_size-1){
-//                                        mutableList_Inventory.get(i).price = mutableList_price.get(i).toString()
-//                                        mutableList_Inventory.get(i).quantity = mutableList_quant.get(i).toString()
-//                                    }
-//
-//                                }
-
-
-//                                runOnUiThread {
-//                                    binding.rViewInventory.setLayoutManager(MyLinearLayoutManager(this@MerchandiseActivity,false))
-//                                    binding.rViewInventory.adapter = mAdapter
-//
-//                                    mAdapter.updateList(mutableList_Inventory, specGroup_only, datas_size_size)
-//                                }
-
 
                                 var mutableList_first_layer = mutableListOf<ItemInvenFirstNestedLayer>()
 
                                 if(!datas_spec_title_first.equals("") && datas_spec_title_second.equals("")){
+
                                     specGroup_only = true
 
                                         var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
 
                                         for(i in 0..datas_spec_size-1){
-                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_spec.get(i).spec_name,"", "") )
+                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_spec.get(i),"", "") )
                                         }
-                                        mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, "", mutableList_spec.get(0).spec_name, mutableList_second_layer))
-
+                                        mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, "", mutableList_spec.get(0), mutableList_second_layer))
 
                                         for(i in 0..datas_spec_size-1){
-                                            mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).price = mutableList_price.get(i).toString()
-                                            mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).quantity = mutableList_quant.get(i).toString()
+                                            mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).price = mutableList_price.get(i).get(0).toString()
+                                            mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).quantity = mutableList_quant.get(i).get(0).toString()
                                         }
 
                                 }else{
+
                                     specGroup_only = false
 
                                     for(i in 0..datas_spec_size-1){
-
                                         var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
                                         for(i in 0..datas_size_size-1){
-                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i).spec_name,"", "") )
+                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i),"", "") )
                                         }
-                                        mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_second_layer))
+                                        mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i), mutableList_second_layer))
                                     }
-
-
-                                    val second_size = datas_size_size
-                                    val first_size: Int = datas_spec_size
-
-                                    var priceData_firstLayer: MutableList<MutableList<Int>> = mutableListOf()
-                                    for (i in 0..first_size-1){
-
-                                        var priceData_secondLayer: MutableList<Int>  = mutableListOf()
-
-                                        for(i in 0..second_size-1){
-                                            priceData_secondLayer.add(0)
-                                        }
-
-                                        priceData_firstLayer.add(priceData_secondLayer)
-                                    }
-
-
-                                    var quant_Data_firstLayer: MutableList<MutableList<Int>> = mutableListOf()
-
-                                    for (i in 0..first_size-1){
-
-                                        var quant_Data_secondLayer: MutableList<Int>  = mutableListOf()
-
-                                        for(i in 0..second_size-1){
-                                            quant_Data_secondLayer.add(0)
-                                        }
-                                        quant_Data_firstLayer.add(quant_Data_secondLayer)
-                                    }
-
-
-                                    for (r in 0 until first_size) {
-                                        for (c in 0 until second_size) {
-
-                                            var index = r*second_size+c
-
-                                            priceData_firstLayer[r][c] = mutableList_price.get(index)
-                                            quant_Data_firstLayer[r][c] = mutableList_quant.get(index)
-
-                                        }
-                                    }
-
-                                    Log.d("dsdsdsd" ,  "priceData_firstLayer : ${priceData_firstLayer.toString()}")
-                                    Log.d("dsdsdsd" ,  "quant_Data_secondLayer : ${quant_Data_firstLayer.toString()}")
 
                                     for(i in 0..datas_spec_size-1){
                                         for(j in 0..datas_size_size-1){
-                                            mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).price = priceData_firstLayer.get(i).get(j).toString()
-                                            mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).quantity = quant_Data_firstLayer.get(i).get(j).toString()
-                                            Log.d("dsdsdsdsdaaaa" ,  "priceData_firstLayer.get(i).get(j) : ${priceData_firstLayer.get(i).get(j).toString()}")
-                                            Log.d("dsdsdsdsdaaaa" ,  "quant_Data_firstLayer.get(i).get(j) : ${quant_Data_firstLayer.get(i).get(j).toString()}")
+                                            mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).price = mutableList_price.get(i).get(j).toString()
+                                            mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).quantity = mutableList_quant.get(i).get(j).toString()
+                                            Log.d("dsdsdsdsdaaaa" ,  "priceData_firstLayer.get(i).get(j) : ${mutableList_price.get(i).get(j).toString()}")
+                                            Log.d("dsdsdsdsdaaaa" ,  "quant_Data_firstLayer.get(i).get(j) : ${mutableList_quant.get(i).get(j).toString()}")
                                         }
                                     }
 
@@ -670,7 +545,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                     }
 
                 } catch (e: JSONException) {
-
+                    Log.d("errorMessage", "JSONException: ${e}")
                     runOnUiThread {
                         binding.progressBarMerchandise.visibility = View.GONE
                         binding.imgViewLoadingBackgroundMerchandise.visibility = View.GONE
@@ -679,7 +554,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
 
                 } catch (e: IOException) {
                     e.printStackTrace()
-
+                    Log.d("errorMessage", "IOException: ${e}")
                     runOnUiThread {
                         binding.progressBarMerchandise.visibility = View.GONE
                         binding.imgViewLoadingBackgroundMerchandise.visibility = View.GONE
@@ -689,6 +564,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("errorMessage", "ErrorResponse: ${ErrorResponse}")
                 runOnUiThread {
                     binding.progressBarMerchandise.visibility = View.GONE
                     binding.imgViewLoadingBackgroundMerchandise.visibility = View.GONE

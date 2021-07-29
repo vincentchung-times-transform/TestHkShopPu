@@ -1,5 +1,7 @@
 package com.HKSHOPU.hk.ui.main.seller.shop.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -46,6 +48,12 @@ class ShopIncomeActivity : BaseActivity() {
         }
         binding.btnReturn.setOnClickListener {
             finish()
+        }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
         }
 //        btn_Login.setOnClickListener {
 //

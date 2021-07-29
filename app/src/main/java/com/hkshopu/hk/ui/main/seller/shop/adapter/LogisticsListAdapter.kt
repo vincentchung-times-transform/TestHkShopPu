@@ -80,7 +80,7 @@ class LogisticsListAdapter :
 
         viewHolder.name.setText(item.shipment_desc)
 
-        if (item.onoff.equals("on")) {
+        if (item.onoff.equals("on") ) {
             viewHolder.OnOff.openSwitcher()
         }else{
             viewHolder.OnOff.closeSwitcher()
@@ -90,14 +90,11 @@ class LogisticsListAdapter :
         if (cancel_inner) {
             if (value_shipping_name_check.isNotEmpty()) {
                 viewHolder.cancel.visibility = View.VISIBLE
-            }else{
+            } else{
                 viewHolder.cancel.visibility = View.GONE
             }
-
         } else {
-
             viewHolder.cancel.visibility = View.GONE
-
         }
         viewHolder.cancel.setOnClickListener {
             removeItem(viewHolder.adapterPosition)
@@ -124,30 +121,16 @@ class LogisticsListAdapter :
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
 
-                    value_shipping_name = viewHolder.name.text.toString()
+                    if( value_shipping_name == viewHolder.name.text.toString()){
 
-                    if(viewHolder.OnOff.isOpened()){
-                        value_shipping_isChecked = "on"
-                    }else{
-                        value_shipping_isChecked = "off"
-                    }
+                        value_shipping_name = viewHolder.name.text.toString()
 
-                    //檢查名稱是否重複
-                    var check_duplicate = 0
-
-                    for (i in 0..mData.size - 1) {
-                        if (value_shipping_name == mData[i].shipment_desc) {
-                            check_duplicate = check_duplicate + 1
-                        } else {
-                            check_duplicate = check_duplicate + 0
+                        if(viewHolder.OnOff.isOpened()){
+                            value_shipping_isChecked = "on"
+                        }else{
+                            value_shipping_isChecked = "off"
                         }
-                    }
 
-                    if (check_duplicate > 0) {
-                        viewHolder.name.setText("")
-                        Toast.makeText(viewHolder.name.context, "貨運商不可重複", Toast.LENGTH_SHORT).show()
-
-                    } else {
                         onItemUpdate(
                             value_shipping_name,
                             value_shipping_isChecked,
@@ -155,6 +138,42 @@ class LogisticsListAdapter :
                         )
 
                         viewHolder.name.clearFocus()
+
+                    }else{
+
+                        value_shipping_name = viewHolder.name.text.toString()
+
+                        if(viewHolder.OnOff.isOpened()){
+                            value_shipping_isChecked = "on"
+                        }else{
+                            value_shipping_isChecked = "off"
+                        }
+
+                        //檢查名稱是否重複
+                        var check_duplicate = 0
+
+                        for (i in 0..mData.size - 1) {
+                            if (value_shipping_name == mData[i].shipment_desc) {
+                                check_duplicate = check_duplicate + 1
+                            } else {
+                                check_duplicate = check_duplicate + 0
+                            }
+                        }
+
+                        if (check_duplicate > 0) {
+                            viewHolder.name.setText("")
+                            Toast.makeText(viewHolder.name.context, "貨運商不可重複", Toast.LENGTH_SHORT).show()
+
+                        } else {
+
+                            onItemUpdate(
+                                value_shipping_name,
+                                value_shipping_isChecked,
+                                holder.absoluteAdapterPosition
+                            )
+
+                            viewHolder.name.clearFocus()
+                        }
                     }
 
                     true

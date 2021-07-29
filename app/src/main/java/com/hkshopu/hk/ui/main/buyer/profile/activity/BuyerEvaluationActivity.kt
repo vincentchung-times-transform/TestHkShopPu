@@ -1,5 +1,7 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.databinding.ActivityBuyerevaluationBinding
@@ -24,6 +26,15 @@ class BuyerEvaluationActivity : BaseActivity() {
     private fun initClick() {
         binding.ivBack.setOnClickListener {
             finish()
+        }
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
         }
 
 //        btn_Login.setOnClickListener {

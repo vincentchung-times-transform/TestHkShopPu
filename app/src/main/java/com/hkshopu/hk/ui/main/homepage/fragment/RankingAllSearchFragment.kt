@@ -29,6 +29,7 @@ import com.HKSHOPU.hk.ui.main.homepage.activity.SearchActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductSearchAdapter
 import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.paypal.pyplcheckout.sca.runOnUiThread
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -80,7 +81,7 @@ class RankingAllSearchFragment : Fragment() {
         backLayout = v.find<RelativeLayout>(R.id.layout_product_all)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_all)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
         layout_refresh_request = v.find(R.id.layout_refresh_request)
@@ -97,9 +98,8 @@ class RankingAllSearchFragment : Fragment() {
         return v
     }
 
-    private fun initView(){
 
-        progressBar.isVisible = true
+    private fun initView(){
         backLayout.setOnClickListener {
             Log.d("RankingAllSearch", "backLayout Clicked：")
         }
@@ -111,17 +111,20 @@ class RankingAllSearchFragment : Fragment() {
 
         initRecyclerView()
 
-        getSearchProductOverAll(userId, categoryId, sub_categoryId.toString(), max_seq.toString(), keyword!!)
+//        getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), "0", keyword!!)
 
         btn_refresh.setOnClickListener {
             getSearchProductOverAll(userId, "", "", "0", keyword!!)
         }
 
     }
+
+
     private fun initRefresh() {
 
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), "0", keyword!!)
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {
@@ -129,29 +132,16 @@ class RankingAllSearchFragment : Fragment() {
             Log.d("RankingAllSearch", "資料 categoryId：" + categoryId)
             var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages/"
             max_seq ++
-//            if(keyword.isNotEmpty()){
-//                categoryId = ""
-//            }else{
-//                keyword =""
-//            }
+
             getSearchProductOverAllMore(url, userId, categoryId.toString(), sub_categoryId, max_seq.toString(), keyword)
 //            VM.loadMore(this)
         }
     }
 
     private fun initRecyclerView(){
-
         val layoutManager = GridLayoutManager(requireActivity(),2)
         allProduct.layoutManager = layoutManager
         allProduct.adapter = adapter
-//        adapter.itemClick = {
-//            val intent = Intent(requireActivity(), ProductDetailedPageBuyerViewActivity::class.java)
-//            var bundle = Bundle()
-//            bundle.putString("product_id", it)
-//            intent.putExtra("bundle_product_id", bundle)
-//            requireActivity().startActivity(intent)
-//        }
-
     }
 
     @SuppressLint("CheckResult")
@@ -160,6 +150,7 @@ class RankingAllSearchFragment : Fragment() {
             .subscribe({
                 when (it) {
                     is EventToProductSearch -> {
+
                         progressBar.isVisible = true
 
                         keyword = MMKV.mmkvWithID("http")!!.getString("keyword","").toString()
@@ -167,7 +158,19 @@ class RankingAllSearchFragment : Fragment() {
                         sub_categoryId = MMKV.mmkvWithID("http").getString("sub_product_category_id","").toString()
                         Log.d("RankingAllSearch", "資料 categoryId：" + categoryId.toString() + " ; sub_categoryId : ${sub_categoryId.toString()}")
 
-                        getSearchProductOverAll(userId.toString(), "", "", max_seq.toString(), keyword!!)
+
+                        Thread(Runnable {
+
+                            try{
+                                Thread.sleep(800)
+                                runOnUiThread {
+                                    getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), "0", keyword!!)
+                                }
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
+
+                        }).start()
                     }
                 }
 
@@ -177,6 +180,7 @@ class RankingAllSearchFragment : Fragment() {
 
     private fun getSearchProductOverAll(user_id:String, category_id:String, sub_category_id:String, max_seq:String, keyword:String) {
         Log.d("RankingAllSearchFragment", "user_id: ${user_id} ; category_id: ${category_id} ; sub_category_id: ${sub_category_id} ; max_seq: ${max_seq} ; keyword: ${keyword}")
+        progressBar.visibility = View.VISIBLE
         val url = ApiConstants.API_HOST+"/product/"+mode +"/product_analytics_pages_keyword/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
@@ -207,7 +211,6 @@ class RankingAllSearchFragment : Fragment() {
                             }
                         }
                     }
-
 
                     if(list.size > 0){
                         if(userId.isEmpty()){
@@ -348,6 +351,7 @@ class RankingAllSearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("lifecycleForFragment", "onResume")
+        getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), "0", keyword!!)
     }
 
     override fun onPause() {
@@ -362,6 +366,8 @@ class RankingAllSearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
+            .commitAllowingStateLoss()
         Log.d("lifecycleForFragment", "onDestroyView")
     }
 

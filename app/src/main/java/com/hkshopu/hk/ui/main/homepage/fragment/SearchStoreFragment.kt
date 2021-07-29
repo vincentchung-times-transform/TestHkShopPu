@@ -35,7 +35,7 @@ class SearchStoreFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_search_store, container, false)
         tabs = v.find<TabLayout>(R.id.tabs)
         mviewPager = v.find<ViewPager2>(R.id.mviewPager)
-
+        
         initView()
         initFragment()
 
@@ -57,6 +57,7 @@ class SearchStoreFragment : Fragment() {
                 return ResourceSearch.tabList_store.size
             }
         }
+
         TabLayoutMediator(tabs, mviewPager) { tabs, position ->
             tabs.text = getString(ResourceSearch.tabList_store[position])
 

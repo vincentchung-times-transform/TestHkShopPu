@@ -36,7 +36,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
 import com.google.gson.JsonParser
-import com.paypal.android.sdk.payments.*
 import com.paypal.checkout.approve.OnApprove
 import com.paypal.checkout.cancel.OnCancel
 import com.paypal.checkout.createorder.CreateOrder
@@ -674,20 +673,20 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                 } catch (e: JSONException) {
                     Log.d("doConvertShoppingCartItemsToOrder_errorMessage", "JSONException：" + e.toString())
                     runOnUiThread {
-                        Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新連接", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新嘗試", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("doConvertShoppingCartItemsToOrder_errorMessage", "IOException：" + e.toString())
                     runOnUiThread {
-                        Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新連接", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新嘗試", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 Log.d("doConvertShoppingCartItemsToOrder_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
                 runOnUiThread {
-                    Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新連接", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ShoppingCartConfirmedActivity , "網路異常請重新嘗試", Toast.LENGTH_SHORT).show()
                 }
             }
         })

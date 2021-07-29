@@ -101,30 +101,35 @@ class FpsPayActivity : BaseActivity() {
                     if (status == 0) {
 
                         val translations: JSONArray = json.getJSONArray("data")
-                        for (i in 0 until translations.length()) {
-                            val jsonObject: JSONObject = translations.getJSONObject(i)
-                            val fpsSettingBean: FpsSettingBean =
-                                Gson().fromJson(jsonObject.toString(), FpsSettingBean::class.java)
-                            list.add(fpsSettingBean)
+
+                        if(translations.length()>0){
+                            for (i in 0 until translations.length()) {
+                                val jsonObject: JSONObject = translations.getJSONObject(i)
+                                val fpsSettingBean: FpsSettingBean =
+                                    Gson().fromJson(jsonObject.toString(), FpsSettingBean::class.java)
+                                list.add(fpsSettingBean)
+                            }
+                            runOnUiThread {
+                                binding.tvCompanyName.text = list[0].company_name
+                                binding.tvPhoneCode.text = list[0].phone_country_code
+                                binding.tvPhone.text = list[0].phone_number
+
+                            }
                         }
 
-                        runOnUiThread {
-                            binding.tvCompanyName.text = list[0].company_name
-                            binding.tvPhoneCode.text = list[0].phone_country_code
-                            binding.tvPhone.text = list[0].phone_number
 
-                        }
 
                     }
                 } catch (e: JSONException) {
-
+                    Log.d("errorMessage", "JSONException: ${e.toString()}")
                 } catch (e: IOException) {
                     e.printStackTrace()
+                    Log.d("errorMessage", "IOException: ${e.toString()}")
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
-
+                Log.d("errorMessage", "ErrorResponse${ErrorResponse.toString()}")
             }
         })
         web.Get_Data(url)

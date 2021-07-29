@@ -2,13 +2,13 @@ package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
 import android.R
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.data.bean.*
@@ -16,9 +16,10 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPendingDeliver_OrderDatailAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderDetail_Adapter
 import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayActivity
 import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayAuditActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.extension.load
 import com.facebook.FacebookSdk
 import com.google.gson.Gson
@@ -27,7 +28,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.text.DateFormat
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,7 +37,7 @@ class BuyerPurchaseListPendingPaymentActivity : BaseActivity() {
     private lateinit var binding: ActivityBuyerorderdetailPendingpaymentBinding
 
 
-    private val adapter = BuyerPendingDeliver_OrderDatailAdapter()
+    private val adapter = BuyerOrderDetail_Adapter()
     var orderNumber =""
     var mutablelist_paymentBean : MutableList<PaymentBean> = mutableListOf()
     var selected_payment_id = ""
@@ -58,16 +59,22 @@ class BuyerPurchaseListPendingPaymentActivity : BaseActivity() {
 
     }
     private fun initClick() {
+        binding!!.ivNotify.setOnClickListener {
+            val intent = Intent(this, ShopNotifyActivity::class.java)
+            startActivity(intent)
+        }
         binding.ivBack.setOnClickListener {
             finish()
         }
-
-        binding.btnFps.setOnClickListener {
-
-            getCheckFpsStatus(orderId)
-
+        binding.ivContact.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            intent.data = Uri.parse("https://www.hkshopu.com/")
+            startActivity(intent)
         }
-
+        binding.btnFps.setOnClickListener {
+            getCheckFpsStatus(orderId)
+        }
     }
     private fun initRecyclerView(){
         val layoutManager = LinearLayoutManager(this)
@@ -119,6 +126,7 @@ class BuyerPurchaseListPendingPaymentActivity : BaseActivity() {
     }
 
     private fun doGetData(order_id: String) {
+        Log.d("order_id_inspecting", "order_id: ${order_id.toString()}")
         binding.progressBar.visibility = View.VISIBLE
         binding.imgViewLoadingBackground.visibility = View.VISIBLE
 

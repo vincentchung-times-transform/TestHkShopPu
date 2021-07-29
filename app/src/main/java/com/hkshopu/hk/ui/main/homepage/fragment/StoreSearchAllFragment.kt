@@ -7,21 +7,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
-
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
 import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.component.EventToShopSearch
-
 import com.HKSHOPU.hk.data.bean.ShopRecommendBean
-import com.HKSHOPU.hk.databinding.FragmentProductDetailedPageBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
@@ -30,6 +24,8 @@ import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
+import com.google.gson.Gson
+import com.paypal.pyplcheckout.sca.runOnUiThread
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -52,6 +48,7 @@ class StoreSearchAllFragment : Fragment() {
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
     lateinit var refreshLayout: SmartRefreshLayout
     lateinit var layout_empty_result: LinearLayout
+    lateinit var layout_refresh_request: LinearLayout
     lateinit var allStore :RecyclerView
     lateinit var progressBar:ProgressBar
     private val adapter = StoreRecommendAdapter(userId)
@@ -69,11 +66,13 @@ class StoreSearchAllFragment : Fragment() {
         val activity: SearchActivity? = activity as SearchActivity?
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_all_store)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
+        layout_refresh_request = v.find(R.id.layout_refresh_request)
+        layout_refresh_request.visibility = View.GONE
 
         allStore = v.find<RecyclerView>(R.id.recyclerview_rankall_store)
 
@@ -84,8 +83,7 @@ class StoreSearchAllFragment : Fragment() {
 
         initRecyclerView()
 
-        val url = ApiConstants.API_HOST+"/shop/get_shop_analytics_with_keyword_in_pages/"
-        getSearchStoreOverAll(url, userId!!, mode,max_seq.toString(), categoryId, sub_categoryId, keyword!!)
+//        getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
 
         initView()
         initEvent()
@@ -93,6 +91,17 @@ class StoreSearchAllFragment : Fragment() {
         return v
     }
 
+    override fun onResume() {
+        super.onResume()
+        getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
+
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
+            .commitAllowingStateLoss()
+        Log.d("lifecycleForFragment", "onDestroyView")
+    }
     private fun initView(){
 
     }
@@ -103,31 +112,25 @@ class StoreSearchAllFragment : Fragment() {
         }
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
             refreshLayout.finishRefresh()
+
         }
         refreshLayout.setOnLoadMoreListener {
 
             progressBar.visibility = View.VISIBLE
-
-            val url = ApiConstants.API_HOST+"/shop/get_shop_analytics_with_keyword_in_pages/"
             max_seq++
+            getSearchStoreOverAllMore(userId!!, mode, max_seq.toString(), categoryId, sub_categoryId, keyword!!)
+
 //            if(keyword.isNotEmpty()){
 //                categoryId = ""
 //            }else{
 //                keyword =""
 //            }
-            getSearchStoreOverAllMore(
-                url,
-                userId,
-                mode,
-                max_seq.toString(),
-                categoryId,
-                sub_categoryId,
-                keyword
-            )
 //            VM.loadMore(this)
         }
     }
+
 
     @SuppressLint("CheckResult")
     fun initEvent() {
@@ -143,9 +146,17 @@ class StoreSearchAllFragment : Fragment() {
                         sub_categoryId = MMKV.mmkvWithID("http").getString("sub_product_category_id","").toString()
                         Log.d("RankingAllSearch", "資料 categoryId：" + categoryId.toString() + " ; sub_categoryId : ${sub_categoryId.toString()}")
 
-                        val url = ApiConstants.API_HOST+"/shop/get_shop_analytics_with_keyword_in_pages/"
+                        Thread(Runnable {
+                            try{
+                                Thread.sleep(400)
+                                runOnUiThread {
+                                    getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
+                                }
+                            } catch (e: InterruptedException) {
+                                e.printStackTrace()
+                            }
 
-                        getSearchStoreOverAll(url, userId!!, mode, max_seq.toString(), categoryId, sub_categoryId, keyword!!)
+                        }).start()
                     }
                 }
 
@@ -169,8 +180,10 @@ class StoreSearchAllFragment : Fragment() {
 
     }
 
-    private fun getSearchStoreOverAll(url: String, userId:String, mode:String, max_seq:String, product_category_id:String, sub_categoryId:String, keyword:String) {
-
+    private fun getSearchStoreOverAll(userId:String, mode:String, max_seq:String, product_category_id:String, sub_categoryId:String, keyword:String) {
+        progressBar.visibility = View.VISIBLE
+        Log.d("getSearchStoreOverAll", "userId: ${userId} ; mode: ${mode} ;  max_seq: ${max_seq} ; product_category_id: ${product_category_id} ;  product_sub_category_id: ${sub_categoryId} ; keyword: ${keyword}")
+        val url = ApiConstants.API_HOST+"/shop/get_shop_analytics_with_keyword_in_pages/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -178,10 +191,11 @@ class StoreSearchAllFragment : Fragment() {
                 try {
                     resStr = response.body()!!.string()
                     val json = JSONObject(resStr)
-                    Log.d("StoreSearchAllFragment", "返回資料 resStr：" + resStr)
-                    Log.d("StoreSearchAllFragment", "返回資料 ret_val：" + json.get("ret_val"))
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
+                    Log.d("StoreSearchAllFragment", "返回資料 resStr：" + resStr)
+                    Log.d("StoreSearchAllFragment", "返回資料 ret_val：" + json.get("ret_val"))
+
                     if (status == 0) {
 
                         val jsonObject: JSONObject = json.getJSONObject("data")
@@ -196,7 +210,6 @@ class StoreSearchAllFragment : Fragment() {
                                 list.add(shopRecommendBean)
                             }
                         }
-
                     }
 
                     Log.d("RankingAllFragment", "返回資料 list：" + list.toString())
@@ -207,8 +220,8 @@ class StoreSearchAllFragment : Fragment() {
                             adapter.setData(list)
 
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.GONE
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.visibility = View.VISIBLE
                         }
                     }else{
@@ -216,8 +229,8 @@ class StoreSearchAllFragment : Fragment() {
                             adapter.clear()
 
                             progressBar.visibility = View.GONE
-
                             layout_empty_result.visibility = View.VISIBLE
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.visibility = View.GONE
                         }
                     }
@@ -226,8 +239,8 @@ class StoreSearchAllFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAll: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
-                        layout_empty_result.visibility = View.VISIBLE
+                        layout_empty_result.visibility = View.GONE
+                        layout_refresh_request.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
                 } catch (e: IOException) {
@@ -235,8 +248,8 @@ class StoreSearchAllFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAll: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-
-                        layout_empty_result.visibility = View.VISIBLE
+                        layout_empty_result.visibility = View.GONE
+                        layout_refresh_request.visibility = View.VISIBLE
                         refreshLayout.visibility = View.GONE
                     }
                 }
@@ -246,8 +259,8 @@ class StoreSearchAllFragment : Fragment() {
                 Log.d("errormessage", "getSearchStoreOverAll: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
-
-                    layout_empty_result.visibility = View.VISIBLE
+                    layout_empty_result.visibility = View.GONE
+                    layout_refresh_request.visibility = View.VISIBLE
                     refreshLayout.visibility = View.GONE
                 }
             }
@@ -255,8 +268,8 @@ class StoreSearchAllFragment : Fragment() {
         web.Do_GetSearchStore(url, userId, mode, max_seq, product_category_id, sub_categoryId, keyword)
     }
 
-    private fun getSearchStoreOverAllMore(url:String, userId:String, mode:String, max_seq:String, product_category_id:String, sub_categoryId:String, keyword:String) {
-
+    private fun getSearchStoreOverAllMore(userId:String, mode:String, max_seq:String, product_category_id:String, sub_categoryId:String, keyword:String) {
+        val url = ApiConstants.API_HOST+"/shop/get_shop_analytics_with_keyword_in_pages/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -290,14 +303,14 @@ class StoreSearchAllFragment : Fragment() {
                             adapter.add(list)
 
                             progressBar.visibility = View.GONE
-
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.finishLoadMore()
                         }
                     }else{
                         activity!!.runOnUiThread {
 
                             progressBar.visibility = View.GONE
-
+                            layout_refresh_request.visibility = View.GONE
                             refreshLayout.finishLoadMore()
                         }
                     }
@@ -306,16 +319,13 @@ class StoreSearchAllFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAllMore: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-                        layout_empty_result.visibility = View.VISIBLE
-                        refreshLayout.visibility = View.GONE
+
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getSearchStoreOverAllMore: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
-                        layout_empty_result.visibility = View.VISIBLE
-                        refreshLayout.visibility = View.GONE
                     }
                 }
             }
@@ -324,9 +334,6 @@ class StoreSearchAllFragment : Fragment() {
                 Log.d("errormessage", "getSearchStoreOverAllMore: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
-
-                    layout_empty_result.visibility = View.VISIBLE
-                    refreshLayout.visibility = View.GONE
                 }
             }
         })

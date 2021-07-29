@@ -1,6 +1,7 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.util.Log
@@ -8,7 +9,6 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.annotation.Nullable
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 
 import com.HKSHOPU.hk.Base.BaseActivity
@@ -18,7 +18,7 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.ProductLikedAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerProfile_ProductLikedAdapter
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.google.gson.Gson
 import com.tencent.mmkv.MMKV
@@ -39,7 +39,7 @@ class BuyerLikedListActivity : BaseActivity() {
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
-    private val adapter = ProductLikedAdapter(currency, userId)
+    private val adapter = BuyerProfile_ProductLikedAdapter(currency, userId)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +48,7 @@ class BuyerLikedListActivity : BaseActivity() {
 
         initView()
         initClick()
-        doGetLikedList(keyword)
+//        doGetLikedList(keyword)
     }
 
     private fun initView() {
@@ -116,6 +116,15 @@ class BuyerLikedListActivity : BaseActivity() {
         binding.ivBack.setOnClickListener {
             finish()
         }
+        binding.btnReturn.setOnClickListener {
+            finish()
+        }
+        binding.btnKnowMore.setOnClickListener {
+            val url = "http://www.hkshopu.com/"
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
     }
     private fun initRecyclerView(){
         val layoutManager = GridLayoutManager(this@BuyerLikedListActivity,2)
@@ -127,8 +136,8 @@ class BuyerLikedListActivity : BaseActivity() {
     }
 
     private fun doGetLikedList(keyword: String) {
-        binding.progressBarBuyerLikedList.visibility = View.VISIBLE
-        binding.imgViewLoadingBackgroundBuyerLikedList.visibility = View.VISIBLE
+        binding.progressBarBuyerLikedList.visibility = View.GONE
+        binding.imgViewLoadingBackgroundBuyerLikedList.visibility = View.GONE
 
         var url = ApiConstants.API_HOST + "user_detail/user_liked/"
         val web = Web(object : WebListener {

@@ -38,6 +38,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.*
 import com.google.gson.Gson
+import com.google.zxing.datamatrix.decoder.Version
+import com.guhungry.android.version.VersionNumber
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONException
@@ -628,6 +630,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
                     if (status == 0) {
 
+
                         if (ret_val.equals( "取得最新 App 版本編號成功!")){
                             Log.d("doGetLatestAppVersion", "取得最新 App 版本編號成功!")
 
@@ -645,7 +648,7 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
                             Log.d("doGetLatestAppVersion", "返回資料 device_version： " + verName.toString())
 
 
-                            if(versionNameBean.version_number == verName.toString()){
+                            if(VersionNumber(versionNameBean.version_number) <= VersionNumber(verName.toString())){
                                 Log.d("doGetLatestAppVersion", "版本檢測: 目前版本為最新版本")
                             }else{
                                 Log.d("doGetLatestAppVersion", "版本檢測: 有最新版本可進行更新")
@@ -803,5 +806,6 @@ class OnBoardActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 //
 //        return point
 //    }
+
 
 }

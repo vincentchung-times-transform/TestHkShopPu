@@ -71,7 +71,7 @@
             android:text="99"
             android:textColor="@color/white"
             android:textSize="10sp"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
     </RelativeLayout>
 
 
@@ -310,6 +310,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="24dp"
+                    android:visibility="invisible"
                     android:src="@mipmap/ic_contact3"
                     android:contentDescription="@string/empty"/>
 
@@ -439,14 +440,14 @@
                     android:text="@string/paymethod"
                     android:textColor="@color/black"/>
 
-                <ImageView
+                <TextView
                     android:id="@+id/tv_payment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="12dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@mipmap/paypa_logo"/>
+                    android:text=""/>
 
             </RelativeLayout>
 
@@ -506,7 +507,7 @@
                         android:id="@+id/tv_paytime"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="-"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextlightGray"
                         android:textSize="14sp"/>
@@ -529,7 +530,7 @@
                         android:id="@+id/tv_delivery_time_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="-"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextlightGray"
                         android:textSize="14sp"/>
@@ -552,7 +553,7 @@
                         android:id="@+id/tv_expected_arrival_time_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="-"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextlightGray"
                         android:textSize="14sp"/>
@@ -575,7 +576,7 @@
                         android:id="@+id/tv_complete_time_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="-"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextlightGray"
                         android:textSize="14sp"/>
@@ -599,7 +600,7 @@
                         android:id="@+id/tv_cancel_time_value"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text=""
+                        android:text="-"
                         android:textAlignment="textEnd"
                         android:textColor="@color/colorTextlightGray"
                         android:textSize="14sp"/>
@@ -655,6 +656,30 @@
             android:outlineSpotShadowColor="@color/bg_detailbottom"
             android:background="@color/transparent"
             android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_refund"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_orderrefund"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/btn_shipping_notifying_small"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="invisible"
+                android:layout_marginRight="8dp"
+                android:scaleType="centerInside" />
+            <ImageView
+                android:id="@+id/btn_finish_dis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_orderfinish"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="8dp"
+                android:scaleType="centerInside" />
+
         </LinearLayout>
 
         <RelativeLayout
@@ -707,7 +732,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:src="@mipmap/btn_order_details_canceling"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="18dp"
                 android:layout_marginLeft="16dp"

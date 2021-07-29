@@ -1,5 +1,6 @@
 package com.HKSHOPU.hk.ui.main.buyer.product.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,11 +42,11 @@ class SpecificationFirstSelectingAdapter: RecyclerView.Adapter<SpecificationFirs
 
             itemView.setOnClickListener(this)
 
-
         }
 
         fun bind(item: ItemSpecificationSeleting){
             //綁定當地變數與dataModel中的每個值
+
             spec_id = item.spec_id
             txtView_specification.setText(item.spec_name)
             price_range = item.price_range
@@ -139,6 +140,7 @@ class SpecificationFirstSelectingAdapter: RecyclerView.Adapter<SpecificationFirs
     fun setDatas(list: MutableList<ItemSpecificationSeleting>){
         mutableList_first_specifications = list
         notifyDataSetChanged()
+        Log.d("SpecificationFirstSelectingAdapter", "List Size: ${mutableList_first_specifications.size}\n ")
     }
 
     fun upadteData(item:ItemSpecificationSeleting, positon: Int) {

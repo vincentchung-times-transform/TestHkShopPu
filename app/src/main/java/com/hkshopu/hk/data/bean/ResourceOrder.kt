@@ -12,16 +12,14 @@ interface ResourceOrder {
     companion object {
 
         val tabList_saleslist= listOf(
-            R.string.sales_tab1,R.string.sales_tab2, R.string.sales_tab3
-//            ,R.string.sales_tab4
+            R.string.sales_tab1,R.string.sales_tab2, R.string.sales_tab3,R.string.sales_tab4
         )
-
         //        ,R.string.purchase_tab4
         val pagerFragments_saleslist = listOf(
             ToBeShippedForSalesFragment.newInstance(),
             ToBeReceivedForSalesFragment.newInstance(),
-            OderCompletedForSalesFragment.newInstance()
-//            , OderCanceledForSalesFragment.newInstance()
+            OderCompletedForSalesFragment.newInstance(),
+            OderCanceledForSalesFragment.newInstance()
         )
 
     }

@@ -97,7 +97,7 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
         }
 
         binding!!.layoutReviews.setOnClickListener {
-            val intent = Intent(activity, ShopPreviewCommingSoonActivity::class.java)
+            val intent = Intent(activity, ShopEvaluationActivity::class.java)
             activity!!.startActivity(intent)
         }
 
@@ -126,15 +126,19 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
         }
 
         binding!!.layoutAcntset.setOnClickListener {
-
             val intent = Intent(activity, com.HKSHOPU.hk.ui.main.seller.shop.activity.AccountSetupActivity::class.java)
             activity!!.startActivity(intent)
-
         }
 
         binding!!.layoutShoppreview.setOnClickListener {
-//            val intent = Intent(activity, ShopPreviewActivity::class.java)
-//            activity!!.startActivity(intent)
+            val shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
+            var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+            val bundle = Bundle()
+            bundle.putString("shopId",shopId)
+            bundle.putString("userId",userId)
+            val intent = Intent(activity, ShopPreviewActivity::class.java)
+            intent.putExtra("bundle",bundle)
+            activity!!.startActivity(intent)
 
         }
 

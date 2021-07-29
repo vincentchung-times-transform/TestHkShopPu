@@ -1,5 +1,6 @@
 package com.HKSHOPU.hk.ui.main.seller.shop.activity
 
+import MyLinearLayoutManager
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
@@ -110,7 +111,7 @@ class LogisticListActivity : BaseActivity() {
                 when (it) {
                     is EventCheckLogisticsEnableBtnOrNot->{
                         var boolean = it.boolean
-
+                        Log.d("EventCheckLogisticsEnableBtnOrNot", "EventCheckLogisticsEnableBtnOrNot: ${btn_enable}")
                         if(boolean){
                             btn_enable = true
                         }else{
@@ -149,11 +150,27 @@ class LogisticListActivity : BaseActivity() {
                                 Gson().fromJson(jsonObject.toString(), ShopLogisticBean::class.java)
                             list.add(shopLogisticBean)
                         }
+                        Log.d("getShopLogisticsList", "list: ${list.toString()}")
+
+                        runOnUiThread {
+                            binding.recyclerview.setLayoutManager(MyLinearLayoutManager(this@LogisticListActivity,false))
+                            binding.recyclerview.adapter = adapter
+                        }
+
                         if(list.size == 0){
-                            binding.tvLogisticSave.isClickable = false
+                            runOnUiThread {
+                                var shopLogisticBean = ShopLogisticBean()
+                                shopLogisticBean.id = ""
+                                shopLogisticBean.shop_id =shopId
+                                shopLogisticBean.shipment_desc = ""
+                                shopLogisticBean.onoff = "off"
+                                list.add(shopLogisticBean)
+                                adapter.setData(list)
+                            }
                         }else {
-                            binding.tvLogisticSave.isClickable = true
-                            adapter.setData(list)
+                            runOnUiThread {
+                                adapter.setData(list)
+                            }
                         }
                         runOnUiThread {
                             binding.progressBar.visibility = View.GONE

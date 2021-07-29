@@ -79,18 +79,15 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:visibility="gone"
                 android:src="@mipmap/ic_share" />
 
-            <ImageView
-                android:id="@+id/iv_share_click"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginStart="12dp" />
 
             <ImageView
                 android:id="@+id/iv_notify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -108,6 +105,7 @@
                 android:background="@drawable/customborder_round_turquise"
                 android:gravity="center"
                 android:text="99"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
 
@@ -164,101 +162,112 @@
                 android:layout_marginTop="45dp"
                 android:layout_marginEnd="40dp"
                 android:src="@mipmap/ic_share"
-                android:visibility="visible"/>
+                android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/tv_shopbrief"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="268dp"
+                android:layout_height="match_parent"
                 android:layout_below="@id/iv_addshopbrief_view"
-                android:layout_marginStart="36dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginStart="36dp"
                 android:layout_marginEnd="36dp"
-                android:background="@android:color/transparent"
-                android:gravity="top"
-                android:textColorHint="@color/bright_gray" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_shopbrief_contact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_shopbrief"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/contact"
-                android:textSize="14sp"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tv_shopbrief"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="top"
+                    android:textColorHint="@color/bright_gray" />
 
-            <ImageView
-                android:id="@+id/iv_shopbrief_contact1"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_below="@id/tv_shopbrief_contact"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="12dp"
-                android:src="@mipmap/ic_phone"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/tv_shopbrief_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/contact"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_shopbrief_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_shopbrief_contact"
-                android:layout_alignBottom="@id/iv_shopbrief_contact1"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_toEndOf="@id/iv_shopbrief_contact1"
-                android:text=""
-                android:textSize="12sp"
-                android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/iv_shopbrief_email"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_below="@id/iv_shopbrief_contact1"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="12dp"
-                android:src="@mipmap/ic_mail"
-                android:visibility="gone"  />
+                <LinearLayout
+                    android:id="@+id/layout_shopbrief_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_shopbrief_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_shopbrief_phone"
-                android:layout_alignBottom="@id/iv_shopbrief_email"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_toEndOf="@id/iv_shopbrief_email"
-                android:text=""
-                android:textSize="12sp"
-                android:visibility="gone" />
+                    <ImageView
+                        android:id="@+id/iv_shopbrief_contact1"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@mipmap/ic_phone"
+                        android:visibility="gone" />
 
-            <ImageView
-                android:id="@+id/iv_shopbrief_address"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_below="@id/iv_shopbrief_email"
-                android:layout_marginStart="36dp"
-                android:layout_marginTop="12dp"
-                android:src="@mipmap/ic_location"
-                android:visibility="gone"  />
+                    <TextView
+                        android:id="@+id/tv_shopbrief_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_shopbrief_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/iv_shopbrief_email"
-                android:layout_alignBottom="@id/iv_shopbrief_address"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:layout_toEndOf="@id/iv_shopbrief_address"
-                android:text=""
-                android:textSize="12sp"
-                android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_shopbrief_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/iv_shopbrief_email"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@mipmap/ic_mail"
+                        android:visibility="gone"  />
+
+                    <TextView
+                        android:id="@+id/tv_shopbrief_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layout_shopbrief_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="48dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_shopbrief_address"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginTop="12dp"
+                        android:src="@mipmap/ic_location"
+                        android:visibility="gone"  />
+
+                    <TextView
+                        android:id="@+id/tv_shopbrief_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text=""
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+            </LinearLayout>
 
         </RelativeLayout>
-
     </RelativeLayout>
 </RelativeLayout>

@@ -200,7 +200,6 @@ class MerchanCategorySearchActivity : BaseActivity() {
                             binding.rViewCategorySubItem.adapter = mAdapters_SubProCateItem
 
                             mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
-                            mAdapters_SubProCateItem.set_c_name(product_category_list.get(0).c_product_category)
                             mAdapters_SubProCateItem.notifyDataSetChanged()
 
                         }
@@ -255,7 +254,6 @@ class MerchanCategorySearchActivity : BaseActivity() {
 
 
                                 mAdapters_SubProCateItem.updateList(selected_product_child_category_list)
-                                mAdapters_SubProCateItem.set_c_name(c_product_category)
                                 mAdapters_SubProCateItem.notifyDataSetChanged()
 
 

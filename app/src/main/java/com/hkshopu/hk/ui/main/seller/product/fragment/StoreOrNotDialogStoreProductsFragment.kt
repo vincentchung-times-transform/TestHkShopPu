@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.CommonVariable
 import com.tencent.mmkv.MMKV
 
 class StoreOrNotDialogStoreProductsFragment(var activity: BaseActivity): DialogFragment(), View.OnClickListener {
@@ -72,6 +73,7 @@ class StoreOrNotDialogStoreProductsFragment(var activity: BaseActivity): DialogF
 
                 MMKV.mmkvWithID("addPro").clear()
                 MMKV.mmkvWithID("editPro").clear()
+                CommonVariable.arrayList_Pics.clear()
 
                 activity.finish()
 

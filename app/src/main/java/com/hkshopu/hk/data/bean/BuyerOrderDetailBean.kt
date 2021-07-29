@@ -25,6 +25,6 @@ class BuyerOrderDetailBean {
     var count: Int = 0
 
     @SerializedName("sub_total")
-    var sub_total: Double = 0.0
+    var sub_total: Int = 0
 
 }

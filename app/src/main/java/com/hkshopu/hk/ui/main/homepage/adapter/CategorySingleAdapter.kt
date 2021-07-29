@@ -75,6 +75,10 @@ class CategorySingleAdapter() : RecyclerView.Adapter<CategorySingleAdapter.Categ
 
             val intent = Intent(holder.itemView.context, SearchActivity::class.java)
             holder.itemView.context.startActivity(intent)
+
+            RxBus.getInstance().post(EventToProductSearch())
+            RxBus.getInstance().post(EventToShopSearch())
+
         }
 
     }

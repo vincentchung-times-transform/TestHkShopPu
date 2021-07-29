@@ -1,7 +1,6 @@
 package com.HKSHOPU.hk.ui.main.homepage.fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import androidx.core.view.isVisible
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -22,8 +20,7 @@ import com.HKSHOPU.hk.data.bean.ProductShopPreviewBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.homepage.adapter.ProductShopPreviewAdapter
-import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
+import com.HKSHOPU.hk.ui.main.homepage.adapter.PopularProductAdapter
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -54,8 +51,8 @@ class RankingExpensiveFragment : Fragment() {
     var defaultLocale = Locale.getDefault()
     var currency: Currency = Currency.getInstance(defaultLocale)
     var userId = MMKV.mmkvWithID("http").getString("UserId", "")
-    private val adapter = ProductShopPreviewAdapter(currency, userId!!)
-
+    var shopId: String = ""
+    private val adapter = PopularProductAdapter(currency, userId!!)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,23 +62,27 @@ class RankingExpensiveFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_ranking_expansive, container, false)
 
         progressBar = v.find<ProgressBar>(R.id.progressBar_product_expensive)
-        progressBar.visibility = View.VISIBLE
+        progressBar.visibility = View.GONE
         refreshLayout = v.find<SmartRefreshLayout>(R.id.refreshLayout)
         refreshLayout.visibility = View.VISIBLE
         layout_empty_result = v.find(R.id.layout_empty_result)
         layout_empty_result.visibility = View.GONE
 
         val activity: ShopPreviewActivity? = activity as ShopPreviewActivity?
-        val shopId: String? = activity!!.getShopId()
-        val userId: String? = activity!!.getUserId()
-        var url = ApiConstants.API_HOST+"/product/"+shopId+"/"+"higher_price"+"/shop_product_analytics/"
+        shopId = activity!!.getShopId()
+//        val userId: String? = activity!!.getUserId()
         expensiveProduct = v.find<RecyclerView>(R.id.recyclerview_expensive)
-        getProductOverAll(url,userId!!)
+
 
         initView()
         initEvent()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProductOverAll(userId!!)
     }
 
     private fun initView(){
@@ -109,8 +110,10 @@ class RankingExpensiveFragment : Fragment() {
 //        }
     }
 
-    private fun getProductOverAll(url: String,userId:String) {
+    private fun getProductOverAll(userId:String) {
+        progressBar.visibility = View.VISIBLE
 
+        var url = ApiConstants.API_HOST+"/product/"+shopId+"/"+"higher_price"+"/shop_product_analytics/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""

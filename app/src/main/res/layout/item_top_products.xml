@@ -61,7 +61,7 @@
         android:layout_marginTop="8dp"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="010 SOUL香水" />
+        android:text="" />
 
     <TextView
         android:id="@+id/tv_shopname"
@@ -72,7 +72,7 @@
         android:layout_marginTop="5dp"
         android:singleLine="true"
         android:ellipsize="end"
-        android:text="ONE DAY" />
+        android:text="" />
 
     <TextView
         android:id="@+id/tv_price"
@@ -82,7 +82,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp"
-        android:text="HKD$ 1,905"
+        android:text="HKD$"
         android:textStyle="bold" />
 
 </RelativeLayout>

@@ -52,7 +52,6 @@ class MyStoreFragment : Fragment() {
     lateinit var newProductDefault :RelativeLayout
     lateinit var newProduct :RecyclerView
 
-
     private val adapter = ShopProductAdapter(this)
 
     override fun onCreateView(
@@ -62,9 +61,6 @@ class MyStoreFragment : Fragment() {
 
         // Inflate the layout for this fragment
         val v = inflater.inflate(R.layout.fragment_mystore, container, false)
-
-        val shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
-        var url = ApiConstants.API_HOST+"/product/"+shopId+"/shop_product/"
 
         newProduct = v.find<RecyclerView>(R.id.recyclerview_newproduct)
         layout_store_brief_content_having = v.find<RelativeLayout>(R.id.layout_store_brief_content_having)
@@ -92,7 +88,7 @@ class MyStoreFragment : Fragment() {
         }
 
         initRecyclerView()
-        getShopProduct(url)
+
 
         //清掉 MMKV.mmkvWithID("addPro").clear() MMKV.mmkvWithID("editPro").clear()
         MMKV.mmkvWithID("addPro").clear()
@@ -103,6 +99,13 @@ class MyStoreFragment : Fragment() {
         initEvent()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
+    var url = ApiConstants.API_HOST+"/product/"+shopId+"/shop_product/"
+        getShopProduct(url)
     }
 
     override fun onDestroy() {

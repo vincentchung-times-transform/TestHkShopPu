@@ -23,10 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
-import com.HKSHOPU.hk.component.EventRefreshShopList
-import com.HKSHOPU.hk.component.EventTransferToFragmentAfterUpdate
-import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
+import com.HKSHOPU.hk.component.*
 import com.HKSHOPU.hk.data.bean.*
 import com.HKSHOPU.hk.databinding.ActivityAddNewProductBinding
 import com.HKSHOPU.hk.net.ApiConstants
@@ -49,7 +46,6 @@ import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
 import java.util.*
-
 
 class AddNewProductActivity : BaseActivity() {
     var activity : BaseActivity  = this
@@ -135,19 +131,22 @@ class AddNewProductActivity : BaseActivity() {
     fun initMMKV_and_initViewValue() {
         var pics_list_size = MMKV.mmkvWithID("addPro").getInt("value_pics_size", 0)
 
+        Log.d("arrayList_Pics_inspect", "CommonVariable:　${CommonVariable.arrayList_Pics}")
+
         Thread(Runnable {
             for (i in 0..pics_list_size - 1) {
 
-                var previouslyEncodedImage: String? =
-                    MMKV.mmkvWithID("addPro").getString("value_pic${i}", "")
+//                var previouslyEncodedImage: String? =
+//                    MMKV.mmkvWithID("addPro").getString("value_pic${i}", "")
+                var previouslyEncodedImage = CommonVariable.arrayList_Pics.get(i)
 
                 if(i == 0){
 
                     if (!previouslyEncodedImage.equals("")) {
-                        val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
-                        val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
+//                        val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
+//                        val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
                         mutableList_pics.add(
-                            ItemPics( getResizedBitmapToSquare(bitmap)!!, R.mipmap.cover_pic)
+                            ItemPics( previouslyEncodedImage, R.mipmap.cover_pic)
 //                            ItemPics(
 //                                getResizedBitmapToSquare(bitmap)!!,
 //                                R.mipmap.cover_pic
@@ -159,10 +158,10 @@ class AddNewProductActivity : BaseActivity() {
                 }else{
 
                     if (!previouslyEncodedImage.equals("")) {
-                        val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
-                        val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
+//                        val b: ByteArray = Base64.decode(previouslyEncodedImage, Base64.DEFAULT)
+//                        val bitmap = BitmapFactory.decodeByteArray(b, 0, b.size)
                         mutableList_pics.add(
-                            ItemPics(getResizedBitmapToSquare(bitmap)!!, R.drawable.custom_unit_transparent)
+                            ItemPics( previouslyEncodedImage, R.drawable.custom_unit_transparent)
 //                            ItemPics(bitmap, R.drawable.custom_unit_transparent)
                         )
                     }
@@ -271,6 +270,7 @@ class AddNewProductActivity : BaseActivity() {
                 else -> false
             }
         }
+
         val textWatcher_editTextEntryProductName = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -1260,13 +1260,16 @@ class AddNewProductActivity : BaseActivity() {
                             mutableList_pics.size.toInt()
                         )
 
+                        CommonVariable.arrayList_Pics.clear()
                         for (i in 0..mutableList_pics.size-1) {
                             //transfer to Base64
-                            val baos = ByteArrayOutputStream()
-                            mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
-                            val b = baos.toByteArray()
-                            val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-                            MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
+//                            val baos = ByteArrayOutputStream()
+//                            mutableList_pics[i].bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+//                            val b = baos.toByteArray()
+//                            val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
+//                            MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
+                            CommonVariable.arrayList_Pics.add(mutableList_pics[i].bitmap)
+                            Log.d("arrayList_Pics_inspect", "CommonVariable:　${CommonVariable.arrayList_Pics}")
                         }
 
                     }else{
@@ -1301,17 +1304,20 @@ class AddNewProductActivity : BaseActivity() {
 
                             MMKV.mmkvWithID("addPro").putInt("value_pics_size", mutableList_pics.size)
 
+                            CommonVariable.arrayList_Pics.clear()
                             for (i in 0..mutableList_pics.size-1) {
                                 //transfer to Base64
-                                val baos = ByteArrayOutputStream()
-                                mutableList_pics[i].bitmap.compress(
-                                    Bitmap.CompressFormat.JPEG,
-                                    100,
-                                    baos
-                                )
-                                val b = baos.toByteArray()
-                                val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
-                                MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
+//                                val baos = ByteArrayOutputStream()
+//                                mutableList_pics[i].bitmap.compress(
+//                                    Bitmap.CompressFormat.JPEG,
+//                                    100,
+//                                    baos
+//                                )
+//                                val b = baos.toByteArray()
+//                                val encodedImage: String = Base64.encodeToString(b, Base64.DEFAULT)
+//                                MMKV.mmkvWithID("addPro").putString("value_pic${i}", encodedImage)
+                                CommonVariable.arrayList_Pics.add(mutableList_pics[i].bitmap)
+                                Log.d("arrayList_Pics_inspect", "CommonVariable:　${CommonVariable.arrayList_Pics}")
                             }
                         }else{
                             runOnUiThread {
@@ -1356,15 +1362,13 @@ class AddNewProductActivity : BaseActivity() {
     }
 
     private fun processImage(bitmap: Bitmap, i: Int): File? {
-        val bmp = bitmap
-        val bmpCompress = getResizedBitmap(bmp, 200)
         val file: File
         val path = getExternalFilesDir(null).toString()
         file = File(path, "image" + i + ".jpg")
         try {
             var stream: OutputStream? = null
             stream = FileOutputStream(file)
-            bmpCompress!!.compress(Bitmap.CompressFormat.JPEG, 80, stream)
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, stream)
             stream?.flush()
             stream?.close()
         } catch (e: IOException) // Catch the exception
@@ -1373,14 +1377,15 @@ class AddNewProductActivity : BaseActivity() {
         }
         return file
     }
-    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
-        var width = image.width
-        var height = image.height
-        val bitmapRatio = width.toFloat() / height.toFloat()
-        width = maxSize
-        height = (width / bitmapRatio).toInt()
-        return Bitmap.createScaledBitmap(image, width, height, true)
-    }
+
+//    fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap? {
+//        var width = image.width
+//        var height = image.height
+//        val bitmapRatio = width.toFloat() / height.toFloat()
+//        width = maxSize
+//        height = (width / bitmapRatio).toInt()
+//        return Bitmap.createScaledBitmap(image, width, height, true)
+//    }
 
     private fun doAddProduct(shop_id : String, product_category_id : String, product_sub_category_id :String, product_title : String, quantity : Int, product_description : String, product_price :Int, shipping_fee : Int, weight : Int, new_secondhand :String, product_pic_list_size :Int ,product_pic_list : ArrayList<File>, product_spec_list : String, user_id: String,  length : Int, width : Int, height : Int, shipment_method : String, longterm_stock_up : Int, product_status : String, product_spec_on : String) {
 
@@ -1435,6 +1440,7 @@ class AddNewProductActivity : BaseActivity() {
 
                         MMKV.mmkvWithID("addPro").clear()
                         MMKV.mmkvWithID("editPro").clear()
+                        CommonVariable.arrayList_Pics.clear()
                         finish()
 
                     } else {
@@ -1596,4 +1602,5 @@ class AddNewProductActivity : BaseActivity() {
     override fun onBackPressed() {
         StoreOrNotDialogStoreProductsFragment(activity).show(supportFragmentManager, "MyCustomFragment")
     }
+
 }

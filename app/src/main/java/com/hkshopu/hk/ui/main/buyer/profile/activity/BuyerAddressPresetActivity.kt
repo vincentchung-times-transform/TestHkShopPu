@@ -17,7 +17,7 @@ import com.HKSHOPU.hk.databinding.ActivityUseraddresspresetBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerAddressPresetAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerAddress_PresetAdapter
 
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.tencent.mmkv.MMKV
@@ -33,7 +33,7 @@ import kotlin.collections.ArrayList
 class BuyerAddressPresetActivity : BaseActivity() {
     private lateinit var binding: ActivityUseraddresspresetBinding
 
-    private val adapter = BuyerAddressPresetAdapter()
+    private val adapter = BuyerAddress_PresetAdapter()
     val userId = MMKV.mmkvWithID("http").getString("UserId", "");
     var url = ApiConstants.API_HOST + "shopping_cart/"+userId+"/buyer_address/"
     var presetid:String= ""

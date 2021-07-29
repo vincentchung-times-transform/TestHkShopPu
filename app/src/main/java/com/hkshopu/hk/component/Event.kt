@@ -115,6 +115,10 @@ class EventRefreshShoppingCartBuyerAddressList()
 class EventRefreshUserInfo()
 class EventRefreshUserAddressList
 
+//Homepage
+//RefreshUser
+class EventRefreshHomepage()
+
 //Search
 class EventToUserProfile()
 class EventToShopSearch()
@@ -157,7 +161,8 @@ class EventHideBottomBar
 
 class EventShowBottomBar
 
-class EventReturnComic
+//OrderCompelete
+class EventOrderCompelete
 
 class EventEmailShow(val show:Boolean,val email: String? = null)
 

@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.HKSHOPU.hk.Base.BaseActivity
@@ -16,16 +14,19 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPendingDeliver_OrderDatailAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderDetail_Adapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.fragment.UpComingDialogFragment
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.extension.load
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -33,7 +34,7 @@ class SellerOrderDetailsActivity : BaseActivity() {
     private lateinit var binding: ActivitySellerOrderdetailBinding
 
 
-    private val adapter = BuyerPendingDeliver_OrderDatailAdapter()
+    private val adapter = BuyerOrderDetail_Adapter()
     var orderId =""
     var OrderNumberValue = ""
 
@@ -58,6 +59,10 @@ class SellerOrderDetailsActivity : BaseActivity() {
     }
 
     private fun initClick() {
+        binding!!.ivNotify.setOnClickListener {
+            val intent = Intent(this, ShopNotifyActivity::class.java)
+            startActivity(intent)
+        }
         binding.ivBack.setOnClickListener {
             finish()
         }
@@ -67,6 +72,13 @@ class SellerOrderDetailsActivity : BaseActivity() {
             bundle.putString("order_id", orderId)
             intent.putExtra("bundle", bundle)
             startActivity(intent)
+        }
+
+        binding.buttomForOrderCanceled.setOnClickListener {
+            UpComingDialogFragment().show(
+                getSupportFragmentManager(),
+                "MyCustomFragment"
+            )
         }
     }
     override fun onBackPressed() {
@@ -162,7 +174,6 @@ class SellerOrderDetailsActivity : BaseActivity() {
                         }else if(state.equals("Completed")){
                             runOnUiThread {
                                 binding.tvStatus2.setText(getText(R.string.sales_completed))
-
                                 binding.tvShipnumber.visibility = View.VISIBLE
                                 binding.tvNumber.visibility = View.VISIBLE
 
@@ -190,8 +201,8 @@ class SellerOrderDetailsActivity : BaseActivity() {
                                 binding.buttomForOrderCompleted.visibility = View.GONE
                                 binding.buttomForOrderCanceled.visibility = View.VISIBLE
 
-                                binding.layoutOrderNumber.visibility = View.GONE
-                                binding.layoutPaidTime.visibility = View.GONE
+                                binding.layoutOrderNumber.visibility = View.VISIBLE
+                                binding.layoutPaidTime.visibility = View.VISIBLE
                                 binding.layoutDeliveryTime.visibility = View.GONE
                                 binding.layoutExpectedArrivalTime.visibility = View.GONE
                                 binding.layoutCompleteTime.visibility = View.GONE
@@ -205,7 +216,7 @@ class SellerOrderDetailsActivity : BaseActivity() {
                             binding.tvReceive.setText(myOrderBean.shop_message_content)
 
                             binding.tvLogistic.text = myOrderBean.shipment_info
-                            binding.tvNumber.setText("")
+                            binding.tvNumber.setText(myOrderBean.waybill_number)
 
                             binding.tvBuyername.text = myOrderBean.name_in_address
                             binding.tvBuyerphone.text = myOrderBean.phone
@@ -220,10 +231,44 @@ class SellerOrderDetailsActivity : BaseActivity() {
 
                             binding.tvOrderNumberValue.text = myOrderBean.order_number
                             OrderNumberValue = myOrderBean.order_number
-                            binding.tvPaytime.text = myOrderBean.pay_time
-                            binding.tvDeliveryTimeValue.setText(myOrderBean.actual_deliver_at)
-                            binding.tvExpectedArrivalTimeValue.setText(myOrderBean.estimated_deliver_at)
-                            binding.tvCompleteTimeValue.setText(myOrderBean.actual_finished_at)
+
+
+
+                            try {
+                                val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
+                                if(myOrderBean.payment_at.isNotEmpty()){
+                                    val payment_at: Date = format.parse(myOrderBean.payment_at)
+                                    var payment_at_result = SimpleDateFormat("dd/MM/yyyy HH:mm").format(payment_at)
+                                    binding.tvPaytime.text = payment_at_result.toString()
+                                }
+
+                                if(myOrderBean.estimated_deliver_at.isNotEmpty()){
+                                    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                    val estimated_deliver_at: Date = format.parse(myOrderBean.estimated_deliver_at)
+                                    var estimated_deliver_at_result = SimpleDateFormat("dd/MM/yyyy HH:mm").format(estimated_deliver_at)
+                                    binding.tvExpectedArrivalTimeValue.setText(estimated_deliver_at_result.toString())
+                                }
+                                if(myOrderBean.actual_post_at.isNotEmpty()){
+                                    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                    val estimated_deliver_at: Date = format.parse(myOrderBean.actual_post_at)
+                                    var estimated_deliver_at_result = SimpleDateFormat("dd/MM/yyyy HH:mm").format(estimated_deliver_at)
+                                    binding.tvDeliveryTimeValue.setText(estimated_deliver_at_result.toString())
+                                }
+//
+                                if(myOrderBean.actual_finished_at.isNotEmpty()){
+                                    val actual_finished_at: Date = format.parse(myOrderBean.actual_finished_at)
+                                    var actual_finished_at_result =  SimpleDateFormat("dd/MM/yyyy HH:mm").format(actual_finished_at)
+                                    binding.tvCompleteTimeValue.setText(actual_finished_at_result.toString())
+                                }
+
+
+                            } catch (e: ParseException) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace()
+                            }
+
+
                             binding.progressBarSellerOrderDetail.visibility = View.GONE
                             binding.imgViewLoadingBackgroundSellerOrderDetail.visibility = View.GONE
 

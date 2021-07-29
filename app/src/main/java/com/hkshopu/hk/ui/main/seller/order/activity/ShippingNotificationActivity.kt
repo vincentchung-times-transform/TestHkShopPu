@@ -370,6 +370,8 @@ class ShippingNotificationActivity : BaseActivity() {
             var mYear = calendar[Calendar.YEAR]
             var mMonth = calendar[Calendar.MONTH]
             var mDay = calendar[Calendar.DAY_OF_MONTH]
+            calendar.add(Calendar.MONTH,3)
+            var afterTwoMonthsinMilli=calendar.getTimeInMillis()
 
             var dialog = DatePickerDialog(
                 this, R.style.DateTimeDialogTheme,
@@ -379,7 +381,8 @@ class ShippingNotificationActivity : BaseActivity() {
                     binding.etEnterShippingDate.setText(changeDateFormat_forApp("$day/$month_actual/$year").toString())
                 }, mYear, mMonth, mDay
             )
-            dialog.getDatePicker().setMaxDate(java.lang.System.currentTimeMillis())
+
+            dialog.getDatePicker().setMaxDate(afterTwoMonthsinMilli)
             dialog.show()
         }
     }

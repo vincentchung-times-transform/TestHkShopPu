@@ -1,6 +1,5 @@
 package com.HKSHOPU.hk.ui.main.buyer.profile.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,8 +16,7 @@ import com.HKSHOPU.hk.data.bean.BuyerOrderDetailBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerPurchaseList_recieveActivity
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerPendingRecieveAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderList_PendingRecieveAdapter
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
@@ -41,7 +39,10 @@ class BuyerPendingRecieveFragment : Fragment() {
     lateinit var allProduct :RecyclerView
     lateinit var progressBar: ProgressBar
 
-    private val adapter = BuyerPendingRecieveAdapter()
+    private val adapter = BuyerOrderList_PendingRecieveAdapter(this)
+    val userId= MMKV.mmkvWithID("http").getString("UserId", "");
+    val url = ApiConstants.API_HOST+"user_detail/shopping_list/"
+    val status = "Pending Good Receive"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,34 +53,33 @@ class BuyerPendingRecieveFragment : Fragment() {
 
         allProduct = v.find<RecyclerView>(R.id.recyclerview)
         progressBar = v.find<ProgressBar>(R.id.progressBar_pendingReceiveBuyer)
-        progressBar.isVisible = true
-        val userId= MMKV.mmkvWithID("http").getString("UserId", "");
-        val url = ApiConstants.API_HOST+"user_detail/shopping_list/"
-        val status = "Pending Good Receive"
-        getProduct(url,userId!!,status)
+        progressBar.visibility = View.GONE
+
         initView()
 
         return v
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getProduct(url,userId!!,status)
     }
 
     private fun initView(){
 
     }
 
-
     private fun initRecyclerView(){
-
 
         val layoutManager = LinearLayoutManager(requireActivity())
         allProduct.layoutManager = layoutManager
 
         allProduct.adapter = adapter
-//        adapter.intentClick = {
-//        }
 
     }
 
     private fun getProduct(url: String,userId:String,status:String) {
+        progressBar.visibility = View.VISIBLE
 
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
@@ -104,31 +104,35 @@ class BuyerPendingRecieveFragment : Fragment() {
                                 Gson().fromJson(jsonObject.toString(), BuyerOrderDetailBean::class.java)
                             list.add(buyerOrderDetailBean)
                         }
-
-                    }
-
-                    if(list.size > 0){
-                        adapter.setData(list)
                         activity!!.runOnUiThread {
+                            adapter.setData(list)
                             initRecyclerView()
-                            progressBar.isVisible = false
+                            progressBar.visibility = View.GONE
                         }
-                    }else{
-                        activity!!.runOnUiThread {
-                            progressBar.isVisible = false
-                        }
+
                     }
+
+
 
                 } catch (e: JSONException) {
                     Log.d("BuyerPendingRecieveFragment_errorMessage", "JSONException：" + e.toString())
+                    activity!!.runOnUiThread {
+                        progressBar.visibility = View.GONE
+                    }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("BuyerPendingRecieveFragment_errorMessage", "IOException：" + e.toString())
+                    activity!!.runOnUiThread {
+                        progressBar.visibility = View.GONE
+                    }
                 }
             }
 
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 Log.d("BuyerPendingRecieveFragment_errorMessage", "ErrorResponse：" + ErrorResponse.toString())
+                activity!!.runOnUiThread {
+                    progressBar.visibility = View.GONE
+                }
             }
         })
         web.Do_GetOrderList(url,userId,status)

@@ -1,19 +1,26 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.bumptech.glide:recyclerview-integration:4.8.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4174389e121c3c11ea1a4d5732ae15f2/jetified-recyclerview-integration-4.8.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4174389e121c3c11ea1a4d5732ae15f2/jetified-recyclerview-integration-4.8.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4174389e121c3c11ea1a4d5732ae15f2/jetified-recyclerview-integration-4.8.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/841371f82b056bb65f805ddbade7ad8b/jetified-recyclerview-integration-4.8.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/43c1f7264687adf4c5327ce09f5d7890/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bccf140dc889878f92612c8e438c0dd3/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d697b4123f3bf248dd90493204a888e/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b428ce54131dc2dbf2e48040c858969f/jetified-recyclerview-integration-4.8.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b428ce54131dc2dbf2e48040c858969f/jetified-recyclerview-integration-4.8.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b428ce54131dc2dbf2e48040c858969f/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f95dbe1907c5f8fa49401eaf4a718e49/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/77583c9ff6a60ab27430d949e1b0d289/jetified-recyclerview-integration-4.8.0/res" />
+      <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/69be9eb13383f7afa0816c8059c0a97b/jetified-recyclerview-integration-4.8.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/69be9eb13383f7afa0816c8059c0a97b/jetified-recyclerview-integration-4.8.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/69be9eb13383f7afa0816c8059c0a97b/jetified-recyclerview-integration-4.8.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e91523882973fefdcf3333ae762a4e76/jetified-recyclerview-integration-4.8.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e91523882973fefdcf3333ae762a4e76/jetified-recyclerview-integration-4.8.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e91523882973fefdcf3333ae762a4e76/jetified-recyclerview-integration-4.8.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.github.bumptech.glide/recyclerview-integration/4.8.0/b6f823b592dd34ef5797e7a634611c2bb4552a11/recyclerview-integration-4.8.0-javadoc.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/recyclerview-integration/4.8.0/b6f823b592dd34ef5797e7a634611c2bb4552a11/recyclerview-integration-4.8.0-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
+      <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.github.bumptech.glide/recyclerview-integration/4.8.0/ea47538a75aa431fbdcd88a59bb84ca16c15f28/recyclerview-integration-4.8.0-sources.jar!/" />
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.bumptech.glide/recyclerview-integration/4.8.0/ea47538a75aa431fbdcd88a59bb84ca16c15f28/recyclerview-integration-4.8.0-sources.jar!/" />
     </SOURCES>
   </library>

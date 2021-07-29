@@ -25,6 +25,7 @@ import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.seller.product.fragment.StoreOrNotDialogStoreProductsFragment
 import com.HKSHOPU.hk.ui.onboard.vm.AuthVModel
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
@@ -400,27 +401,36 @@ class AddShopAddressBeforeBuildActivity : BaseActivity() {
         }
         binding.layoutShopname.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.layoutShopaddressEdit.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.layoutShopphone.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.layoutShopaddressHead.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.layoutBottomSheet.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.scrollView.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
         binding.layoutEditArea.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
+            check_value()
         }
     }
-
+    override fun onBackPressed() {
+        check_value()
+    }
     private fun initVM() {
 //        VM.socialloginLiveData.observe(this, Observer {
 //            when (it?.status) {
