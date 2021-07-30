@@ -102,6 +102,13 @@ class RankingCheapSearchFragment : Fragment() {
         Log.d("lifecycleForFragment", "onResume")
         getSearchProductOverAll(userId.toString(), categoryId.toString(), sub_categoryId.toString(), "0", keyword!!)
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("lifecycleForFragment", "onResume")
+        max_seq = 0
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
@@ -290,15 +297,21 @@ class RankingCheapSearchFragment : Fragment() {
                     val status = json.get("status")
                     if (status == 0) {
 
-                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        val jsonObject: JSONObject = json.getJSONObject("data")
+                        val jsonArray: JSONArray = jsonObject.getJSONArray("productsList")
 
-                        for (i in 0 until jsonArray.length()) {
-                            val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                            val productSearchBean: ProductSearchBean =
-                                Gson().fromJson(jsonObject.toString(), ProductSearchBean::class.java)
-                            list.add(productSearchBean)
+                        if(jsonArray.length()>0){
+                            for (i in 0 until jsonArray.length()) {
+                                val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                                val productSearchBean: ProductSearchBean =
+                                    Gson().fromJson(
+                                        jsonObject.toString(),
+                                        ProductSearchBean::class.java
+                                    )
+                                list.add(productSearchBean)
+                            }
                         }
-                        refreshLayout.finishLoadMore()
+
                     }
 
                     if(list.size > 0){
@@ -307,17 +320,25 @@ class RankingCheapSearchFragment : Fragment() {
                             adapter.add(list)
 
                         }
+                    }else {
+
+                        requireActivity().runOnUiThread {
+                            refreshLayout.finishLoadMore()
+                        }
                     }
 
                 } catch (e: JSONException) {
                     Log.d("errormessage", "getSearchProductOverAllMore: JSONException：" + e.toString())
+                    refreshLayout.finishLoadMore()
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getSearchProductOverAllMore: IOException：" + e.toString())
+                    refreshLayout.finishLoadMore()
                 }
             }
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 Log.d("errormessage", "getSearchProductOverAllMore: ErrorResponse：" + ErrorResponse.toString())
+                refreshLayout.finishLoadMore()
             }
         })
         web.Do_GetSearchProduct(url, user_id.toString(), category_id.toString(), sub_category_id.toString(), max_seq, keyword)

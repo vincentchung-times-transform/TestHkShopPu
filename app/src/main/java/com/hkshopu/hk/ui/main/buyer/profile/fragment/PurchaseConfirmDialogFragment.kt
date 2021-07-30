@@ -30,9 +30,10 @@ import org.json.JSONObject
 import java.io.IOException
 
 
-class PurchaseConfirmDialogFragment(var orderNumber:String): DialogFragment(), View.OnClickListener {
+class PurchaseConfirmDialogFragment(var orderId: String, var orderNumber:String): DialogFragment(), View.OnClickListener {
 
     var signal : Boolean = false
+    var order_id = orderId
     var order_number = orderNumber
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +68,7 @@ class PurchaseConfirmDialogFragment(var orderNumber:String): DialogFragment(), V
                 dismiss()
             }
             R.id.btn_forward -> {
-                Do_OrderComplete(order_number)
+                Do_OrderComplete(order_id)
 
             }
         }

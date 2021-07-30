@@ -94,8 +94,14 @@ class StoreSearchAllFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
-
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("lifecycleForFragment", "onResume")
+        max_seq = 0
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)

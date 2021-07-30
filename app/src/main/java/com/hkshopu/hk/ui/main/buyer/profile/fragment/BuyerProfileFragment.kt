@@ -84,6 +84,10 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
 
         initEvent()
     }
+    override fun onResume() {
+        GetShoppingCartItemCountForBuyerProfile(userId!!)
+        super.onResume()
+    }
     private fun initView(){
         binding!!.btnSetting.setOnClickListener {
             if(userId.isNullOrEmpty()){

@@ -161,18 +161,18 @@ class HomePageFragment : Fragment((R.layout.fragment_homepage)) {
     }
 
     private fun initRefresh() {
-        binding!!.refreshLayout.setOnClickListener {
+        binding!!.layoutContainer.setOnClickListener {
             KeyboardUtil.hideKeyboard(it)
         }
-        binding!!.refreshLayout.setOnRefreshListener {
-//            VM.loadShop(this)
-            binding!!.refreshLayout.finishRefresh()
-        }
-        binding!!.refreshLayout.setOnLoadMoreListener {
-            binding!!.refreshLayout.finishLoadMore()
-            binding!!.refreshLayout.finishRefresh()
-//            VM.loadMore(this)
-        }
+//        binding!!.refreshLayout.setOnRefreshListener {
+//
+//            binding!!.refreshLayout.finishRefresh()
+//        }
+//        binding!!.refreshLayout.setOnLoadMoreListener {
+//            binding!!.refreshLayout.finishLoadMore()
+//            binding!!.refreshLayout.finishRefresh()
+//
+//        }
     }
 
     private fun initView() {

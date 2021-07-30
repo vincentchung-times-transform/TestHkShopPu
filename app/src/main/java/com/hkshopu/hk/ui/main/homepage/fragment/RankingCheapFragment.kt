@@ -149,8 +149,9 @@ class RankingCheapFragment : Fragment() {
                     Log.d("RankingCheapFragment", "返回資料 list：" + list.toString())
 
                     if(list.size > 0){
-                        adapter.setData(list)
+
                         activity!!.runOnUiThread {
+                            adapter.setData(list)
                             initRecyclerView()
                             progressBar.visibility = View.GONE
 

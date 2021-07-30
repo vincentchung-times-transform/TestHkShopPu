@@ -114,7 +114,8 @@ class TopProductAdapter (var currency: Currency, var user_id: String): RecyclerV
             if(topProductBean.price.toString().equals("-1")){
                 price.text = hkd_dollarSign.toString() + topProductBean.min_price.toString() + "-" +  topProductBean.max_price.toString()
             }else{
-                price.text = hkd_dollarSign.toString() + topProductBean.price.toString()
+//                price.text = hkd_dollarSign.toString() + topProductBean.price.toString()
+                price.text = hkd_dollarSign.toString() + topProductBean.min_price.toString() + "-" +  topProductBean.max_price.toString()
             }
 
             if(liked_status.equals("Y")){

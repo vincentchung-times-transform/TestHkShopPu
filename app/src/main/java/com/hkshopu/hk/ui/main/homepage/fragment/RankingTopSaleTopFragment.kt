@@ -79,14 +79,25 @@ class RankingTopSaleTopFragment : Fragment() {
 
         initView()
         initEvent()
+        initRefresh()
 
         return v
     }
 
     override fun onResume() {
         super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        val mode = "top_sale"
+        var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
+        var max_seq = 0
         getProductOverAll(url,userId,max_seq)
     }
+
+    override fun onPause() {
+        super.onPause()
+        max_seq = 0
+    }
+
 
     private fun initView(){
 
@@ -97,10 +108,14 @@ class RankingTopSaleTopFragment : Fragment() {
         }
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+            val mode = "top_sale"
+            var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
+            var max_seq = 0
+            getProductOverAll(url,userId,max_seq)
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {
-
             val mode = "top_sale"
             var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
             max_seq ++

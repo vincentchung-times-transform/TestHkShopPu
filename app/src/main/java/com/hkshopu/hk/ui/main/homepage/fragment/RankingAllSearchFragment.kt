@@ -130,7 +130,7 @@ class RankingAllSearchFragment : Fragment() {
         refreshLayout.setOnLoadMoreListener {
             Log.d("RankingAllSearch", "資料 keyword：" + keyword)
             Log.d("RankingAllSearch", "資料 categoryId：" + categoryId)
-            var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages/"
+            var url = ApiConstants.API_HOST+"product/"+mode+"/product_analytics_pages_keyword/"
             max_seq ++
 
             getSearchProductOverAllMore(url, userId, categoryId.toString(), sub_categoryId, max_seq.toString(), keyword)
@@ -271,6 +271,7 @@ class RankingAllSearchFragment : Fragment() {
     }
 
     private fun getSearchProductOverAllMore(url:String, user_id:String, category_id:String ,sub_category_id:String, max_seq:String, keyword:String) {
+
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String = ""
@@ -283,13 +284,19 @@ class RankingAllSearchFragment : Fragment() {
                         val status = json.get("status")
                         if (status == 0) {
 
-                            val jsonArray: JSONArray = json.getJSONArray("data")
+                            val jsonObject: JSONObject = json.getJSONObject("data")
+                            val jsonArray: JSONArray = jsonObject.getJSONArray("productsList")
 
-                            for (i in 0 until jsonArray.length()) {
-                                val jsonObject: JSONObject = jsonArray.getJSONObject(i)
-                                val productSearchBean: ProductSearchBean =
-                                    Gson().fromJson(jsonObject.toString(), ProductSearchBean::class.java)
-                                list.add(productSearchBean)
+                            if(jsonArray.length()>0){
+                                for (i in 0 until jsonArray.length()) {
+                                    val jsonObject: JSONObject = jsonArray.getJSONObject(i)
+                                    val productSearchBean: ProductSearchBean =
+                                        Gson().fromJson(
+                                            jsonObject.toString(),
+                                            ProductSearchBean::class.java
+                                        )
+                                    list.add(productSearchBean)
+                                }
                             }
 
                         }
@@ -311,13 +318,16 @@ class RankingAllSearchFragment : Fragment() {
 
                 } catch (e: JSONException) {
                     Log.d("errormessage", "getSearchProductOverAll: JSONException：" + e.toString())
+                    refreshLayout.finishLoadMore()
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getSearchProductOverAll: IOException：" + e.toString())
+                    refreshLayout.finishLoadMore()
                 }
             }
             override fun onErrorResponse(ErrorResponse: IOException?) {
                 Log.d("errormessage", "getSearchProductOverAll: ErrorResponse：" + ErrorResponse.toString())
+                refreshLayout.finishLoadMore()
             }
         })
         web.Do_GetSearchProduct(url,user_id,category_id,sub_category_id,max_seq,keyword)
@@ -357,6 +367,7 @@ class RankingAllSearchFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         Log.d("lifecycleForFragment", "onResume")
+        max_seq = 0
     }
 
     override fun onStop() {

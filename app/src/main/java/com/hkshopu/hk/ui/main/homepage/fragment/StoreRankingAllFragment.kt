@@ -80,8 +80,17 @@ class StoreRankingAllFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        val mode = "overall"
+        var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
         getStoreOverAll(url,userId!!,mode,0)
     }
+
+    override fun onPause() {
+        super.onPause()
+        max_seq = 0
+    }
+
 
     private fun initView(){
 
@@ -106,6 +115,10 @@ class StoreRankingAllFragment : Fragment() {
         }
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+            val mode = "overall"
+            var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
+            getStoreOverAll(url,userId!!,mode,0)
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {
@@ -255,12 +268,12 @@ class StoreRankingAllFragment : Fragment() {
                             adapter.add(list)
                         }
                     }else{
-                        activity!!.runOnUiThread {
-                            progressBar.visibility = View.GONE
-
-                            layout_empty_result.visibility = View.VISIBLE
-                            refreshLayout.visibility = View.GONE
-                        }
+//                        activity!!.runOnUiThread {
+//                            progressBar.visibility = View.GONE
+//
+//                            layout_empty_result.visibility = View.GONE
+//                            refreshLayout.visibility = View.GONE
+//                        }
                     }
 
                 } catch (e: JSONException) {

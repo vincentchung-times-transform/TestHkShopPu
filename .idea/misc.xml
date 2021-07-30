@@ -3,29 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/HKShopPu_NewAndroid/app/src/main/res/layout/activity_buyerorderdetail_receive.xml" value="0.1" />
+        <entry key="..\:/HKShopPu_NewAndroid/app/src/main/res/layout/dialog_fragment_purchaseconfirm.xml" value="0.12" />
+        <entry key="..\:/HKShopPu_NewAndroid/app/src/main/res/layout/fragment_homepage.xml" value="0.1" />
         <entry key="app/src/main/res/drawable-v24/bg_learn_more.xml" value="0.2543918918918919" />
         <entry key="app/src/main/res/drawable/notification_background_radius2.xml" value="0.2543918918918919" />
         <entry key="app/src/main/res/layout/activity_buyerorderdetail_compelete.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/activity_buyerorderdetail_deliver.xml" value="0.17691256830601093" />
+        <entry key="app/src/main/res/layout/activity_buyerorderdetail_pendingpayment.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/activity_buyerorderdetail_receive.xml" value="0.17691256830601093" />
         <entry key="app/src/main/res/layout/activity_product_detailed_page_buyer_view.xml" value="0.1765710382513661" />
         <entry key="app/src/main/res/layout/activity_seller_orderdetail.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/activity_shipping_notification.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/activity_shopevaluation.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/activity_shopping_cart_edited.xml" value="0.1375" />
         <entry key="app/src/main/res/layout/activity_shoppreview.xml" value="0.1765710382513661" />
         <entry key="app/src/main/res/layout/activity_usernameedit.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/dialog_fragment_edit_product_remind.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/dialog_fragment_fpspayconfirm.xml" value="0.17691256830601093" />
+        <entry key="app/src/main/res/layout/dialog_fragment_productdraftapply.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/dialog_fragment_purchaseconfirm.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/dialog_fragment_upcoming.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/fragment_homepage.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/fragment_my_products.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_mystore.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_pending_cancel_buyer.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/fragment_pending_deliver_buyer.xml" value="0.1755464480874317" />
+        <entry key="app/src/main/res/layout/fragment_pending_payment_buyer.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_pending_recieve_buyer.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_product_detailed_page.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/fragment_seller_sales.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/item_my_products.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/item_my_sales_order.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/item_pending_cancel.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/item_pending_delivery.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/item_pending_payment.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/item_pending_receive.xml" value="0.24391891891891893" />
+        <entry key="app/src/main/res/layout/item_top_products.xml" value="0.24391891891891893" />
         <entry key="app/src/main/res/layout/specification_selecting_item.xml" value="0.24391891891891893" />
       </map>
     </option>

@@ -105,6 +105,13 @@ class StoreSearchLatestFragment : Fragment() {
 
         getSearchStoreOverAll(userId!!, mode,"0", categoryId, sub_categoryId, keyword!!)
     }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("lifecycleForFragment", "onResume")
+        max_seq = 0
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
@@ -320,12 +327,14 @@ class StoreSearchLatestFragment : Fragment() {
                     Log.d("errormessage", "getSearchStoreOverAllMore: JSONException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
+                        refreshLayout.finishLoadMore()
                     }
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Log.d("errormessage", "getSearchStoreOverAllMore: IOException：" + e.toString())
                     activity!!.runOnUiThread {
                         progressBar.visibility = View.GONE
+                        refreshLayout.finishLoadMore()
                     }
                 }
             }
@@ -333,7 +342,7 @@ class StoreSearchLatestFragment : Fragment() {
                 Log.d("errormessage", "getSearchStoreOverAllMore: ErrorResponse：" + ErrorResponse.toString())
                 activity!!.runOnUiThread {
                     progressBar.visibility = View.GONE
-
+                    refreshLayout.finishLoadMore()
                 }
             }
         })

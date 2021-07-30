@@ -82,7 +82,7 @@ class BuyerPurchaseListRecieveActivity : BaseActivity() {
             )
         }
         binding.ivOrderdone.setOnClickListener {
-            PurchaseConfirmDialogFragment(orderId).show(
+            PurchaseConfirmDialogFragment(orderId, orderNumber).show(
                 getSupportFragmentManager(),
                 "MyCustomFragment"
             )

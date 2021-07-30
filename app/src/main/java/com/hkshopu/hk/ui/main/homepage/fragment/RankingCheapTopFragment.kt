@@ -85,9 +85,18 @@ class RankingCheapTopFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        val mode = "lower_price"
+        var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
         getProductOverAll(url,userId,max_seq)
 
     }
+
+    override fun onPause() {
+        super.onPause()
+        max_seq = 0
+    }
+
 
     private fun initView(){
 
@@ -98,6 +107,10 @@ class RankingCheapTopFragment : Fragment() {
         }
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+            val mode = "lower_price"
+            var url = ApiConstants.API_HOST+"/product/"+mode+"/product_analytics_pages/"
+            getProductOverAll(url,userId,max_seq)
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {
@@ -253,7 +266,6 @@ class RankingCheapTopFragment : Fragment() {
 
                         activity!!.runOnUiThread {
                             adapter.add(list)
-
                         }
                     }
                     refreshLayout.finishLoadMore()

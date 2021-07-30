@@ -83,7 +83,7 @@ class BuyerOrderList_PendingRecieveAdapter(var fragment: Fragment) : RecyclerVie
             viewHolder.itemView.context.startActivity(intent)
         }
         viewHolder.complete.setOnClickListener {
-            PurchaseConfirmDialogFragment(item.order_id).show(
+            PurchaseConfirmDialogFragment(item.order_id, item.order_number).show(
                 fragment.requireActivity().getSupportFragmentManager(),
                 "MyCustomFragment"
             )

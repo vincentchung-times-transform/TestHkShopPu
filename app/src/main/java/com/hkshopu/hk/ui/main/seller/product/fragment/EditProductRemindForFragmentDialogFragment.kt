@@ -9,10 +9,13 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import com.HKSHOPU.hk.Base.response.Status
 import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
 import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
@@ -75,6 +78,48 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
         progressBar_edit_product_reminder.visibility = View.GONE
         iv_loading_background_edit_product_reminder.visibility = View.GONE
 
+        VM.updateProductStatusData.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it?.status) {
+                    Status.Success -> {
+                        if (it.ret_val.toString().equals("上架/下架成功!")) {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, "下架成功", Toast.LENGTH_LONG).show()
+                            }
+
+                            RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
+                            RxBus.getInstance().post(EventMyStoreFragmentRefresh())
+
+                            progressBar_edit_product_reminder.visibility = View.GONE
+                            iv_loading_background_edit_product_reminder.visibility = View.GONE
+                            var currentActivity : FragmentActivity = fragment.activity!!
+                            val intent = Intent(currentActivity, EditProductActivity::class.java)
+                            startActivity(intent)
+
+                        } else {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, it.ret_val.toString(), Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+//                        activity!!.runOnUiThread {
+//
+//                            progressBar_product_draft_apply.visibility = View.GONE
+//                            iv_loading_background_product_draft_apply.visibility = View.GONE
+//
+//                        }
+
+                        dismiss()
+                    }
+//                Status.Start -> showLoading()
+//                Status.Complete -> disLoading()
+                }
+            }
+        )
+
         return v
     }
 
@@ -88,20 +133,7 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
                 progressBar_edit_product_reminder.visibility = View.VISIBLE
                 iv_loading_background_edit_product_reminder.visibility = View.VISIBLE
 
-                var currentActivity : FragmentActivity = fragment.activity!!
-
                 VM.updateProductStatus(fragment, product_id, "draft")
-
-                RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
-                RxBus.getInstance().post(EventMyStoreFragmentRefresh())
-
-                progressBar_edit_product_reminder.visibility = View.GONE
-                iv_loading_background_edit_product_reminder.visibility = View.GONE
-
-                val intent = Intent(currentActivity, EditProductActivity::class.java)
-                startActivity(intent)
-
-                dismiss()
 
             }
         }

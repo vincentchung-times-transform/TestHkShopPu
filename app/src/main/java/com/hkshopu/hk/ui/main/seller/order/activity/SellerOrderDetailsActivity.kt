@@ -194,12 +194,12 @@ class SellerOrderDetailsActivity : BaseActivity() {
                             }
                         }else if(state.equals("Cancelled")){
                             runOnUiThread {
-
+                                binding.tvStatus2.setText(getText(R.string.sales_tab4))
                                 binding.buttomArea.visibility = View.VISIBLE
                                 binding.buttomForPendingDelever.visibility = View.GONE
                                 binding.buttomForPendingReceive.visibility = View.GONE
                                 binding.buttomForOrderCompleted.visibility = View.GONE
-                                binding.buttomForOrderCanceled.visibility = View.VISIBLE
+                                binding.buttomForOrderCanceled.visibility = View.GONE
 
                                 binding.layoutOrderNumber.visibility = View.VISIBLE
                                 binding.layoutPaidTime.visibility = View.VISIBLE

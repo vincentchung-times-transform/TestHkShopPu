@@ -78,7 +78,7 @@ class ProductDraftApplyDialogFragment(var product_id: String, var keyword: Strin
         iv_loading_background_product_draft_apply.visibility = View.GONE
 
         VM.updateProductStatusData.observe(
-            this,
+            viewLifecycleOwner,
             Observer {
                 when (it?.status) {
                     Status.Success -> {

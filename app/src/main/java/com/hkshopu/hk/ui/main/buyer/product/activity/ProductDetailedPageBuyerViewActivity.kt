@@ -40,6 +40,7 @@ import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
 import com.HKSHOPU.hk.ui.main.homepage.activity.TopProductsActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopEvaluationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
+import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.android.flexbox.*
@@ -184,9 +185,11 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
 
     fun initClick() {
         binding.containerOtherShopProductsMore.setOnClickListener {
-            val intent = Intent(this, StoreRecommendActivity::class.java)
+            var shopId =  productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_id
+            val intent = Intent(this, ShopPreviewActivity::class.java)
             val bundle = Bundle()
             bundle.putString("userId", MMKV_user_id)
+            bundle.putString("shopId", shopId)
             intent.putExtra("bundle", bundle)
             startActivity(intent)
         }
@@ -1242,19 +1245,19 @@ class ProductDetailedPageBuyerViewActivity : BaseActivity(), ViewPager.OnPageCha
                     val json = JSONObject(resStr)
                     val ret_val = json.get("ret_val")
                     val status = json.get("status")
-                    val jsonArray_product: JSONArray = json.getJSONArray("data")
+                    val jsonObject: JSONObject = json.getJSONObject("data")
                     Log.d("getSameShopProducts", "返回資料 resStr：" + resStr)
                     Log.d("getSameShopProducts", "返回資料 ret_val：" + json.get("ret_val"))
 
                     if (status == 0) {
-                        for (i in 0 until jsonArray_product.length()) {
-                            val jsonObject: JSONObject = jsonArray_product.getJSONObject(i)
+//                        for (i in 0 until jsonArray_product.length()) {
+
                             productDetailedPagerForBuyer_RecommendedShopInfoBean =
                                 Gson().fromJson(
                                     jsonObject.toString(),
                                     ProductDetailedPagerForBuyer_RecommendedShopInfoBean::class.java
                                 )
-                        }
+//                        }
 
                         runOnUiThread {
                             if (productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_title.isNotEmpty()) {

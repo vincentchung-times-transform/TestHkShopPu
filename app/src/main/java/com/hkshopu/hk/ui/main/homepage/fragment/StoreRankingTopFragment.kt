@@ -82,8 +82,17 @@ class StoreRankingTopFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        val mode = "top_sale"
+        var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
         getStoreOverAll(url,userId!!,mode,0)
     }
+
+    override fun onPause() {
+        super.onPause()
+        max_seq = 0
+    }
+
 
     private fun initView(){
 
@@ -94,6 +103,10 @@ class StoreRankingTopFragment : Fragment() {
         }
         refreshLayout.setOnRefreshListener {
 //            VM.loadShop(this)
+            var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+            val mode = "top_sale"
+            var url = ApiConstants.API_HOST+"shop/get_shop_analytics_in_pages/"
+            getStoreOverAll(url,userId!!,mode,0)
             refreshLayout.finishRefresh()
         }
         refreshLayout.setOnLoadMoreListener {

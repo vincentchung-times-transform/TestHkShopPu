@@ -14,7 +14,7 @@ android {
         applicationId "com.HKSHOPU.hk"
         minSdkVersion 26
         targetSdkVersion 29
-        versionCode 16
+        versionCode 17
         versionName "2.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
