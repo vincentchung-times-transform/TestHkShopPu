@@ -1,11 +1,8 @@
 package com.HKSHOPU.hk.ui.main.seller.order.activity
 
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
@@ -17,8 +14,6 @@ import android.provider.MediaStore
 import android.text.InputFilter
 import android.util.Log
 import android.view.KeyEvent
-import android.view.MotionEvent
-import android.view.MotionEvent.*
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.inputmethod.EditorInfo
@@ -27,37 +22,16 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.HKSHOPU.hk.Base.BaseActivity
-import com.HKSHOPU.hk.Base.response.Status
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.CommonVariable
-import com.HKSHOPU.hk.component.EventAddShopSuccess
-import com.HKSHOPU.hk.component.EventShopCatSelected
-import com.HKSHOPU.hk.data.bean.ItemPics
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
-import com.HKSHOPU.hk.databinding.ActivityAddshopBinding
 import com.HKSHOPU.hk.databinding.ActivityShippingNotificationBinding
-import com.HKSHOPU.hk.net.ApiConstants
-import com.HKSHOPU.hk.net.Web
-import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.login.vm.ShopVModel
-import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayAuditActivity
-import com.HKSHOPU.hk.ui.main.payment.fragment.FpsPayConfirmDialogFragment
 import com.HKSHOPU.hk.ui.main.seller.order.fragment.DeliveryNotifyApplyDialogFragment
-import com.HKSHOPU.hk.ui.main.seller.product.adapter.PicsAdapter
 import com.HKSHOPU.hk.ui.main.seller.product.fragment.StoreOrNotDialogStoreProductsFragment
-import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.HKSHOPU.hk.widget.view.KeyboardUtil.hideKeyboard
-import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.*
-import okhttp3.Response
-import org.jetbrains.anko.Android
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -161,7 +135,6 @@ class ShippingNotificationActivity : BaseActivity() {
                     Toast.makeText(this, "日期格式不符合", Toast.LENGTH_SHORT).show()
                 }
             }
-
 
         }
         binding.etEnterShippingNumber.setOnClickListener {

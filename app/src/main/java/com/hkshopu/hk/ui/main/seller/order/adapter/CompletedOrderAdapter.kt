@@ -96,6 +96,10 @@ class CompletedOrderAdapter (): RecyclerView.Adapter<CompletedOrderAdapter.TopPr
             iv_product_icon.loadNovelCover(salerSaleListBean.product_pic)
             iv_oderer_icon.loadNovelCover(salerSaleListBean.buyer_pic)
             tv_order_status.setText(itemView.context.getText(R.string.sales_completed))
+            tv_orderer_name.setText(salerSaleListBean.buyer_name)
+            tv_product_kind_quant.setText(salerSaleListBean.count)
+            tv_priceRange.setText(salerSaleListBean.sub_total)
+
             layout_order_unfinished.visibility = View.GONE
             layout_order_finished.visibility = View.VISIBLE
             layout_order_cancelled.visibility = View.GONE

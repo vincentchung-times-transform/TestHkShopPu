@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <RelativeLayout
+        android:id="@+id/layout_shopCarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"
+            android:src="@mipmap/ic_arrow_back"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/iv_back_click"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/shopcar"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp"
+            android:visibility="invisible"/>
+
+
+        <ImageView
+            android:id="@+id/iv_notify"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/ic_notification"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/tv_notifycount"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/customborder_round_turquise"
+            android:gravity="center"
+            android:text="99"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/iv_notify_click"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <ImageView
+            android:id="@+id/iv_tic"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginStart="150dp"
+            android:src="@mipmap/ic_check"/>
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:layout_marginStart="12dp"
+            android:layout_toEndOf="@id/iv_tic"
+            android:text="@string/sponsersuccess"
+            android:textColor="@color/dark_gray"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/bg_success"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:contentDescription="@string/empty"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_sponsersuccess" />
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/Thanks"
+            android:textColor="@color/colorTextlightGray"
+            android:textSize="14sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_goSponserEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/bg_success"
+            android:layout_marginTop="24dp"
+            android:src="@mipmap/ic_sponseredit"
+            android:contentDescription="@string/empty" />
+
+
+        <ImageView
+            android:id="@+id/iv_gohomepage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/iv_goSponserEdit"
+            android:layout_marginTop="16dp"
+            android:src="@mipmap/ic_tohomepage"
+            android:contentDescription="@string/empty" />
+    </RelativeLayout>
+
+</RelativeLayout>

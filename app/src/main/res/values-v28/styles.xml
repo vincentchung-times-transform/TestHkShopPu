@@ -12,6 +12,40 @@
         <item name="android:windowLayoutInDisplayCutoutMode">
             shortEdges
         </item>
+
     </style>
+
+    <style name="materialComponents" parent="Theme.MaterialComponents.Light.Bridge">
+        <item name="colorPrimary">@color/hkshop_color</item>
+        <item name="colorPrimaryDark">#66000000</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="materialCalendarFullscreenTheme">
+            @style/CustomThemeOverlay_MaterialCalendar_Fullscreen
+        </item>
+    </style>
+
+    <style name="AppMatetialTheme" parent="Theme.MaterialComponents.Light.DarkActionBar.Bridge">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="materialCalendarFullscreenTheme">
+            @style/CustomThemeOverlay_MaterialCalendar_Fullscreen
+        </item>
+    </style>
+
+    <style name="CustomThemeOverlay_MaterialCalendar_Fullscreen" parent="@style/ThemeOverlay.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="materialCalendarStyle">@style/Custom_MaterialCalendar.Fullscreen</item>
+        <item name="colorSurface">#FFFFFF</item>
+    </style>
+
+    <style name="Custom_MaterialCalendar.Fullscreen" parent="@style/Widget.MaterialComponents.MaterialCalendar.Fullscreen">
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
 
 </resources>

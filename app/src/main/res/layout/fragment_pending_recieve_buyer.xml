@@ -33,18 +33,18 @@
         android:visibility="gone"
         android:src="@drawable/customview_loading_background" />
 
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="32dp"
-            android:fillViewport="true"
-            android:scrollbars="none">
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/item_pending_receive" />
-        </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_pending_receive" />
+    </ScrollView>
 </RelativeLayout>

@@ -198,7 +198,7 @@ class RankingAllSearchFragment : Fragment() {
                         val jsonObject: JSONObject = json.getJSONObject("data")
                         val jsonArray: JSONArray = jsonObject.getJSONArray("productsList")
                         Log.d("RankingAllSearchFragment", "返回資料 jsonArray：" + jsonArray.toString())
-
+                        Log.d("RankingAllSearchFragment", "返回資料 jsonArray_length：" + jsonArray.length().toString())
                         if(jsonArray.length()>0){
                             for (i in 0 until jsonArray.length()) {
                                 val jsonObject: JSONObject = jsonArray.getJSONObject(i)

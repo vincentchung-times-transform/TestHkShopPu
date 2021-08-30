@@ -55,6 +55,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="15dp"
+            android:visibility="gone"
             android:src="@mipmap/ic_notification" />
 
         <TextView
@@ -65,6 +66,7 @@
             android:layout_marginEnd="4dp"
             android:background="@drawable/customborder_round_turquise"
             android:gravity="center"
+            android:visibility="gone"
             android:text="99"
             android:textColor="@color/white"
             android:textSize="10sp" />

@@ -8,8 +8,8 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="RankingTopSaleTop" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="getNotificationMessages" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -35,39 +35,165 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70789240-1794-48b3-94a5-2b73ffc89dcd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_7_0_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/AdvertisementBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/AdvertisementDetailedInfoBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/BudgetTypeBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ItemKeywordAd.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/KeywordAdBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/OnShelfProductBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ResourceMyWallet.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopIdBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/SponserCostBean.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditProductKeywordAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditProductMarketAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditProductRecommendedAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditStoreKeywordAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditStoreMarketAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/AddEditStoreRecommendedAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/KeywordAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/MarketAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/MyAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/ProductSelectingForAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/activity/RecommendAdvertisementActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/adapter/AdvertisementAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/adapter/KeywordAdvertisementAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/advertisement/adapter/OnShelfProductAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerSponserActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerSponserEditActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/SponserBuyer3Fragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/SponserBuyer4EditFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/SponserBuyer4Fragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/SponserBuyerFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/StoreValueConfirmDialogFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/notification/activity/NotificationActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/notification/adapter/NotificationMessageAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/notification/fragment/NotificationFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/activity/ShopSponserActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/activity/ShopSponserEditActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserAdjustmentDialogFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller2EditFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller2Fragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller3EditFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller3Fragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller4EditFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSeller4Fragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/SponserSellerFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/sponsor/ToSponserEditActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/activity/AddValueActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/activity/AddValueDetailedInfoActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/activity/MyWalletActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/activity/TransactionDetailedInfoForAdActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/activity/TransactionDetailedInfoForSponsorActivity.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/wallet/adapter/StoredValueAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_0dp_gray_eaeaec.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_0dp_hkcolor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_0dp_purple_7b61ff.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_0dp_white.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_blue_7dace4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_green_87dfd6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_hkcolor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_purple.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_purple_7b61ff.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_red_dc4d3f.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_16dp_white.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_40dp_gray_8e8e93.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_40dp_hkcolor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_8e8e93.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_fc4d3f.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_gray_8e8e93.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_gray_c4c4c4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_gray_e9e9eb.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_hkcolor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_8dp_purple_7b61ff.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customborder_product_evaluate_16dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/customview_fps_spinner_empty.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_excellence_bg_16dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_excellence_bg_8dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_glory_bg_16dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_glory_bg_8dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_honorable_gradual_bg_16dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_honorable_gradual_bg_8dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_mercury_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_pluto_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_supreme_gradual_bg_16dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_supreme_gradual_bg_8dp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_uranus_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/sponsor_venus_bg.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_product_keyword_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_product_market_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_product_recommended_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_store_keyword_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_store_market_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_edit_store_recommended_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_value.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_value_detail.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_advertisement_and_sales.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_keyword_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_market_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_wallet.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_product_selecting_for_ad.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_recommend_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sponser.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_sponser_buyer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_tosponseredit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction_detailed_info_for_ad.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_transaction_detailed_info_for_sponsor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_sponseradjustment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_storevalueconfirm.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_mercury.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_mercury_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_pluto.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_pluto_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_venus.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_buyer_venus_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_excellence.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_excellence_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_glory.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_glory_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_honor.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_sponser_seller_honor_edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_keyword_advertisement.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_stored_value_record.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.7.1/javaCompile/taskHistory.bin" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_2_0_rc01_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_activity_activity_1_2_0_rc01_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_1_1_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_experimental_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_annotation_annotation_experimental_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_1_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_appcompat_appcompat_resources_1_2_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_common_2_1_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_arch_core_core_runtime_2_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_asynclayoutinflater_asynclayoutinflater_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_browser_browser_1_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cardview_cardview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_collection_collection_1_1_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_2_0_4_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_constraintlayout_constraintlayout_solver_2_0_4.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_coordinatorlayout_coordinatorlayout_1_1_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_1_3_2_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_3_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_core_core_ktx_1_3_2_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_cursoradapter_cursoradapter_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_customview_customview_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_4_2_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_4_2_2_aar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_databinding_viewbinding_4_2_2_aar.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_documentfile_documentfile_1_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_drawerlayout_drawerlayout_1_0_0_aar.xml" afterDir="false" />
@@ -79,7 +205,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_ui_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_core_utils_1_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_legacy_legacy_support_v4_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_common_2_3_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_2_3_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_2_3_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_ktx_2_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__androidx_lifecycle_lifecycle_livedata_core_ktx_2_3_1_aar.xml" afterDir="false" />
@@ -126,8 +251,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_flyco_tablayout_FlycoTabLayout_Lib_2_1_2_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_flyco_tablayout_FlycoTabLayout_Lib_2_1_2_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_gauravk_bubblenavigation_bubblenavigation_1_0_7_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_gauravk_bubblenavigation_bubblenavigation_1_0_7_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_KaelLi1989_NiceRatingBar_1_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_KaelLi1989_NiceRatingBar_1_0_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_8_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_annotations_4_8_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_8_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_disklrucache_4_8_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_8_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_4_8_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_okhttp3_integration_4_8_0_aar.xml" afterDir="false" />
@@ -148,104 +271,183 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_safetynet_17_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_safetynet_17_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_17_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_material_material_1_3_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_annotations_16_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_annotations_16_0_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_20_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_20_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_19_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_interop_19_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_ktx_20_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_ktx_20_0_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_19_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_ktx_19_5_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_ktx_19_5_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_components_16_1_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_listenablefuture_1_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_maps_android_maps_ktx_2_4_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_maps_android_maps_ktx_2_4_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_zxing_core_3_3_3.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_guhungry_android_version_0_0_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_guhungry_android_version_0_0_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_rxbinding2_rxbinding_2_0_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_jakewharton_rxbinding2_rxbinding_2_0_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_3_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_makeramen_roundedimageview_2_3_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mallotec_reb_plugin_locale_1_0_12_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_mallotec_reb_plugin_locale_1_0_12_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_otaliastudios_opengl_egloo_0_4_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_otaliastudios_opengl_egloo_0_4_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_otaliastudios_zoomlayout_1_8_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_otaliastudios_zoomlayout_1_8_0_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_android_1_4_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_android_1_4_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_applinks_1_4_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_applinks_1_4_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_tasks_1_4_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_parse_bolts_bolts_tasks_1_4_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_paypal_android_PayPalPartnerAuth_1_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_paypal_android_PayPalPartnerAuth_1_3_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_paypal_checkout_android_sdk_0_3_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_paypal_checkout_android_sdk_0_3_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rishabhharit_roundedimageview_RoundedImageView_0_8_4_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_rishabhharit_roundedimageview_RoundedImageView_0_8_4_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshLayout_1_1_0_alpha_5_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_scwang_smartrefresh_SmartRefreshLayout_1_1_0_alpha_5_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_3_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_logging_interceptor_3_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_12_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_14_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_14_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_urlconnection_3_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_urlconnection_3_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_15_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_17_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_17_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_8_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_8_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_adapter_rxjava2_2_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_adapter_rxjava2_2_5_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_converter_gson_2_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_converter_gson_2_5_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_5_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_mmkv_1_0_15_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_tencent_mmkv_1_0_15_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_2_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_2_2_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_2_2_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_lifecycle_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_lifecycle_2_2_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_lifecycle_kotlin_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_android_lifecycle_kotlin_2_2_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_kotlin_2_2_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_trello_rxlifecycle2_rxlifecycle_kotlin_2_2_1_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wx_wheelview_wheelview_1_3_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wx_wheelview_wheelview_1_3_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxandroid_2_1_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_2_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxjava_2_2_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxkotlin_2_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__io_reactivex_rxjava2_rxkotlin_2_3_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__jp_wasabeef_glide_transformations_3_0_1_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__jp_wasabeef_glide_transformations_3_0_1_aar.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_13_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_13_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_commons_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_commons_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_coroutines_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_appcompat_v7_coroutines_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_commons_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_commons_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_coroutines_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_coroutines_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_recyclerview_v7_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_recyclerview_v7_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sdk25_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sdk25_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sdk25_coroutines_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sdk25_coroutines_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sqlite_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_sqlite_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_support_v4_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_support_v4_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_support_v4_commons_0_10_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_anko_anko_support_v4_commons_0_10_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_annotations_13_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_4_32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_android_extensions_runtime_1_4_32.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_parcelize_runtime_1_4_32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_parcelize_runtime_1_4_32.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_4_32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_4_32.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_32.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_common_1_4_32.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_72.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_3_72.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_4_31.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_4_31.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_android_1_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_android_1_4_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_4_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_jetbrains_kotlinx_kotlinx_coroutines_core_jvm_1_4_1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_reactivestreams_reactive_streams_1_0_2.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/HKShopU.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/activity/BuyerPurchaseListRecieveActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/activity/BuyerPurchaseListRecieveActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/adapter/BuyerOrderList_PendingRecieveAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/adapter/BuyerOrderList_PendingRecieveAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/fragment/PurchaseConfirmDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/buyer/profile/fragment/PurchaseConfirmDialogFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingAllSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingAllSearchFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingAllTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingAllTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingCheapSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingCheapSearchFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingCheapTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingCheapTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingExpensiveSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingExpensiveSearchFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingExpensiveTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingExpensiveTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingLatestSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingLatestSearchFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingLatestTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingLatestTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingTopSaleSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingTopSaleSearchFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingTopSaleTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/RankingTopSaleTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingAllFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingAllFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingLatestFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingLatestFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreRankingTopFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchAllFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchAllFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchLatestFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchLatestFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main/homepage/fragment/StoreSearchTopFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/component/CommonVariable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/component/CommonVariable.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/component/Event.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/component/Event.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/BankCodeBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/BankCodeBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/BuyerProfileBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/BuyerProfileBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/InventoryItemDatas.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/InventoryItemDatas.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ItemInvenSecondNestedLayer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ItemInvenSecondNestedLayer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ItemInventory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ItemInventory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/NotificationMessageBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/NotificationMessageBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductDetailedPageForBuyer_RecommendedShopBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductDetailedPageForBuyer_RecommendedShopBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductInfoBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductInfoBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductSearchBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductSearchBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductShopPreviewBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ProductShopPreviewBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ResourceNotification.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ResourceNotification.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ResourceProductRanking.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ResourceProductRanking.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopInfoBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopInfoBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopPreviewBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopPreviewBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopRecommendBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopRecommendBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopRecommendHomeBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/ShopRecommendHomeBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/StoreFollowBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/StoreFollowBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/TopProductBean.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/data/bean/TopProductBean.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/net/ApiConstants.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/net/ApiConstants.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/net/Web.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/net/Web.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/product/activity/ProductDetailedPageBuyerViewActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/product/activity/ProductDetailedPageBuyerViewActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/product/fragment/ProductDetailedPageBuyerViewFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/product/fragment/ProductDetailedPageBuyerViewFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerAddFpsAccountActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerAddFpsAccountActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerFollowListActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerFollowListActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListCompeleteActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListCompeleteActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListDeliverActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListDeliverActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListPendingPaymentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListPendingPaymentActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListRecieveActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/activity/BuyerPurchaseListRecieveActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/adapter/BuyerOrderCanceledAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/adapter/BuyerOrderList_PendingPaymentAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/adapter/BuyerOrderList_PendingPaymentAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/adapter/BuyerProfile_StoreFollowAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/adapter/BuyerProfile_StoreFollowAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerOrderCancelFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerOrderCancelFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerPendingPaymentFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerPendingPaymentFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerPendingRecieveFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerPendingRecieveFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/BuyerProfileFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/PurchaseConfirmDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/PurchaseConfirmDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/PurchaseListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/PurchaseListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/UpComingDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/profile/fragment/UpComingDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/activity/ShoppingCartConfirmedActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/activity/ShoppingCartConfirmedActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/activity/ShoppingCartEditActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/activity/ShoppingCartEditActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/fragment/GenerateOrderCheckingDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/buyer/shoppingcart/fragment/GenerateOrderCheckingDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/activity/StoreRecommendActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/activity/StoreRecommendActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/activity/TopProductsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/activity/TopProductsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/PopularProductAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/PopularProductAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/ProductSearchAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/ProductSearchAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/StoreRecommendAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/StoreRecommendAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/StoreRecommendHomeAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/StoreRecommendHomeAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/TopProductAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/adapter/TopProductAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/HomePageFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/HomePageFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingAllFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingAllFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingAllSearchFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingAllSearchFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingCheapFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingCheapFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingExpensiveFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingExpensiveFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingLatestFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingLatestFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingTopSaleFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/RankingTopSaleFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingAllFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingAllFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingLatestFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingLatestFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreRankingTopFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchAllFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchAllFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchLatestFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchLatestFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchTopFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/homepage/fragment/StoreSearchTopFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayAccountActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayAccountActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayAuditActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/activity/FpsPayAuditActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/fragment/FpsPayConfirmDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/payment/fragment/FpsPayConfirmDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/notification/activity/NotificationActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/notification/adapter/NotificationMessageAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/notification/fragment/NotificationFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/activity/SellerOrderDetailsActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/activity/SellerOrderDetailsActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/activity/ShippingNotificationActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/activity/ShippingNotificationActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/adapter/CompletedOrderAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/adapter/CompletedOrderAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplyAttachmentZoomDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplyAttachmentZoomDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplyDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplyDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplySuccessDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/DeliveryNotifyApplySuccessDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/SalesListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/order/fragment/SalesListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/AddInventoryAndPriceActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/AddInventoryAndPriceActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/AddInventoryAndPriceOldActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/EditInventoryAndPriceActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/EditInventoryAndPriceActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/EditInventoryAndPriceOldActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/EditProductActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/EditProductActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/MyProductManagmentActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/MyProductManagmentActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/ProductDetailForSalerActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/activity/ProductDetailForSalerActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/adapter/InventoryAndPriceSecondLayerNestedAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/adapter/InventoryAndPriceSecondLayerNestedAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/EditProductRemindDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/EditProductRemindDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/EditProductRemindForFragmentDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/EditProductRemindForFragmentDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/ProductDraftApplyDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/product/fragment/ProductDraftApplyDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/activity/AdvertisementActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/activity/AdvertisementActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/activity/ShopPreviewActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopFunctionFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopFunctionFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopInfoFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopInfoFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/hkshopu/hk/ui/main/seller/shop/fragment/ShopListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/customborder_onboard_darkgray.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-v24/customborder_round_darkgray_40dp.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_addfpsaccount.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_addfpsaccount.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_addshop.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_addshop.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_advertisement.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_advertisement.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyeraccountsetup.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyeraccountsetup.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_compelete.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_compelete.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_deliver.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_deliver.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_pendingpayment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_pendingpayment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_receive.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_buyerorderdetail_receive.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspay.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspay.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspay_account.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspay_account.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspayaudit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_fpspayaudit.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_inventory_and_price_old.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_mymechants.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_mymechants.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboard.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_onboard.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detailed_page_buyer_view.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_product_detailed_page_buyer_view.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_recommendstore.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_recommendstore.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_seller_orderdetail.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_seller_orderdetail.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_shopping_cart_edited.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_shopping_cart_edited.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_shoppreview.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_shoppreview.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_topproducts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_topproducts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_edit_product_remind.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_edit_product_remind.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_fpspayconfirm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_fpspayconfirm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_productdraftapply.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_fragment_productdraftapply.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_buyerprofile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_buyerprofile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_homepage.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_homepage.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_notification.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pending_recieve_buyer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_pending_recieve_buyer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product_detailed_page.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product_detailed_page.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_purchaselist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_purchaselist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_saleslist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_saleslist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_seller_sales.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_seller_sales.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopfunction.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopfunction.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopinfo.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shopinfo.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shoplist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_shoplist.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/inventoryandprice_size_list_nested_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/inventoryandprice_size_list_nested_item.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_my_sales_order.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_my_sales_order.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_notification_message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_notification_message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_pending_cancel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_pending_cancel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_pending_payment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_pending_payment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_store_ranking.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_store_ranking.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_store_recommend.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_store_recommend.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_top_products.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_top_products.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_addtakecare_en.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-v28/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-v28/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values-zh-rHK/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values-zh-rHK/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -253,7 +455,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[QV724N533A]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -300,8 +502,15 @@
       </state>
     </system>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="GenerateSignedApkSettings">
-    <option name="KEY_STORE_PATH" value="C:\Android_KeyStore\hkshopu" />
+    <option name="KEY_STORE_PATH" value="C:\HKShopPu_AndroidKeyStore\hkshopu" />
     <option name="KEY_ALIAS" value="key0" />
     <option name="BUILD_TARGET_KEY" value="apk" />
   </component>
@@ -336,11 +545,15 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android-custom-view/Users/user/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.2.1/f0f93e67af3f7417bdd560d5142f6dec4fe629c3/recyclerview-1.2.1-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
     <property name="android-custom-view/Users/user/Documents/hkshopu/new-android/app/src/main/java/com/HKSHOPU/hk/widget/view/ClassicsHeaderExt.kt_SELECTED" value="ClassicsHeaderExt" />
+    <property name="android-custom-viewC:/Users/User/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.2.1/f0f93e67af3f7417bdd560d5142f6dec4fe629c3/recyclerview-1.2.1-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
+    <property name="android-custom-viewC:/Users/User/AppData/Local/Android/Sdk/sources/android-30/android/view/View.java_SELECTED" value="View" />
+    <property name="android-custom-viewC:/Users/User/AppData/Local/Android/Sdk/sources/android-30/android/view/ViewGroup.java_SELECTED" value="ViewGroup" />
+    <property name="android-custom-viewC:/Users/User/AppData/Local/Android/Sdk/sources/android-30/android/widget/TextView.java_SELECTED" value="TextView" />
     <property name="android.project.structure.last.selected" value="SDK Location" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Android_KeyStore/hkshopu" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../new-android" />
     <property name="memory.settings.postsync.last.time.stamp" value="1626743621666" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
@@ -349,24 +562,25 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-v24" />
-      <recent name="$PROJECT_DIR$/app/src/main/java/com/HKSHOPU/hk/ui/main" />
+      <recent name="C:\HKShopPu_DevalopmentMain\app\src\main\res\layout" />
+      <recent name="C:\HKShopPu_DevalopmentMain\app\src\main\res\drawable" />
+      <recent name="C:\HKShopPu_DevalopmentMain\app\src\main\java\com\HKSHOPU\hk\ui\main\buyer\profile\fragment" />
+      <recent name="C:\new-android\app\src\main\res\drawable" />
+      <recent name="C:\HKShopPu_DevalopmentMain\app\src\main\java\com\HKSHOPU\hk\ui\main\wallet" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.HKSHOPU.hk.ui.main.homepage.activity" />
       <recent name="com.HKSHOPU.hk.ui.main.advertisement.activity" />
       <recent name="com.HKSHOPU.hk.ui.main.buyer.activity" />
       <recent name="com.HKSHOPU.hk.ui.main.buyer.fragment" />
       <recent name="com.HKSHOPU.hk.ui.main.homepage.fragment" />
     </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
-      <recent name="com.HKSHOPU.hk.ui.main.buyer.profile.adapter" />
       <recent name="com.HKSHOPU.hk.ui.main.buyer.profile.fragment" />
+      <recent name="com.HKSHOPU.hk.ui.main.buyer.profile.activity" />
       <recent name="com.HKSHOPU.hk.data.bean" />
-      <recent name="com.HKSHOPU.hk.ui.main.payment.activity" />
-      <recent name="com.HKSHOPU.hk.ui.main.payment.fragment" />
+      <recent name="com.HKSHOPU.hk.ui.main.sponsor" />
+      <recent name="com.HKSHOPU.hk.ui.main.vm" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.app">

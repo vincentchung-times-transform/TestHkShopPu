@@ -16,7 +16,7 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerProfile_StoreFollowAdapter
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.google.gson.Gson
 import com.tencent.mmkv.MMKV

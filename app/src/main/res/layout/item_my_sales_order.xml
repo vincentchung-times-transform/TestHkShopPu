@@ -235,7 +235,7 @@
                 android:layout_below="@id/iv_line"
                 android:layout_marginBottom="12dp"
                 android:gravity="center_horizontal"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -243,6 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
+                    android:visibility="invisible"
                     android:src="@mipmap/btn_notification_received_confirm_small"/>
 
                 <ImageView
@@ -250,6 +251,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
+                    android:visibility="invisible"
                     android:src="@mipmap/btn_canceling_details_small"/>
 
             </LinearLayout>

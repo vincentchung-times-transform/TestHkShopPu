@@ -29,10 +29,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:textSize="14sp"
                 android:layout_marginStart="15dp"
                 android:layout_toRightOf="@id/iv_list"
-                android:text="我的銷售" />
+                android:text="我的銷售"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_chevron_list"
@@ -49,10 +49,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textSize="14sp"
                 android:layout_marginEnd="50dp"
                 android:layout_toLeftOf="@id/iv_chevron_list"
-                android:text="更多" />
+                android:text="更多"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <LinearLayout
@@ -64,8 +64,8 @@
                 android:id="@+id/layout_pending_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -86,8 +86,8 @@
                 android:id="@+id/layout_pending_receive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -100,16 +100,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp"
-                    android:text="待收貨" />
+                    android:text="待收貨"
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -122,8 +122,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="8dp"
-                    android:textSize="14sp"
-                    android:text="評價" />
+                    android:text="評價"
+                    android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -132,6 +132,62 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="14dp"
+            android:background="@color/colordivideline" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/layout_my_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="52dp">
+
+                <ImageView
+                    android:id="@+id/iv_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="40dp"
+                    android:src="@mipmap/my_wallet" />
+
+                <TextView
+                    android:id="@+id/tv_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="12dp"
+                    android:layout_toRightOf="@id/iv_my_wallet"
+                    android:text="@string/my_wallet"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/iv_chevron_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="35dp"
+                    android:src="@mipmap/ic_chevron" />
+
+                <TextView
+                    android:id="@+id/tv_more_my_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="50dp"
+                    android:textSize="14sp"
+                    android:layout_toStartOf="@id/iv_chevron_my_wallet"
+                    android:text="@string/textView_more" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
             android:background="@color/colordivideline" />
 
         <LinearLayout
@@ -158,9 +214,9 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="12dp"
-                    android:textSize="14sp"
                     android:layout_toRightOf="@id/iv_payway"
-                    android:text="@string/bankaccount" />
+                    android:text="@string/bankaccount"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:id="@+id/iv_chevron_bankaccount"
@@ -178,10 +234,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="50dp"
-                    android:textSize="14sp"
                     android:layout_toStartOf="@id/iv_chevron_bankaccount"
-                    android:text="@string/textView_more" />
+                    android:text="@string/textView_more"
+                    android:textSize="14sp" />
             </RelativeLayout>
+
             <LinearLayout
                 android:id="@+id/Layout_payways"
                 android:layout_width="match_parent"
@@ -189,6 +246,7 @@
                 android:layout_marginBottom="16dp"
                 android:orientation="horizontal"
                 android:visibility="gone">
+
                 <ImageView
                     android:id="@+id/iv_paypal"
                     android:layout_width="wrap_content"
@@ -232,9 +290,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="9dp"
-                android:textSize="14sp"
                 android:layout_toRightOf="@id/iv_delivery"
-                android:text="@string/logistic" />
+                android:text="@string/logistic"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_chevron_delivery"
@@ -252,9 +310,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="50dp"
-                android:textSize="14sp"
                 android:layout_toStartOf="@id/iv_chevron_delivery"
-                android:text="@string/textView_more" />
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <View
@@ -271,45 +329,46 @@
                 android:id="@+id/iv_storesort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="42dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:layout_marginStart="42dp"
                 android:src="@mipmap/ic_storesort" />
 
             <TextView
                 android:id="@+id/tv_storesort"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="13dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
-                android:layout_marginStart="13dp"
-                android:textSize="14sp"
                 android:layout_toRightOf="@id/iv_storesort"
-                android:text="店舖分類" />
+                android:text="店舖分類"
+                android:textSize="14sp" />
 
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView_storeSort01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_below="@id/iv_storesort"
                 android:layout_alignStart="@id/tv_storesort"
+                android:layout_centerInParent="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
                 android:visibility="invisible"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
+
                 <TextView
                     android:id="@+id/tv_storesort1"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
+                    android:gravity="center"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:gravity="center"
                     android:text=""
                     android:textColor="@color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
             </androidx.cardview.widget.CardView>
 
 
@@ -317,25 +376,26 @@
                 android:id="@+id/cardView_storeSort02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_below="@id/iv_storesort"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
-                android:visibility="invisible"
                 android:layout_toEndOf="@+id/cardView_storeSort01"
+                android:visibility="invisible"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
+
                 <TextView
                     android:id="@+id/tv_storesort2"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
+                    android:gravity="center"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    android:gravity="center"
                     android:text=""
                     android:textColor="@color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
             </androidx.cardview.widget.CardView>
 
@@ -344,31 +404,30 @@
                 android:id="@+id/cardView_storeSort03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
                 android:layout_below="@id/iv_storesort"
+                android:layout_centerInParent="true"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="12dp"
-                android:visibility="invisible"
                 android:layout_toEndOf="@+id/cardView_storeSort02"
+                android:visibility="invisible"
                 app:cardBackgroundColor="@color/colordivideline"
                 app:cardCornerRadius="8dp">
+
                 <TextView
                     android:id="@+id/tv_storesort3"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:paddingStart="4dp"
-                    android:paddingEnd="4dp"
                     android:background="@drawable/customborder_shopcategory"
                     android:gravity="center"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
                     android:text=""
                     android:textColor="@color/white"
-                    android:visibility="invisible"/>
+                    android:visibility="invisible" />
 
 
             </androidx.cardview.widget.CardView>
-
-
 
 
             <ImageView
@@ -377,8 +436,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginEnd="35dp"
+                android:layout_marginBottom="16dp"
                 android:src="@mipmap/ic_chevron" />
 
             <TextView
@@ -387,11 +446,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
                 android:layout_marginEnd="50dp"
-                android:textSize="14sp"
+                android:layout_marginBottom="12dp"
                 android:layout_toLeftOf="@id/iv_chevron_storesort"
-                android:text="@string/textView_more" />
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <View
@@ -418,9 +477,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="13dp"
-                android:textSize="14sp"
                 android:layout_toRightOf="@id/iv_ad"
-                android:text="@string/ad" />
+                android:text="@string/ad"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_chevron_ad"
@@ -438,11 +497,109 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="50dp"
-                android:textSize="14sp"
                 android:layout_toStartOf="@id/iv_chevron_ad"
-                android:text="@string/textView_more" />
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
         </RelativeLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colordivideline" />
+
+        <RelativeLayout
+            android:id="@+id/layout_sponser"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <ImageView
+                android:id="@+id/iv_sponser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="36dp"
+                android:src="@mipmap/ic_sponser" />
+
+            <TextView
+                android:id="@+id/tv_sponser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="13dp"
+                android:layout_toRightOf="@id/iv_sponser"
+                android:text="@string/sponserus"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_chevron_sponser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="35dp"
+                android:src="@mipmap/ic_chevron" />
+
+            <TextView
+                android:id="@+id/tv_more_sponser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="50dp"
+                android:layout_toStartOf="@id/iv_chevron_sponser"
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colordivideline" />
+
+        <RelativeLayout
+            android:id="@+id/layout_acntset"
+            android:layout_width="match_parent"
+            android:layout_height="52dp">
+
+            <ImageView
+                android:id="@+id/iv_acntset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="38dp"
+                android:src="@mipmap/ic_acntset" />
+
+            <TextView
+                android:id="@+id/tv_acntset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toRightOf="@id/iv_acntset"
+                android:text="@string/useraccount_setup"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/iv_chevron_acntset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="35dp"
+                android:src="@mipmap/ic_chevron" />
+
+            <TextView
+                android:id="@+id/tv_more_acntset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="50dp"
+                android:layout_toLeftOf="@id/iv_chevron_acntset"
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
+        </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
@@ -494,17 +651,15 @@
                 android:text="@string/textView_more" />
         </RelativeLayout>
 
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/colordivideline"
-            android:visibility="gone"/>
+            android:background="@color/colordivideline" />
 
         <RelativeLayout
-
             android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:visibility="gone">
+            android:layout_height="52dp">
 
             <ImageView
                 android:id="@+id/iv_storeadd"
@@ -520,9 +675,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="13dp"
-                android:textSize="14sp"
                 android:layout_toRightOf="@id/iv_storeadd"
-                android:text="@string/addshop" />
+                android:text="@string/addshop"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_chevron_storeadd"
@@ -539,10 +694,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textSize="14sp"
                 android:layout_marginEnd="50dp"
                 android:layout_toLeftOf="@id/iv_chevron_storeadd"
-                android:text="@string/textView_more" />
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
         </RelativeLayout>
 
         <View
@@ -550,54 +705,7 @@
             android:layout_height="1dp"
             android:background="@color/colordivideline" />
 
-        <RelativeLayout
-            android:id="@+id/layout_acntset"
-            android:layout_width="match_parent"
-            android:layout_height="52dp">
 
-            <ImageView
-                android:id="@+id/iv_acntset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="38dp"
-                android:src="@mipmap/ic_acntset" />
-
-            <TextView
-                android:id="@+id/tv_acntset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:textSize="14sp"
-                android:layout_marginStart="12dp"
-                android:layout_toRightOf="@id/iv_acntset"
-                android:text="@string/useraccount_setup" />
-
-            <ImageView
-                android:id="@+id/iv_chevron_acntset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="35dp"
-                android:src="@mipmap/ic_chevron" />
-
-            <TextView
-                android:id="@+id/tv_more_acntset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textSize="14sp"
-                android:layout_marginEnd="50dp"
-                android:layout_toLeftOf="@id/iv_chevron_acntset"
-                android:text="@string/textView_more" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colordivideline" />
 
         <RelativeLayout
             android:id="@+id/layout_help"
@@ -616,11 +724,11 @@
                 android:id="@+id/tv_help"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="12dp"
                 android:layout_toRightOf="@id/iv_help"
-                android:text="@string/helpcenter" />
+                android:text="@string/helpcenter"
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/iv_chevron_help"
@@ -637,10 +745,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:textSize="14sp"
                 android:layout_marginEnd="50dp"
                 android:layout_toLeftOf="@id/iv_chevron_help"
-                android:text="@string/textView_more" />
+                android:text="@string/textView_more"
+                android:textSize="14sp" />
         </RelativeLayout>
 
     </LinearLayout>

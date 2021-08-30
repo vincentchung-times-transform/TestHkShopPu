@@ -25,7 +25,6 @@ import com.HKSHOPU.hk.utils.rxjava.RxBus
 
 class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var product_id: String): DialogFragment(), View.OnClickListener {
 
-
     var signal : Boolean = false
     var VM = ShopVModel()
 
@@ -46,10 +45,8 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
 //            return f
 //        }
 //    }
-    var et_shopDes:EditText? = null
 
-    lateinit var progressBar_edit_product_reminder: ProgressBar
-    lateinit var iv_loading_background_edit_product_reminder: ImageView
+    var et_shopDes:EditText? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,10 +70,44 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
         v.findViewById<ImageView>(R.id.btn_cancel_remind).setOnClickListener(this)
         v.findViewById<ImageView>(R.id.btn_edit_keep_goning).setOnClickListener(this)
 
-        progressBar_edit_product_reminder = v.findViewById<ProgressBar>(R.id.progressBar_edit_product_reminder)
-        iv_loading_background_edit_product_reminder = v.findViewById<ImageView>(R.id.iv_loading_background_edit_product_reminder)
-        progressBar_edit_product_reminder.visibility = View.GONE
-        iv_loading_background_edit_product_reminder.visibility = View.GONE
+        VM.updateProductStatusData.observe(
+            viewLifecycleOwner,
+            Observer {
+                when (it?.status) {
+                    Status.Success -> {
+                        if (it.ret_val.toString().equals("上架/下架成功!")) {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, "下架成功", Toast.LENGTH_LONG).show()
+                            }
+
+                            RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
+                            RxBus.getInstance().post(EventMyStoreFragmentRefresh())
+
+                            var currentActivity : FragmentActivity = fragment.activity!!
+                            val intent = Intent(currentActivity, EditProductActivity::class.java)
+                            startActivity(intent)
+
+                        } else {
+
+                            activity!!.runOnUiThread {
+                                Toast.makeText(activity!!, it.ret_val.toString(), Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+//                        activity!!.runOnUiThread {
+//
+//                            progressBar_product_draft_apply.visibility = View.GONE
+//                            iv_loading_background_product_draft_apply.visibility = View.GONE
+//
+//                        }
+                        dismiss()
+                    }
+//                Status.Start -> showLoading()
+//                Status.Complete -> disLoading()
+                }
+            }
+        )
 
         VM.updateProductStatusData.observe(
             viewLifecycleOwner,
@@ -92,8 +123,6 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
                             RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
                             RxBus.getInstance().post(EventMyStoreFragmentRefresh())
 
-                            progressBar_edit_product_reminder.visibility = View.GONE
-                            iv_loading_background_edit_product_reminder.visibility = View.GONE
                             var currentActivity : FragmentActivity = fragment.activity!!
                             val intent = Intent(currentActivity, EditProductActivity::class.java)
                             startActivity(intent)
@@ -129,12 +158,7 @@ class EditProductRemindForFragmentDialogFragment(var fragment: Fragment, var pro
                 dismiss()
             }
             R.id.btn_edit_keep_goning->{
-
-                progressBar_edit_product_reminder.visibility = View.VISIBLE
-                iv_loading_background_edit_product_reminder.visibility = View.VISIBLE
-
                 VM.updateProductStatus(fragment, product_id, "draft")
-
             }
         }
     }

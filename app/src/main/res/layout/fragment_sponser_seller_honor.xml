@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_honor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_honortab" />
+
+                <TextView
+                    android:id="@+id/tv_honor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/iv_honor"
+                    android:layout_alignBottom="@id/iv_honor"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <ImageView
+                    android:id="@+id/iv_supreme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_honortab2"/>
+
+                <TextView
+                    android:id="@+id/tv_supreme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/iv_supreme"
+                    android:layout_alignBottom="@id/iv_supreme"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="28dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder_onboard_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/honortab"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <ImageView
+                    android:id="@+id/iv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/ic_wallet_black" />
+
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/iv_wallet"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/mywallet"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/tv_wallet"
+                    android:layout_below="@id/tv_wallet"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/fee_unit"
+                    android:textColor="@color/turquoise"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_wallet_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_wallet"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@id/tv_currency"
+                    android:text=""
+                    android:textColor="@color/turquoise"
+                    android:textSize="36sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_paiddetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="28dp"
+                android:elevation="10dp"
+                android:outlineSpotShadowColor="@color/hkshop_color"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <TextView
+                    android:id="@+id/tv_paiddetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/paiddetail"
+                    android:textColor="@color/black" />
+
+                <View
+                    android:id="@+id/v_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/tv_paiddetail"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/colordivideline" />
+
+                <TextView
+                    android:id="@+id/tv_mywallet_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/v_divider"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/mywallet"
+                    android:textColor="@color/colorTextlightGray" />
+
+                <TextView
+                    android:id="@+id/tv_mywallet_detail_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/v_divider"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:text=""
+                    android:textColor="@color/colorTextlightGray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_donate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/tv_mywallet_detail"
+                    android:text="@string/donatevalue"
+                    android:textColor="@color/colorTextlightGray"/>
+
+                <TextView
+                    android:id="@+id/tv_donate_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_mywallet_detail_number"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:text=""
+                    android:textColor="@color/colorTextlightGray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_mywallet_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_donate"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/walletleft"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_mywallet_left_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_donate_value"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="12dp"
+                    android:text=""
+                    android:textColor="@color/turquoise"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/iv_warning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_donate_value"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toStartOf="@id/tv_mywallet_left_value"
+                    android:contentDescription="@string/empty"
+                    android:src="@mipmap/ic_warning"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+    <RelativeLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:elevation="10dp"
+        android:outlineSpotShadowColor="@color/hkshop_color"
+        android:background="@color/white">
+        <TextView
+            android:id="@+id/tv_donate_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="30dp"
+            android:text="@string/donatevalue"
+            android:textSize="14sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_donatevalue_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="30dp"
+            android:layout_toEndOf="@+id/tv_donate_bottom"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_donatebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/customborder_onboard_turquise_8dp"
+            android:paddingStart="24dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="8dp"
+            android:text="@string/donated"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

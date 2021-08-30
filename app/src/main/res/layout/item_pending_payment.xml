@@ -131,14 +131,14 @@
 
 
     <ImageView
-        android:id="@+id/iv_contact"
+        android:id="@+id/iv_btn_continue_payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/iv_productIcon"
+        android:layout_alignParentEnd="true"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="12dp"
-        android:layout_below="@id/iv_productIcon"
-        android:layout_alignParentEnd="true"
         android:src="@mipmap/ic_topay" />
 
 

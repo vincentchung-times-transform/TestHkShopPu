@@ -81,10 +81,126 @@ class PopularProductAdapter (var currency: Currency, var user_id:String): Recycl
         val title = itemView.find<TextView>(R.id.tv_productname)
         val shopname = itemView.find<TextView>(R.id.tv_shopname)
         val price = itemView.find<TextView>(R.id.tv_price)
+        val iv_badge = itemView.find<ImageView>(R.id.iv_badge)
         var liked_status = "N"
         var hkd_dollarSign = itemView.context.getString(R.string.hkd_dollarSign)
 
+
         fun bindShop(shopPreviewBean : ProductShopPreviewBean){
+
+            when(shopPreviewBean.identity){
+                "尊榮"->{
+
+                    when(shopPreviewBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_honorable_gradual_bg_8dp)
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(shopPreviewBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_honor)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(shopPreviewBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+
+                }
+                "至尊"->{
+                    when(shopPreviewBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_supreme_gradual_bg_8dp)
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(shopPreviewBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_supreme)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(shopPreviewBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+                "榮耀"->{
+                    when(shopPreviewBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_glory_bg_8dp)
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(shopPreviewBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_glory)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(shopPreviewBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+                "卓越"->{
+
+                    when(shopPreviewBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_excellence_bg_8dp)
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(shopPreviewBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_excel)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(shopPreviewBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+            }
 
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, ProductDetailedPageBuyerViewActivity::class.java)

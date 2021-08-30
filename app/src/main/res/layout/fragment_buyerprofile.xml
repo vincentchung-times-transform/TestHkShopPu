@@ -31,7 +31,6 @@
         android:id="@+id/layout_profileTitle"
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
-        android:background="@color/color_shopbg"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:gravity="center_vertical"
@@ -55,8 +54,8 @@
             android:textSize="18sp"
             android:textColor="@color/black"
             android:layout_centerInParent="true"/>
+
         <RelativeLayout
-            android:id="@+id/layout_notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -77,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true">
+
             <ImageView
                 android:id="@+id/ic_cart"
                 android:layout_width="wrap_content"
@@ -95,15 +95,37 @@
                 android:textColor="@color/white"
                 android:textSize="10sp" />
         </RelativeLayout>
-        <ImageView
-            android:id="@+id/ic_notification"
+        <RelativeLayout
+            android:id="@+id/layout_notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:gravity="center_vertical"
-            android:src="@mipmap/ic_notification"
-            android:layout_marginEnd="8dp" />
+            android:visibility="visible"
+            android:layout_marginEnd="15dp">
+
+            <ImageView
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@mipmap/ic_notification"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_notifycount"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/customborder_round_fc4d3f"
+                android:gravity="end"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -124,23 +146,30 @@
                 android:id="@+id/container_1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 android:orientation="vertical"
                 android:visibility="visible">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp">
+               <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp">
 
                     <RelativeLayout
                         android:id="@+id/layout_shopImg"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true">
 
+                        <ImageView
+                            android:id="@+id/iv_forground_frame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="10dp" />
+
                         <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
                             android:layout_centerInParent="true"
                             app:cardBackgroundColor="@color/colordivideline"
                             app:cardCornerRadius="50dp">
@@ -149,13 +178,14 @@
                                 android:id="@+id/iv_shopImg"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
                                 android:layout_centerInParent="true"
-                                android:src="@mipmap/ic_no_image"/>
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/ic_no_image" />
 
                         </androidx.cardview.widget.CardView>
 
                     </RelativeLayout>
+
 
                     <LinearLayout
                         android:id="@+id/layout_profiletitle"
@@ -218,8 +248,16 @@
                             android:textColor="@color/black"
                             android:textSize="18sp" />
 
-
                     </LinearLayout>
+
+                   <ImageView
+                       android:id="@+id/iv_title"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_below="@id/layout_profile_rate"
+                       android:layout_centerHorizontal="true"
+                       android:layout_marginTop="8dp"
+                       android:visibility="gone" />
 
                 </RelativeLayout>
 
@@ -566,6 +604,58 @@
 
                         </LinearLayout>
                     </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colordivideline" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/layout_sponser"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp">
+
+                        <ImageView
+                            android:id="@+id/iv_sponser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="38dp"
+                            android:src="@mipmap/ic_sponser" />
+
+                        <TextView
+                            android:id="@+id/tv_sponser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="13dp"
+                            android:layout_toRightOf="@id/iv_sponser"
+                            android:text="@string/sponserus"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:id="@+id/iv_chevron_sponser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="35dp"
+                            android:src="@mipmap/ic_chevron" />
+
+                        <TextView
+                            android:id="@+id/tv_more_sponser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="50dp"
+                            android:layout_toStartOf="@id/iv_chevron_sponser"
+                            android:text="@string/textView_more"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+
 
                     <View
                         android:layout_width="match_parent"

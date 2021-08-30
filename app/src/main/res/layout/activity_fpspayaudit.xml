@@ -45,6 +45,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/layout_auditTitle"
         >
+
         <TextView
             android:id="@+id/tv_1"
             android:layout_width="wrap_content"
@@ -78,27 +79,31 @@
             android:src="@mipmap/bg_fpsaudit"
             android:contentDescription="@string/empty" />
 
-        <ImageView
+        <TextView
             android:id="@+id/iv_gopurchaselist"
-            android:layout_width="match_parent"
+            android:layout_width="346dp"
             android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/bg_fpsaudit"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="48dp"
-            android:src="@mipmap/ic_purchaselist"
+            android:background="@drawable/customborder_40dp_hkcolor"
             android:contentDescription="@string/empty"
-            android:visibility="visible"/>
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="visible" />
 
         <ImageView
             android:id="@+id/iv_gohomepage"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/iv_gopurchaselist"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            android:src="@mipmap/ic_tohomepage"
             android:contentDescription="@string/empty"
-            android:visibility="visible"/>
+            android:src="@mipmap/ic_tohomepage"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <ScrollView

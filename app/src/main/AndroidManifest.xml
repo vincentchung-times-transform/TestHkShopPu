@@ -218,9 +218,15 @@
             android:name="com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewSellerActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
 <!-- Product -->
         <activity
-            android:name="com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity"
+            android:name="com.HKSHOPU.hk.ui.main.homepage.activity.ShopPreviewActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
@@ -400,12 +406,6 @@
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
 
-        <activity
-            android:name="com.HKSHOPU.hk.ui.main.payment.activity.PaypalActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask" />
-
 <!--        buyer-->
 
         <activity
@@ -473,12 +473,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:launchMode="singleTask" />
-        <activity
-            android:name="com.HKSHOPU.hk.ui.main.payment.activity.FpsPayActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:launchMode="singleTask" />
-
         <activity
             android:name="com.HKSHOPU.hk.ui.main.payment.activity.FpsPayAccountActivity"
             android:screenOrientation="portrait"
@@ -582,9 +576,149 @@
             android:launchMode="singleTask" />
 
         <activity
-            android:name="com.HKSHOPU.hk.ui.main.seller.notification.activity.NotificationActivity"
+            android:name="com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.MyAdvertisementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.KeywordAdvertisementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.RecommendAdvertisementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.MarketAdvertisementActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditProductKeywordAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditStoreKeywordAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditProductRecommendedAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditStoreRecommendedAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditProductMarketAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.AddEditStoreMarketAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.wallet.activity.MyWalletActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.wallet.activity.AddValueActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.wallet.activity.AddValueDetailedInfoActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.advertisement.activity.ProductSelectingForAdvertisementActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.payment.activity.FpsPayActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.wallet.activity.TransactionDetailedInfoForAdActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.wallet.activity.TransactionDetailedInfoForSponsorActivity"
+            android:theme="@style/materialComponents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.sponsor.ToSponserEditActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopSponserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopSponserEditActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerSponserActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask" />
+
+        <activity
+            android:name="com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerSponserEditActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask" />
 
 

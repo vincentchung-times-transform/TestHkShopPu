@@ -14,9 +14,9 @@ import com.HKSHOPU.hk.component.*
 import com.HKSHOPU.hk.data.bean.ShopBankAccountBean
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
 import com.HKSHOPU.hk.databinding.FragmentShopfunctionBinding
-import com.HKSHOPU.hk.ui.main.buyer.profile.fragment.PurchaseListFragment
 import com.HKSHOPU.hk.ui.main.seller.order.fragment.SalesListFragment
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.*
+import com.HKSHOPU.hk.ui.main.wallet.activity.MyWalletActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.paypal.pyplcheckout.sca.runOnUiThread
 import com.tencent.mmkv.MMKV
@@ -53,6 +53,19 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
     }
 
     private fun initClick() {
+        binding!!.layoutSponser.setOnClickListener {
+            //do not thing
+        }
+
+        binding!!.layoutMyWallet.setOnClickListener {
+            val shopId = MMKV.mmkvWithID("http").getString("ShopId","").toString()
+            val intent = Intent(activity, MyWalletActivity::class.java)
+            var bundle = Bundle()
+            bundle.putString("shopId", shopId)
+            intent.putExtra("bundle", bundle)
+            activity!!.startActivity(intent)
+        }
+
         binding!!.layoutMySaler.setOnClickListener {
 //            val intent = Intent(activity, MySalesActivity::class.java)
 //            activity!!.startActivity(intent)
@@ -121,7 +134,11 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
         }
 
         binding!!.layoutAd.setOnClickListener {
+            val shop_id = MMKV.mmkvWithID("http").getString("ShopId","").toString()
             val intent = Intent(activity, AdvertisementActivity::class.java)
+            var bundle = Bundle()
+            bundle.putString("shopId", shop_id)
+            intent.putExtra("bundle", bundle)
             activity!!.startActivity(intent)
         }
 
@@ -136,10 +153,15 @@ class ShopFunctionFragment : Fragment(R.layout.fragment_shopfunction) {
             val bundle = Bundle()
             bundle.putString("shopId",shopId)
             bundle.putString("userId",userId)
-            val intent = Intent(activity, ShopPreviewActivity::class.java)
+            val intent = Intent(activity, ShopPreviewSellerActivity::class.java)
             intent.putExtra("bundle",bundle)
             activity!!.startActivity(intent)
 
+        }
+
+        binding!!.layoutSponser.setOnClickListener {
+            val intent = Intent(activity, ShopSponserActivity::class.java)
+            activity!!.startActivity(intent)
         }
 
         binding!!.layoutHelp.setOnClickListener {

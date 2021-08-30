@@ -47,9 +47,6 @@ class ProductDraftApplyDialogFragment(var product_id: String, var keyword: Strin
     var product_Id = product_id
     var VM = ShopVModel()
 
-    lateinit var progressBar_product_draft_apply: ProgressBar
-    lateinit var iv_loading_background_product_draft_apply: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //        mEventBus = EventBus.getDefault();
@@ -71,11 +68,6 @@ class ProductDraftApplyDialogFragment(var product_id: String, var keyword: Strin
 
         v.findViewById<ImageView>(R.id.btn_cancel).setOnClickListener(this)
         v.findViewById<ImageView>(R.id.btn_confirm).setOnClickListener(this)
-
-        progressBar_product_draft_apply = v.findViewById<ProgressBar>(R.id.progressBar_product_draft_apply)
-        iv_loading_background_product_draft_apply = v.findViewById<ImageView>(R.id.iv_loading_background_product_draft_apply)
-        progressBar_product_draft_apply.visibility = View.GONE
-        iv_loading_background_product_draft_apply.visibility = View.GONE
 
         VM.updateProductStatusData.observe(
             viewLifecycleOwner,
@@ -120,9 +112,6 @@ class ProductDraftApplyDialogFragment(var product_id: String, var keyword: Strin
         when (view.id) {
             R.id.btn_cancel -> dismiss()
             R.id.btn_confirm -> {
-
-//                progressBar_product_draft_apply.visibility = View.VISIBLE
-//                iv_loading_background_product_draft_apply.visibility = View.VISIBLE
 
                 VM.updateProductStatus(fragment, product_id, "draft")
 

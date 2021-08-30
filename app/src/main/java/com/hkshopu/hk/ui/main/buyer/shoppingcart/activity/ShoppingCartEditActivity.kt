@@ -27,6 +27,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.adapter.ShoppingCartShopsNestedAdapter
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopmenuActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.facebook.FacebookSdk
@@ -64,7 +65,7 @@ class ShoppingCartEditActivity : BaseActivity(), TextWatcher{
         MMKV_user_id = MMKV.mmkvWithID("http").getString("UserId", "").toString()
         MMKV_shop_id = MMKV.mmkvWithID("http").getString("ShopId", "").toString()
         MMKV_product_id = MMKV.mmkvWithID("http").getString("ProductId", "").toString()
-
+        getNotificationItemCount(MMKV_user_id)
         getShoppingCartItems(MMKV_user_id)
 
         initMMKV()
@@ -179,6 +180,11 @@ class ShoppingCartEditActivity : BaseActivity(), TextWatcher{
 //
 //            doShoppingCartQuantityDoubleChecking(MMKV_user_id, jsonTutListPretty_CartQuantity, forward_mode)
 
+        }
+
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
         }
 
     }
@@ -322,6 +328,65 @@ class ShoppingCartEditActivity : BaseActivity(), TextWatcher{
                 Log.d("errormessage", "getShoppingCartItems: ErrorResponse" + "${ErrorResponse.toString()}")
                 runOnUiThread {
                     Toast.makeText(this@ShoppingCartEditActivity , "網路異常請重新連接", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })

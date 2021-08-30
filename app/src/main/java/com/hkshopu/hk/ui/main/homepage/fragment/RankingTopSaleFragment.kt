@@ -19,7 +19,7 @@ import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.adapter.PopularProductAdapter
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.tencent.mmkv.MMKV

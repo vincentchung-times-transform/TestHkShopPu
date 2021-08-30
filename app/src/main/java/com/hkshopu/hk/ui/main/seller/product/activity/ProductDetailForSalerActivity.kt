@@ -457,6 +457,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                 var datas_size_size = productInfoBean.spec_dec_2_items.size
                                 var mutableList_price = productInfoBean.price
                                 var mutableList_quant = productInfoBean.spec_quantity
+                                var mutableList_sold_quant = productInfoBean.spec_sold_quantity
                                 var datas_price_size = 0
                                 var datas_quant_size = 0
 
@@ -480,13 +481,14 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                         var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
 
                                         for(i in 0..datas_spec_size-1){
-                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_spec.get(i),"", "") )
+                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_spec.get(i),"", "", "") )
                                         }
                                         mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, "", mutableList_spec.get(0), mutableList_second_layer))
 
                                         for(i in 0..datas_spec_size-1){
                                             mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).price = mutableList_price.get(i).get(0).toString()
                                             mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).quantity = mutableList_quant.get(i).get(0).toString()
+                                            mutableList_first_layer.get(0).mutableList_itemInvenSecondLayer.get(i).sold_quantity = mutableList_sold_quant.get(i).get(0).toString()
                                         }
 
                                 }else{
@@ -496,7 +498,7 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                     for(i in 0..datas_spec_size-1){
                                         var mutableList_second_layer = mutableListOf<ItemInvenSecondNestedLayer>()
                                         for(i in 0..datas_size_size-1){
-                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i),"", "") )
+                                            mutableList_second_layer.add(ItemInvenSecondNestedLayer(mutableList_size.get(i),"", "", "") )
                                         }
                                         mutableList_first_layer.add(ItemInvenFirstNestedLayer(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i), mutableList_second_layer))
                                     }
@@ -505,12 +507,9 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                                         for(j in 0..datas_size_size-1){
                                             mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).price = mutableList_price.get(i).get(j).toString()
                                             mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).quantity = mutableList_quant.get(i).get(j).toString()
-                                            Log.d("dsdsdsdsdaaaa" ,  "priceData_firstLayer.get(i).get(j) : ${mutableList_price.get(i).get(j).toString()}")
-                                            Log.d("dsdsdsdsdaaaa" ,  "quant_Data_firstLayer.get(i).get(j) : ${mutableList_quant.get(i).get(j).toString()}")
+                                            mutableList_first_layer.get(i).mutableList_itemInvenSecondLayer.get(j).sold_quantity = mutableList_sold_quant.get(i).get(j).toString()
                                         }
                                     }
-
-                                    Log.d("dsdsdsd" ,  "mutableList_first_layer : ${mutableList_first_layer.toString()}")
 
                                 }
 
@@ -530,7 +529,6 @@ class ProductDetailForSalerActivity : BaseActivity(), ViewPager.OnPageChangeList
                             runOnUiThread {
                                 binding.statusLebal.setImageResource(R.mipmap.new_lebal)
                             }
-
                         } else {
                             runOnUiThread {
                                 binding.statusLebal.setImageResource(R.mipmap.secondhand_lebal)

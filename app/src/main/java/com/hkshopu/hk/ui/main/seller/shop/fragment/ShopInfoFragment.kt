@@ -25,17 +25,20 @@ import com.HKSHOPU.hk.databinding.FragmentShopinfoBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.product.activity.AddNewProductActivity
 import com.HKSHOPU.hk.ui.main.seller.product.activity.MyProductManagmentActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.*
 import com.HKSHOPU.hk.utils.extension.loadNovelCover
 import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.paypal.pyplcheckout.sca.runOnUiThread
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
+import android.view.ViewGroup.MarginLayoutParams
 
 
 class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
@@ -70,8 +73,8 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
         )
 
         initView()
-        var url = ApiConstants.API_HOST + "shop/" + shopId + "/show/"
-        getShopInfo(url)
+//        var url = ApiConstants.API_HOST + "shop/" + shopId + "/show/"
+//        getShopInfo(url)
 
         getView()!!.isFocusableInTouchMode = true
         getView()!!.requestFocus()
@@ -129,9 +132,9 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             getActivity()!!.supportFragmentManager.beginTransaction().remove(this@ShopInfoFragment).commit()
 
         }
-        binding!!.ivNotify.setOnClickListener {
-            val intent = Intent(activity, ShopNotifyActivity::class.java)
-            startActivity(intent)
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(requireActivity(), NotificationActivity::class.java)
+            requireActivity().startActivity(intent)
         }
         binding!!.ivShopImg.setOnClickListener {
             val gallery =
@@ -217,6 +220,67 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
     }
     fun initVM() {
     }
+
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        requireActivity().runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        activity!!.runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                activity!!.runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
+
     @SuppressLint("CheckResult")
     fun initEvent() {
         var boolean = false
@@ -227,7 +291,9 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                         Thread(Runnable {
                             val shopId = arguments!!.getString("shop_id", "").toString()
                             var url = ApiConstants.API_HOST + "/shop/" + shopId + "/show/"
+
                             getShopInfo(url)
+
                         }).start()
                     }
                     is EventAddProductButtonVisibility -> {
@@ -249,15 +315,31 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             })
     }
 
+    override fun onResume() {
+        super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        getNotificationItemCount(userId)
+
+        val shopId = arguments!!.getString("shop_id", "").toString()
+        var url = ApiConstants.API_HOST + "shop/" + shopId + "/show/"
+        getShopInfo(url)
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         fragmentManager!!.beginTransaction().remove((this as Fragment?)!!)
             .commitAllowingStateLoss()
     }
     override fun onDestroyView() {
+        super.onDestroyView()
         // Consider not storing the binding instance in a field, if not needed.
         fragmentShopInfoBinding = null
-        super.onDestroyView()
+
     }
     private fun getShopInfo(url: String) {
 
@@ -283,13 +365,152 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
                             Gson().fromJson(jsonObject.toString(), ShopInfoBean::class.java)
                         list.add(shopInfoBean)
 
-//                        val bank_account: JSONArray = jsonObject.getJSONArray("shop_bank_account")
-//                        for (i in 0 until bank_account.length()) {
-//                            val account = bank_account.get(i)
-//                            val shopBankAccountBean: ShopBankAccountBean =
-//                                Gson().fromJson(account.toString(), ShopBankAccountBean::class.java)
-//                            CommonVariable.bankaccountlist.add(shopBankAccountBean)
-//                        }
+                        MMKV.mmkvWithID("http").putString("shoptitle", list[0].shop_title)
+                            .putString("description",list[0].long_description).putString("SponserId",list[0].identity)
+
+                        runOnUiThread {
+
+                            when(shopInfoBean.identity){
+                                "尊榮"->{
+
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_honor)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(shopInfoBean.background_is_show){
+//                                    "Y"->{
+//                                        container.setBackgroundResource(R.drawable.sponsor_honorable_gradual_bg_8dp)
+//                                    }
+//                                    "N"->{
+//                                        container.setBackgroundResource(R.drawable.customborder_addproduct)
+//                                    }
+                                    }
+                                    when(shopInfoBean.badge_is_show){
+//                                    "Y"->{
+//                                        iv_badge.visibility = View.VISIBLE
+//                                        iv_badge.setImageResource(R.mipmap.badge_sponsor_honor)
+//                                    }
+//                                    "N"->{
+//                                        iv_badge.visibility = View.GONE
+//                                    }
+                                    }
+                                    when(shopInfoBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_honor)
+
+                                            setMarginFromDpToPixel(this@ShopInfoFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 8)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+
+                                }
+                                "至尊"->{
+
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_supreme)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(shopInfoBean.background_is_show){
+//                                        "Y"->{
+//                                            container.setBackgroundResource(R.drawable.sponsor_supreme_gradual_bg_8dp)
+//                                        }
+//                                        "N"->{
+//                                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+//                                        }
+                                    }
+                                    when(shopInfoBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_supreme)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(shopInfoBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_supreme)
+
+                                            setMarginFromDpToPixel(this@ShopInfoFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 8)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "榮耀"->{
+
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_glory)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(shopInfoBean.background_is_show){
+//                                        "Y"->{
+//                                            container.setBackgroundResource(R.drawable.sponsor_glory_bg_8dp)
+//                                        }
+//                                        "N"->{
+//                                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+//                                        }
+                                    }
+                                    when(shopInfoBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_glory)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(shopInfoBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_glory)
+
+                                            setMarginFromDpToPixel(this@ShopInfoFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "卓越"->{
+
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_excel)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(shopInfoBean.background_is_show){
+//                                        "Y"->{
+//                                            container.setBackgroundResource(R.drawable.sponsor_excellence_bg_8dp)
+//                                        }
+//                                        "N"->{
+//                                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+//                                        }
+                                    }
+                                    when(shopInfoBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_excel)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(shopInfoBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_excel)
+
+                                            setMarginFromDpToPixel(this@ShopInfoFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                            }
+                        }
 
                         val shopaddress: JSONArray = jsonObject.getJSONArray("shop_address")
                         if (shopaddress.length() > 0) {
@@ -382,5 +603,21 @@ class ShopInfoFragment : Fragment(R.layout.fragment_shopinfo) {
             imageUri = data?.data
             binding!!.ivShopImg.setImageURI(imageUri)
         }
+    }
+
+    fun setMarginFromDpToPixel(
+        context: ShopInfoFragment, view: View, dp_left: Int,
+        dp_top: Int, dp_right: Int, dp_bottom: Int,  ){
+        val scale: Float =
+            context.getResources().getDisplayMetrics().density
+        // convert the DP into pixel
+        val pixel_left = (dp_left * scale + 0.5f).toInt()
+        val pixel_top = (dp_top * scale + 0.5f).toInt()
+        val pixel_right = (dp_right * scale + 0.5f).toInt()
+        val pixel_bottom = (dp_bottom * scale + 0.5f).toInt()
+
+        val s = view.layoutParams as MarginLayoutParams
+        s.setMargins(pixel_left, pixel_top, pixel_right, pixel_bottom)
+        view.setLayoutParams(s)
     }
 }

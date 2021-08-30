@@ -4,9 +4,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/res" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5412f235f6b73e7e66c0e5ade719b583/jetified-zoomlayout-1.8.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b346fe74f88c03adf98260c02fe323b/transformed/jetified-zoomlayout-1.8.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0b346fe74f88c03adf98260c02fe323b/transformed/jetified-zoomlayout-1.8.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0b346fe74f88c03adf98260c02fe323b/transformed/jetified-zoomlayout-1.8.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.otaliastudios/zoomlayout/1.8.0/6fccade7a09e0d710834b7c10b5200ac97533150/zoomlayout-1.8.0-javadoc.jar!/" />

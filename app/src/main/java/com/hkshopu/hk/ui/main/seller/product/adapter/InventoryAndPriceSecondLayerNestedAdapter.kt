@@ -16,7 +16,7 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
     ITHelperInterface {
 
 
-    var parentPosition =0
+    var parentPosition = 0
 
 
     inner class mViewHolder(itemView: View):RecyclerView.ViewHolder(itemView),
@@ -26,6 +26,8 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
         val textView_value_name = itemView.findViewById<TextView>(R.id.second_spec_name)
         val textView_value_price = itemView.findViewById<TextView>(R.id.value_price)
         val textView_value_quantity = itemView.findViewById<TextView>(R.id.value_quantity)
+        val textView_value_sold_quantity = itemView.findViewById<TextView>(R.id.value_sold_quant)
+
         var unAssignList : MutableList<ItemInvenSecondNestedLayer> = mutableListOf()
 
         //選高資料變數
@@ -42,6 +44,7 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
             textView_value_name.setText(item.spec_dec_2_items)
             textView_value_price.setText("${hk_dollarSign}${item.price.toString()}")
             textView_value_quantity.setText(item.quantity.toString())
+            textView_value_sold_quantity.setText(item.sold_quantity.toString())
 
             if (!item.price.equals("")){
                 textView_value_price.setTextColor(itemView.context.resources.getColor(R.color.black))
@@ -54,6 +57,12 @@ class InventoryAndPriceSecondLayerNestedAdapter(var unAssignList: MutableList<It
                 textView_value_quantity.setTextColor(itemView.context.resources.getColor(R.color.black))
             }else{
                 textView_value_quantity.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
+            }
+
+            if (!item.sold_quantity.equals("")){
+                textView_value_sold_quantity.setTextColor(itemView.context.resources.getColor(R.color.black))
+            }else{
+                textView_value_sold_quantity.setTextColor(itemView.context.resources.getColor(R.color.bright_gray))
             }
 
         }

@@ -21,7 +21,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.homepage.activity.SearchActivity
 import com.HKSHOPU.hk.ui.main.homepage.adapter.StoreRecommendAdapter
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopPreviewActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.HKSHOPU.hk.widget.view.KeyboardUtil
 import com.google.gson.Gson

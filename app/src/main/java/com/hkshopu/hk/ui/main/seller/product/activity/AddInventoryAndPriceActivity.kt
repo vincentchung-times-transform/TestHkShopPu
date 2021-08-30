@@ -122,7 +122,7 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             if(mutableList_spec.size == datas_price_size &&  !rebuild_datas){
 
                 for(i in 0..datas_spec_size-1){
-                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", ""))
+                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", "", ""))
 
                 }
 
@@ -134,7 +134,7 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             }else{
 
                 for(i in 0..datas_spec_size-1){
-                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name,"","", ""))
+                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name,"","", "", ""))
 
                 }
 
@@ -152,7 +152,7 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
 
                     for(j in 0..datas_size_size-1){
 
-                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", ""))
+                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", "", ""))
 
                     }
                 }
@@ -169,7 +169,7 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
 
                     for(j in 0..datas_size_size-1){
 
-                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", ""))
+                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", "", ""))
 
                     }
                 }
@@ -202,7 +202,6 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
 
     fun initClick() {
         binding.titleBackAddshop.setOnClickListener {
-
             MMKV.mmkvWithID("addPro_temp").putBoolean("get_temp", true)
             val intent = Intent(this, com.HKSHOPU.hk.ui.main.seller.product.activity.AddProductSpecificationMainActivity::class.java)
             startActivity(intent)
@@ -243,7 +242,9 @@ class AddInventoryAndPriceActivity : BaseActivity(), TextWatcher{
                         mutableList_Inventory.get(i).spec_dec_1_items,
                         mutableList_Inventory.get(i).spec_dec_2_items,
                         mutableList_Inventory.get(i).price.toInt(),
-                        mutableList_Inventory.get(i).quantity.toInt())
+                        mutableList_Inventory.get(i).quantity.toInt(),
+                        0
+                    )
                 )
 
             }

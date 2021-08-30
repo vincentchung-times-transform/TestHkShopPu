@@ -17,8 +17,18 @@ import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.component.*
 import com.HKSHOPU.hk.data.bean.ResourceOrder
 import com.HKSHOPU.hk.databinding.FragmentSaleslistBinding
+import com.HKSHOPU.hk.net.ApiConstants
+import com.HKSHOPU.hk.net.Web
+import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
+import com.tencent.mmkv.MMKV
+import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.IOException
 
 
 class SalesListFragment(manager: FragmentManager) : Fragment(R.layout.fragment_saleslist) {
@@ -60,6 +70,8 @@ class SalesListFragment(manager: FragmentManager) : Fragment(R.layout.fragment_s
     }
 
     fun initView() {
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
+        getNotificationItemCount(userId)
         initClick()
         initVM()
         initEvent()
@@ -97,6 +109,7 @@ class SalesListFragment(manager: FragmentManager) : Fragment(R.layout.fragment_s
     }
     fun initVM() {
     }
+
     @SuppressLint("CheckResult")
     fun initEvent() {
         RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
@@ -118,10 +131,69 @@ class SalesListFragment(manager: FragmentManager) : Fragment(R.layout.fragment_s
         binding!!.ivBack.setOnClickListener {
             manager.beginTransaction().remove(this@SalesListFragment).commit()
         }
-        binding!!.ivNotify.setOnClickListener {
-            val intent = Intent(activity, ShopNotifyActivity::class.java)
-            startActivity(intent)
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(requireActivity(), NotificationActivity::class.java)
+            requireActivity().startActivity(intent)
         }
+    }
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        requireActivity().runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        activity!!.runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                activity!!.runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
+            }
+        })
+        web.Get_Data(url)
     }
 
     override fun onDestroyView() {

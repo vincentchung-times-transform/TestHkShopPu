@@ -28,7 +28,7 @@
     <RelativeLayout
         android:id="@+id/layout_shopTitle"
         android:layout_width="match_parent"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="15dp">
 
         <ImageView
@@ -41,36 +41,46 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:gravity="center"
             android:text="@string/orderdetail"
             android:textColor="@color/dark_gray"
             android:textSize="18sp" />
 
 
-        <ImageView
-            android:id="@+id/iv_notify"
+        <RelativeLayout
+            android:id="@+id/layout_notify"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:src="@mipmap/ic_notification"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:layout_marginEnd="20dp">
 
-        <TextView
-            android:id="@+id/tv_notifycount"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/customborder_round_turquise"
-            android:gravity="center"
-            android:text="99"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@mipmap/ic_notification"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_notifycount"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/customborder_round_fc4d3f"
+                android:gravity="end"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 
@@ -166,13 +176,13 @@
                         android:id="@+id/tv_logistic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/iv_logistic"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginBottom="12dp"
-                        android:layout_below="@id/iv_logistic"
                         android:text=""
                         android:textColor="@color/dark_gray"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
 
                 </RelativeLayout>

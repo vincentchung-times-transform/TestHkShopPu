@@ -4,9 +4,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c67e9ef6b2de22bfaabca852be0db991/jetified-EasySwitcher-0.1.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5e86868167ceb0e73e4dcf6beb42543c/transformed/jetified-EasySwitcher-0.1.7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/5e86868167ceb0e73e4dcf6beb42543c/transformed/jetified-EasySwitcher-0.1.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/5e86868167ceb0e73e4dcf6beb42543c/transformed/jetified-EasySwitcher-0.1.7/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

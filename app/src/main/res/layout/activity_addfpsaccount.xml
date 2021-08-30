@@ -264,7 +264,7 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:clickable="false"
-            android:background="@drawable/customborder_onboard_darkgray"
+            android:background="@drawable/customborder_round_darkgray_40dp"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="36dp"
             android:layout_marginEnd="36dp"

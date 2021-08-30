@@ -452,11 +452,11 @@
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="24dp"
-        android:text="@string/please_forward"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:textColor="@color/turquoise"
         android:background="@drawable/customborder_turquise"
-        android:visibility="visible"/>
+        android:gravity="center"
+        android:text="@string/please_forward"
+        android:textColor="@color/turquoise"
+        android:textSize="18sp"
+        android:visibility="visible" />
 
 </RelativeLayout>

@@ -52,7 +52,7 @@
             app:tabGravity="fill"
             app:tabIndicatorColor="@color/transparent"
             app:tabMaxWidth="0dp"
-            app:tabMode="scrollable"
+            app:tabMode="fixed"
             app:tabSelectedTextColor="@color/turquoise"
             app:tabTextAppearance="@style/CustomTabText2"
             app:tabTextColor="@color/colorTextlightGray" />
@@ -61,7 +61,6 @@
             android:id="@+id/mviewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="10dp"
             android:background="@drawable/gradual_search_bg"
             android:outlineSpotShadowColor="@color/hkshop_color" />
 

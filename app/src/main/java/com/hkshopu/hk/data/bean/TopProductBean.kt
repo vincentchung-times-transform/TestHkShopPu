@@ -21,13 +21,11 @@ class TopProductBean {
     @SerializedName("pic_path")
     var pic_path: String= ""
 
-
     @SerializedName("product_title")
     var product_title: String = ""
 
     @SerializedName("shop_title")
     var shop_title: String= ""
-
 
     @SerializedName("price")
     var price: Int = 0
@@ -41,6 +39,16 @@ class TopProductBean {
     @SerializedName("liked")
     var liked: String = ""
 
+    //sponsor
+    @SerializedName("identity")
+    var identity: String = ""
 
+    @SerializedName("background_is_show")
+    var background_is_show: String = ""
 
+    @SerializedName("badge_is_show")
+    var badge_is_show: String = ""
+
+    @SerializedName("frame_is_show")
+    var frame_is_show: String = ""
 }

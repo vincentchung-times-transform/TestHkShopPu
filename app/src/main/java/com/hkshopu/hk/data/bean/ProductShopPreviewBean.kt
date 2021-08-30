@@ -83,4 +83,17 @@ class ProductShopPreviewBean {
     @SerializedName("sum_quantity")
     var sum_quantity: Int? = 0
 
+    //sponsor
+    @SerializedName("identity")
+    var identity: String = ""
+
+    @SerializedName("background_is_show")
+    var background_is_show: String = ""
+
+    @SerializedName("badge_is_show")
+    var badge_is_show: String = ""
+
+    @SerializedName("frame_is_show")
+    var frame_is_show: String = ""
+
 }

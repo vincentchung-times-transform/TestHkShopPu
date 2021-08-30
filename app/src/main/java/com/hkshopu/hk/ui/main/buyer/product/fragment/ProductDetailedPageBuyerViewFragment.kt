@@ -7,16 +7,14 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -29,17 +27,17 @@ import com.HKSHOPU.hk.databinding.FragmentProductDetailedPageBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.buyer.product.activity.ProductDetailedPageBuyerViewActivity
 import com.HKSHOPU.hk.ui.main.buyer.product.adapter.*
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
-import com.HKSHOPU.hk.ui.main.homepage.activity.StoreRecommendActivity
+import com.HKSHOPU.hk.ui.main.homepage.activity.ShopPreviewActivity
 import com.HKSHOPU.hk.ui.main.homepage.activity.TopProductsActivity
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
+
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopEvaluationActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.android.flexbox.*
-import com.google.gson.annotations.SerializedName
-import com.paypal.pyplcheckout.sca.runOnUiThread
 import com.squareup.picasso.Picasso
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
@@ -63,7 +61,6 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
         }
     }
 
-
     private var binding : FragmentProductDetailedPageBinding? = null
     private var fragmentProductDetailedPageBinding: FragmentProductDetailedPageBinding? = null
 
@@ -78,9 +75,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
     var product_status : String = ""
     var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
 
-
     //new parts
-
     var ShopDetailedProductForBuyerBean : ShopDetailedProductForBuyerBean = ShopDetailedProductForBuyerBean()
     var mutableList_pics = mutableListOf<ItemPics>()
 
@@ -136,6 +131,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
         if(!MMKV_user_id.isNullOrEmpty()){
             GetShoppingCartItemCountForBuyer(MMKV_user_id)
+            getNotificationItemCount(MMKV_user_id)
         }
 
         binding!!.tvCartItemCount.visibility = View.GONE
@@ -183,11 +179,13 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
     fun initClick() {
         binding!!.containerOtherShopProductsMore.setOnClickListener {
-            val intent = Intent(requireActivity(), StoreRecommendActivity::class.java)
+            var shopId =  productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_id
+            val intent = Intent(requireActivity(), ShopPreviewActivity::class.java)
             val bundle = Bundle()
             bundle.putString("userId", MMKV_user_id)
+            bundle.putString("shopId", shopId)
             intent.putExtra("bundle", bundle)
-            requireActivity().startActivity(intent)
+            startActivity(intent)
         }
         binding!!.containerProductRecommendedMore.setOnClickListener {
             val intent = Intent(requireActivity(), TopProductsActivity::class.java)
@@ -201,13 +199,7 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
             startActivity(intent)
         }
 
-        binding!!.icNotification.setOnClickListener {
-            val intent = Intent(requireActivity(), ShopNotifyActivity::class.java)
-            startActivity(intent)
-        }
-
         binding!!.icCart.setOnClickListener {
-
 
             if(MMKV_user_id.isNullOrEmpty()){
 
@@ -356,6 +348,11 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                     detailed_product_specification_bean))
 
             }
+        }
+
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(requireActivity(), NotificationActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -1044,6 +1041,106 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
                                 jsonObject.toString(),
                                 ProductDetailedPagerForBuyer_RecommendedShopInfoBean::class.java
                             )
+
+                        activity!!.runOnUiThread {
+                            when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.identity){
+                                "尊榮"->{
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.badge_is_show){
+                                        "Y"->{
+                                            binding!!.ivBadge.visibility = View.VISIBLE
+                                            binding!!.ivBadge.setImageResource(R.mipmap.badge_sponsor_honor)
+                                        }
+                                        "N"->{
+                                            binding!!.ivBadge.visibility = View.GONE
+                                        }
+                                    }
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_honor)
+
+                                            setMarginFromDpToPixel(this@ProductDetailedPageBuyerViewFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+
+                                }
+                                "至尊"->{
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.badge_is_show){
+                                        "Y"->{
+                                            binding!!.ivBadge.visibility = View.VISIBLE
+                                            binding!!.ivBadge.setImageResource(R.mipmap.badge_sponsor_supreme)
+                                        }
+                                        "N"->{
+                                            binding!!.ivBadge.visibility = View.GONE
+                                        }
+                                    }
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_supreme)
+
+                                            setMarginFromDpToPixel(this@ProductDetailedPageBuyerViewFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "榮耀"->{
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.badge_is_show){
+                                        "Y"->{
+                                            binding!!.ivBadge.visibility = View.VISIBLE
+                                            binding!!.ivBadge.setImageResource(R.mipmap.badge_sponsor_glory)
+                                        }
+                                        "N"->{
+                                            binding!!.ivBadge.visibility = View.GONE
+                                        }
+                                    }
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_glory)
+
+                                            setMarginFromDpToPixel(this@ProductDetailedPageBuyerViewFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "卓越"->{
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.badge_is_show){
+                                        "Y"->{
+                                            binding!!.ivBadge.visibility = View.VISIBLE
+                                            binding!!.ivBadge.setImageResource(R.mipmap.badge_sponsor_excel)
+                                        }
+                                        "N"->{
+                                            binding!!.ivBadge.visibility = View.GONE
+                                        }
+                                    }
+                                    when(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_excel)
+
+                                            setMarginFromDpToPixel(this@ProductDetailedPageBuyerViewFragment,  binding!!.ivForgroundFrame, 0, 0, 0, 0)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                else->{
+                                    binding!!.ivBadge.visibility = View.GONE
+                                    binding!!.ivForgroundFrame.visibility = View.GONE
+                                }
+                            }
+
+                        }
+
                         activity!!.runOnUiThread {
 
                             Picasso.get().load(productDetailedPagerForBuyer_RecommendedShopInfoBean.shop.shop_icon).into(binding!!.ivSameShopIcon)
@@ -1882,8 +1979,6 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
         web.doAddItemsToShoppingCart(url, user_id , product_id, product_spec_id, quantity, shop_id)
     }
 
-
-
     @SuppressLint("CheckResult")
     fun initEvent() {
 
@@ -1913,6 +2008,81 @@ class ProductDetailedPageBuyerViewFragment : Fragment(R.layout.fragment_product_
 
     }
 
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        requireActivity().runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        activity!!.runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                activity!!.runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
+
+    fun setMarginFromDpToPixel(
+        context: ProductDetailedPageBuyerViewFragment, view: View, dp_left: Int,
+        dp_top: Int, dp_right: Int, dp_bottom: Int,  ){
+        val scale: Float =
+            context.getResources().getDisplayMetrics().density
+        // convert the DP into pixel
+        val pixel_left = (dp_left * scale + 0.5f).toInt()
+        val pixel_top = (dp_top * scale + 0.5f).toInt()
+        val pixel_right = (dp_right * scale + 0.5f).toInt()
+        val pixel_bottom = (dp_bottom * scale + 0.5f).toInt()
+
+        val s = view.layoutParams as ViewGroup.MarginLayoutParams
+        s.setMargins(pixel_left, pixel_top, pixel_right, pixel_bottom)
+        view.setLayoutParams(s)
+    }
 
 
 }

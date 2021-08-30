@@ -73,7 +73,6 @@ class BuyerPendingRecieveFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(requireActivity())
         allProduct.layoutManager = layoutManager
-
         allProduct.adapter = adapter
 
     }

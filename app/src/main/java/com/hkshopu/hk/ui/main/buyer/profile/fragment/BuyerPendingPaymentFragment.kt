@@ -82,6 +82,7 @@ class BuyerPendingPaymentFragment : Fragment() {
     }
 
     private fun getProduct(url: String,userId:String,status:String) {
+        Log.d("BuyerPendingPaymentFragment", "userId: ${userId} ; status: ${status}")
         progressBar.visibility = View.VISIBLE
         loadingBackground.visibility = View.VISIBLE
         val web = Web(object : WebListener {
@@ -110,18 +111,13 @@ class BuyerPendingPaymentFragment : Fragment() {
 
                         Log.d("BuyerPendingPaymentFragment", "返回資料 list：" + list.toString())
 
-
                         activity!!.runOnUiThread {
                             adapter.setData(list)
                             initRecyclerView()
                             progressBar.visibility = View.GONE
                             loadingBackground.visibility = View.GONE
                         }
-
-
                     }
-
-
 
                 } catch (e: JSONException) {
                     Log.d("BuyerPendingPaymentFragment_errorMessage", "JSONException：" + e.toString())

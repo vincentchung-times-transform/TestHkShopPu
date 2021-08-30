@@ -1,6 +1,5 @@
 package com.HKSHOPU.hk.ui.main.seller.order.fragment
 
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
@@ -8,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,14 +14,10 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.component.EventAddShopSuccess
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayAuditActivity
-import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopmenuActivity
 
-import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.paypal.pyplcheckout.sca.runOnUiThread
 import okhttp3.Response
 import org.json.JSONException

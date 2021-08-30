@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.HKSHOPU.hk.data.bean.ShopAddressBean
 import com.HKSHOPU.hk.data.bean.ShopBankAccountBean
 import com.HKSHOPU.hk.data.bean.ShopCategoryBean
+import com.HKSHOPU.hk.data.bean.SponserCostBean
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -43,7 +44,10 @@ class CommonVariable private constructor() {
         var product_spec_dec_2_items_list = ArrayList<String>()
         var product_pic_path_list = ArrayList<String>()
 
+        //Ad On Shelf Products selecting
+        var selectedProductId: String = ""
 
-
+        //Sponser
+        var costlist = ArrayList<SponserCostBean>()
     }
 }

@@ -1,32 +1,22 @@
 package com.HKSHOPU.hk.ui.main.buyer.shoppingcart.fragment
 
-import android.content.Intent
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.Toast
 
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import com.HKSHOPU.hk.Base.response.Status
 import com.HKSHOPU.hk.R
+import com.HKSHOPU.hk.component.EventGenerateAddValueOeder
 import com.HKSHOPU.hk.component.EventGenerateOeder
-import com.HKSHOPU.hk.component.EventMyStoreFragmentRefresh
-import com.HKSHOPU.hk.component.EventTransferToFragmentAfterUpdate
-import com.HKSHOPU.hk.component.EventdeleverFragmentAfterUpdateStatus
-import com.HKSHOPU.hk.ui.login.vm.ShopVModel
-import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
-import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayActivity
 import com.HKSHOPU.hk.utils.rxjava.RxBus
 
-class GenerateOrderCheckingDialogFragment(): DialogFragment(), View.OnClickListener {
+class GenerateOrderCheckingDialogFragment(var mode: String): DialogFragment(), View.OnClickListener {
 
 
     var signal : Boolean = false
@@ -82,7 +72,15 @@ class GenerateOrderCheckingDialogFragment(): DialogFragment(), View.OnClickListe
         when (view.id) {
             R.id.btn_cancel -> dismiss()
             R.id.btn_confirm -> {
-                RxBus.getInstance().post(EventGenerateOeder())
+                when(mode){
+                    "shopping"->{
+                        RxBus.getInstance().post(EventGenerateOeder())
+
+                    }
+                    "addValue"->{
+                        RxBus.getInstance().post(EventGenerateAddValueOeder())
+                    }
+                }
                 dismiss()
             }
         }

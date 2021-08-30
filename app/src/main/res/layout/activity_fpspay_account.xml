@@ -7,6 +7,25 @@
     android:layout_height="match_parent"
     android:background="@color/color_shopbg">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/imgView_loading_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:elevation="120dp"
+        android:visibility="gone"
+        android:src="@drawable/customview_loading_background" />
+
     <RelativeLayout
         android:id="@+id/layout_payaccount"
         android:layout_width="match_parent"
@@ -64,6 +83,44 @@
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
+                <LinearLayout
+                    android:id="@+id/layout_fps_account_unsetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="36dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:elevation="10dp"
+                    android:outlineSpotShadowColor="@color/hkshop_color"
+                    android:background="@drawable/customview_fps_spinner_empty"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/alert_red_empty_fps_account"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="8dp"
+                        android:text="@string/fps_account_unsetting"
+                        android:textSize="14sp"
+                        android:textColor="@color/bright_red"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/ic_more_red"/>
+
+
+                </LinearLayout>
+
                 <RelativeLayout
                     android:id="@+id/layout_account"
                     android:layout_width="match_parent"
@@ -77,44 +134,44 @@
 
                     <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
                         android:id="@+id/smartSpinner_bankAccount"
-                        android:spinnerMode="dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="8dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
                         android:elevation="10dp"
                         android:outlineSpotShadowColor="@color/hkshop_color"
+                        android:paddingStart="20dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="20dp"
+                        android:spinnerMode="dropdown"
                         android:textColor="@color/dark_gray"
-                        app:smsp_enableFloatingLabel = "false"
                         app:smsp_alwaysShowFloatingLabel="false"
-                        app:smsp_floatingLabelColor="@color/dark_gray"
-                        app:smsp_floatingLabelText=""
-                        app:smsp_floatingLabelSize="14sp"
+                        app:smsp_enableErrorLabel="false"
+                        app:smsp_enableFloatingLabel="false"
                         app:smsp_enableSearchHeader="true"
-                        app:smsp_searchHeaderText=""
-                        app:smsp_searchHeaderTextColor="@color/white"
-                        app:smsp_searchHeaderBackgroundColor="@color/hkshop_color"
-                        app:smsp_hint=""
+                        app:smsp_floatingLabelColor="@color/dark_gray"
+                        app:smsp_floatingLabelSize="14sp"
+                        app:smsp_floatingLabelText=""
+                        app:smsp_hint="請選擇轉數快帳號"
+                        app:smsp_hintColor="@color/material_grey_700"
                         app:smsp_hintSize="14sp"
-                        app:smsp_hintColor="@color/black"
-                        app:smsp_itemSize="14sp"
+                        app:smsp_isSearchable="false"
                         app:smsp_itemColor="@color/dark_gray"
                         app:smsp_itemListColor="@color/dark_gray"
                         app:smsp_itemListHintBackgroundColor="#808080"
                         app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_itemSize="14sp"
                         app:smsp_multilineError="false"
-                        app:smsp_selectedItemListColor="@color/black"
-                        app:smsp_isSearchable="false"
+                        app:smsp_searchHeaderBackgroundColor="@color/hkshop_color"
+                        app:smsp_searchHeaderText=""
+                        app:smsp_searchHeaderTextColor="@color/white"
                         app:smsp_searchHint="請搜選銀行名稱或銀行代碼"
                         app:smsp_searchHintColor="@color/bright_gray"
                         app:smsp_searchTextColor="@color/black"
-                        app:smsp_enableErrorLabel="false"
-                        app:smsp_underlineSize="0dp"
-                        app:smsp_underlineColor="@color/white"/>
-
+                        app:smsp_selectedItemListColor="@color/black"
+                        app:smsp_underlineColor="@color/white"
+                        app:smsp_underlineSize="0dp" />
 
                 </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,12 +222,12 @@
                         android:layout_height="60dp"
                         android:background="#00000000"
                         android:gravity="center_vertical"
-                        android:text=""
-                        android:textColor="@color/dark_gray"
                         android:hint="DD/MM/YYYY "
+                        android:imeOptions="actionDone"
                         android:paddingLeft="18dp"
                         android:singleLine="true"
-                        android:imeOptions="actionDone"
+                        android:text=""
+                        android:textColor="@color/dark_gray"
                         android:textColorHint="@color/material_grey_700"
                         android:textSize="14sp" />
                     <ImageView

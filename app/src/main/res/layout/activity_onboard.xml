@@ -40,24 +40,27 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:layout_height="360dp"
+                    android:gravity="center_horizontal">
+
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/pager"
-                        android:layout_width="270dp"
-                        android:layout_height="270dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp" />
-
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="32dp"
+                        android:paddingRight="32dp"
+                        android:paddingBottom="90dp" />
                     <TextView
                         android:id="@+id/title_banner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="11dp"
+                        android:layout_above="@id/tv2"
                         android:letterSpacing="0.04"
                         android:text="開店好簡單 什麼都賣等你來"
                         android:textSize="18sp"
@@ -69,10 +72,11 @@
                         android:background="@android:color/transparent"
                         android:gravity="center_horizontal"
                         android:letterSpacing="0.04"
+                        android:layout_alignParentBottom="true"
                         android:text="不論你是買家、商家或是創業家，一鍵上手"
                         android:textSize="14sp" />
 
-                </LinearLayout>
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/indicator"

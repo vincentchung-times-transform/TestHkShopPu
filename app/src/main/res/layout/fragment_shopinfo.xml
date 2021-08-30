@@ -16,6 +16,7 @@
         android:elevation="20dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
+
     <ImageView
         android:id="@+id/iv_loading_background_shop_info"
         android:layout_width="match_parent"
@@ -54,27 +55,37 @@
             android:padding="8dp"
             android:src="@mipmap/ic_arrow_back" />
 
-        <ImageView
-            android:id="@+id/iv_notify"
+        <RelativeLayout
+            android:id="@+id/layout_notify"
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="15dp"
-            android:src="@mipmap/ic_notification" />
+            android:visibility="visible"
+            android:layout_marginEnd="15dp">
 
-        <TextView
-            android:id="@+id/tv_notifycount"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/customborder_round_turquise"
-            android:gravity="center"
-            android:text="1"
-            android:visibility="gone"
-            android:textColor="@color/white"
-            android:textSize="10sp" />
+            <ImageView
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:src="@mipmap/ic_notification"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_notifycount"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/customborder_round_fc4d3f"
+                android:gravity="end"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:visibility="gone" />
+
+        </RelativeLayout>
     </RelativeLayout>
 
 
@@ -105,13 +116,19 @@
 
                     <RelativeLayout
                         android:id="@+id/layout_shopImg"
-                        android:layout_width="96dp"
-                        android:layout_height="96dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true">
 
+                        <ImageView
+                            android:id="@+id/iv_forground_frame"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:elevation="10dp" />
+
                         <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="96dp"
+                            android:layout_height="96dp"
                             android:layout_centerInParent="true"
                             app:cardBackgroundColor="@color/colordivideline"
                             app:cardCornerRadius="50dp">
@@ -120,9 +137,9 @@
                                 android:id="@+id/iv_shopImg"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
                                 android:layout_centerInParent="true"
-                                android:src="@mipmap/ic_no_image"/>
+                                android:scaleType="centerCrop"
+                                android:src="@mipmap/ic_no_image" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -157,7 +174,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/layout_Shop_rate"
+                        android:id="@+id/layout_shop_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/layout_shoptitle"
@@ -170,15 +187,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
-                            app:nrb_starImageWidth="24dp"
-                            app:nrb_starImageHeight="24dp"
-                            app:nrb_starTotal="5"
-                            app:nrb_starFullResource="@mipmap/ic_star_fill"
-                            app:nrb_starEmptyResource="@mipmap/ic_star"
-                            app:nrb_starHalfResource="@mipmap/ic_star_half"
                             app:nrb_rating="0"
+                            app:nrb_ratingStatus="Disable"
+                            app:nrb_starEmptyResource="@mipmap/ic_star"
+                            app:nrb_starFullResource="@mipmap/ic_star_fill"
+                            app:nrb_starHalfResource="@mipmap/ic_star_half"
+                            app:nrb_starImageHeight="24dp"
                             app:nrb_starImagePadding="4dp"
-                            app:nrb_ratingStatus="Disable"/>
+                            app:nrb_starImageWidth="24dp"
+                            app:nrb_starTotal="5" />
 
                         <TextView
                             android:id="@+id/tv_rating"
@@ -192,6 +209,16 @@
 
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/layout_shop_rate"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="8dp"
+                        android:visibility="gone"
+                        android:src="@mipmap/sponsor_title_excel" />
 
                 </RelativeLayout>
 

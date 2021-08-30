@@ -6,8 +6,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/190a4f0a6dc8dc188c840a6bc2612708/jetified-storage-1.4.0/res" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/190a4f0a6dc8dc188c840a6bc2612708/jetified-storage-1.4.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/190a4f0a6dc8dc188c840a6bc2612708/jetified-storage-1.4.0/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/190a4f0a6dc8dc188c840a6bc2612708/jetified-storage-1.4.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/190a4f0a6dc8dc188c840a6bc2612708/jetified-storage-1.4.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d577c16b88c68a7cdca75fe1d2f466d/transformed/jetified-storage-1.4.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8d577c16b88c68a7cdca75fe1d2f466d/transformed/jetified-storage-1.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d577c16b88c68a7cdca75fe1d2f466d/transformed/jetified-storage-1.4.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

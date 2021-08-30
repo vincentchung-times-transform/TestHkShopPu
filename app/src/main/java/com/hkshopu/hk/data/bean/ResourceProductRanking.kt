@@ -2,6 +2,7 @@ package com.HKSHOPU.hk.data.bean
 
 import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.ui.main.homepage.fragment.*
+import com.HKSHOPU.hk.ui.main.seller.shop.fragment.*
 
 interface ResourceProductRanking {
     companion object {
@@ -11,6 +12,10 @@ interface ResourceProductRanking {
 
         val pagerFragments = listOf(
             RankingAllFragment.newInstance(), RankingLatestFragment.newInstance(), RankingTopSaleFragment.newInstance(), RankingCheapFragment.newInstance(), RankingExpensiveFragment.newInstance()
+        )
+
+        val pagerFragments_seller = listOf(
+            RankingAllSellerFragment.newInstance(), RankingLatestSellerFragment.newInstance(), RankingTopSaleSellerFragment.newInstance(), RankingCheapSellerFragment.newInstance(), RankingExpensiveSellerFragment.newInstance()
         )
 
         val tabList_reserve = listOf(

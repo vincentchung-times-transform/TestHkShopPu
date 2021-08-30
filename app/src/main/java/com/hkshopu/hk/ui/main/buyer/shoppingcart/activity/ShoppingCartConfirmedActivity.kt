@@ -3,7 +3,6 @@ package com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity
 import MyLinearLayoutManager
 import android.R
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -13,10 +12,8 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.lifecycle.Lifecycle
 import com.HKSHOPU.hk.Base.BaseActivity
-import com.HKSHOPU.hk.application.App
 import com.HKSHOPU.hk.component.EventGenerateOeder
 import com.HKSHOPU.hk.component.EventUpdateShoppingCartItemForConfirmed
 import com.HKSHOPU.hk.data.bean.*
@@ -24,13 +21,10 @@ import com.HKSHOPU.hk.databinding.ActivityShoppingCartConfirmedBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.payment.activity.PaypalActivity
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.adapter.ShoppingCartShopsNestedAdapter
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.fragment.GenerateOrderCheckingDialogFragment
 import com.HKSHOPU.hk.ui.main.payment.activity.FpsPayActivity
-import com.HKSHOPU.hk.ui.main.seller.product.fragment.SpecificationInfoDialogFragment
 import com.HKSHOPU.hk.utils.rxjava.RxBus
-import com.bumptech.glide.load.engine.Resource
 import com.facebook.FacebookSdk
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -53,7 +47,6 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.math.BigDecimal
 import java.util.*
 
 
@@ -205,7 +198,7 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
 //        }
 
         binding.btnShoppingCartGenerateOder.setOnClickListener {
-            GenerateOrderCheckingDialogFragment().show(supportFragmentManager, "MyCustomFragment")
+            GenerateOrderCheckingDialogFragment("shopping").show(supportFragmentManager, "MyCustomFragment")
 //            if(paymethod.equals("fps")){
 //                GenerateOrderCheckingDialogFragment().show(supportFragmentManager, "MyCustomFragment")
 //            }else{
@@ -272,7 +265,6 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                                 mutableList_shoppingCartShopItems.get(i).selected_addresss.selected_addresss_user_address = buyerAddress.toString()
                             }
                         }
-
 
                         address_less = false
                         mAdapter_ShoppingCartItems.setDatas(mutableList_shoppingCartShopItems, address_less)
@@ -654,6 +646,8 @@ class ShoppingCartConfirmedActivity : BaseActivity(), TextWatcher{
                         val intent = Intent(this@ShoppingCartConfirmedActivity, FpsPayActivity::class.java)
                         var bundle = Bundle()
                         bundle.putString("jsonTutList", jsonTutList)
+                        bundle.putString("orderNumber", "")
+                        bundle.putString("mode", "shopping")
                         intent.putExtra("bundle", bundle)
                         startActivity(intent)
 

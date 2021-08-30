@@ -4,16 +4,28 @@ import com.google.gson.annotations.SerializedName
 
 class NotificationMessageBean {
 
-    @SerializedName("id")
-    var id: String = ""
+    @SerializedName("notitfication_id")
+    var notitfication_id: String = ""
 
-    @SerializedName("iv_product_icon")
-    var iv_product_icon: String = ""
+    @SerializedName("order_id")
+    var order_id: String = ""
 
-    @SerializedName("tv_orderer_name")
-    var tv_orderer_name: String = ""
+    @SerializedName("notification_title")
+    var notification_title: String = ""
 
-    @SerializedName("tv_message_content")
-    var tv_message_content: String = ""
+    @SerializedName("notification_content")
+    var notification_content: String = ""
+
+    @SerializedName("clicked")
+    var clicked: String = ""
+
+    @SerializedName("created_at")
+    var created_at: String = ""
+
+    @SerializedName("product_pic")
+    var product_pic: String = ""
+
+    @SerializedName("order_status")
+    var order_status: String = ""
 
 }

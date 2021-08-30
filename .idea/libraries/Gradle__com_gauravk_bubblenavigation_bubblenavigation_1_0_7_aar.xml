@@ -7,9 +7,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/b0359fbc4fb70fad32bfcd752fe2a4bc/jetified-bubblenavigation-1.0.7/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/b0359fbc4fb70fad32bfcd752fe2a4bc/jetified-bubblenavigation-1.0.7/res" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/b0359fbc4fb70fad32bfcd752fe2a4bc/jetified-bubblenavigation-1.0.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0a626b827bf813b3e3acffe1ccb38ad/jetified-bubblenavigation-1.0.7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0a626b827bf813b3e3acffe1ccb38ad/jetified-bubblenavigation-1.0.7/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e0a626b827bf813b3e3acffe1ccb38ad/jetified-bubblenavigation-1.0.7/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/669a9003b5a81e3b71ae3f42a4c4d3bd/transformed/jetified-bubblenavigation-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/669a9003b5a81e3b71ae3f42a4c4d3bd/transformed/jetified-bubblenavigation-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/669a9003b5a81e3b71ae3f42a4c4d3bd/transformed/jetified-bubblenavigation-1.0.7/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.gauravk.bubblenavigation/bubblenavigation/1.0.7/753c7ccc9b61620e70da697e84d57b0af5156f61/bubblenavigation-1.0.7-javadoc.jar!/" />

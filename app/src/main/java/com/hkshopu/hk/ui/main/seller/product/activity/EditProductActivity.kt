@@ -1873,10 +1873,8 @@ class EditProductActivity : BaseActivity() {
 
                         if(productInfoList.product_shipment_list.size>0){
                             for (i in 0..productInfoList.product_shipment_list.size - 1) {
-
                                 var json_shippingItem = GsonProvider.gson.toJson(ItemShippingFare(productInfoList.product_shipment_list.get(i).shipment_desc, productInfoList.product_shipment_list.get(i).price.toString(), productInfoList.product_shipment_list.get(i).onoff, MMKV_shop_id))
                                 MMKV.mmkvWithID("editPro").putString("value_fare_item${i}",json_shippingItem)
-
                             }
                         }else{
                             var json_shippingItem = GsonProvider.gson.toJson(ItemShippingFare("", "", "off", MMKV_shop_id))
@@ -1935,7 +1933,6 @@ class EditProductActivity : BaseActivity() {
 
 
                         if(  productInfoList.product_spec_on.equals("y") ){
-
 
                             //EditProductSpecificationMainActivity
                             MMKV.mmkvWithID("editPro").putString(
@@ -1996,6 +1993,7 @@ class EditProductActivity : BaseActivity() {
 
                             var datas_price_size = 0
                             var datas_quant_size = 0
+                            var datas_sold_quant_size = 0
                             for(i in 0..productInfoList.price.size-1){
                                 for(j in 0..productInfoList.price.get(i).size-1){
                                     datas_price_size  = datas_price_size+1
@@ -2004,6 +2002,11 @@ class EditProductActivity : BaseActivity() {
                             for(i in 0..productInfoList.spec_quantity.size-1){
                                 for(j in 0..productInfoList.spec_quantity.get(i).size-1){
                                     datas_quant_size  = datas_quant_size+1
+                                }
+                            }
+                            for(i in 0..productInfoList.spec_sold_quantity.size-1){
+                                for(j in 0..productInfoList.spec_sold_quantity.get(i).size-1){
+                                    datas_sold_quant_size  = datas_sold_quant_size+1
                                 }
                             }
 
@@ -2015,6 +2018,11 @@ class EditProductActivity : BaseActivity() {
                             MMKV.mmkvWithID("editPro").putString(
                                 "datas_quant_size",
                                 datas_quant_size.toString()
+                            )
+
+                            MMKV.mmkvWithID("editPro").putString(
+                                "datas_sold_quant_size",
+                                datas_sold_quant_size.toString()
                             )
 
 
@@ -2030,8 +2038,17 @@ class EditProductActivity : BaseActivity() {
                             for (i in 0..productInfoList.spec_quantity.size - 1) {
                                 for(j in 0..productInfoList.spec_quantity.get(i).size - 1){
                                     MMKV.mmkvWithID("editPro").putString(
-                                        "spec_quantity${i*productInfoList.price.get(i).size+j}",
+                                        "spec_quantity${i*productInfoList.spec_quantity.get(i).size+j}",
                                         productInfoList.spec_quantity.get(i).get(j).toString()
+                                    )
+                                }
+                            }
+
+                            for (i in 0..productInfoList.spec_sold_quantity.size - 1) {
+                                for(j in 0..productInfoList.spec_sold_quantity.get(i).size - 1){
+                                    MMKV.mmkvWithID("editPro").putString(
+                                        "spec_sold_quantity${i*productInfoList.spec_sold_quantity.get(i).size+j}",
+                                        productInfoList.spec_sold_quantity.get(i).get(j).toString()
                                     )
                                 }
                             }
@@ -2047,7 +2064,9 @@ class EditProductActivity : BaseActivity() {
                                             productInfoList.spec_dec_1_items.get(i),
                                             productInfoList.spec_dec_2_items.get(j),
                                             productInfoList.price.get(i).get(j),
-                                            productInfoList.spec_quantity.get(i).get(j))
+                                            productInfoList.spec_quantity.get(i).get(j),
+                                            productInfoList.spec_sold_quantity.get(i).get(j)
+                                        )
                                     )
                                 }
                             }
@@ -2062,7 +2081,6 @@ class EditProductActivity : BaseActivity() {
                             Log.d("jsonTutListPretty_inven", jsonTutListPretty_inven.toString())
 
                             MMKV.mmkvWithID("editPro").putString("jsonTutList_inven", jsonTutList_inven)
-
 
                         }
 

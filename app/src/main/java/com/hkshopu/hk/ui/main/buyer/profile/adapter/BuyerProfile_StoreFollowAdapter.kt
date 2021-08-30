@@ -89,13 +89,175 @@ class BuyerProfile_StoreFollowAdapter(var userId: String) : RecyclerView.Adapter
         val pic2 = itemView.find<ImageView>(R.id.iv_shop_pic2)
         val pic3 = itemView.find<ImageView>(R.id.iv_shop_pic3)
         val picUser = itemView.find<ImageView>(R.id.iv_user_pic)
-        val shopCare = itemView.find<ImageView>(R.id.iv_shopcare)
+        val btn_shopcare = itemView.find<LinearLayout>(R.id.btn_shopcare)
+        val tv_add = itemView.find<TextView>(R.id.tv_add)
+        val tv_attention_status = itemView.find<TextView>(R.id.tv_attention_status)
         val shopname = itemView.find<TextView>(R.id.tv_shopname)
         val ratings = itemView.find<TextView>(R.id.tv_rating)
         val ratingBar = itemView.find<NiceRatingBar>(R.id.ratingBar)
         val follows = itemView.find<TextView>(R.id.tv_attentionnumber)
+        val iv_badge = itemView.find<ImageView>(R.id.iv_badge)
         var followed_status = "Y"
         fun bindShop(storeFollowBean : StoreFollowBean){
+
+            when(storeFollowBean.identity){
+                "尊榮"->{
+
+                    when(storeFollowBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_honorable_gradual_bg_8dp)
+                            if(followed_status.equals("Y")){
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                tv_add.visibility = View.GONE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                            }else{
+                                btn_shopcare.setBackgroundResource(R.drawable.sponsor_honorable_gradual_btn_bg_8dp)
+                                tv_add.visibility = View.VISIBLE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+                            }
+
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(storeFollowBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_honor)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(storeFollowBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+
+                }
+                "至尊"->{
+                    when(storeFollowBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_supreme_gradual_bg_8dp)
+                            if(followed_status.equals("Y")){
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                tv_add.visibility = View.GONE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                            }else{
+                                btn_shopcare.setBackgroundResource(R.drawable.sponsor_supreme_gradual_btn_bg_8dp)
+                                tv_add.visibility = View.VISIBLE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+                            }
+
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(storeFollowBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_supreme)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(storeFollowBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+                "榮耀"->{
+                    when(storeFollowBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_glory_bg_8dp)
+                            if(followed_status.equals("Y")){
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                tv_add.visibility = View.GONE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                            }else{
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_hkcolor)
+                                tv_add.visibility = View.VISIBLE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+                            }
+
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(storeFollowBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_glory)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(storeFollowBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+                "卓越"->{
+
+                    when(storeFollowBean.background_is_show){
+                        "Y"->{
+                            container.setBackgroundResource(R.drawable.sponsor_excellence_bg_8dp)
+                            if(followed_status.equals("Y")){
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                tv_add.visibility = View.GONE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                            }else{
+                                btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_hkcolor)
+                                tv_add.visibility = View.VISIBLE
+                                tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+                            }
+                        }
+                        "N"->{
+                            container.setBackgroundResource(R.drawable.customborder_addproduct)
+                        }
+                    }
+                    when(storeFollowBean.badge_is_show){
+                        "Y"->{
+                            iv_badge.visibility = View.VISIBLE
+                            iv_badge.setImageResource(R.mipmap.badge_sponsor_excel)
+                        }
+                        "N"->{
+                            iv_badge.visibility = View.GONE
+                        }
+                    }
+                    when(storeFollowBean.frame_is_show){
+                        "Y"->{
+
+                        }
+                        "N"->{
+
+                        }
+                    }
+                }
+
+            }
+
             container.click {
                 itemClick?.invoke(storeFollowBean.shop_id.toString())
             }
@@ -123,21 +285,15 @@ class BuyerProfile_StoreFollowAdapter(var userId: String) : RecyclerView.Adapter
             ratings.text = storeFollowBean.rating.toString()
             ratingBar.setRating(storeFollowBean.rating.toFloat())
 
-            if(followed_status.equals("Y")){
-                shopCare.setImageResource(R.mipmap.ic_addtakecare_en)
-            }else{
-                shopCare.setImageResource(R.mipmap.ic_addtakecare)
-            }
-
-            shopCare.click {
+            btn_shopcare.click {
                 if (userId!!.isNullOrEmpty()) {
                     val intent = Intent(itemView.context, OnBoardActivity::class.java)
                     itemView.context.startActivity(intent)
                 }else{
                     if(followed_status.equals("Y")){
-                        doStoreFollow(userId, storeFollowBean.shop_id, "N")
+                        doStoreFollow(userId, storeFollowBean.shop_id, "N", storeFollowBean)
                     }else{
-                        doStoreFollow(userId,  storeFollowBean.shop_id, "Y")
+                        doStoreFollow(userId,  storeFollowBean.shop_id, "Y", storeFollowBean)
                     }
                 }
             }
@@ -148,7 +304,7 @@ class BuyerProfile_StoreFollowAdapter(var userId: String) : RecyclerView.Adapter
 //            }
         }
 
-        private fun doStoreFollow(userId: String, shop_id: String, follow: String) {
+        private fun doStoreFollow(userId: String, shop_id: String, follow: String, bean: StoreFollowBean) {
             Log.d("doStoreFollow", "userId: ${userId} \n " +
                     "shop_id: ${shop_id} \n " +
                     "follow: ${follow}")
@@ -169,12 +325,100 @@ class BuyerProfile_StoreFollowAdapter(var userId: String) : RecyclerView.Adapter
                                 Toast.makeText(
                                     itemView.context, ret_val.toString(), Toast.LENGTH_SHORT
                                 ).show()
-                                if (follow.equals("Y")) {
-                                    shopCare.setImageResource(R.mipmap.ic_addtakecare_en)
-                                    followed_status = "Y"
-                                } else {
-                                    shopCare.setImageResource(R.mipmap.ic_addtakecare)
-                                    followed_status = "N"
+
+                                when(bean.identity){
+                                    "尊榮"->{
+                                        when(bean.background_is_show){
+                                            "Y"->{
+                                                container.setBackgroundResource(R.drawable.sponsor_honorable_gradual_bg_8dp)
+                                                if (follow.equals("Y")) {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                                    tv_add.visibility = View.GONE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                                                    followed_status = "Y"
+                                                } else {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.sponsor_honorable_gradual_btn_bg_8dp)
+                                                    tv_add.visibility = View.VISIBLE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+
+                                                    followed_status = "N"
+                                                }
+                                            }
+                                            "N"->{
+                                                container.setBackgroundResource(R.drawable.customborder_addproduct)
+                                            }
+                                        }
+                                    }
+                                    "至尊"->{
+                                        when(bean.background_is_show){
+                                            "Y"->{
+                                                container.setBackgroundResource(R.drawable.sponsor_supreme_gradual_bg_8dp)
+                                                if (follow.equals("Y")) {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                                    tv_add.visibility = View.GONE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                                                    followed_status = "Y"
+                                                } else {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.sponsor_supreme_gradual_btn_bg_8dp)
+                                                    tv_add.visibility = View.VISIBLE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+
+                                                    followed_status = "N"
+                                                }
+                                            }
+                                            "N"->{
+                                                container.setBackgroundResource(R.drawable.customborder_addproduct)
+                                            }
+                                        }
+                                    }
+                                    "榮耀"->{
+                                        when(bean.background_is_show){
+                                            "Y"->{
+                                                container.setBackgroundResource(R.drawable.sponsor_glory_bg_8dp)
+                                                if (follow.equals("Y")) {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                                    tv_add.visibility = View.GONE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                                                    followed_status = "Y"
+                                                } else {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_hkcolor)
+                                                    tv_add.visibility = View.VISIBLE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+
+                                                    followed_status = "N"
+                                                }
+                                            }
+                                            "N"->{
+                                                container.setBackgroundResource(R.drawable.customborder_addproduct)
+                                            }
+                                        }
+                                    }
+                                    "卓越"->{
+                                        when(bean.background_is_show){
+                                            "Y"->{
+                                                container.setBackgroundResource(R.drawable.sponsor_excellence_bg_8dp)
+                                                if (follow.equals("Y")) {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_gray_8e8e93)
+                                                    tv_add.visibility = View.GONE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_followed))
+
+                                                    followed_status = "Y"
+                                                } else {
+                                                    btn_shopcare.setBackgroundResource(R.drawable.customborder_8dp_hkcolor)
+                                                    tv_add.visibility = View.VISIBLE
+                                                    tv_attention_status.setText(itemView.context.getText(R.string.shop_attention))
+
+                                                    followed_status = "N"
+                                                }
+                                            }
+                                            "N"->{
+                                                container.setBackgroundResource(R.drawable.customborder_addproduct)
+                                            }
+                                        }
+                                    }
                                 }
                             }
                             RxBus.getInstance().post(EventRefreshUserInfo())

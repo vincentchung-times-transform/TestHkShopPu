@@ -43,9 +43,6 @@ class EditProductRemindDialogFragment(var activity: ProductDetailForSalerActivit
 //        }
 //    }
     var et_shopDes:EditText? = null
-    lateinit var progressBar_edit_product_reminder: ProgressBar
-    lateinit var iv_loading_background_edit_product_reminder: ImageView
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +65,6 @@ class EditProductRemindDialogFragment(var activity: ProductDetailForSalerActivit
 
         v.findViewById<ImageView>(R.id.btn_cancel_remind).setOnClickListener(this)
         v.findViewById<ImageView>(R.id.btn_edit_keep_goning).setOnClickListener(this)
-        progressBar_edit_product_reminder = v.findViewById<ProgressBar>(R.id.progressBar_edit_product_reminder)
-        iv_loading_background_edit_product_reminder = v.findViewById<ImageView>(R.id.iv_loading_background_edit_product_reminder)
-        progressBar_edit_product_reminder.visibility = View.GONE
-        iv_loading_background_edit_product_reminder.visibility = View.GONE
 
         return v
     }
@@ -83,19 +76,12 @@ class EditProductRemindDialogFragment(var activity: ProductDetailForSalerActivit
             }
             R.id.btn_edit_keep_goning->{
 
-                progressBar_edit_product_reminder.visibility = View.VISIBLE
-                iv_loading_background_edit_product_reminder.visibility = View.VISIBLE
-
-
                 var currentActivity : ProductDetailForSalerActivity = activity
 
                 VM.updateProductStatus(currentActivity, product_id, "draft")
 
                 RxBus.getInstance().post(EventdeleverFragmentAfterUpdateStatus())
                 RxBus.getInstance().post(EventMyStoreFragmentRefresh())
-
-                progressBar_edit_product_reminder.visibility = View.GONE
-                iv_loading_background_edit_product_reminder.visibility = View.GONE
 
                 val intent = Intent(currentActivity, EditProductActivity::class.java)
                 startActivity(intent)

@@ -8,8 +8,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/res" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba16f9ccf6cbc9ffc0ad34c716574cce/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/85cdede17982be4bb564401cab4e635f/transformed/jetified-maps-ktx-2.4.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/85cdede17982be4bb564401cab4e635f/transformed/jetified-maps-ktx-2.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/85cdede17982be4bb564401cab4e635f/transformed/jetified-maps-ktx-2.4.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.google.maps.android/maps-ktx/2.4.0/dab0538c1270e0a08bf68f56cadd3164fa20cfda/maps-ktx-2.4.0-javadoc.jar!/" />

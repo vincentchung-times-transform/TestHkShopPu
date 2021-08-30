@@ -77,8 +77,6 @@ class ProductInfoBean {
     //--------有規格部分--------
     @SerializedName("spec_id")
     var spec_id: ArrayList<ArrayList<String>> = arrayListOf()
-    @SerializedName("price")
-    var price: ArrayList<ArrayList<Int>> = arrayListOf()
     @SerializedName("spec_desc_1")
     var spec_desc_1 :  String = ""
     @SerializedName("spec_desc_2")
@@ -87,8 +85,12 @@ class ProductInfoBean {
     var spec_dec_1_items :  ArrayList<String> = arrayListOf()
     @SerializedName("spec_dec_2_items")
     var spec_dec_2_items :  ArrayList<String> = arrayListOf()
+    @SerializedName("price")
+    var price: ArrayList<ArrayList<Int>> = arrayListOf()
     @SerializedName("spec_quantity")
     var spec_quantity :  ArrayList<ArrayList<Int>> = arrayListOf()
+    @SerializedName("spec_sold_quantity")
+    var spec_sold_quantity :  ArrayList<ArrayList<Int>> = arrayListOf()
     @SerializedName("min_price")
     var min_price:  Int = 0
     @SerializedName("max_price")

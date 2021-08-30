@@ -14,6 +14,4 @@ class BankCodeBean {
 
     @SerializedName("seq")
     var seq: Int = -999
-
-
 }

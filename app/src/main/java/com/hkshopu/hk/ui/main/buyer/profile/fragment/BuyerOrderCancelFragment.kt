@@ -16,8 +16,7 @@ import com.HKSHOPU.hk.data.bean.BuyerOrderDetailBean
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderCanceledAdapter
-import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderList_CompleteAdapter
+import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderList_CanceledAdapter
 import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.jetbrains.anko.find
@@ -41,7 +40,7 @@ class BuyerOrderCancelFragment : Fragment() {
     lateinit var progressBar: ProgressBar
     lateinit var loadingBackground: ImageView
 
-    private val adapter = BuyerOrderCanceledAdapter()
+    private val adapter = BuyerOrderList_CanceledAdapter()
     val userId= MMKV.mmkvWithID("http").getString("UserId", "");
     val url = ApiConstants.API_HOST+"user_detail/shopping_list/"
     val status = "Cancelled"

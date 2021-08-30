@@ -430,6 +430,7 @@
 
     <!--    關注-->
     <string name="shop_attention">關注</string>
+    <string name="shop_followed">已關注</string>
     <string name="edit">編輯</string>
 
     <!--    商店評價-->
@@ -528,9 +529,6 @@
     <!--    我的商品-->
     <string name="hkd_dollarSign">HKD$</string>
 
-    <!--    廣告與行銷活動-->
-    <string name="ad">廣告與行銷活動</string>
-
     <!--    銀行帳號-->
     <string name="bankaccount_alert">為確保交易安全性，本操作會進行加密處理，店匯不會顯示你的完整卡號資訊。</string>
     <string name="addbankaccount2">+ 新增銀行帳號</string>
@@ -626,6 +624,8 @@
     <string name="tab_ranking3">最熱銷</string>
     <string name="tab_ranking4">價格低</string>
     <string name="tab_ranking5">價格高</string>
+    <string name="add_attention">加入關注</string>
+
     <!--     熱門商品-->
     <string name="topproducts">熱門商品</string>
     <!--     推薦店鋪-->
@@ -652,7 +652,7 @@
     <string name="fpspay_email">轉數快帳號電子郵件：</string>
     <string name="transfer_date">請輸入預計轉帳日期<font color='red' size='10'><sup> * </sup></font></string>
     <string name="info_confirm">確認發送資訊</string>
-
+    <string name="fps_account_unsetting">未設定轉數快</string>
     <!--    我的-->
     <string name="my_collect">收藏清單</string>
     <string name="my_favorite">關注店舖</string>
@@ -759,6 +759,7 @@
 
     <!--   FPS審查-->
     <string name="audit_title">訂單付款審查中...</string>
+    <string name="audit_add_value_title">儲值審查中...</string>
     <string name="audit_notice">HKSHOPU將進行查帳並發送通知</string>
 
 
@@ -807,7 +808,170 @@
     <string name="compelete_time">完成時間</string>
 
 
-    <!--  通知-->
+    <!--  通知-->ㄙ
     <string name="notification">通知</string>
+
+
+    <!-- 我的錢包-->
+    <string name="my_wallet">我的錢包</string>
+    <string name="hkd">HKD</string>
+    <string name="dollar_sign">$</string>
+    <string name="stored_value">儲值</string>
+    <string name="stored_value_under_review">儲值審查中</string>
+    <string name="transaction_record">交易紀錄</string>
+    <string name="advertising_service_denomination">店匯廣告服務面額</string>
+    <string name="glory_sponsor">榮耀贊助商</string>
+    <string name="please_select_the_amount_of_stored_value">請選擇儲值金額</string>
+    <string name="please_confirm_that_the_stored_value_amount_is_correct">請確認儲值金額無誤</string>
+    <string name="please_confirm_that_the_stored_value_amount_is_correct_content">若確認金額無誤，按下「確定」將立即生成訂單，進行付款動作。在此提醒您，訂單生成後將無法修正。</string>
+    <string name="advertising_id">廣告編號</string>
+    <string name="commercial_time">廣告時間</string>
+    <string name="recharge_time">儲值時間</string>
+    <string name="click_on">點擊</string>
+    <string name="stored_value_sub">儲值金額</string>
+    <string name="stored_value_number">儲值編號</string>
+    <string name="sponsor_number">贊助編號</string>
+    <string name="pay_time">付款時間</string>
+    <string name="back_to_wallet">回到我的錢包</string>
+    <string name="finish_time">完成時間</string>
+    <string name="advertisement_selected_products_unimportant">已選商品</string>
+    <string name="click_price">點擊金額</string>
+    <string name="exposure_fare">曝光費用</string>
+
+    <string name="add_value_reviewing_status">審查中</string>
+    <string name="add_value_fail_status">儲值失敗</string>
+    <string name="add_value_complete_status">儲值已完成</string>
+    <string name="add_value_pending_payment_description_description">訂單將於您完成付款後開始進行，快回來喔！\n一小時後會自動取消訂單。</string>
+    <string name="add_value_reviewing_status_description">儲值審查中請稍候。</string>
+    <string name="add_value_fail_status_description">請重新付款！若仍無法完成儲值，請洽詢客服人員。</string>
+    <string name="add_value_complete_status_description">謝謝您支持使用HKSHOPU。</string>
+
+    <string name="sponsor_finished">贊助已完成</string>
+    <string name="sponsor_expiry_at">此贊助將於</string>
+    <string name="due">到期</string>
+    <string name="sponsor_price">贊助金額</string>
+
+
+
+    <!--    廣告與行銷活動-->
+    <string name="ad">廣告與行銷活動</string>
+    <string name="my_ad">我的廣告</string>
+    <string name="keyword_advertisement">關鍵字廣告</string>
+    <string name="product_keyword_advertisement">商品關鍵字廣告</string>
+    <string name="store_keyword_advertisement">店鋪關鍵字廣告</string>
+    <string name="add_keyword_advertisement">+新增關鍵字廣告</string>
+    <string name="recommended_advertisement">推薦廣告</string>
+    <string name="product_recommended_advertisement">商品推薦廣告</string>
+    <string name="store_recommended_advertisement">店鋪推薦廣告</string>
+    <string name="add_recommended_advertisement">+新增推薦廣告</string>
+    <string name="market_advertisement">賣場廣告</string>
+    <string name="product_market_advertisement">商品賣場廣告</string>
+    <string name="store_market_advertisement">店鋪賣場廣告</string>
+    <string name="add_market_advertisement">+新增賣場廣告</string>
+    <string name="keyword_advertisement_content">在搜尋關鍵字時產品/店鋪會比較靠前。</string>
+    <string name="recommended_advertisement_content">推薦產品/店鋪會出現在熱門推薦版面。</string>
+    <string name="market_advertisement_content">產品/店鋪的廣告文案會出現在首頁看板。</string>
+
+    <!--  新增廣告-->
+    <string name="add_product_keyword_advertisement">新增商品關鍵字廣告</string>
+    <string name="add_store_keyword_advertisement">新增店鋪關鍵字廣告</string>
+    <string name="add_product_recommended_advertisement">新增商品推薦廣告</string>
+    <string name="add_store_recommended_advertisement">新增店鋪推薦廣告</string>
+    <string name="add_product_market_advertisement">新增商品賣場廣告</string>
+    <string name="add_store_market_advertisement">新增店鋪賣場廣告</string>
+    <string name="edit_product_keyword_advertisement">編輯商品關鍵字廣告</string>
+    <string name="edit_store_keyword_advertisement">編輯店鋪關鍵字廣告</string>
+    <string name="edit_product_recommended_advertisement">編輯商品推薦廣告</string>
+    <string name="edit_store_recommended_advertisement">編輯店鋪推薦廣告</string>
+    <string name="edit_product_market_advertisement">編輯商品賣場廣告</string>
+    <string name="edit_store_market_advertisement">編輯店鋪賣場廣告</string>
+    <string name="advertisement_pictures">廣告圖<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="advertisement_selected_products">已選商品<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="advertisement_budget">預算<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="advertisement_date">廣告時間<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="keyword">關鍵字<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="please_enter_keyword">請輸入關鍵字</string>
+    <string name="please_enter_click_bid">請輸入點擊出價</string>
+    <string name="search_volume">搜尋量</string>
+    <string name="higher_bidding_ad">出價更高的廣告</string>
+    <string name="add_keyword">新增關鍵字</string>
+    <string name="bid">點擊出價<font color='red' size='10'><sub> * </sub></font></string>
+    <string name="balance">(餘額:</string>
+    <string name="unlimited">無限制</string>
+    <string name="time_unlimited">不限時</string>
+    <string name="set_it_yourself">自行設定</string>
+    <string name="at_least_thirty_days">最多30天</string>
+    <string name="please_enter_click_bid_price">請輸入點擊出價金額</string>
+    <string name="recommended_bid">推薦出價</string>
+    <string name="highest_bid_price_ads">出價最高的廣告</string>
+    <string name="add_product_for_icon">加入商品</string>
+    <string name="add_pic_for_icon">加入圖片</string>
+    <string name="release_confirm">確認發布</string>
+    <string name="product_select">選擇商品</string>
+    <string name="product_for_ad_select">選擇參與廣告商品</string>
+    <string name="pause">暫停</string>
+    <string name="after_days_over">天結束</string>
+    <string name="keyword_unimportant">關鍵字</string>
+    <string name="expenditure">花費</string>
+    <string name="reviewing">審核中</string>
+    <string name="my_store">我的店舖</string>
+    <string name="delete">刪除</string>
+
+    <!--贊助-->
+    <string name="sponserus">贊助我們</string>
+
+    <!--  商品評價-->
+    <string name="productevaluate">商品評價</string>
+    <string name="service_logistic">物流服務</string>
+    <string name="service_attitude">服務態度</string>
+    <string name="anonymous">匿名:</string>
+    <string name="hint_anonymous">看的到頭貼但看不到全名。</string>
+    <string name="hint_productevaluate">請輸入商品評價，幫助更多想買的人...</string>
+
+    <!--  贊助-->
+    <string name="sponser">贊助我們</string>
+    <string name="sponser_tab2">尊榮/至尊贊助商</string>
+    <string name="sponser_tab3">榮耀贊助商</string>
+    <string name="sponser_tab4">卓越贊助商</string>
+    <string name="Insufficientbalance">餘額不足</string>
+    <string name="storevalue">我要儲值</string>
+    <string name="sponser_brief">《店匯》不能缺少您的力量。\n\n我們一生中都有過大大小小的夢想；或許沒能逐一實現，但向前踏出的第一步卻無比重要。《店匯》憑著這股執念堅持了5年，我們曾迷茫；曾挫敗；曾倒下，但卻從沒想過放棄，只因我們相信自己在做對的事情，讓便利普及化深入你我的生活，那麼資訊技術對等就不再是口號。\n\n這是一個新的時代，一個資訊更多卻更混亂的時代、一個難以看見事實全貌的時代。而《店匯》更需要您的支持與認同，將好的店舖匯集在一起，提供我們的技術打造友善安心的消費環境，不受政治、財團及廣告業主的干預，秉持初衷為了共同的價值努力，用心回饋這片土地。\n\n
+        我們感謝每筆贊助，更需要細水長流的支持夥伴！感謝有您的信任，再微小的善意也會發光。\n\n＃溫馨提醒\n贊助前，請參閱各項贊助方案提供的專屬回饋，謝謝您回應我們的需要，期待您成為《 店匯》的長期贊助者。\n\n
+        您的贊助，使得《店匯》有不斷開發的資源，歡迎您透過社群媒體、電子郵件給予我們寶貴的意見 / 監督與鞭策！\n\n\n
+        Facebook : facebook.com/hkshopu\nInstagram : @hkshopu\nＭail : customer-service@hkshopu.com</string>
+    <string name="honortab">專屬尊榮/至尊贊助商底色*2\n專屬尊榮/至尊贊助商徽章*2\n專屬尊榮/至尊贊助商頭貼框*2\n增加店舖曝光度⭐  ⭐ ️⭐️</string>
+    <string name="glorytab">專屬榮耀贊助商底色*1\n專屬榮耀贊助商徽章*1\n專屬榮耀贊助商頭貼框*1\n增加店舖曝光度 ⭐ ️⭐</string>
+    <string name="excellencetab">專屬卓越贊助商底色*1\n專屬卓越贊助商徽章*1\n專屬卓越贊助商頭貼框*1\n增加店舖曝光度 ⭐️</string>
+    <string name="mywallet">我的錢包</string>
+    <string name="paiddetail">付款明細</string>
+    <string name="donatevalue">贊助金額</string>
+    <string name="walletleft">錢包餘額</string>
+    <string name="donated">我要贊助</string>
+    <string name="bgcolor_show">請選擇是否顯示底色</string>
+    <string name="badge_show">請選擇是否顯示徽章</string>
+    <string name="headsticker_show">請選擇是否顯示頭貼框</string>
+    <string name="preview">示意圖</string>
+    <string name="levelselect">請選擇尊榮或至尊</string>
+    <string name="honor">尊榮</string>
+    <string name="supreme">至尊</string>
+    <string name="sponser_buyer_tab2">冥王星/天王星贊助商</string>
+    <string name="sponser_buyer_tab3">金星贊助商</string>
+    <string name="sponser_buyer_tab4">水星贊助商</string>
+    <string name="plutotab">專屬冥王星/天王星贊助商底色*2\n專屬冥王星/天王星贊助商頭貼框*2️</string>
+    <string name="venustab">專屬金星贊助商底色*1\n專屬金星贊助商頭貼框*1</string>
+    <string name="mercurytab">專屬水星贊助商底色*1\n專屬水星贊助商頭貼框*1️</string>
+    <string name="storedvalue">儲值金額</string>
+    <string name="select_payment_method">請選擇付款方式</string>
+    <string name="levelselect_buyer">請選擇尊榮或至尊</string>
+    <string name="pluto">冥王星</string>
+    <string name="uranus">天王星</string>
+    <string name="bgcolor_change">請選擇是否更換買家背景顏色</string>
+    <string name="sponsersuccess">贊助成功</string>
+    <string name="Thanks">謝謝您的支持與鼓勵！</string>
+    <string name="adjustment_plan">調整方案須知</string>
+    <string name="adjustment_plan_note">若用戶想調整贊助商方案，須在當前方案滿一個月後調整</string>
+    <string name="storedvalueconfirm">請確認儲值金額無誤</string>
+    <string name="storedvalueconfirm_note">若確認金額無誤，按下「確定」將立即生成訂單，進行付款動作。在此提醒您，訂單生成後將無法修正。</string>
+
 
 </resources>

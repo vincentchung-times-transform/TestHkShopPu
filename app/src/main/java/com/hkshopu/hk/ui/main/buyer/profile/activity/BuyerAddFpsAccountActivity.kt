@@ -11,6 +11,7 @@ import androidx.core.widget.doAfterTextChanged
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
 import com.HKSHOPU.hk.component.EventRefreshFpsAccountList
+import com.HKSHOPU.hk.component.EventRefreshFpsPayAccountActivity
 import com.HKSHOPU.hk.data.bean.BankCodeBean
 import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
@@ -145,7 +146,7 @@ class BuyerAddFpsAccountActivity : BaseActivity() {
                 val phoneCountryCode = binding.tvPhoneCountry.text.toString()
                 doAddFpsAccount(userId!!, "FPS", bankCode, bankName, bankAccountName, "phone", phoneCountryCode, phone, "")
             } else {
-                doAddFpsAccount(userId!!, "FPS", bankCode, bankName, bankAccountName, "", "", "", email)
+                doAddFpsAccount(userId!!, "FPS", bankCode, bankName, bankAccountName, "email", "", "", email)
             }
         }
     }
@@ -278,6 +279,7 @@ class BuyerAddFpsAccountActivity : BaseActivity() {
 
                     if (status == 0) {
                         RxBus.getInstance().post(EventRefreshFpsAccountList())
+                        RxBus.getInstance().post(EventRefreshFpsPayAccountActivity())
                         runOnUiThread {
                             binding.progressBarBuyerAddFpsAccount.visibility = View.GONE
                             binding.imgViewLoadingBackgroundBuyerAddFpsAccount.visibility = View.GONE
@@ -342,7 +344,7 @@ class BuyerAddFpsAccountActivity : BaseActivity() {
                 binding.tvNext.setBackgroundResource(R.drawable.customborder_onboard_turquise_40p)
             } else {
                 binding.tvNext.isClickable = false
-                binding.tvNext.setBackgroundResource(R.drawable.customborder_onboard_darkgray)
+                binding.tvNext.setBackgroundResource(R.drawable.customborder_round_darkgray_40dp)
             }
         } else if (personalInfo_selected == "email") {
             if (bankCode.isNotEmpty() && bankName.isNotEmpty() && bankAccountName.isNotEmpty() && email.isNotEmpty()) {
@@ -350,7 +352,7 @@ class BuyerAddFpsAccountActivity : BaseActivity() {
                 binding.tvNext.setBackgroundResource(R.drawable.customborder_onboard_turquise_40p)
             } else {
                 binding.tvNext.isClickable = false
-                binding.tvNext.setBackgroundResource(R.drawable.customborder_onboard_darkgray)
+                binding.tvNext.setBackgroundResource(R.drawable.customborder_round_darkgray_40dp)
             }
         }
     }

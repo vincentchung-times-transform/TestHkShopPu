@@ -1,29 +1,26 @@
 package com.HKSHOPU.hk.ui.main.payment.activity
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import com.HKSHOPU.hk.Base.BaseActivity
-import com.HKSHOPU.hk.data.bean.BuyerPaymentBean
+import com.HKSHOPU.hk.component.EventGenerateAddValueOeder
+import com.HKSHOPU.hk.component.EventGenerateOeder
 import com.HKSHOPU.hk.data.bean.FpsSettingBean
 import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.google.gson.Gson
-import com.tencent.mmkv.MMKV
 import okhttp3.Response
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.math.BigDecimal
 import java.util.ArrayList
 
 //import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +29,8 @@ class FpsPayActivity : BaseActivity() {
 
     private lateinit var binding: ActivityFpspayBinding
     var jsonTutList = ""
+    var order_number_for_add_value = ""
+    var mode = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +38,8 @@ class FpsPayActivity : BaseActivity() {
         setContentView(binding.root)
         var bundle  = intent.getBundleExtra("bundle")
         jsonTutList = bundle!!.get("jsonTutList").toString()
+        order_number_for_add_value = bundle!!.get("orderNumber").toString()
+        mode = bundle!!.get("mode").toString()
         Log.d("FpsPayActivity_jsonTutList","jsonTutList: ${jsonTutList.toString()}")
 
         getFpsSetting()
@@ -60,8 +61,10 @@ class FpsPayActivity : BaseActivity() {
             val intent = Intent()
             var bundle = Bundle()
             bundle.putString("jsonTutList", jsonTutList)
+            bundle.putString("orderNumber", order_number_for_add_value)
+            bundle.putString("mode", mode.toString())
             intent.putExtra("bundle", bundle)
-            intent.setClass(this@FpsPayActivity, FpsPayAccountActivity::class.java)
+            intent.setClass(this, FpsPayAccountActivity::class.java)
             startActivity(intent)
         }
 
@@ -116,8 +119,6 @@ class FpsPayActivity : BaseActivity() {
 
                             }
                         }
-
-
 
                     }
                 } catch (e: JSONException) {

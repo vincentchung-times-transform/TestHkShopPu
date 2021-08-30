@@ -19,6 +19,7 @@ import com.HKSHOPU.hk.databinding.FragmentShoplistBinding
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.AddShopActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.adapter.ShopInfoAdapter
@@ -122,10 +123,10 @@ class ShopListFragment : Fragment(R.layout.fragment_shoplist) {
     }
 
     fun initClick() {
-        binding!!.ivNotify.setOnClickListener {
-            val intent = Intent(activity, ShopNotifyActivity::class.java)
-            activity!!.startActivity(intent)
-        }
+//        binding!!.ivNotifyClick.setOnClickListener {
+//            val intent = Intent(requireActivity(), NotificationActivity::class.java)
+//            requireActivity().startActivity(intent)
+//        }
         binding!!.tvAddonlineshop.setOnClickListener {
             getShopCategory(url_forShopCategory)
             val intent = Intent(activity, AddShopActivity::class.java)

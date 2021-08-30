@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -24,6 +25,7 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.profile.activity.*
 import com.HKSHOPU.hk.ui.main.buyer.shoppingcart.activity.ShoppingCartEditActivity
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.*
 import com.HKSHOPU.hk.ui.onboard.login.OnBoardActivity
 import com.HKSHOPU.hk.utils.extension.load
@@ -49,7 +51,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
     private var binding: FragmentBuyerprofileBinding? = null
     private var fragmentBuyerprofileBinding: FragmentBuyerprofileBinding? = null
     var userId = MMKV.mmkvWithID("http").getString("UserId", "");
-    var url_UserPeofile = ApiConstants.API_HOST + "user_detail/"+userId+"/profile/"
+
     var shoppingCartItemCount: ShoppingCartItemCountBean = ShoppingCartItemCountBean()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,7 +64,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
             binding!!.progressBarBuyerProfile.visibility = View.GONE
             binding!!.imgViewLoadingBackgroundBuyerProfile.visibility = View.GONE
         } else {
-            getUserProfile(url_UserPeofile)
+            getUserProfile(userId!!)
         }
 
 //        initVM()
@@ -85,8 +87,18 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
         initEvent()
     }
     override fun onResume() {
-        GetShoppingCartItemCountForBuyerProfile(userId!!)
         super.onResume()
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "")
+
+        GetShoppingCartItemCountForBuyerProfile(userId!!)
+        if (userId!!.isEmpty()) {
+            binding!!.tvProfiletitle.setText(R.string.guest)
+            binding!!.progressBarBuyerProfile.visibility = View.GONE
+            binding!!.imgViewLoadingBackgroundBuyerProfile.visibility = View.GONE
+        } else {
+            getUserProfile(userId)
+        }
+
     }
     private fun initView(){
         binding!!.btnSetting.setOnClickListener {
@@ -296,16 +308,21 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
                 requireActivity().startActivity(intent)
             }
         }
-        binding!!.icNotification.setOnClickListener {
-            val intent = Intent(requireActivity(), ShopNotifyActivity::class.java)
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(requireActivity(), NotificationActivity::class.java)
             requireActivity().startActivity(intent)
+        }
+        binding!!.layoutSponser.setOnClickListener {
+            val intent = Intent(activity, BuyerSponserActivity::class.java)
+            activity!!.startActivity(intent)
         }
     }
 
-    private fun getUserProfile(url: String) {
+    private fun getUserProfile(user_id: String) {
         binding!!.progressBarBuyerProfile.visibility = View.VISIBLE
         binding!!.imgViewLoadingBackgroundBuyerProfile.visibility = View.VISIBLE
 
+        var url = ApiConstants.API_HOST + "user_detail/"+user_id+"/profile/"
         val web = Web(object : WebListener {
             override fun onResponse(response: Response) {
                 var resStr: String? = ""
@@ -325,8 +342,143 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
 
                         val buyerProfileBean: BuyerProfileBean =
                             Gson().fromJson(jsonObject.toString(), BuyerProfileBean::class.java)
-
                         list.add(buyerProfileBean)
+
+                        MMKV.mmkvWithID("http").putString("SponserBuyerId", list[0].identity)
+
+                        runOnUiThread {
+
+                            when(buyerProfileBean.identity){
+                                "冥王星"->{
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_pluto)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(buyerProfileBean.background_is_show){
+                                        "Y"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundResource(R.drawable.sponsor_pluto_bg)
+                                        }
+                                        "N"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.color_shopbg))
+                                        }
+                                    }
+                                    when(buyerProfileBean.badge_is_show){
+//                                    "Y"->{
+//                                        iv_badge.visibility = View.VISIBLE
+//                                        iv_badge.setImageResource(R.mipmap.badge_sponsor_honor)
+//                                    }
+//                                    "N"->{
+//                                        iv_badge.visibility = View.GONE
+//                                    }
+                                    }
+                                    when(buyerProfileBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_pluto)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+
+                                }
+                                "天王星"->{
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_uranus)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(buyerProfileBean.background_is_show){
+                                        "Y"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundResource(R.drawable.sponsor_uranus_bg)
+                                        }
+                                        "N"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.color_shopbg))
+                                        }
+                                    }
+                                    when(buyerProfileBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_supreme)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(buyerProfileBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_uranus)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "金星"->{
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_venus)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(buyerProfileBean.background_is_show){
+                                        "Y"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundResource(R.drawable.sponsor_venus_bg)
+                                        }
+                                        "N"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.color_shopbg))
+                                        }
+                                    }
+                                    when(buyerProfileBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_glory)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(buyerProfileBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_venus)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                "水星"->{
+                                    binding!!.ivTitle.setImageResource(R.mipmap.sponsor_title_mercury)
+                                    binding!!.ivTitle.visibility = View.VISIBLE
+
+                                    when(buyerProfileBean.background_is_show){
+                                        "Y"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundResource(R.drawable.sponsor_mercury_bg)
+                                        }
+                                        "N"->{
+                                            binding!!.layoutBuyerprofile.setBackgroundColor(ContextCompat.getColor(requireContext(),R.color.color_shopbg))
+                                        }
+                                    }
+                                    when(buyerProfileBean.badge_is_show){
+//                                        "Y"->{
+//                                            iv_badge.visibility = View.VISIBLE
+//                                            iv_badge.setImageResource(R.mipmap.badge_sponsor_excel)
+//                                        }
+//                                        "N"->{
+//                                            iv_badge.visibility = View.GONE
+//                                        }
+                                    }
+                                    when(buyerProfileBean.frame_is_show){
+                                        "Y"->{
+                                            binding!!.ivForgroundFrame.visibility = View.VISIBLE
+                                            binding!!.ivForgroundFrame.setImageResource(R.mipmap.frame_sponsor_mercury)
+                                        }
+                                        "N"->{
+                                            binding!!.ivForgroundFrame.visibility = View.GONE
+                                        }
+                                    }
+                                }
+                                else->{
+                                    binding!!.ivTitle.visibility = View.GONE
+                                }
+                            }
+                        }
 
                         requireActivity().runOnUiThread {
                             binding!!.ivShopImg.load(list[0].pic)
@@ -573,6 +725,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
 
                         var url_UserLikedCount = ApiConstants.API_HOST + "user_detail/"+userId+"/liked_count/"
                         getUserLikedCount(url_UserLikedCount)
+                        getNotificationItemCount(user_id)
                     }
 
                 } catch (e: JSONException) {
@@ -610,6 +763,65 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
         web.Get_Data(url)
     }
 
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        requireActivity().runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        activity!!.runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    activity!!.runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                activity!!.runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
 
     @SuppressLint("CheckResult")
     fun initEvent() {
@@ -617,7 +829,7 @@ class BuyerProfileFragment : Fragment((R.layout.fragment_buyerprofile)) {
             .subscribe({
                 when (it) {
                     is EventRefreshUserInfo -> {
-                        getUserProfile(url_UserPeofile)
+                        getUserProfile(userId!!)
 
                         Thread(Runnable {
 

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.HKSHOPU.hk.Base.BaseActivity
@@ -16,9 +18,11 @@ import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
 import com.HKSHOPU.hk.ui.main.buyer.profile.adapter.BuyerOrderDetail_Adapter
 import com.HKSHOPU.hk.ui.main.buyer.profile.fragment.UpComingDialogFragment
+import com.HKSHOPU.hk.ui.main.notification.activity.NotificationActivity
 import com.HKSHOPU.hk.ui.main.seller.shop.activity.ShopNotifyActivity
 import com.HKSHOPU.hk.utils.extension.load
 import com.google.gson.Gson
+import com.tencent.mmkv.MMKV
 
 import okhttp3.Response
 import org.json.JSONArray
@@ -48,19 +52,20 @@ class SellerOrderDetailsActivity : BaseActivity() {
 
         var bundle = intent.getBundleExtra("bundle")
         orderId = bundle!!.getString("order_id").toString()
-
+        var userId = MMKV.mmkvWithID("http").getString("UserId", "").toString()
 
         initView()
         initClick()
         doGetData(orderId!!)
+        getNotificationItemCount(userId)
     }
 
     private fun initView() {
     }
 
     private fun initClick() {
-        binding!!.ivNotify.setOnClickListener {
-            val intent = Intent(this, ShopNotifyActivity::class.java)
+        binding!!.layoutNotify.setOnClickListener {
+            val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
         binding.ivBack.setOnClickListener {
@@ -164,6 +169,7 @@ class SellerOrderDetailsActivity : BaseActivity() {
                                 binding.buttomForOrderCompleted.visibility = View.GONE
                                 binding.buttomForOrderCanceled.visibility = View.GONE
 
+
                                 binding.layoutOrderNumber.visibility = View.VISIBLE
                                 binding.layoutPaidTime.visibility = View.VISIBLE
                                 binding.layoutDeliveryTime.visibility = View.VISIBLE
@@ -235,9 +241,10 @@ class SellerOrderDetailsActivity : BaseActivity() {
 
 
                             try {
-                                val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
 
                                 if(myOrderBean.payment_at.isNotEmpty()){
+                                    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                                     val payment_at: Date = format.parse(myOrderBean.payment_at)
                                     var payment_at_result = SimpleDateFormat("dd/MM/yyyy HH:mm").format(payment_at)
                                     binding.tvPaytime.text = payment_at_result.toString()
@@ -257,6 +264,7 @@ class SellerOrderDetailsActivity : BaseActivity() {
                                 }
 //
                                 if(myOrderBean.actual_finished_at.isNotEmpty()){
+                                    val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                                     val actual_finished_at: Date = format.parse(myOrderBean.actual_finished_at)
                                     var actual_finished_at_result =  SimpleDateFormat("dd/MM/yyyy HH:mm").format(actual_finished_at)
                                     binding.tvCompleteTimeValue.setText(actual_finished_at_result.toString())
@@ -305,6 +313,66 @@ class SellerOrderDetailsActivity : BaseActivity() {
                 runOnUiThread {
                     binding.progressBarSellerOrderDetail.visibility = View.GONE
                     binding.imgViewLoadingBackgroundSellerOrderDetail.visibility = View.GONE
+                }
+            }
+        })
+        web.Get_Data(url)
+    }
+
+    private fun  getNotificationItemCount (user_id: String) {
+        val url = ApiConstants.API_HOST+"user_detail/${user_id}/notification_count/"
+        val web = Web(object : WebListener {
+            override fun onResponse(response: Response) {
+                var resStr: String? = ""
+                var notificationItemCount : String? = ""
+                try {
+                    resStr = response.body()!!.string()
+                    val json = JSONObject(resStr)
+                    val ret_val = json.get("ret_val")
+                    val status = json.get("status")
+                    Log.d("getNotificationItemCount", "返回資料 resStr：" + resStr)
+                    Log.d("getNotificationItemCount", "返回資料 ret_val：" + ret_val)
+                    if (status == 0) {
+                        val jsonArray: JSONArray = json.getJSONArray("data")
+                        for (i in 0 until jsonArray.length()) {
+                            notificationItemCount = jsonArray.get(i).toString()
+                        }
+                        Log.d(
+                            "getNotificationItemCount",
+                            "返回資料 jsonArray：" + notificationItemCount
+                        )
+
+                        runOnUiThread {
+//                            binding!!.tvNotifycount.text = notificationItemCount
+                            if(notificationItemCount!!.equals("0")){
+                                binding!!.tvNotifycount.visibility = View.GONE
+                            }else{
+                                binding!!.tvNotifycount.visibility = View.VISIBLE
+                            }
+                        }
+                    }else{
+                        runOnUiThread {
+//                            binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                        }
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: JSONException: ${e.toString()}")
+                    runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                    Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: IOException: ${e.toString()}")
+                    runOnUiThread {
+//                        binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
+                    }
+                }
+            }
+            override fun onErrorResponse(ErrorResponse: IOException?) {
+                Log.d("getNotificationItemCount_errormessage", "GetNotificationItemCount: ErrorResponse: ${ErrorResponse.toString()}")
+                runOnUiThread {
+//                    binding!!.imgViewLoadingBackgroundDetailedProductForBuyer.visibility = View.GONE
                 }
             }
         })

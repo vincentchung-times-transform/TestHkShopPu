@@ -34,6 +34,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
     var mutableList_size = mutableListOf<ItemSpecification>()
     var mutableList_price = mutableListOf<Int>()
     var mutableList_quant = mutableListOf<Int>()
+    var mutableList_sold_quant = mutableListOf<Int>()
     var inven_price_range: String = ""
     var inven_quant_range: String = ""
     var mutableList_InvenDatas = mutableListOf<InventoryItemDatas>()
@@ -47,6 +48,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
     var datas_spec_title_second : String = ""
     var datas_price_size: Int = 0
     var datas_quant_size: Int = 0
+    var datas_sold_quant_size: Int = 0
 
 
 
@@ -104,6 +106,11 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             "datas_quant_size",
             "0"
         ).toString().toInt()
+        datas_sold_quant_size = MMKV.mmkvWithID("editPro").getString(
+            "datas_sold_quant_size",
+            "0"
+        ).toString().toInt()
+
 
         for (i in 0..datas_price_size - 1) {
             var price_item = MMKV.mmkvWithID("editPro").getString("spec_price${i}", "0").toString().toInt()
@@ -117,6 +124,16 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
         Log.d("mutableList_price", "mutableList_price: ${mutableList_price}")
         Log.d("mutableList_quant", "mutableList_quant: ${mutableList_quant}")
 
+        for (i in 0..datas_sold_quant_size - 1) {
+            var quant_item = MMKV.mmkvWithID("editPro").getString("spec_sold_quantity${i}", "0").toString().toInt()
+            mutableList_sold_quant.add(quant_item)
+        }
+
+
+        Log.d("mutableList_price", "mutableList_price: ${mutableList_price}")
+        Log.d("mutableList_quant", "mutableList_quant: ${mutableList_quant}")
+        Log.d("mutableList_sold_quant", "mutableList_sold_quant: ${mutableList_sold_quant}")
+
         var rebuild_datas = MMKV.mmkvWithID("editPro_temp").getBoolean("rebuild_datas", false)
 
 
@@ -127,7 +144,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
             if(mutableList_spec.size== datas_price_size  &&  !rebuild_datas){
 
                 for(i in 0..datas_spec_size-1){
-                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", ""))
+                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", "", ""))
 
                 }
 
@@ -135,13 +152,14 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
                 for(i in 0..datas_spec_size-1){
                     mutableList_Inventory.get(i).price = mutableList_price.get(i).toString()
                     mutableList_Inventory.get(i).quantity = mutableList_quant.get(i).toString()
+                    mutableList_Inventory.get(i).sold_quantity = mutableList_sold_quant.get(i).toString()
                 }
 
 
             }else{
 
                 for(i in 0..datas_spec_size-1){
-                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", ""))
+                    mutableList_Inventory.add(ItemInventory(datas_spec_title_first, "", mutableList_spec.get(i).spec_name, "","", "", ""))
 
                 }
             }
@@ -157,7 +175,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
 
                     for(j in 0..datas_size_size-1){
 
-                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", ""))
+                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", "", ""))
 
                     }
                 }
@@ -165,6 +183,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
                 for(i in 0..datas_spec_size*datas_size_size-1){
                     mutableList_Inventory.get(i).price = mutableList_price.get(i).toString()
                     mutableList_Inventory.get(i).quantity = mutableList_quant.get(i).toString()
+                    mutableList_Inventory.get(i).sold_quantity = mutableList_sold_quant.get(i).toString()
                 }
 
 
@@ -176,7 +195,7 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
 
                     for(j in 0..datas_size_size-1){
 
-                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", ""))
+                        mutableList_Inventory.add(ItemInventory(datas_spec_title_first, datas_spec_title_second, mutableList_spec.get(i).spec_name, mutableList_size.get(j).spec_name,"", "", ""))
 
                     }
                 }
@@ -249,7 +268,9 @@ class EditInventoryAndPriceActivity : BaseActivity(), TextWatcher{
                         mutableList_Inventory.get(i).spec_dec_1_items,
                         mutableList_Inventory.get(i).spec_dec_2_items,
                         mutableList_Inventory.get(i).price.toInt(),
-                        mutableList_Inventory.get(i).quantity.toInt()))
+                        mutableList_Inventory.get(i).quantity.toInt(),
+                        mutableList_Inventory.get(i).sold_quantity.toInt()
+                    ))
             }
 
             MMKV.mmkvWithID("editPro").putInt("inven_datas_size", mutableList_InvenDatas.size)

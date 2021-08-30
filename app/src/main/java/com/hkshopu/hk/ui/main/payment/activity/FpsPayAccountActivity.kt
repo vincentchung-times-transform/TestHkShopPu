@@ -1,29 +1,27 @@
 package com.HKSHOPU.hk.ui.main.payment.activity
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import com.HKSHOPU.hk.Base.BaseActivity
 import com.HKSHOPU.hk.R
-import com.HKSHOPU.hk.data.bean.BankCodeBean
+import com.HKSHOPU.hk.component.EventRefreshFpsPayAccountActivity
 import com.HKSHOPU.hk.data.bean.FpsAccountBean
-import com.HKSHOPU.hk.data.bean.FpsSettingBean
 import com.HKSHOPU.hk.databinding.*
 import com.HKSHOPU.hk.net.ApiConstants
 import com.HKSHOPU.hk.net.Web
 import com.HKSHOPU.hk.net.WebListener
+import com.HKSHOPU.hk.ui.main.buyer.profile.activity.BuyerAddFpsAccountActivity
 import com.HKSHOPU.hk.ui.main.payment.fragment.FpsPayConfirmDialogFragment
-import com.HKSHOPU.hk.widget.view.show
+
+import com.HKSHOPU.hk.utils.rxjava.RxBus
 import com.akexorcist.snaptimepicker.SnapTimePickerDialog
 import com.akexorcist.snaptimepicker.TimeRange
 import com.akexorcist.snaptimepicker.TimeValue
@@ -37,7 +35,6 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
-import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,18 +52,21 @@ class FpsPayAccountActivity : BaseActivity() {
     var TransferTime = ""
     var selectedFpsPayAccount_id = ""
     var jsonTutList_order = ""
+    var order_number_for_add_value = ""
+    var mode = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFpspayAccountBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         var bundle  = intent.getBundleExtra("bundle")
+        mode = bundle!!.getString("mode").toString()
         jsonTutList_order = bundle!!.get("jsonTutList").toString()
-
+        order_number_for_add_value = bundle!!.get("orderNumber").toString()
 
         initView()
         initClick()
         getFpsAccount()
+        initEvent()
     }
 
     private fun initView() {
@@ -74,7 +74,13 @@ class FpsPayAccountActivity : BaseActivity() {
     }
 
     private fun initClick() {
-
+        binding.layoutFpsAccountUnsetting.setOnClickListener {
+            val intent = Intent(this, BuyerAddFpsAccountActivity::class.java)
+            val bundle = Bundle()
+//            bundle.putString("userId", MMKV_user_id)
+            intent.putExtra("bundle", bundle)
+            startActivity(intent)
+        }
         binding.ivBackClick.setOnClickListener {
             finish()
         }
@@ -102,7 +108,7 @@ class FpsPayAccountActivity : BaseActivity() {
                 var TransferTime_db=changeDateFormat_forDB(binding.etTransferdate.text.toString())+"T"+binding.tvTransfertime.text.toString()+":00"+"."+calendar.get(Calendar.MILLISECOND) / 10
 
                 runOnUiThread {
-                    FpsPayConfirmDialogFragment(TransferAccount, ContactType, TransferPhoneOrPhone, TransferTime, jsonTutList_order, selectedFpsPayAccount_id, TransferTime_db).show(
+                    FpsPayConfirmDialogFragment(this, TransferAccount, ContactType, TransferPhoneOrPhone, TransferTime, jsonTutList_order, selectedFpsPayAccount_id, TransferTime_db, mode, order_number_for_add_value).show(
                         manager,
                         "MyCustomFragment"
                     )
@@ -231,18 +237,28 @@ class FpsPayAccountActivity : BaseActivity() {
                     if (status == 0) {
 
                         val translations: JSONArray = json.getJSONArray("data")
-                        for (i in 0 until translations.length()) {
-                            val jsonObject: JSONObject = translations.getJSONObject(i)
-                            val fpsAccountBean: FpsAccountBean =
-                                Gson().fromJson(jsonObject.toString(), FpsAccountBean::class.java)
-                            BankCodeBeanList.add(fpsAccountBean)
+
+                        if(translations.length()>0){
+                            runOnUiThread {
+                                binding.layoutFpsAccountUnsetting.visibility = View.GONE
+                                binding.layoutAccount.visibility = View.VISIBLE
+                            }
+                            for (i in 0 until translations.length()) {
+                                val jsonObject: JSONObject = translations.getJSONObject(i)
+                                val fpsAccountBean: FpsAccountBean =
+                                    Gson().fromJson(jsonObject.toString(), FpsAccountBean::class.java)
+                                BankCodeBeanList.add(fpsAccountBean)
+                            }
+
+                            runOnUiThread {
+                                initSpinner()
+                            }
+                        }else{
+                            runOnUiThread {
+                                binding.layoutFpsAccountUnsetting.visibility = View.VISIBLE
+                                binding.layoutAccount.visibility = View.GONE
+                            }
                         }
-
-                        runOnUiThread {
-                          initSpinner()
-
-                        }
-
                     }
                 } catch (e: JSONException) {
 
@@ -262,6 +278,21 @@ class FpsPayAccountActivity : BaseActivity() {
         // Stop service when done
 
         super.onDestroy()
+    }
+
+    @SuppressLint("CheckResult")
+    fun initEvent() {
+        RxBus.getInstance().toMainThreadObservable(this, Lifecycle.Event.ON_DESTROY)
+            .subscribe({
+                when (it) {
+                    is EventRefreshFpsPayAccountActivity -> {
+                        getFpsAccount()
+                    }
+
+                }
+            }, {
+                it.printStackTrace()
+            })
     }
 
 

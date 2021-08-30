@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_hotsaleproduct"
+    android:id="@+id/layout_notify"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:elevation="10dp"
@@ -12,7 +12,7 @@
     android:layout_marginBottom="8dp">
 
     <LinearLayout
-        android:id="@+id/container_my_product"
+        android:id="@+id/container_my_notify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -34,7 +34,7 @@
                 app:cardCornerRadius="8dp">
 
                 <ImageView
-                    android:id="@+id/iv_product_icon"
+                    android:id="@+id/iv_message_icon"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
                     android:scaleType="centerCrop"
@@ -53,20 +53,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_orderer_name"
+                    android:id="@+id/tv_notification_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Subject"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="14sp" />
                 <TextView
                     android:id="@+id/tv_message_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_weight="1"
                     android:layout_gravity="center"
-                    android:text="message_content"
+                    android:text=""
                     android:textColor="@color/dark_gray"
                     android:textSize="14sp"  />
                 <TextView
@@ -75,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
                     android:text=""
                     android:textColor="@color/colorbottomgray"
                     android:textSize="14sp"  />

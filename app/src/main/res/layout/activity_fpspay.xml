@@ -109,14 +109,15 @@
                     android:textColor="@color/black"/>
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/layout_fpspay_store_phone"
                 android:layout_width="match_parent"
                 android:layout_height="96dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
                 android:layout_below="@id/layout_fpspay_store"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/customborder_onboard_16dp">
 
                 <ImageView
@@ -125,8 +126,8 @@
                     android:layout_height="16dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
-                    android:src="@mipmap/ic_phone_black"
-                    android:contentDescription="@string/empty"/>
+                    android:contentDescription="@string/empty"
+                    android:src="@mipmap/ic_phone_black" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,11 +141,11 @@
                     android:id="@+id/iv_copy_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginTop="12dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@mipmap/ic_copytext"
-                    android:contentDescription="@string/empty"/>
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="20dp"
+                    android:contentDescription="@string/empty"
+                    android:src="@mipmap/ic_copytext" />
 
                 <TextView
                     android:id="@+id/tv_phone_code"
@@ -153,36 +154,36 @@
                     android:layout_below="@+id/iv_phone_icon"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="8dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="54dp"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/turquoise"
                     android:background="@drawable/customborder_onboard_f6_8dp"
                     android:elevation="10dp"
-                    android:outlineSpotShadowColor="@color/hkshop_color"/>
+                    android:outlineSpotShadowColor="@color/hkshop_color"
+                    android:paddingStart="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="54dp"
+                    android:paddingBottom="12dp"
+                    android:text=""
+                    android:textColor="@color/turquoise"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/tv_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/tv_phone_code"
                     android:layout_below="@+id/iv_phone_icon"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="20dp"
-                    android:paddingTop="12dp"
-                    android:paddingBottom="12dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="108dp"
-                    android:text=""
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
+                    android:layout_toEndOf="@+id/tv_phone_code"
                     android:background="@drawable/customborder_onboard_f6_8dp"
                     android:elevation="10dp"
-                    android:outlineSpotShadowColor="@color/hkshop_color"/>
+                    android:outlineSpotShadowColor="@color/hkshop_color"
+                    android:paddingStart="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="108dp"
+                    android:paddingBottom="12dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 

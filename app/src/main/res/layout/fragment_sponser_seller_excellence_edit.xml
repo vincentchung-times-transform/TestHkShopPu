@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_shopbg">
+
+    <ProgressBar
+        android:id="@+id/progressBar_product_new"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="10dp"
+        android:visibility="invisible" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_excellence"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/ic_excellencetab" />
+
+                <TextView
+                    android:id="@+id/tv_excellence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@id/iv_excellence"
+                    android:layout_alignBottom="@id/iv_excellence"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:text=""
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder_onboard_16dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/customborder_onboard_8dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/bgcolor_show"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <com.zilchzz.library.widgets.EasySwitcher
+                        android:id="@+id/switchview_color"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbDefaultOpened="true"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbToggleColor="@color/white" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/customborder_onboard_8dp"
+                        android:paddingStart="20dp"
+                        android:text="@string/badge_show"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <com.zilchzz.library.widgets.EasySwitcher
+                        android:id="@+id/switchview_badge"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbDefaultOpened="true"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbToggleColor="@color/white" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/customborder_onboard_8dp"
+                        android:layout_centerVertical="true"
+                        android:paddingStart="20dp"
+                        android:text="@string/headsticker_show"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <com.zilchzz.library.widgets.EasySwitcher
+                        android:id="@+id/switchview_headsticker"
+                        android:layout_width="50dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="20dp"
+                        app:sbCloseBgColor="#d9d9d9"
+                        app:sbDefaultOpened="true"
+                        app:sbOpenBgColor="#34C759"
+                        app:sbToggleColor="@color/white" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <TextView
+                    android:id="@+id/tv_preview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/preview"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_preview"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:scrollbars="none">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <ImageView
+                            android:id="@+id/iv_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/excellenceall1" />
+                        <ImageView
+                            android:id="@+id/iv_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/iv_1"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/excellenceall2"/>
+                        <ImageView
+                            android:id="@+id/iv_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/iv_2"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/excellenceall3"/>
+                        <ImageView
+                            android:id="@+id/iv_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/iv_3"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/excellenceall4"/>
+                        <ImageView
+                            android:id="@+id/iv_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@id/iv_4"
+                            android:layout_marginStart="8dp"
+                            android:src="@mipmap/excellenceall5"/>
+
+                    </RelativeLayout>
+
+                </HorizontalScrollView>
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_onboard_16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/honortab"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/customborder_onboard_16dp">
+
+                <ImageView
+                    android:id="@+id/iv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@mipmap/ic_wallet_black" />
+
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_toEndOf="@id/iv_wallet"
+                    android:text="@string/walletleft"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_wallet"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_toEndOf="@id/tv_wallet"
+                    android:text="@string/fee_unit"
+                    android:textColor="@color/turquoise"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_wallet_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_wallet"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@id/tv_currency"
+                    android:text=""
+                    android:textColor="@color/turquoise"
+                    android:textSize="36sp" />
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/iv_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="24dp"
+                android:background="@color/white"
+                android:src="@mipmap/ic_addshopbrief_save" />
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>

@@ -7,9 +7,9 @@
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/8cd34e769dafc3f0282c1cd4a9aa27af/jetified-SmartRefreshLayout-1.1.0-alpha-5/res" />
       <root url="file://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/8cd34e769dafc3f0282c1cd4a9aa27af/jetified-SmartRefreshLayout-1.1.0-alpha-5/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/transforms-2/files-2.1/8cd34e769dafc3f0282c1cd4a9aa27af/jetified-SmartRefreshLayout-1.1.0-alpha-5/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dcdbed01f25d434e4530ead8fe299eca/jetified-SmartRefreshLayout-1.1.0-alpha-5/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dcdbed01f25d434e4530ead8fe299eca/jetified-SmartRefreshLayout-1.1.0-alpha-5/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dcdbed01f25d434e4530ead8fe299eca/jetified-SmartRefreshLayout-1.1.0-alpha-5/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d12f8c42539d1a8c3dd55bc21024da31/transformed/jetified-SmartRefreshLayout-1.1.0-alpha-5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d12f8c42539d1a8c3dd55bc21024da31/transformed/jetified-SmartRefreshLayout-1.1.0-alpha-5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d12f8c42539d1a8c3dd55bc21024da31/transformed/jetified-SmartRefreshLayout-1.1.0-alpha-5/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Library/Android/sdk/caches/modules-2/files-2.1/com.scwang.smartrefresh/SmartRefreshLayout/1.1.0-alpha-5/6245f4b27db4120f0d5666c806eae69b0da4d493/SmartRefreshLayout-1.1.0-alpha-5-javadoc.jar!/" />
